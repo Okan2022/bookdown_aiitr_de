@@ -239,6 +239,10 @@ df_cor$relationship <- factor(df_cor$relationship,
                               labels = c("Positive", 
                                          "No Correlation", 
                                          "Negative"))
+# Making the Dataset numeric
+penguins_numeric <- penguins %>%
+  select(bill_length_mm, bill_depth_mm, flipper_length_mm, body_mass_g) %>%
+  drop_na()
 
 #Setting seed for reproducibility
 set.seed(123)
@@ -479,6 +483,106 @@ final_BT <- data.frame(
   age = round(rnorm(10, mean = 25, sd = 5)), 
   female = rbinom(10, 1, 0.5)
 )
+
+#rolling the dice
+dice_rolls <- data.frame(
+roll = sample(c(1:6), 1000, replace = TRUE)
+)
+
+# Define the outcomes and their corresponding probabilities
+uniform_dis <- data.frame(
+  Outcome = factor(1:6),
+  Probability = rep(1/6, 6)
+)
+
+# Simulate 1000 tosses of a fair coin (1 = Head, 0 = Tail)
+set.seed(101)  # for reproducibility
+fair_coin <- data.frame(
+  outcome = factor(rbinom(10, 1, 0.5), levels = c(0, 1), 
+                   labels = c("Tail", "Head"))
+)
+
+# Simulate 1000 tosses of an unfair coin (1 = Head, 0 = Tail)
+set.seed(102)  # for reproducibility
+unfair_coin <- data.frame(
+  outcome = factor(rbinom(10, 1, 0.28), levels = c(0, 1), 
+                   labels = c("Tail", "Head"))
+)
+
+# Create theoretical distributions
+theoretical_probs <- data.frame(
+  heads = rep(0:10, 2),
+  coin_type = rep(c("unbiased", "biased"), each = 11),
+  prob = c(dbinom(0:10, size = 10, prob = 0.5),
+           dbinom(0:10, size = 10, prob = 0.28))
+)
+
+# simulating the data
+set.seed(123)
+snd <- data.frame(
+  sample = rnorm(1000000, mean = 0, sd = 1)
+)
+
+# Function to simulate rolling a die n_rolls times, repeated n_sim times
+simulate_dice_means <- function(n_rolls, n_sim = 1000) {
+  replicate(n_sim, mean(sample(1:6, n_rolls, replace = TRUE)))
+}
+
+# Simulate sample means for different numbers of rolls
+means_1 <- simulate_dice_means(1)
+means_2 <- simulate_dice_means(2)
+means_3 <- simulate_dice_means(3)
+means_4 <- simulate_dice_means(4)
+
+data_clt <- bind_rows(
+  data.frame(mean = means_1, rolls = "1000 Rolls"),
+  data.frame(mean = means_2, rolls = "2000 Rolls"),
+  data.frame(mean = means_3, rolls = "3000 Rolls"),
+  data.frame(mean = means_4, rolls = "4000 Rolls")
+)
+
+# Create a data frame with different distributions
+x_vals <- seq(0, 10, by = 0.1)
+
+dist_df <- data.frame(
+  x = rep(x_vals, 4),  # only 4 now, Poisson removed from here
+  distribution = rep(c("Exponential (λ=1)", 
+                       "Gamma (shape=2, rate=1)", 
+                       "Chi-Square (df=3)", 
+                       "t-Distribution (df=10)"), each = length(x_vals)),
+  y = c(
+    dexp(x_vals, rate = 1),
+    dgamma(x_vals, shape = 2, rate = 1),
+    dchisq(x_vals, df = 3),
+    dt(x_vals - 5, df = 10)  # shift t-distribution for better display
+  )
+)
+
+# Add Poisson and F-distribution
+poisson_vals <- data.frame(
+  x = 0:10,
+  y = dpois(0:10, lambda = 3),
+  distribution = "Poisson (λ=3)"
+)
+
+f_vals <- data.frame(
+  x = x_vals,
+  y = df(x_vals, df1 = 5, df2 = 10),
+  distribution = "F-Distribution (df1=5, df2=10)"
+)
+
+# Combine all distributions
+plot_df <- bind_rows(dist_df, poisson_vals, f_vals)
+
+#Simulating sample
+sample_iq <- data.frame(
+  height = rnorm(10000, mean = 100, sd = 15))
+
+
+
+
+
+
 
 
 #Printing if loading Data was successful

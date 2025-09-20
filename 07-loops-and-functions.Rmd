@@ -254,7 +254,7 @@ print_classroom <- function(x) {
 # Example usage
 seating_order <- list(
   c(1, 5, 2),
-  c(4, 3)
+  c(4, 3, 7)
 )
 
 #Checking it

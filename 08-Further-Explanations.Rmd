@@ -9,38 +9,6 @@ pacman::p_load("dplyr", "tidyr", "ggpubr", "gapminder",
                "kableExtra", "car")
 ```
 
-Defining Function for later:
-
-```{r defining functions for later}
-###Defining a function
-#Creating Function for Kable Table 
-table_ovb <- function(model1, model2) {
-  # Determine the maximum number of coefficients between the two models
-  max_coef <- max(length(model1$coefficients), length(model2$coefficients))
-  
-  # Initialize placeholders for coefficients
-  place_holder1 <- rep(NA, max_coef)
-  place_holder2 <- rep(NA, max_coef)
-  
-  # Replace the placeholders with coefficients from the models
-  place_holder1[1:length(model1$coefficients)] <- model1$coefficients
-  place_holder2[1:length(model2$coefficients)] <- model2$coefficients
-  
-  # Create a data frame with coefficients from both models
-  dt <- data.frame(place_holder1,place_holder2) 
-  
-  # Set row and column names
-  colnames(dt) <- c("Model without Temperature", "Model with Temperature")
-  rownames(dt) <- c("Intercept", "Ice Cream Sales", "Temperature")
-  
-# Display the table
-  dt %>%
-  kbl() %>%
-  kable_styling()
-  
-}
-```
-
 ## Probability Theory
 
 **Before diving into Exploratory Data Analysis and Linear Regression, it's worth taking a moment to look at Probability Theory.** This is crucial because probability forms the foundation of statistics: it allows us to make statements that include uncertainty. Instead of saying something definite like *"It will rain tomorrow,"* probability allows us to say, *"There is a 70% chance of rain tomorrow."* That means you might want to take an umbrella — but there’s still a 30% chance you won’t need it.
@@ -52,6 +20,7 @@ We are interested in Data! And Data is nothing more than a bunch of **Random Var
 Rolling a dice and getting the result of the dice could be a random variable, let us role the dice and say we got a 3:
 
 ```{r rolling one dice}
+#rolling one dice
 dice_role <- 3
 print(dice_role)
 ```
@@ -124,13 +93,13 @@ This explicit type of distribution is called uniform distribution. A **uniform d
 
 ```{r generating probabilities}
 # Define the outcomes and their corresponding probabilities
-df <- data.frame(
+uniform_dis <- data.frame(
   Outcome = factor(1:6),
   Probability = rep(1/6, 6)
 )
 
 # Plot it
-ggplot(df, aes(x = Outcome, y = Probability)) +
+ggplot(uniform_dis, aes(x = Outcome, y = Probability)) +
   geom_point() +
   labs(
     title = "Uniform Probability Distribution of a Fair Die",
@@ -157,10 +126,10 @@ We can plot the cumulative Probability by calculating it with the `cumsum()` fun
 
 ```{r cumsum}
 # Calculating the cumsum
-df$cumsum <- cumsum(df$Probability)
+uniform_dis$cumsum <- cumsum(uniform_dis$Probability)
 
 # Plot it
-ggplot(df, aes(x = Outcome, y = cumsum)) +
+ggplot(uniform_dis, aes(x = Outcome, y = cumsum)) +
   geom_point() +
   labs(
     title = "Cumulative Distribution of a Fair Die",
@@ -201,7 +170,7 @@ As we probably expected, if we throw a fair coin ten times we will get approxima
 This is an example for a fair coin, what if our coin was "not fair" or "unfair", thus a "biased" coin, we could plot that as well:
 
 ```{r bernoulli biased coin}
-# Simulate 1000 tosses of a fair coin (1 = Head, 0 = Tail)
+# Simulate 1000 tosses of an unfair coin (1 = Head, 0 = Tail)
 set.seed(102)  # for reproducibility
 unfair_coin <- data.frame(
   outcome = factor(rbinom(10, 1, 0.28), levels = c(0, 1), 

@@ -832,6 +832,9 @@ wb <- data.frame(
   TX.VAL.FUEL.ZS.UN = c(5.021, 4.644, 0.6111, 4.863, 1.886, 7.062), 
   EN.ATM.CO2E.KT = c(85364.10, 34138.10, 34916.10, 7097.52, 267154.70, 308650.30)
 )
+
+#Checking it
+head(wb)
 ```
 
 Let us transform the dataset (Only variables we need, arranging it alphabetically, renaming it and rounding one variable to make the numbers more intuitive):

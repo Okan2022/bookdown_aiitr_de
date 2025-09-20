@@ -62,11 +62,9 @@ mean(penguins$bill_length_mm)
 
 Image sorting all your data from the lowest to highest and then pointing at the value, which has exactly 50% of all values to its left and the other 50% to its right, this would be the median value. Well, at least you will point at a value if your distribution has an yeven number of observations. But you can also calculate the value for an uneven number of observations, let us have a look at both formulas:
 
--   \$ X\_{(\frac{n+1}{2})} \$ for an even number of *n*
+-   $X_{(\frac{n+1}{2})}$ for an even number of *n*
 
--   \$ \frac{1}{2}X\_{(\frac{n}{2})} + X\_{(\frac{n}{2} + 1)} \$
-
-    for an uneven number of *n*
+-   $\frac{1}{2}X_{(\frac{n}{2})} + X_{(\frac{n}{2} + 1)}$ for an uneven number of *n*
 
 Again we could calculate that by hand or we just use the `median()` function:
 
@@ -493,7 +491,7 @@ The dlookr package has one special feature: It can generate an EDA report with o
 `dlookr::eda_paged_report(penguins, output_format = "html")`
 
 |  |  |  |
-|----|----|----|
+|------------------------|------------------------|------------------------|
 | ![](images/Bildschirmfoto%20vom%202025-04-12%2019-48-38.png) | ![](images/Bildschirmfoto%20vom%202025-04-12%2019-49-55.png) | ![](images/Bildschirmfoto%20vom%202025-04-12%2019-50-21.png) |
 | ![](images/Bildschirmfoto%20vom%202025-04-12%2019-52-17.png) | ![](images/Bildschirmfoto%20vom%202025-04-12%2019-53-30.png) | ![](images/Bildschirmfoto%20vom%202025-04-12%2019-54-07.png) |
 
@@ -524,7 +522,7 @@ And finally, we can use DataExplorer to generate an automated Data Report:
 `create_report(penguins)`
 
 |  |  |
-|----|----|
+|------------------------------------|------------------------------------|
 | ![](images/clipboard-2450633220.png) | ![](images/clipboard-3067609921.png) |
 | ![](images/DataExplorer_report_screenshot4.png) |  |
 
@@ -549,7 +547,7 @@ Lastly, we can again generate an automatized EDA report with ExpReport():
 `ExpReport(data = penguins, Target = "species", label = "Penguin Species", op_file="Samp1.html", Rc=3 )`
 
 |  |  |
-|----|----|
+|------------------------------------|------------------------------------|
 | ![](images/smartEDA_report_screenshot1.png) | ![](images/smartEDA_report_screenshot2.png) |
 | ![](images/smartEDA_report_screenshot3.png) | ![](images/smartEDA_report_screenshot4.png) |
 

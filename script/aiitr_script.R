@@ -31,6 +31,12 @@ source("https://raw.githubusercontent.com/Okan2022/bookdown_aiitr/main/script/si
 
 #=====================RUN THESE LINES BEFORE CONTINUING========================#
 
+#Check out your environment, if the message: 
+#"The simulated Data has been loaded in successfully!" has been displayed in your
+#Console everything went right!
+
+#====================IMPORTANT MESSAGE !!!!!===================================#
+
 #Second, you can not just randomly execute some lines of code. That can result
 #in error messages. To have guaranteed success while executing a code you have
 #to execute code in everything between these lines: "#------". Only then the 
@@ -356,6 +362,9 @@ ifelse(grade == 1.0, "Amazing",
 #---------------------
 
 #-------------------------------------------------------------------------------
+# NOTE: The Packages and the data are loaded in with the simulated data, thus 
+# these lines of Code do not appear here, since the packages are already loaded.
+#-------------------------------------------------------------------------------
 
 #Making a vector with three random numbers
 q <- c(6,3,8)
@@ -608,7 +617,7 @@ table(d1$happy_cat)
 
 #-------------------------------------------------------------------------------
 
-#### Recoding with `mutate()` using `ifelse()`
+### Recoding with `mutate()` using `ifelse()`
 
 #recoding with ifelse function
 d1 <- ess %>% 
@@ -641,7 +650,7 @@ d1 <- ess %>%
     female = gndr) %>% 
   mutate( 
     internet_use = case_when( 
-      internet_use > 5 ~ NA_real_, 
+      internet_use < 5 ~ NA_real_, 
       TRUE ~ internet_use), 
     age = case_when(
       age == 999 ~ NA_real_,
@@ -693,7 +702,7 @@ d1 <- ess %>%
     )) %>%
   drop_na() %>%
   group_by(female) %>% 
-  summarize(average_happiness = mean(happy))
+  dplyr::summarize(average_happiness = mean(happy))
 
 #Checking it
 head(d1)
@@ -854,64 +863,9 @@ head(merged_data4)
 
 #-------------------------------------------------------------------------------
 
-## Exercise Section
-
-### Exercise 1: Let's wrangle kid
-#a.  Wrangle the data, and assign it to an object called **ess**.
-#b.  Select the variables you need
-#c.  Filter for Austria, Belgium, Denmark, Georgia, Iceland and the Russian 
-#Federation
-#d.  Have a look at the codebook and code all irrelevant values as missing. 
-#If you have binary variables recode them from 1, 2 to 0 to 1\
-#e.  You want to build an extremism variable: You do so by subtracting 5 from 
-#the from the variable and squaring it afterwards. Call it extremism
-#f.  Rename the variables to more intuitive names, don't forget to name binary 
-#variables after the category which is on 1
-#g.  drop all missing values
-#h.  Check out your new dataset
-
-#-------------------------------------------------------------------------------
-
-#-------------------------------------------------------------------------------
-
-### Exercise 2: Merging Datasets
-
-#The `gapminder` package in R loads automatically the gapminder dataset. 
-#The gapminder project is an independent educational non-profit fighting global 
-#misconceptions, check out their website: <https://www.gapminder.org/> The 
-#gapminder dataset is already loaded.
-
-#a. Get an overview of the gapminder dataset. There are different ways to do so,
-#you can choose by yourself
-
-#-------------------------------------------------------------------------------
-
-#-------------------------------------------------------------------------------
-
-#b.  Load World Bank Data from 1972 to 2007 and load the variable "Exports and 
-#Goods (% of GDP)".
-
-#-------------------------------------------------------------------------------
-
-#-------------------------------------------------------------------------------
-
-#c.  Merge the World Bank data to the gapminder data, so a dataset evolves with 
-#the number of observations of the gapminder data.
-
-#-------------------------------------------------------------------------------
-
-#-------------------------------------------------------------------------------
-
-#d\. Clean the data by dropping all missing values
-
-#-------------------------------------------------------------------------------
-
-#-------------------------------------------------------------------------------
-
 #-----------------------
 # 3. Data Visualization
 #-----------------------
-
 
 ## Introduction to `ggplot2`
 
@@ -994,7 +948,7 @@ ggplot(data1, aes(x = value)) +
 
 #-------------------------------------------------------------------------------
 
-#### Multiple Histograms
+### Multiple Histograms
 #Multiple histograms
 ggplot(data2, aes(x=value, fill=type)) +
     geom_histogram(color="#e9ecef",
@@ -1036,7 +990,7 @@ ggplot(data1, aes(x = value, fill =)) +
 
 #-------------------------------------------------------------------------------
 
-#### Multiple Density Plots
+### Multiple Density Plots
 ggplot(data2, aes(x=value, fill=type)) +
   geom_density(color="#0a0a0a", 
                alpha = 0.9, 
@@ -1049,7 +1003,7 @@ ggplot(data2, aes(x=value, fill=type)) +
 
 ### Boxplots
 
-#### Basic Boxplots
+### Basic Boxplots
 ggplot(data1, aes(x = value)) + 
   geom_boxplot()
 
@@ -1068,12 +1022,14 @@ ggplot(data1, aes(x = value)) +
 
 #-------------------------------------------------------------------------------
 
-#### Multiple Boxplots
+### Multiple Boxplots
 
 #basic grouped boxplot
 ggplot(data3, aes(x = age, 
                   y = income, fill = age)) +
   geom_boxplot()  
+
+#-------------------------------------------------------------------------------
 
 # Create boxplot groups
 ggplot(data3, aes(x = age, y = income, fill = age)) +
@@ -1303,12 +1259,10 @@ ggplot(babynames_cut, aes(x = year, y = n,
   ) +
   theme_minimal() 
 
+#-------------------------------------------------------------------------------
 ## Correlation: Scatterplots
 
 ### Basic Scatterplot
-
-#-------------------------------------------------------------------------------
-
 ggplot(data_point, aes(x = marketing_budget, 
                        y = sales)) +
   geom_point()
@@ -1381,6 +1335,7 @@ ggplot(data8, aes(x = marketing_budget,
 
 #-------------------------------------------------------------------------------
 
+#Basic facet_wrap() function
 ggplot(data8, aes(x = marketing_budget, 
                        y = sales)) +
   geom_point() + 
@@ -1550,11 +1505,6 @@ tm_shape(world) +
 
 #-------------------------------------------------------------------------------
 
-## Exercise Section
-
-
-#-------------------------------------------------------------------------------
-
 #------------------------------
 # 4. Exploratory Data Analysis
 #------------------------------
@@ -1572,27 +1522,17 @@ uniq_vals[which.max(freqs)] # Getting the unique value with the most occurrences
 ## Calculating the Mean
 mean(penguins$bill_length_mm)
 
-#-------------------------------------------------------------------------------
-
 ## Calculating the Median
 median(penguins$bill_length_mm)
-
-#-------------------------------------------------------------------------------
 
 ## Calculating the Interquartile Range (IQR)
 IQR(penguins$bill_length_mm)
 
-#-------------------------------------------------------------------------------
-
 ## Calculating the Variance 
 var(penguins$bill_length_mm)
 
-#-------------------------------------------------------------------------------
-
 ## Calculating the Standard Deviation
 sd(penguins$bill_length_mm)
-
-#-------------------------------------------------------------------------------
 
 ## Contingency Tables / Crosstabs
 table(penguins$species, penguins$island)
@@ -1633,6 +1573,16 @@ ggplot(penguins, aes(x = bill_length_mm, y = body_mass_g)) +
 
 #-------------------------------------------------------------------------------
 
+# Plot
+ggplot(df_cor, aes(x = x, y = y)) +
+  geom_point(color = "steelblue", size = 2) +
+  facet_wrap(~relationship, nrow = 1) +
+  labs(title = "Strong Positive, Negative, and No Correlation",
+       x = "X", y = "Y") +
+  theme_bw(base_size = 18)
+
+#-------------------------------------------------------------------------------
+
 ## Correlation Matrix
 
 # Step 1: Prepare numeric data
@@ -1646,20 +1596,14 @@ corr_matrix <- cor(penguins_numeric)
 # Step 3: Plot the correlation matrix
 corrplot(corr_matrix, method = "color")
 
-
-#-------------------------------------------------------------------------------
-
 ## Correlation Matrix Pretty
 corrplot(corr_matrix, method = "color", type = "upper", 
          addCoef.col = "black", tl.col = "black", tl.srt = 45)
-
-#-------------------------------------------------------------------------------
 
 ## Correlation Matrix Circular
 corrplot(corr_matrix, method = "circle", type = "upper", 
          addCoef.col = "black", tl.col = "black", tl.srt = 45)
 
-#-------------------------------------------------------------------------------
 
 ## Correlation Matrix Circular Pretty
 corrplot(corr_matrix, method = "circle", type = "upper", 
@@ -1767,9 +1711,11 @@ diagnose(penguins) %>%
 dlookr::describe(penguins)
 
 #-------------------------------------------------------------------------------
+#NOTE: If you want to reproduce the code, then delete the hashtag, so uncomment
+#the line and run the code
 
 ## eda_paged_report dlookr
-dlookr::eda_paged_report(penguins, output_format = "html")
+#dlookr::eda_paged_report(penguins, output_format = "html")
 
 #-------------------------------------------------------------------------------
 
@@ -1787,85 +1733,31 @@ plot_missing(penguins_raw)
 plot_correlation(penguins_numeric)
 
 #-------------------------------------------------------------------------------
+#NOTE: If you want to reproduce the code, then delete the hashtag, so uncomment
+#the line and run the code
 
-## ExpData
+## Making a report with DataExplorer
+
+#create_report(penguins)
+
+#-------------------------------------------------------------------------------
+
+## ExpData command smartEDA
 ExpData(penguins, type = 1)
 
 #-------------------------------------------------------------------------------
 
-## ExpNumStat
+## ExpnumStat smartEDA
 ExpNumStat(penguins)
 
 #-------------------------------------------------------------------------------
+#NOTE: If you want to reproduce the code, then delete the hashtag, so uncomment
+#the line and run the code
 
-## Exercise 1: Standard Descriptive Statistics
+## Making a report with ExpReport
 
-#In this exercise we will work with the built-in iris package in R:
-  
-# a. Calculate the mode, mean and the median for the iris$Sepal.Length variable
-
-#-------------------------------------------------------------------------------
-
-#-------------------------------------------------------------------------------
-
-# b. Calculate the interquartile range, variance and the standard deviation 
-#    for iris$Sepal.Length
-
-#-------------------------------------------------------------------------------
-
-#-------------------------------------------------------------------------------
-
-# c. Calculate all five measures at once by using a function that does so 
-#   (Choose by yourself, which one you want to use)
-
-#-------------------------------------------------------------------------------
-
-#-------------------------------------------------------------------------------
-
-# Exercise 2: Contingency Tables and Correlations
-# 
-# a. Make a Contingency Table for esoph$agegp and esoph$alcgp
-
-#-------------------------------------------------------------------------------
-
-#-------------------------------------------------------------------------------
-
-# b. Cut down the iris dataset to Sepal.Length, Sepal.Width, Petal.Length and 
-#    Petal.Width and save it in an object called iris_numeric.
-
-#-------------------------------------------------------------------------------
-
-#-------------------------------------------------------------------------------
-
-# c. Make a correlation matrix with iris_numeric
-
-#-------------------------------------------------------------------------------
-
-#-------------------------------------------------------------------------------
- 
-# d. Make the correlation matrix prettyChapter 4: Exploratory Data Analysis
-
-#-------------------------------------------------------------------------------
-
-#-------------------------------------------------------------------------------
-
-# Exercise 3: Working with packages
-# 
-# a. Use a function to get an overview of the dataset mtcars
-
-#-------------------------------------------------------------------------------
-
-#-------------------------------------------------------------------------------
-
-# b. Have a look at the structure of the missing values in mtcars
-
-#-------------------------------------------------------------------------------
-
-#-------------------------------------------------------------------------------
-
-# c. Make an automatized EDA report for mtcars
-
-#-------------------------------------------------------------------------------
+#ExpReport(data = penguins, Target = "species", label = "Penguin Species", 
+#          op_file="Samp1.html", Rc=3 )
 
 #-------------------------------------------------------------------------------
 
@@ -1894,7 +1786,7 @@ ggplot(df, aes(x, y)) +
 
 #-------------------------------------------------------------------------------
 
-#### Calculation per Hand
+### Calculation per Hand
 cov <- sum((df$x - mean(df$x)) * (df$y - mean(df$y)))
 
 #Now we get the variance of x 
@@ -1935,184 +1827,6 @@ df$auto_y_hat <- predict(model1)
 
 #Checking it 
 head(df)
-
-#-------------------------------------------------------------------------------
-
-## Model Fit
-
-#We get the Residuals by subtracting our actual y from y_hat
-df$residuals <- df$y - df$y_hat 
-  
-#cheking it
-head(df) 
-
-#-------------------------------------------------------------------------------
-  
-#We could have done that automatically with R as well !  
-df$residuals_auto <- residuals(model1)
-  
-#Checking it
-head(df)
-
-#-------------------------------------------------------------------------------
-
-ggplot(df, aes(x, residuals_auto)) + 
-  geom_point() + 
-  geom_hline(yintercept = 0) +
-  scale_y_continuous("Residuals", seq(-6, 6, 1), 
-                     limits = c(-6, 6)) +
-  scale_x_continuous("Fitted Values", seq(0, 10, 1), 
-                       limits = c(0, 10)) +
-  theme_bw()
-
-#-------------------------------------------------------------------------------
-  
-#### Homoskedasticity and Heteroskedasticity
-  
-# Scatterplot with homoscedasticity
-homoskedastic_plot <- ggplot(df_homo_hetero, aes(x = x, y = y_homo)) +
-    geom_point() +
-    geom_smooth(method = "lm", se = FALSE) +# Add linear regression line
-    scale_y_continuous("Y", seq(-0.5, 3.5, 0.5), limits = c(-0.5, 3.5)) +
-    labs(title = "Homoskedastic Plot") +
-    theme_minimal()
-  
-#-------------------------------------------------------------------------------
-
-# Scatterplot with heteroscedasticity
-heteroskedastic_plot <- ggplot(df_homo_hetero, 
-                                 aes(x = x, y = y_hetero)) +
-    geom_point() +
-    geom_smooth(method = "lm", se = FALSE) +#Add linear regression line
-    labs(title = "Heteroskedastic Plot") +
-    scale_y_continuous("Y", seq(-0.5, 3.5, 0.5), limits = c(-0.5, 3.5)) +
-    theme_minimal()
-  
-  # Combine plots using facet_wrap
-  facet_plots <- ggarrange(homoskedastic_plot, heteroskedastic_plot, nrow = 1)
-  
-  # Print the combined plots
-  print(facet_plots)
-
-#-------------------------------------------------------------------------------
-
-#total sum of squares
-tss <- sum((df$y - mean(df$y))^2)
-
-#explained sum of squares
-ess <- sum((df$y_hat - mean(df$y))^2)
-
-#caculating r squared
-r_squared <- ess/tss
-  
-#Printing it
-r_squared
-  
-#Summarizing it
-summary(model1)$r.squared
-
-#-------------------------------------------------------------------------------
-  
-### Influential Outliers
-
-#Plotting the Data 
-  
-# Scatter plot with points
-ggplot(data_outlier, aes(x = x1, y = y1)) +
-  geom_point(shape = 20, size = 3) +
-# Regression line for the model with outlier
-  geom_abline(aes(slope = model_outlier$coefficients[2], 
-                  intercept = model_outlier$coefficients[1], 
-                  color = "Model with Outlier"), 
-              linewidth = 0.75, 
-              show.legend = TRUE) +
-# Regression line for the model without outlier
-  geom_abline(aes(slope = model_without_outlier$coefficients[2], 
-                  intercept = model_without_outlier$coefficients[1], 
-                  color = "Model without Outlier"), 
-              linewidth = 0.75, 
-              show.legend = TRUE) +
-    xlab("Independent Variable") +
-    # Adding legend
-    theme_classic() + 
-    theme(legend.position = c(0.15,0.9), 
-          legend.title = element_blank()) 
-  
-#-------------------------------------------------------------------------------
-#Cooks Distance can be calculated with a built-in function
-data_outlier$cooks_distance <- cooks.distance(model_outlier) 
-
-#Plotting it
-ggplot(data_outlier, aes(x = x1, y = cooks_distance)) + 
-  geom_point(colour = "darkgreen", size = 3, alpha = 0.5) + 
-  labs(y = "Cook's Distance", x = "Independent Variables") + 
-  geom_hline(yintercept = 1, linetype = "dashed") + 
-  theme_bw()
-
-#-------------------------------------------------------------------------------
-
-### Functional Form
-# estimate a simple regression model 
-model_simple <- lm(Y_quadratic ~ X_quadratic, data = df2)
-
-# Summarize it
-summary(model_simple)
-
-#Plot it
-ggplot(df2, aes(x = X_quadratic, y = Y_quadratic)) + 
-  geom_point(shape = 20, size = 3) + 
-  geom_smooth(method = "lm", se = FALSE) + 
-  theme_bw()
-
-#-------------------------------------------------------------------------------
-
-# estimate a simple regression model 
-model_quadratic <- lm(Y_quadratic ~ X_quadratic^2, data = df2)
-
-#Summarize it 
-summary(model_quadratic)
-
-#Plot it
-ggplot(df2, aes(x = X_quadratic, y = Y_quadratic)) + 
-  geom_point(shape = 20, size = 3) + 
-  geom_smooth(method = "lm", formula = y ~ poly(x, 2), 
-              color = "red", 
-              se = FALSE,) + 
-  scale_x_continuous("X", breaks = seq(-5,5,1), limits = c(-5,5)) +
-  ylab("Y") +
-  theme_bw()
-
-#-------------------------------------------------------------------------------
-#checking the data
-head(gapminder)
-
-#Plotting it
-ggplot(gapminder, aes(gdpPercap, lifeExp)) + 
-  geom_point() + 
-  geom_smooth(method = "loess", se = FALSE) + 
-  scale_y_continuous("Life Expectancy", seq(30, 80, 10), 
-                     limits = c(30, 80)) + 
-  theme_bw()
-
-#-------------------------------------------------------------------------------
-
-ggplot(gapminder, aes(log(gdpPercap), lifeExp)) + 
-  geom_point() + 
-  geom_smooth(method = "lm", se = FALSE) + 
-  scale_y_continuous("Life Expectancy", seq(30, 80, 10), 
-                     limits = c(30, 80)) + 
-  xlab("GDP per Capita") +
-  theme_bw()
-
-#-------------------------------------------------------------------------------
-
-### Independent Observation
-
-ggplot(df_time_series, aes(date, y_time)) + 
-  geom_line() +
-  ylab("Y") +
-  xlab("Year") +
-  theme_bw()  
 
 #-------------------------------------------------------------------------------
 
@@ -2277,91 +1991,6 @@ lm(y ~ x + categorical_variable, data = df) %>%
 
 #-------------------------------------------------------------------------------
 
-### Model Fit: Adjusted R-squared
-
-#running multivariate model
-multivariate_model <- lm(y ~ x + categorical_variable, data = df)
-
-#Getting summary
-summary(multivariate_model)
-
-#Extract Adjusted R-squared
-summary(multivariate_model)$adj.r.squared
-
-#Calculating by hand
-adj_r_squared <- 1 - (((1-summary(multivariate_model)$r.squared) * 
-                         (nrow(df) - 1))/(nrow(df) - 2 - 1))
-
-#printing it
-print(adj_r_squared)
-
-#-------------------------------------------------------------------------------
-
-### Omitted Variable Bias
-
-# Fit a model without including the diet variable 
-model_without_temperature <- lm(violence_crime_true ~ ice_cream_sales, 
-                                data = data_ice)
-
-#Fit a model with only the temperature variable
-
-model_with_only_temperature <- lm(violence_crime_true ~temperature,                        
-                                  data = data)
-
-# Fit a model including both diet and exercise variables 
-model_with_temperature <- lm(violence_crime_true ~ ice_cream_sales + 
-                             temperature, 
-                             data = data)  
-
-# Output the summary of both models 
-summary(model_without_temperature) 
-summary(model_with_only_temperature)
-summary(model_with_temperature)  
-
-#Let us display both models next to each other
-#EDIT: I created this function specifically, the code for the function is at 
-#the top.   
-table_ovb(model_without_temperature, model_with_temperature)
-
-#-------------------------------------------------------------------------------
-
-### Multicollinearity
-# Display first few rows of the data frame
-grades_model <- lm(grades ~ learning_time + gaming_time, 
-                   data = df_grades)
-
-#Getting the summary
-summary(grades_model)
-
-#-------------------------------------------------------------------------------
-
-#### Testing Correlations to each other
-
-#First store the variables you need in a seperate data frame 
-cormatrix_data <- df_grades %>% 
-  select(learning_time, gaming_time)
-
-
-#Second, calculate the table, the 2 at the end are the dimensions
-cormatrix <- cor(cormatrix_data) #Calculate the correlations
-round(cormatrix, 2) #round it to the second digit and display it 
-
-#We could have also done this code in one step 
-
-#df_grades %>% 
-#  select(learning_time, gaming_time) %>% 
-#  cor() %>% 
-#  round(2) 
-
-#-------------------------------------------------------------------------------
-
-#### Variance of Inflation (VIF)
-
-#We only have to use the function VIF() on our model 
-vif(grades_model)
-
-#-------------------------------------------------------------------------------
-
 ## Categorical Variables
 table(df$categorical_variable) 
 
@@ -2415,78 +2044,6 @@ plot_model(model_interaction, type = "int") +
   theme_sjplot() +
   theme(legend.position = "bottom", 
         legend.title = element_blank())
-#-------------------------------------------------------------------------------
-
-## Exercise Section
-
-# To understand linear regression, we do not have to load any complicated data. 
-# Let us assume, you are a market analyst and your customer is the production 
-# company of a series called "Breaking Thrones". The production company wants to 
-# know how the viewers of the series judge the final episode. You conduct a 
-# survey and ask people on how satisfied they were with the season final and 
-# some social demographics. Here is your codebook:
-  
-#  | Variable     | Description                                                                                                                                                    |
-#  |------------------|------------------------------------------------------|
-#  | id           | The id of the respondent                                                                                                                                       |
-#  | satisfaction | The answer to the question 
-#                 | "How satisfied were you with the final episode of Breaking 
-#                 | Throne?", where 0 is completely dissatisfied and 10 
-#                 | completely satisfied |
-#  | age          | The age of the respondent                                                                                                                                      |
-#  | female       | The Gender of the respondent, where 0 = Male, 1 = Female                                                                                                       |
-  
-
-### Exercise 1: Linear Regression with two variables
-
-#You want to know if age has an impact on the satisfaction with the last episode. 
-#You want to conduct a linear regression.
-
-#a\. Calculate $\beta_0$ and $\beta_1$ by hand
-
-#-------------------------------------------------------------------------------
-
-#-------------------------------------------------------------------------------
-
-#b\. Calculate $\beta_0$ and $\beta_1$ automatically with R
-
-#-------------------------------------------------------------------------------
-
-#-------------------------------------------------------------------------------
-
-#c\. Interpret all quantities of your result: Standard Error, t-statistic, 
-#    p-value, confidence intervals and the $R^2$.
-
-#-------------------------------------------------------------------------------
-
-#-------------------------------------------------------------------------------
-
-#d\. Check for influential outliers
-
-#-------------------------------------------------------------------------------
-
-#-------------------------------------------------------------------------------
-
-### Exercise 2: Multivariate Regression
-
-#a\. Add the variable `female` to your regression
-
-#-------------------------------------------------------------------------------
-
-#-------------------------------------------------------------------------------
-
-#b\. Interpret the Output. What has changed? What stays the same?
-  
-#c\. Make an interaction effect between age and gender and interpret it!
-  
-#-------------------------------------------------------------------------------
-
-#-------------------------------------------------------------------------------
-
-#d\. Plot the interaction and make the plot nice
-
-#-------------------------------------------------------------------------------
-
 #-------------------------------------------------------------------------------
 
 #------------------------
@@ -2625,6 +2182,7 @@ apply(mat, 2, mean) #calculating mean
 apply(mat, 2, sum) #calculating sum
 apply(mat, 2, sd) #calculating sd
 
+#-------------------------------------------------------------------------------
 
 #The corresponding Loop would look like this: 
 for (i in 1:ncol(mat)) {
@@ -2690,7 +2248,7 @@ print_classroom <- function(x) {
 # Example usage
 seating_order <- list(
   c(1, 5, 2),
-  c(4, 3)
+  c(4, 3,7)
 )
 
 #Checking it
@@ -2698,63 +2256,483 @@ print_classroom(seating_order)
 
 #-------------------------------------------------------------------------------
 
-## Exercise Section
-
-### Exercise 1: Writing a loop
-
-# Write a `for` loop that prints the square of each number from 1 to 10
+#-------------------------
+# 7. Further Explanations
+#-------------------------
 
 #-------------------------------------------------------------------------------
 
-#Assigning an object for a better workflow
-number <- 10
-
-#The Loop 
-
-#-------------------------------------------------------------------------------
-
-### Exercise 2: Writing a function
-
-# Write a function that takes the input x and squares it:
-  
-#-------------------------------------------------------------------------------
-
-#Defining a function for squaring
-
-sq <- function (x) {
-  
-  
-  
-}
+#rolling one dice 
+dice_role <- 3
+print(dice_role)
 
 #-------------------------------------------------------------------------------
 
-#Defining a vector containing a vector from 1 to 10 
-numbers <- c(1:10) 
-
-#Applying the number 
-sq(numbers)
-
-#-------------------------------------------------------------------------------
-
-### Exercise 3: The midnight Formula
-
-#This is the midnight formula separated in two equations:
-  
-#$x_{1,2} = \frac{-b \pm \sqrt{b^2 - 4ac}}{2a}$
-  
-# Make **one function** for the midnight formula, so the output are $x_1$ and 
-# $x_2$. Test it with a = 2, b = -6, c = -8
-
-# **Hint**: You need two split up the formula into two equations with two outputs.
+# Plot with ggplot
+ggplot(dice_rolls, aes(x = factor(roll))) +
+  geom_bar(fill = "#89CFF0", color = "gray") +
+  labs(
+    title = "Distribution of 1,000 Dice Rolls",
+    x = "Dice Face",
+    y = "Frequency"
+  ) +
+  theme_minimal()
 
 #-------------------------------------------------------------------------------
 
-mnf <- 
-  
-mnf(2, 6, 8)
+# Plot it
+ggplot(uniform_dis, aes(x = Outcome, y = Probability)) +
+  geom_point() +
+  labs(
+    title = "Uniform Probability Distribution of a Fair Die",
+    x = "Die Face",
+    y = "Probability"
+  ) +
+  theme_minimal()
+
+# Calculating the cumsum
+uniform_dis$cumsum <- cumsum(uniform_dis$Probability)
+
+# Plot it
+ggplot(uniform_dis, aes(x = Outcome, y = cumsum)) +
+  geom_point() +
+  labs(
+    title = "Cumulative Distribution of a Fair Die",
+    x = "Die Face",
+    y = "Probability"
+  ) +
+  ylim(0,1) +
+  theme_minimal()
 
 #-------------------------------------------------------------------------------
+
+# Plot the results
+ggplot(fair_coin, aes(x = outcome)) +
+  geom_bar(fill = "#89CFF0", width = 0.35) +
+  labs(
+    title = "Simulation of 10 Tosses of a Fair Coin",
+    x = "Outcome",
+    y = "Count"
+  ) +
+  theme_minimal()
+
+#-------------------------------------------------------------------------------
+
+# Plot the results
+ggplot(unfair_coin, aes(x = outcome)) +
+  geom_bar(fill = "#89CFF0", width = 0.35) +
+  labs(
+    title = "Simulation of 1000 Tosses of an unfair Coin",
+    x = "Outcome",
+    y = "Count"
+  ) +
+  theme_minimal()
+
+#-------------------------------------------------------------------------------
+
+# fair coin
+dbinom(
+  x = 5,
+  size = 10,
+  prob = 0.5
+)
+
+# biased coin
+dbinom(
+  x = 3,
+  size = 10,
+  prob = 0.28
+)
+
+#-------------------------------------------------------------------------------
+
+# Plot
+ggplot(theoretical_probs, aes(x = heads, y = prob)) +
+  geom_point(size = 1.5, color = "black") +
+  facet_wrap(~ coin_type, 
+             labeller = as_labeller(c(
+               biased = "Biased Coin (p = 0.28)", 
+               unbiased = "Unbiased Coin (p = 0.5)"))) +
+  labs(title = "Theoretical Binomial Distribution of Number of Heads in 10 Flips",
+       x = "Number of Heads",
+       y = "Probability") +
+  scale_x_continuous(breaks = 0:10) +
+  theme_bw()
+
+#-------------------------------------------------------------------------------
+
+# Fix cumulative sum: compute it within each coin_type group
+theoretical_probs <- theoretical_probs %>%
+  group_by(coin_type) %>%
+  arrange(heads, .by_group = TRUE) %>%
+  mutate(cumsum_prob = cumsum(prob)) %>%
+  ungroup()
+
+# Plot cumulative probabilities
+ggplot(theoretical_probs, aes(x = heads, y = cumsum_prob)) +
+  geom_point(size = 1.5, color = "black") +
+  facet_wrap(~ coin_type,
+             labeller = as_labeller(c(
+               biased = "Biased Coin (p = 0.28)",
+               unbiased = "Unbiased Coin (p = 0.5)")),
+             nrow = 2) +
+  labs(
+    title = "Cumulative Distribution of Number of Heads in 10 Flips",
+    x = "Number of Heads",
+    y = "Cumulative Probability") +
+  scale_x_continuous(breaks = 0:10) +
+  theme_bw()
+
+#-------------------------------------------------------------------------------
+
+# Plot it
+ggplot(snd, aes(x = sample)) +
+  geom_density() +
+  labs(title = "Normal Distribution",
+       x = "Value of Random Variable",
+       y = "Density") +
+  scale_x_continuous(breaks = -5:5,
+                     limits = c(-5,5)) +
+  theme_minimal()
+
+# Plot empirical CDF
+ggplot(snd, aes(x = sample)) +
+  stat_ecdf(geom = "step", color = "black") +
+  labs(title = "Cumulative Distribution Function (CDF)",
+       x = "Value of Random Variable",
+       y = "Cumulative Probability") +
+  theme_minimal()
+
+#-------------------------------------------------------------------------------
+
+# Plotting
+ggplot(data_clt, aes(x = mean)) +
+  geom_density(fill = "skyblue", alpha = 0.6) +
+  facet_wrap(~ rolls, scales = "free", ncol = 2) +
+  labs(title = "Central Limit Theorem Demonstration with Dice Rolls",
+       x = "Sample Mean",
+       y = "Density") +
+  scale_x_continuous(breaks = 1:6,
+                     limits = c(1,6)) +
+  theme_minimal()
+
+#-------------------------------------------------------------------------------
+
+# Plot using facet_wrap
+ggplot(plot_df, aes(x = x, y = y)) +
+  geom_line(data = filter(plot_df, !distribution %in% c("Poisson (λ=3)")),
+            color = "steelblue", linewidth = 1) +
+  geom_point(data = filter(plot_df, distribution == "Poisson (λ=3)"),
+             color = "steelblue", size = 1) +
+  facet_wrap(~ distribution, scales = "free", ncol = 3) +
+  labs(title = "Overview of Common Statistical Distributions",
+       x = "x", y = "Density / Probability") +
+  theme_minimal(base_size = 14)
+
+#-------------------------------------------------------------------------------
+
+#Plotting it
+ggplot(sample_iq, aes(x=height)) +
+  geom_density(linewidth = 1, color = "#E35335") +
+  labs(
+    x = "IQ", 
+    y = "Frequency"
+  ) +
+  scale_x_continuous(breaks = seq(40, 160, 20),
+                     limits = c(40, 160)) +
+  theme_minimal()
+
+#-------------------------------------------------------------------------------
+
+dnorm(x = 100, mean = 100, sd = 15) #Probability of 100 IQ
+
+dnorm(x = 87, mean = 100, sd = 15) #Probability of 65 IQ
+
+dnorm(x = 140, mean = 100, sd = 15) #Probability of 135 IQ
+
+pnorm(q = 100, mean = 100, sd = 15) #Probability of 100 IQ
+
+pnorm(q = 87, mean = 100, sd = 15) #Probability of 65 IQ
+
+pnorm(q = 140, mean = 100, sd = 15) #Probability of 135 IQ
+
+qnorm(p = 0.5, mean = 100, sd = 15) #Probability of 100 IQ
+
+qnorm(p = 0.1930623, mean = 100, sd = 15) #Probability of 65 IQ
+
+qnorm(p = 0.9961696, mean = 100, sd = 15) #Probability of 135 IQ
+
+#-------------------------------------------------------------------------------
+
+### Regression Diagnostics
+
+## Model Fit
+
+#running a linear regression
+model1 <- lm(y ~ x, 
+             data = df) 
+
+#First, we calculate the predictions for y
+df$y_hat <- 1.6821 + 1.5394*df$x 
+
+#We get the Residuals by subtracting our actual y from y_hat
+df$residuals <- df$y - df$y_hat 
+
+#cheking it
+head(df) 
+
+#-------------------------------------------------------------------------------
+
+#We could have done that automatically with R as well !  
+df$residuals_auto <- residuals(model1)
+
+#Checking it
+head(df)
+
+#-------------------------------------------------------------------------------
+
+ggplot(df, aes(x, residuals_auto)) + 
+  geom_point() + 
+  geom_hline(yintercept = 0) +
+  scale_y_continuous("Residuals", seq(-6, 6, 1), 
+                     limits = c(-6, 6)) +
+  scale_x_continuous("Fitted Values", seq(0, 10, 1), 
+                     limits = c(0, 10)) +
+  theme_bw()
+
+#-------------------------------------------------------------------------------
+
+### Homoskedasticity and Heteroskedasticity
+
+# Scatterplot with homoscedasticity
+homoskedastic_plot <- ggplot(df_homo_hetero, aes(x = x, y = y_homo)) +
+  geom_point() +
+  geom_smooth(method = "lm", se = FALSE) +# Add linear regression line
+  scale_y_continuous("Y", seq(-0.5, 3.5, 0.5), limits = c(-0.5, 3.5)) +
+  labs(title = "Homoskedastic Plot") +
+  theme_minimal()
+
+#-------------------------------------------------------------------------------
+
+# Scatterplot with heteroscedasticity
+heteroskedastic_plot <- ggplot(df_homo_hetero, 
+                               aes(x = x, y = y_hetero)) +
+  geom_point() +
+  geom_smooth(method = "lm", se = FALSE) +#Add linear regression line
+  labs(title = "Heteroskedastic Plot") +
+  scale_y_continuous("Y", seq(-0.5, 3.5, 0.5), limits = c(-0.5, 3.5)) +
+  theme_minimal()
+
+# Combine plots using facet_wrap
+facet_plots <- ggarrange(homoskedastic_plot, heteroskedastic_plot, nrow = 1)
+
+# Print the combined plots
+print(facet_plots)
+
+#-------------------------------------------------------------------------------
+
+#total sum of squares
+tss <- sum((df$y - mean(df$y))^2)
+
+#explained sum of squares
+ess <- sum((df$y_hat - mean(df$y))^2)
+
+#caculating r squared
+r_squared <- ess/tss
+
+#Printing it
+r_squared
+
+#Summarizing it
+summary(model1)$r.squared
+
+#-------------------------------------------------------------------------------
+
+### Influential Outliers
+
+#Plotting the Data 
+
+# Scatter plot with points
+ggplot(data_outlier, aes(x = x1, y = y1)) +
+  geom_point(shape = 20, size = 3) +
+  # Regression line for the model with outlier
+  geom_abline(aes(slope = model_outlier$coefficients[2], 
+                  intercept = model_outlier$coefficients[1], 
+                  color = "Model with Outlier"), 
+              linewidth = 0.75, 
+              show.legend = TRUE) +
+  # Regression line for the model without outlier
+  geom_abline(aes(slope = model_without_outlier$coefficients[2], 
+                  intercept = model_without_outlier$coefficients[1], 
+                  color = "Model without Outlier"), 
+              linewidth = 0.75, 
+              show.legend = TRUE) +
+  xlab("Independent Variable") +
+  # Adding legend
+  theme_classic() + 
+  theme(legend.position = c(0.15,0.9), 
+        legend.title = element_blank()) 
+
+#-------------------------------------------------------------------------------
+#Cooks Distance can be calculated with a built-in function
+data_outlier$cooks_distance <- cooks.distance(model_outlier) 
+
+#Plotting it
+ggplot(data_outlier, aes(x = x1, y = cooks_distance)) + 
+  geom_point(colour = "darkgreen", size = 3, alpha = 0.5) + 
+  labs(y = "Cook's Distance", x = "Independent Variables") + 
+  geom_hline(yintercept = 1, linetype = "dashed") + 
+  theme_bw()
+
+#-------------------------------------------------------------------------------
+
+### Functional Form
+# estimate a simple regression model 
+model_simple <- lm(Y_quadratic ~ X_quadratic, data = df2)
+
+# Summarize it
+summary(model_simple)
+
+#Plot it
+ggplot(df2, aes(x = X_quadratic, y = Y_quadratic)) + 
+  geom_point(shape = 20, size = 3) + 
+  geom_smooth(method = "lm", se = FALSE) + 
+  theme_bw()
+
+#-------------------------------------------------------------------------------
+
+# estimate a simple regression model 
+model_quadratic <- lm(Y_quadratic ~ X_quadratic^2, data = df2)
+
+#Summarize it 
+summary(model_quadratic)
+
+#Plot it
+ggplot(df2, aes(x = X_quadratic, y = Y_quadratic)) + 
+  geom_point(shape = 20, size = 3) + 
+  geom_smooth(method = "lm", formula = y ~ poly(x, 2), 
+              color = "red", 
+              se = FALSE,) + 
+  scale_x_continuous("X", breaks = seq(-5,5,1), limits = c(-5,5)) +
+  ylab("Y") +
+  theme_bw()
+
+#-------------------------------------------------------------------------------
+#checking the data
+head(gapminder)
+
+#Plotting it
+ggplot(gapminder, aes(gdpPercap, lifeExp)) + 
+  geom_point() + 
+  geom_smooth(method = "loess", se = FALSE) + 
+  scale_y_continuous("Life Expectancy", seq(30, 80, 10), 
+                     limits = c(30, 80)) + 
+  theme_bw()
+
+#-------------------------------------------------------------------------------
+
+ggplot(gapminder, aes(log(gdpPercap), lifeExp)) + 
+  geom_point() + 
+  geom_smooth(method = "lm", se = FALSE) + 
+  scale_y_continuous("Life Expectancy", seq(30, 80, 10), 
+                     limits = c(30, 80)) + 
+  xlab("GDP per Capita") +
+  theme_bw()
+
+#-------------------------------------------------------------------------------
+
+### Independent Observation
+
+ggplot(df_time_series, aes(date, y_time)) + 
+  geom_line() +
+  ylab("Y") +
+  xlab("Year") +
+  theme_bw()  
+
+#-------------------------------------------------------------------------------
+
+### Model Fit: Adjusted R-squared
+
+#running multivariate model
+multivariate_model <- lm(y ~ x + categorical_variable, data = df)
+
+#Getting summary
+summary(multivariate_model)
+
+#Extract Adjusted R-squared
+summary(multivariate_model)$adj.r.squared
+
+#Calculating by hand
+adj_r_squared <- 1 - (((1-summary(multivariate_model)$r.squared) * 
+                         (nrow(df) - 1))/(nrow(df) - 2 - 1))
+
+#printing it
+print(adj_r_squared)
+
+#-------------------------------------------------------------------------------
+
+### Omitted Variable Bias
+
+# Fit a model without including the diet variable 
+model_without_temperature <- lm(violence_crime_true ~ ice_cream_sales, 
+                                data = data_ice)
+
+#Fit a model with only the temperature variable
+
+model_with_only_temperature <- lm(violence_crime_true ~temperature,                        
+                                  data = data)
+
+# Fit a model including both diet and exercise variables 
+model_with_temperature <- lm(violence_crime_true ~ ice_cream_sales + 
+                               temperature, 
+                             data = data)  
+
+# Output the summary of both models 
+summary(model_without_temperature) 
+summary(model_with_only_temperature)
+summary(model_with_temperature)  
+
+#Let us display both models next to each other
+#EDIT: I created this function specifically, the code for the function is at 
+#the top.   
+table_ovb(model_without_temperature, model_with_temperature)
+
+#-------------------------------------------------------------------------------
+
+### Multicollinearity
+# Display first few rows of the data frame
+grades_model <- lm(grades ~ learning_time + gaming_time, 
+                   data = df_grades)
+
+#Getting the summary
+summary(grades_model)
+
+#-------------------------------------------------------------------------------
+
+#### Testing Correlations to each other
+
+#First store the variables you need in a seperate data frame 
+cormatrix_data <- df_grades %>% 
+  select(learning_time, gaming_time)
+
+
+#Second, calculate the table, the 2 at the end are the dimensions
+cormatrix <- cor(cormatrix_data) #Calculate the correlations
+round(cormatrix, 2) #round it to the second digit and display it 
+
+#We could have also done this code in one step 
+
+#df_grades %>% 
+#  select(learning_time, gaming_time) %>% 
+#  cor() %>% 
+#  round(2) 
+
+#-------------------------------------------------------------------------------
+
+#### Variance of Inflation (VIF)
+
+#We only have to use the function VIF() on our model 
+vif(grades_model)
 
 
 

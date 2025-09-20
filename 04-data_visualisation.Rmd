@@ -778,6 +778,7 @@ Sometimes we do not want to compare the elements in a plot (e.g. dots, lines), b
 That is rather abstract, let us stick with our chocolate company. We want to compare the effect of our marketing budget on sales for different quarters. We want to plot the same scatter plot as before, but this time for each quarter. We could of course split up the data set to each quarter and plot 4 plots. But that is not efficient. Let us copy the code from above for the basic plot, and just add the `facet_wrap()` function and inside this wave symbol `~` and add the variable we want separate for, in our case the quarters.
 
 ```{r basic facet_wrap}
+#Basic facet_wrap() function
 ggplot(data8, aes(x = marketing_budget, 
                        y = sales)) +
   geom_point() + 
