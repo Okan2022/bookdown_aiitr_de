@@ -578,12 +578,5 @@ plot_df <- bind_rows(dist_df, poisson_vals, f_vals)
 sample_iq <- data.frame(
   height = rnorm(10000, mean = 100, sd = 15))
 
-
-
-
-
-
-
-
 #Printing if loading Data was successful
 print("The simulated Data has been loaded in succesfully!")

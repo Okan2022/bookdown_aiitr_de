@@ -2680,12 +2680,12 @@ model_without_temperature <- lm(violence_crime_true ~ ice_cream_sales,
 #Fit a model with only the temperature variable
 
 model_with_only_temperature <- lm(violence_crime_true ~temperature,                        
-                                  data = data)
+                                  data = data_ice)
 
 # Fit a model including both diet and exercise variables 
 model_with_temperature <- lm(violence_crime_true ~ ice_cream_sales + 
                                temperature, 
-                             data = data)  
+                             data = data_ice)  
 
 # Output the summary of both models 
 summary(model_without_temperature) 
