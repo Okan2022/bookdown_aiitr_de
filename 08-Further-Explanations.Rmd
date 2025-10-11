@@ -975,7 +975,9 @@ violence_crime_true <- 0.2 * temperature -
   rnorm(n, mean = 0, sd = 5) 
 
 # Create a data frame 
-data <- data.frame(temperature = temperature,ice_cream_sales = ice_cream_sales,                     violence_crime_true = violence_crime_true)  
+data <- data.frame(temperature = temperature,
+                   ice_cream_sales = ice_cream_sales,       
+                   violence_crime_true = violence_crime_true)  
 
 # Fit a model without including the diet variable 
 model_without_temperature <- lm(violence_crime_true ~ ice_cream_sales, data = data)

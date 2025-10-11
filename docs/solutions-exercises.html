@@ -23,7 +23,7 @@
 <meta name="author" content="Okan Sarioglu" />
 
 
-<meta name="date" content="2025-05-21" />
+<meta name="date" content="2025-09-20" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -74,8 +74,9 @@
 
 
 <style type="text/css">
+html { -webkit-text-size-adjust: 100%; }
 pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
@@ -85,7 +86,7 @@ div.sourceCode { overflow: auto; }
 }
 @media print {
 pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
 }
 pre.numberSource code
   { counter-reset: source-line 0; }
@@ -498,27 +499,20 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h2><span class="header-section-number">8.3</span> Chapter 3: Data Visualisation<a href="solutions-exercises.html#chapter-3-data-visualisation" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>In this exercise Section, we will work with the <code>babynames</code> and the <code>iris</code> package. This is a classic built-in package in R, which contains data from the Ronald Fisher’s 1936 Study “<em>The use of multiple measurements in taxonomic problems”.</em> It contains three plant species and four measured features for each species. Let us get an overview of the package:</p>
 <div class="sourceCode" id="cb523"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb523-1"><a href="solutions-exercises.html#cb523-1" tabindex="-1"></a><span class="fu">summary</span>(iris)</span></code></pre></div>
-<pre><code>##   Sepal.Length    Sepal.Width   
-##  Min.   :4.300   Min.   :2.000  
-##  1st Qu.:5.100   1st Qu.:2.800  
-##  Median :5.800   Median :3.000  
-##  Mean   :5.843   Mean   :3.057  
-##  3rd Qu.:6.400   3rd Qu.:3.300  
-##  Max.   :7.900   Max.   :4.400  
-##   Petal.Length    Petal.Width   
-##  Min.   :1.000   Min.   :0.100  
-##  1st Qu.:1.600   1st Qu.:0.300  
-##  Median :4.350   Median :1.300  
-##  Mean   :3.758   Mean   :1.199  
-##  3rd Qu.:5.100   3rd Qu.:1.800  
-##  Max.   :6.900   Max.   :2.500  
-##        Species  
-##  setosa    :50  
-##  versicolor:50  
-##  virginica :50  
-##                 
-##                 
-## </code></pre>
+<pre><code>##   Sepal.Length    Sepal.Width     Petal.Length  
+##  Min.   :4.300   Min.   :2.000   Min.   :1.000  
+##  1st Qu.:5.100   1st Qu.:2.800   1st Qu.:1.600  
+##  Median :5.800   Median :3.000   Median :4.350  
+##  Mean   :5.843   Mean   :3.057   Mean   :3.758  
+##  3rd Qu.:6.400   3rd Qu.:3.300   3rd Qu.:5.100  
+##  Max.   :7.900   Max.   :4.400   Max.   :6.900  
+##   Petal.Width          Species  
+##  Min.   :0.100   setosa    :50  
+##  1st Qu.:0.300   versicolor:50  
+##  Median :1.300   virginica :50  
+##  Mean   :1.199                  
+##  3rd Qu.:1.800                  
+##  Max.   :2.500</code></pre>
 <div id="exercise-1-distributions-1" class="section level3 hasAnchor" number="8.3.1">
 <h3><span class="header-section-number">8.3.1</span> Exercise 1: Distributions<a href="solutions-exercises.html#exercise-1-distributions-1" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>a. Plot a Chart, which shows the distribution of <code>Sepal.Length</code> over the <code>setosa</code> Species. Choose the type of distribution chart for yourself. <strong>HINT:</strong> Prepare the data first and then plot it.</p>
@@ -529,8 +523,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb525-5"><a href="solutions-exercises.html#cb525-5" tabindex="-1"></a><span class="co">#Histogram</span></span>
 <span id="cb525-6"><a href="solutions-exercises.html#cb525-6" tabindex="-1"></a><span class="fu">ggplot</span>(iris, <span class="fu">aes</span>(<span class="at">x =</span> Sepal.Length)) <span class="sc">+</span></span>
 <span id="cb525-7"><a href="solutions-exercises.html#cb525-7" tabindex="-1"></a>  <span class="fu">geom_histogram</span>()</span></code></pre></div>
-<pre><code>## `stat_bin()` using `bins = 30`. Pick better
-## value with `binwidth`.</code></pre>
+<pre><code>## `stat_bin()` using `bins = 30`. Pick better value with
+## `binwidth`.</code></pre>
 <p><img src="bookdownproj_files/figure-html/chapter%203%20exercise%201a-1.png" width="672" /></p>
 <div class="sourceCode" id="cb527"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb527-1"><a href="solutions-exercises.html#cb527-1" tabindex="-1"></a><span class="co">#Density Plot</span></span>
 <span id="cb527-2"><a href="solutions-exercises.html#cb527-2" tabindex="-1"></a><span class="fu">ggplot</span>(iris, <span class="fu">aes</span>(<span class="at">x =</span> Sepal.Length)) <span class="sc">+</span></span>
@@ -563,8 +557,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="sourceCode" id="cb530"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb530-1"><a href="solutions-exercises.html#cb530-1" tabindex="-1"></a><span class="co">#Histogram</span></span>
 <span id="cb530-2"><a href="solutions-exercises.html#cb530-2" tabindex="-1"></a><span class="fu">ggplot</span>(iris, <span class="fu">aes</span>(<span class="at">x =</span> Sepal.Length, <span class="at">fill =</span> Species)) <span class="sc">+</span></span>
 <span id="cb530-3"><a href="solutions-exercises.html#cb530-3" tabindex="-1"></a>  <span class="fu">geom_histogram</span>()</span></code></pre></div>
-<pre><code>## `stat_bin()` using `bins = 30`. Pick better
-## value with `binwidth`.</code></pre>
+<pre><code>## `stat_bin()` using `bins = 30`. Pick better value with
+## `binwidth`.</code></pre>
 <p><img src="bookdownproj_files/figure-html/chapter%203%20exercise%201b-1.png" width="672" /></p>
 <div class="sourceCode" id="cb532"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb532-1"><a href="solutions-exercises.html#cb532-1" tabindex="-1"></a><span class="co">#Density Plot</span></span>
 <span id="cb532-2"><a href="solutions-exercises.html#cb532-2" tabindex="-1"></a><span class="fu">ggplot</span>(iris, <span class="fu">aes</span>(<span class="at">x =</span> Sepal.Length, <span class="at">fill =</span> Species)) <span class="sc">+</span></span>
@@ -597,8 +591,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb537-11"><a href="solutions-exercises.html#cb537-11" tabindex="-1"></a>    <span class="at">legend.position =</span> <span class="st">&quot;none&quot;</span></span>
 <span id="cb537-12"><a href="solutions-exercises.html#cb537-12" tabindex="-1"></a>  ) <span class="sc">+</span></span>
 <span id="cb537-13"><a href="solutions-exercises.html#cb537-13" tabindex="-1"></a>  <span class="fu">scale_fill_brewer</span>(<span class="at">palette =</span> <span class="st">&quot;Dark2&quot;</span>)</span></code></pre></div>
-<pre><code>## `stat_bin()` using `bins = 30`. Pick better
-## value with `binwidth`.</code></pre>
+<pre><code>## `stat_bin()` using `bins = 30`. Pick better value with
+## `binwidth`.</code></pre>
 <p><img src="bookdownproj_files/figure-html/chapter%203%20exercise%201c-1.png" width="672" /></p>
 <div class="sourceCode" id="cb539"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb539-1"><a href="solutions-exercises.html#cb539-1" tabindex="-1"></a><span class="co">#Density Plot</span></span>
 <span id="cb539-2"><a href="solutions-exercises.html#cb539-2" tabindex="-1"></a><span class="fu">ggplot</span>(iris, <span class="fu">aes</span>(<span class="at">x =</span> Sepal.Length, <span class="at">fill =</span> Species)) <span class="sc">+</span></span>
@@ -784,10 +778,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb566-3"><a href="solutions-exercises.html#cb566-3" tabindex="-1"></a><span class="co">#  sqrt()</span></span></code></pre></div>
 <p>c. Calculate all five measures at once by using a function that does so (Choose by yourself, which one you want to use)</p>
 <div class="sourceCode" id="cb567"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb567-1"><a href="solutions-exercises.html#cb567-1" tabindex="-1"></a>psych<span class="sc">::</span><span class="fu">describe</span>(iris<span class="sc">$</span>Sepal.Length) <span class="co">#psych package</span></span></code></pre></div>
-<pre><code>##    vars   n mean   sd median trimmed  mad
-## X1    1 150 5.84 0.83    5.8    5.81 1.04
-##    min max range skew kurtosis   se
-## X1 4.3 7.9   3.6 0.31    -0.61 0.07</code></pre>
+<pre><code>##    vars   n mean   sd median trimmed  mad min max range skew
+## X1    1 150 5.84 0.83    5.8    5.81 1.04 4.3 7.9   3.6 0.31
+##    kurtosis   se
+## X1    -0.61 0.07</code></pre>
 <div class="sourceCode" id="cb569"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb569-1"><a href="solutions-exercises.html#cb569-1" tabindex="-1"></a>skimr<span class="sc">::</span><span class="fu">skim</span>(iris<span class="sc">$</span>Sepal.Length) <span class="co">#skim package</span></span></code></pre></div>
 <table>
 <caption>(#tab:chapter 4 exercise 1c)Data summary</caption>
@@ -2288,12 +2282,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## 10 gear          0        0
 ## 11 carb          0        0</code></pre>
 <div class="sourceCode" id="cb588"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb588-1"><a href="solutions-exercises.html#cb588-1" tabindex="-1"></a>DataExplorer<span class="sc">::</span><span class="fu">introduce</span>(mtcars)</span></code></pre></div>
-<pre><code>##   rows columns discrete_columns
-## 1   32      11                0
-##   continuous_columns all_missing_columns
-## 1                 11                   0
-##   total_missing_values complete_rows
-## 1                    0            32
+<pre><code>##   rows columns discrete_columns continuous_columns
+## 1   32      11                0                 11
+##   all_missing_columns total_missing_values complete_rows
+## 1                   0                    0            32
 ##   total_observations memory_usage
 ## 1                352         5928</code></pre>
 <div class="sourceCode" id="cb590"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb590-1"><a href="solutions-exercises.html#cb590-1" tabindex="-1"></a>SmartEDA<span class="sc">::</span><span class="fu">ExpData</span>(mtcars, <span class="at">type =</span> <span class="dv">1</span>)</span></code></pre></div>
@@ -2340,8 +2332,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>To understand linear regression, we do not have to load any complicated data. Let us assume, you are a market analyst and your customer is the production company of a series called “Breaking Thrones”. The production company wants to know how the viewers of the series judge the final episode. You conduct a survey and ask people on how satisfied they were with the season final and some social demographics. Here is your codebook:</p>
 <table>
 <colgroup>
-<col width="8%" />
-<col width="91%" />
+<col width="50%" />
+<col width="50%" />
 </colgroup>
 <thead>
 <tr class="header">
@@ -2430,16 +2422,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## -2.8153 -1.0820 -0.2053  0.8530  3.6780 
 ## 
 ## Coefficients:
-##             Estimate Std. Error t value
-## (Intercept)  -0.3378     3.4796  -0.097
-## age           0.2467     0.1310   1.883
-##             Pr(&gt;|t|)  
-## (Intercept)   0.9251  
-## age           0.0964 .
+##             Estimate Std. Error t value Pr(&gt;|t|)  
+## (Intercept)  -0.3378     3.4796  -0.097   0.9251  
+## age           0.2467     0.1310   1.883   0.0964 .
 ## ---
-## Signif. codes:  
-##   0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39;
-##   0.1 &#39; &#39; 1
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
 ## 
 ## Residual standard error: 2.058 on 8 degrees of freedom
 ## Multiple R-squared:  0.3072, Adjusted R-squared:  0.2206 
@@ -2471,14 +2458,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## -2.8401 -1.1312 -0.0574  0.8001  3.6435 
 ## 
 ## Coefficients:
-##             Estimate Std. Error t value
-## (Intercept)  -0.1712     3.8481  -0.044
-## age           0.2418     0.1429   1.692
-## female       -0.3895     2.3662  -0.165
-##             Pr(&gt;|t|)
-## (Intercept)    0.966
-## age            0.134
-## female         0.874
+##             Estimate Std. Error t value Pr(&gt;|t|)
+## (Intercept)  -0.1712     3.8481  -0.044    0.966
+## age           0.2418     0.1429   1.692    0.134
+## female       -0.3895     2.3662  -0.165    0.874
 ## 
 ## Residual standard error: 2.196 on 7 degrees of freedom
 ## Multiple R-squared:  0.3099, Adjusted R-squared:  0.1127 
@@ -2496,16 +2479,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## -2.8401 -1.1312 -0.0574  0.8001  3.6435 
 ## 
 ## Coefficients: (1 not defined because of singularities)
-##             Estimate Std. Error t value
-## (Intercept)  -0.1712     3.8481  -0.044
-## age           0.2418     0.1429   1.692
-## female       -0.3895     2.3662  -0.165
-## age:female        NA         NA      NA
-##             Pr(&gt;|t|)
-## (Intercept)    0.966
-## age            0.134
-## female         0.874
-## age:female        NA
+##             Estimate Std. Error t value Pr(&gt;|t|)
+## (Intercept)  -0.1712     3.8481  -0.044    0.966
+## age           0.2418     0.1429   1.692    0.134
+## female       -0.3895     2.3662  -0.165    0.874
+## age:female        NA         NA      NA       NA
 ## 
 ## Residual standard error: 2.196 on 7 degrees of freedom
 ## Multiple R-squared:  0.3099, Adjusted R-squared:  0.1127 
@@ -2523,13 +2501,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb609-10"><a href="solutions-exercises.html#cb609-10" tabindex="-1"></a>  <span class="fu">theme_sjplot</span>() <span class="sc">+</span></span>
 <span id="cb609-11"><a href="solutions-exercises.html#cb609-11" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">&quot;bottom&quot;</span>, </span>
 <span id="cb609-12"><a href="solutions-exercises.html#cb609-12" tabindex="-1"></a>        <span class="at">legend.title =</span> <span class="fu">element_blank</span>())</span></code></pre></div>
-<pre><code>## Warning in predict.lm(model, newdata =
-## data_grid, type = &quot;response&quot;, se.fit = se,
-## : prediction from rank-deficient fit;
-## attr(*, &quot;non-estim&quot;) has doubtful cases</code></pre>
+<pre><code>## Warning in predict.lm(model, newdata = data_grid, type =
+## &quot;response&quot;, se.fit = se, : prediction from rank-deficient
+## fit; attr(*, &quot;non-estim&quot;) has doubtful cases</code></pre>
 <pre><code>## Scale for colour is already present.
-## Adding another scale for colour, which will
-## replace the existing scale.</code></pre>
+## Adding another scale for colour, which will replace the
+## existing scale.</code></pre>
 <p><img src="bookdownproj_files/figure-html/chapter%205%20exercise%202d-1.png" width="672" /></p>
 </div>
 </div>
