@@ -520,7 +520,7 @@ theoretical_probs <- data.frame(
 # simulating the data
 set.seed(123)
 snd <- data.frame(
-  sample = rnorm(1000000, mean = 0, sd = 1)
+  sample = rnorm(100, mean = 0, sd = 1)
 )
 
 # Function to simulate rolling a die n_rolls times, repeated n_sim times
