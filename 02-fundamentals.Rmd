@@ -1,65 +1,63 @@
-# Fundamentals
+# Grundlagen
 
-In this Chapter you will learn the user interface and basic functions in R. The user interface, as well as the basic functions for mathematical calculations. Further, you will be introduced to one of the most important logical operations: the if else function. The goal of this chapter is to give you an overview of RStudio and to give you a feeling and intuition for R by introducing you to mathematical concepts you already know. Do not forget, nobody is perfect, everyone has problems in the beginning and they can be frustrating, but that is most normal thing, when learning a new programming language. Have fun!
+In diesem Kapitel lernst du die Benutzeroberfläche und die grundlegenden Funktionen in R kennen. Dazu gehören sowohl die Oberfläche als auch die Basisfunktionen für mathematische Berechnungen. Außerdem wirst du in eine der wichtigsten logischen Operationen eingeführt: die if-else-Struktur. Ziel dieses Kapitels ist es, dir einen Überblick über RStudio zu geben und dir ein erstes Gefühl sowie eine Intuition für R zu vermitteln – anhand mathematischer Konzepte, die du bereits kennst. Vergiss nicht: Niemand ist perfekt. Am Anfang haben alle Schwierigkeiten, und das kann frustrierend sein. Das ist völlig normal beim Lernen einer neuen Programmiersprache. Viel Spaß!
 
-## Getting familiar with RStudio and establishing a Workflow
+## RStudio kennenlernen und einen Workflow etablieren
 
-### The user interface
+### Die Benutzeroberfläche
 
-RStudio has four main components and each of them has a purpose:
+RStudio besteht aus vier Hauptbereichen, die jeweils eine bestimmte Funktion erfüllen:
 
-![**Figure 1: Standard RStudio Interface**](images/example1.jpeg){width="4750"}
+![**Abbildung 1: Standard-RStudio-Oberfläche**](images/example1.jpeg){width="4750"}
 
--   **On the top left** you can see the **Source** window. In this window you write and run your code. The console opens after you choose, which type of Script you want to use:
+-   **Oben links** befindet sich das **Source-Fenster**. Hier schreibst und ausführst du deinen Code. Die Konsole öffnet sich, nachdem du ausgewählt hast, welchen Skripttyp du verwenden möchtest:
 
--   The standard **R Script** (`Ctrl + Shift + N`): In this file you can just write your code and run it. You can also make commenting lines with putting a `#` in front of it.
+-   Das klassische **R-Skript** (`Ctrl + Shift + N`): In dieser Datei kannst du Code schreiben und ausführen. Kommentare fügst du hinzu, indem du ein `#` vor die entsprechende Zeile setzt.
 
--   The **R Markdown File**: In contrast to the standard **R Script** not everything written in a **R Markdown File** is automatically considered as Code (if not written after an `#`). A **R Markdown File** has options to design an HTML Output and a PDF Output. This can increase your efficiency in terms of working with partners. Further, you can write your code in **chunks** and have plenty options to work with those **chunks**. In QM and AQM you will exclusively use **R Markdown** and over time you will see the advantages of R Markdown.
+-   Die **R-Markdown-Datei**: Im Gegensatz zum klassischen **R-Skript** wird in einer **R-Markdown-Datei** nicht alles automatisch als Code interpretiert (sofern es nicht als Code gekennzeichnet ist). Eine **R-Markdown-Datei** bietet die Möglichkeit, HTML- oder PDF-Outputs zu erzeugen. Das erhöht die Effizienz, insbesondere bei der Zusammenarbeit. Außerdem kannst du Code in sogenannten **Chunks** strukturieren und hast zahlreiche Optionen zur Steuerung dieser **Chunks**. In QM und AQM wirst du ausschließlich mit **R Markdown** arbeiten und mit der Zeit die Vorteile erkennen.
 
--   **On the top right** you can see the **Environment**. Here you have an overview over all the objects currently loaded in your environment. You will learn more about objects later in the course.
+-   **Oben rechts** siehst du das **Environment**. Hier erhältst du einen Überblick über alle aktuell geladenen Objekte. Mehr über Objekte erfährst du später im Kurs.
 
--   **On the bottom left** you have the **Console**: This is where the results appear once you execute your R-code. You can also directly type R-code into the console and execute it. However, we cannot save this code which is why we usually work in the Editor.
+-   **Unten links** befindet sich die **Konsole**: Hier erscheinen die Ergebnisse, sobald du deinen R-Code ausführst. Du kannst Code auch direkt in die Konsole eingeben. Allerdings wird dieser Code nicht gespeichert, weshalb wir in der Regel im Editor arbeiten.
 
--   **On the bottom right** you can see the **Output**: Plots (if you use the standard R Script) and other things will appear here, don't worry too much about it for the moment.
+-   **Unten rechts** findest du den **Output-Bereich**: Hier erscheinen beispielsweise Plots (bei Verwendung eines klassischen R-Skripts) und andere Ausgaben. Für den Moment musst du dich damit noch nicht intensiver beschäftigen.
 
-### How to design it according to your preferences (optional)
+### Oberfläche anpassen (optional)
 
--   You can change the appearance of `RStudio`: `Tools > Global Options > Appearance`. Here you can change the zoom of the Console, the font size of the your letters and the style of your code. Further, you can change RStudio to a dark theme. Play around with it and find out how it is the most comfortable for you and of course you can change it over time.
+-   Du kannst das Erscheinungsbild von `RStudio` ändern: `Tools > Global Options > Appearance`. Hier kannst du unter anderem die Zoomstufe der Konsole, die Schriftgröße und das Farbschema anpassen. Außerdem kannst du ein dunkles Theme aktivieren. Probiere verschiedene Einstellungen aus und finde heraus, was für dich am angenehmsten ist – du kannst es jederzeit wieder ändern.
 
--   You can change the **Pane Layout** meaning where the four components of RStudio should be: `RStudio`: `Tools > Global Options > Pane Layout`.
+-   Du kannst das **Pane Layout** ändern, also die Anordnung der vier Bereiche: `Tools > Global Options > Pane Layout`.
 
--   You should use key shortcuts. There are pre-installed short-cuts of RStudio, which are really helpful. You should get familiar with them. `Tools > Key Shortcut Helps` or directly with `Ctrl + Shift + K`. You can add your own Key Shortcuts and we will do that in this course.
+-   Nutze Tastenkürzel. RStudio bietet viele voreingestellte Shortcuts, die sehr hilfreich sind. Du solltest dich mit ihnen vertraut machen: `Tools > Keyboard Shortcuts Help` oder direkt mit `Ctrl + Shift + K`. Du kannst auch eigene Shortcuts definieren – das werden wir im Kurs tun.
 
-## Lets get started: R as a fancy calculator
+## Los geht’s: R als leistungsfähiger Taschenrechner
 
-### Mathmetical Operations in R
+### Mathematische Operationen in R
 
-You can use R for basic calculations:
+R kann für einfache Berechnungen verwendet werden:
 
 ```{r calculations}
-
-#You can use hashtags to comment
+#Mit dem Hashtag kannst du Kommentare schreiben
 
 1 + 1 #Addition
 
-1 - 1 #Substraction
+1 - 1 #Subtraktion
 
-1 * 1 #Multiplication 
+1 * 1 #Multiplikation 
 
 1 / 1 #Division
 
-2^(1 / 2) #Mixed Terms
-
+2^(1 / 2) #Gemischter Term
 ```
 
-You can use R also for TRUE/FALSE statements for logical statements via the comparison operators:
+Du kannst R auch für logische TRUE/FALSE-Aussagen verwenden – mithilfe von Vergleichsoperatoren:
 
--   `>` greater than
--   `<` smaller than
--   `==` equal
--   `!=` not equal
--   `>=` greater than or equal to
--   `<=` less than or equal to
+-   `>` größer als
+-   `<` kleiner als
+-   `==` gleich
+-   `!=` ungleich
+-   `>=` größer oder gleich
+-   `<=` kleiner oder gleich
 
 ```{r logical operators}
 
@@ -77,7 +75,13 @@ You can use R also for TRUE/FALSE statements for logical statements via the comp
 
 ```
 
-You can also use logical operators: - `&` element-wise AND operator. It returns TRUE if both elements are true - `|` element-wise OR operator. It returns TRUE if one of the statements is TRUE - `!` Logical NOT operator. It returns FALSE if statement is TRUE
+Weitere logische Operatoren:
+
+-   `&` elementweises UND – gibt TRUE zurück, wenn beide Aussagen TRUE sind
+
+-   `|` elementweises ODER – gibt TRUE zurück, wenn mindestens eine Aussage TRUE ist
+
+-   `!` logisches NICHT – kehrt den Wahrheitswert um
 
 ```{r logical statements}
 
@@ -89,323 +93,326 @@ You can also use logical operators: - `&` element-wise AND operator. It returns 
 
 ```
 
-### Using Commands
+### Verwendung von Funktionen
 
-For more advanced operations you can and should use functions. Functios are mostly a word with brackets. Within a function, there are so called arguments. These arguments specify the function and give it the information it needs + optional information.
+Für komplexere Operationen solltest du Funktionen verwenden. Funktionen bestehen meist aus einem Namen mit runden Klammern. Innerhalb der Klammern befinden sich sogenannte Argumente. Diese liefern der Funktion die benötigten Informationen.
 
-e.g.
+Beispiele:
 
--   `sqrt(x)` taking the square root, `x` is any number.
--   `exp(x)` the constant e, `x` is any number.
--   `mean(x)` for the mean, `x` is any number.
--   `median(x)` for the median, `x` is any number.
+-   `sqrt(x)` berechnet die Quadratwurzel, `x` ist eine Zahl.
+
+-   `exp(x)` berechnet e hoch x.
+
+-   `mean(x)` berechnet den Mittelwert.
+
+-   `median(x)` berechnet den Median.
 
 ```{r functions, eval=FALSE}
-sqrt(x = 36) #square root
+sqrt(x = 36) #Quadratwurzel
 
-exp(x = 0) # exponential of 1
+exp(x = 0) #Exponentialfunktion
 
-print("U can stay under my umbrella") #with this command you can print what you want 
+print("Über 7 Brücken musst du gehen") #Mit diesem Befehl kannst du beliebigen Text ausgeben
 ```
 
-I explicitly choose easy examples, but sometimes commands can be complicated, because they demand special inputs. To get help, our first step should be to ask R itself:
+Manche Funktionen erfordern spezielle Eingaben. Wenn du Hilfe brauchst:
 
--   You can put a question mark in front of a function and execute it. In your output under the tab "Help" an explanation with examples will pop up and explain the function.
+-   Setze ein Fragezeichen vor eine Funktion und führe den Befehl aus.
 
--   You can also call the help() function and put the function you want to learn about without brackets in the help() function.
+-   Oder nutze `help()` und gib den Funktionsnamen ohne Klammern an.
 
 ```{r help}
-?exp() #questionmark
-help(exp) #help command
+?exp() #Fragezeichen-Methode
+help(exp) #help-Funktion
 ```
 
-### Assigning objects and printing them
+### Objekte zuweisen und ausgeben
 
-Most of the time you will store your results in objects.
+Ergebnisse werden meist in Objekten gespeichert.
 
--   You can do so by using the `<-` operator. Afterwards you can work with the objects. Let us assign numbers to out objects.
-
--   The objects will be saved and you can see them in your environment.
+-   Mit `<-` weist du einem Objekt einen Wert zu.
 
 ```{r objects}
-Pizza <- 7.50 #pizza object
+Pizza <- 7.50 #Objekt Pizza
 
-Cola <- 3.50 #cola object
+Cola <- 3.50 #Objekt Cola
 
-Pizza + Cola #addition of objects
+Pizza + Cola #Addition der Objekte
 ```
 
-We can then go on work with the content of the objects.
+Wir können nun mit den Objekten weiterarbeiten und Sie nachnutzen:
 
--   For beginners, let us add the object Pizza and the object Cola together.
+-   Lasst uns für den Anfang doch einfach die Summe aus dem Objekt `Pizza` und `Cola` bilden
 
--   We can also save the result of those object in a new object and work with this object and this can go on forever technically.
+-   Wir könnten die Summe aus `Pizza` und `Cola` ebenfalls in einem weiteren Objekt speichern und dann dieses Objekt weiternutzen und so könnte man stetig weitere Objekte aus Objekten entstehen lassen.
 
 ```{r}
-Offer <- Pizza + Cola #assigning addition 
+Angebot <- Pizza + Cola #Addition speichern 
 
-Offer #printing the object
+Angebot #Objekt ausgeben
 
-Offer^2 #square the term with ^2
+Angebot^2 #Term quadrieren
 ```
 
-### Vectors
+### Vektoren
 
-In R a vector contains more than one information.
+Ein Vektor enthält mehrere Werte.
 
--   You use the `c()` command, and divide the information with a `,`. Let us compare food prices:
+-   Mit `c()` erzeugst du einen Vektor. Du kannst die Werte innerhalb des Vektors mit einem Komma (`,`) trennen.
 
 ```{r interacting objects}
 
-food <- c("Pizza", "Kebab", "Curry", 
-          "Fish", "Burrito") #food vector
+essen <- c("Pizza", "Kebab", "Curry", 
+          "Fish", "Burrito") #Lebensmittel-Vektor
 
-print(food) #printing it 
+print(essen)
 
-prices <- c(7.50, 6.00, 8.50, 3.00, 11.00) #price vector
+preise <- c(7.50, 6.00, 8.50, 3.00, 11.00) #Preis-Vektor
 
-print(prices) #printing it
+print(preise)
 
-cola_prices <- c(3.50, 3, 4, 2.50, 3) #cola prices vector
+cola_preise <- c(3.50, 3, 4, 2.50, 3) #Cola-Preise
 
-print(cola_prices) #printing it
+print(cola_preise)
 ```
 
 Now we can calculate the prices for a decent meal in one step by adding the two vectors together. The vector prices_combined will give us the prices for a meal plus a cola:
 
-```{r interacting objects 2}
-prices_combined <- prices + cola_prices #prices combined
+Jetzt können wir aus den Preis für die mahlzeiten (Essen + Getränk) in einem Schritt berechnen, indem wir die beiden Vektoren addieren und so einen Vektor bekommen, der den Preis für das Essen plus die Cola anzeigt.
 
-print(prices_combined) #printing it
+```{r interacting objects 2}
+preise_kombiniert <- preise + cola_preise #Preise addieren
+
+print(preise_kombiniert)
 ```
 
-### Object Classes
+### Objekt Klassen
 
-Objects can contain information of different *data types*:
+Objekte können unterschiedliche Datentypen besitzen:
 
-|               |               |                                              |
-|---------------|---------------|----------------------------------------------|
-| **Numeric**   | Numbers       | `c(1, 2.4, 3.14, 4)`                         |
-| **Character** | Text          | `c("1", "blue", "fun", "monster")`           |
-| **Logical**   | True or false | `c(TRUE, FALSE, TRUE, FALSE)`                |
-| **Factor**    | Category      | `c("Strongly disagree", "Agree", "Neutral")` |
+|               |            |                                                |
+|---------------|------------|------------------------------------------------|
+| **Numeric**   | Zahlen     | `c(1, 2.4, 3.14, 4)`                           |
+| **Character** | Text       | `c("1", "blue", "Spaß", "monster")`            |
+| **Logical**   | TRUE/FALSE | `c(TRUE, FALSE, TRUE, FALSE)`                  |
+| **Factor**    | Kategorie  | `c("Stimme nicht zu", "Neutral", "Stimme zu")` |
 
-For data analysis commands sometimes require special object classes. With the `class()` command we can find out the class. And with `as.numeric` for example we can change classes by assigning it to itself, by it is common to assign it to a new object:
+Für die Datenanalyse erfordern Befehle manchmal spezielle Objektklassen. Mit dem Befehl `class()` können wir die Klasse herausfinden. Und mit `as.numeric` können wir beispielsweise Klassen ändern, indem wir sie sich selbst zuweisen, wobei es üblich ist, sie einem neuen Objekt zuzuweisen:
 
 ```{r classes}
-#Let us find out the classes 
-class(prices) #numeric
-class(food) #character
-class(cola_prices) #numeric
+#Klassen überprüfen
+class(preise)
+class(essen)
+class(cola_preise)
 ```
 
-We can also change the classes of variables. To do so, we can use `as.factor()`, `as.numeric()`, `as.character()` and so forth. You can do that for every class. Let us change the cola_prices to a vector.
+Wir können auch die Klassen von Variablen ändern. Dazu können wir `as.factor()`, `as.numeric()`, `as.character()` usw. verwenden. Das können Sie für jede Klasse tun. Lassen Sie uns `cola_preise` in einen Vektor ändern.
 
--   To do so, we change call `as.character()` and put the object in it. Then we assign it to another object called `cola_prices_character`. This object will have the class `"character"`.
+-   Dazu ändern wir call `as.character()` und fügen das Objekt hinzu. Anschließend weisen wir es einem anderen Objekt namens `cola_preise_character` zu. Dieses Objekt hat die Klasse „character”.
 
 ```{r changing classes}
 #We want the cola_prices vector to be a character 
-cola_prices_character <- as.character(cola_prices)
+cola_preise_character <- as.character(cola_preise)
 
 #Checking it
-class(cola_prices_character)
-print(cola_prices_character)
+class(cola_preise_character)
+print(cola_preise_character)
 ```
 
-### Matrices
+### Matrizen
 
-#### Making Matrices
+#### Matrizen erstellen
 
-There are different ways of building a matrix. Let us start by just binding the vectors as columns together. You can do that `cbind()` if you want to bind columns together. `rbind()` is therefore the command to bind rows together.
+Es gibt verschiedene Möglichkeiten, eine Matrix zu erstellen. Beginnen wir damit, die Vektoren einfach als Spalten miteinander zu verbinden. Dazu können Sie `cbind()` verwenden, wenn Sie Spalten miteinander verbinden möchten. `rbind()` ist daher der Befehl, um Zeilen miteinander zu verbinden.
 
--   You have to call `cbind()` and include the vectors you want to bind together
+-   Ihr müsst `cbind()` aufrufen und die Vektoren angeben, die ihr miteinander verbinden möchtet.
 
--   The same with `rbind()`
+-   Das Gleiche gilt für `rbind()`.
 
 ```{r matrix}
-price_index <- cbind(food, 
-                     prices,
-                     cola_prices) #We bind it together
+preis_index <- cbind(essen, 
+                     preise,
+                     cola_preise) #Spalten zusammenfügen
 
-print(price_index) #We print it 
+print(preis_index) #Ausgeben lassen
 
-#Let's do the same by binding the rows together
+#Lasst uns das Gleiche machen, indem wir die Zeilen zusammenfassen
 
-price_index2 <- rbind(food, 
-                     prices,
-                     cola_prices) #We bind it together
+preis_index2 <- rbind(essen, 
+                     preise,
+                     cola_preise) #Wir binden die Zeilen zusammen
 
-print(price_index2) #We print it 
+print(preis_index2) #Ausgeben lassen
 ```
 
-We can also generate a matrix by simulating it. There are a lot of things to care about, simply because a lot is possible:
+Wir können eine Matrix auch durch Simulation generieren. Dabei gibt es viele Dinge zu beachten, einfach weil vieles möglich ist:
 
--   You first call the matrix() command.
+-   Zuerst ruft ihr den Befehl `matrix()` auf.
 
--   The first argument is an interval of numbers. These are our total observations if you want.
+-   Das erste Argument ist ein Zahlenintervall. Das sind sozusagen unsere gesamten Beobachtungen.
 
--   The second and third argument are our number of rows `nrow()` and our number of columns `ncol()`. If you multiply them, they have to result in the number of observations you defined before. We have 20 numbers and 4 multiplied by 5 is 20, thus this is fine.
+-   Das zweite und dritte Argument sind unsere Zeilenzahl `nrow()` und unsere Spaltenzahl `ncol()`. Wenn Sie diese miteinander multiplizieren, müssen sie die zuvor definierte Anzahl von Beobachtungen ergeben. Wir haben 20 Zahlen und 4 mal 5 ergibt 20, also ist das in Ordnung.
 
--   Lastly you have to define if the numbers should be included from left to right, thus by row or if they should be ordered from top to bottom. We go through both examples and then it should become clear.
+-   Zuletzt müssen Sie festlegen, ob die Zahlen von links nach rechts, also zeilenweise, oder von oben nach unten angeordnet werden sollen. Wir gehen beide Beispiele durch, dann sollte es klar werden.
 
--   The `dim()` command is helpful, because it shows us to inspect the dimensions.
+-   Der Befehl `dim()` ist hilfreich, weil er uns zeigt, wie wir die Dimensionen überprüfen können.
 
 ```{r simulating matrix}
-# Create a matrix
-matrix_example <- matrix(1:20, nrow = 4, ncol = 5, byrow = T) #
+# Matrix erzeugen
+matrix_beispiel <- matrix(1:20, nrow = 4, ncol = 5, byrow = T) #
 
 # Checking it
-print(matrix_example)
+print(matrix_beispiel)
 # Checking the dimensions
-dim(matrix_example)
+dim(matrix_beispiel)
 
-# What happens if byrow is set to FALSE?
-matrix_example2 <- matrix(1:20, nrow = 4, ncol = 5, byrow = F)
+# Was passiert wenn wir byrow auf FALSE setzen?
+matrix_beispiel2 <- matrix(1:20, nrow = 4, ncol = 5, byrow = F)
 
 # Checking it 
-print(matrix_example2)
-dim(matrix_example2)
+print(matrix_beispiel2)
+dim(matrix_beispiel2)
 ```
 
-#### Working with Matrices
+#### Arbeiten mit Matrizen
 
-We want to work with matrices. The first tool to learn is how to inspect the matrices:
+Wir möchten mit Matrizen arbeiten. Als Erstes müssen wir lernen, wie man Matrizen überprüft:
 
--   First, you call the matrix. In our example, matrix_example with square brackets.
+-   Zunächst ruft ihr die Matrix auf. In unserem Beispiel `matrix_beispiel` mit eckigen Klammern.
 
--   In these brackets you can call single rows by entering the number of the row you want to inspect, and then you put a comma behind it to signal R that you want to have the row.
+-   In diesen Klammern könnt ihr die einzelne Zeilen aufrufen, indem ihr die Nummer der Zeile eingebt, die ihr überprüfen möchten, und dann ein Komma dahinter setzt, um R zu signalisieren, dass ihr die Zeile haben möchten.
 
--   If you put a number behind the comma, you tell R to give you the column with the number.
+-   Wenn ihr eine Zahl hinter das Komma setzt, weist ihr R an, euch die Spalte mit der Nummer anzuzeigen.
 
--   If you want a single number then you have to define a row and a column.
+-   Wenn ihr eine einzelne Zahl möchtet, müsst ihr eine Zeile und eine Spalte definieren.
 
 ```{r working with matrices}
-#Let us get used to work with objects
-row <- 1 
-column <- 1 
+#Lasst uns angewöhnen mit Objekten zu arbeiten
+zeile <- 1 
+spalte <- 1 
 
-#Printing it
-print(object1 <- matrix_example[row, ]) #printing the first row
-print(object2 <- matrix_example[, column]) #printing the first column 
-print(object3 <- matrix_example[row, column]) #printing first row and column
+#Ausgeben lassen
+print(objekt1 <- matrix_beispiel[zeile, ]) #erste zeile ausgeben
+print(objekt2 <- matrix_beispiel[, spalte]) #erste spalte ausgeben 
+print(objekt3 <- matrix_beispiel[zeile, spalte]) #Wert in erster Spalte und erster Zeile ausgeben lassen
 
-print(matrix_example) #printing the matrix
+print(matrix_beispiel) #matrix ausgeben lassen
 ```
 
 ```{r matrix info}
-#More Information 
+#Mehr Informationen 
 
-nrow(matrix_example) #How many rows
+nrow(matrix_example) #Wie viele zeilen
 
-ncol(matrix_example) #How many columns
+ncol(matrix_example) #Wie viele spalten
 
-dim(matrix_example) #Overall dimensions
+dim(matrix_example) #wie viele dimensionen
 ```
 
 ### Data Frames
 
-The next type of data storage are data frames. These are the standard storage objects for data in R. The reason is simple, matrices are only able to contain one type of variables (numeric, character, etc...).
+Die nächste Art der Datenspeicherung sind Data Frames. Dies sind die Standard-Speicherobjekte für Daten in R. Der Grund dafür ist einfach: Matrizen können nur einen Variablentyp enthalten (numerisch, Zeichen usw.), während Data Frames verschiedene Datentypen beinhalten können.
 
--   In this example, we have a dataset with the variable country (character), the capital (character), the population in mio (numeric), and a if the country is in europe (logical)
+-   In diesem Beispiel haben wir einen Datensatz mit der Variable „Land“ (character), der Hauptstadt (character), der Bevölkerung (numeric) in Millionen und einer Angabe, ob das Land in Europa liegt (logisch).
 
 ```{r dfs}
 # making an example df
-df_example <- data.frame(
-    country = c("Austria", "England", 
+df_beispiel <- data.frame(
+    land = c("Austria", "England", 
                 "Brazil", "Germany"), 
-    capital = c("Vienna", "London", 
+    hauptstadt = c("Vienna", "London", 
                 "Brasilia", "Berlin"), 
-    pop = c(9.04, 55.98, 215.3, 83.8),
-    europe = c(TRUE, FALSE, TRUE, TRUE)
+    bev = c(9.04, 55.98, 215.3, 83.8),
+    europa = c(TRUE, FALSE, TRUE, TRUE)
   )
 
 # Checking it
-print(df_example)
+print(df_beispiel)
 ```
 
--   If you want to work with data frames you can call columns by calling the name of the data frame putting a dollar sign behind it and then calling the name of the column, you want to inspect:
+-   Wenn Sie mit Datenrahmen arbeiten möchten, können Sie Spalten aufrufen, indem Sie den Namen des Datenrahmens mit einem Dollarzeichen dahinter und anschließend den Namen der Spalte, die Sie überprüfen möchten, aufrufen:
 
 ```{r getting columns}
-df_example$country  
+df_beispiel$land  
 ```
 
-You see that you get the vector of the column. We can go further and work more with data frames
+Sie sehen, dass Sie den Vektor der Spalte erhalten. Wir können noch weiter gehen und mehr mit Datenrahmen arbeiten
 
--   Let us call a single observation in the data frame: You call the column you want to inspect the same way as before, this time you also put square brackets behind and call the number of the observation in the column.
+-   Rufen wir eine einzelne Beobachtung im Datenrahmen auf: Sie rufen die Spalte, die Sie untersuchen möchten, auf die gleiche Weise wie zuvor auf, diesmal fügen Sie jedoch eckige Klammern hinzu und geben die Nummer der Beobachtung in der Spalte an.
 
--   We want to have "Brazil". "Brazil" is the third element of the `df_example$country`, thus we include 3 in the square brackets:
+-   Wir möchten „Brazil” haben. „Brazil” ist das dritte Element von df_beispiel\$land, daher setzen wir eine 3 in die eckigen Klammern:
 
 ```{r inspect data frames}
-df_example$country[3]
+df_example$land[3]
 ```
 
-The last thing to do with data frames is to get columns based on conditions. In the next part of this chapter we will get a method to do so, but we can do so as well with the data frame. Imagine you want to have a vector of `df$country`, but only with countries that have a `df$pop` bigger than 60. Meaning a population bigger than 60.
+Das Letzte, was wir mit Datenrahmen tun müssen, ist, Spalten basierend auf Bedingungen zu erhalten. Im nächsten Teil dieses Kapitels werden wir eine Methode dafür kennenlernen, aber wir können dies auch mit dem Datenrahmen tun. Stellen Sie sich vor, Sie möchten einen Vektor von `df$land` haben, aber nur mit Ländern, deren `df$bev` größer als 60 ist. Das bedeutet eine Bevölkerung von mehr als 60 Einwohnern.
 
--   To do so we call the `df$country` column and put square brackets behind it
+-   Dazu rufen wir die Spalte `df$land` auf und setzen sie in eckige Klammern.
 
--   Further we need to call in the square brackets the condition. Thus, the variable `df_example$pop` and set it to bigger than 60. Et voila, we get the columns of `df_example$country` bigger than 60.
+-   Außerdem müssen wir in den eckigen Klammern die Bedingung aufrufen. Also die Variable df_example\$pop und sie auf größer als 60 setzen. Et voilà, wir erhalten die Spalten von `df_example$land`, die größer als 60 sind.
 
 ```{r dfs conditions}
-df_example$country[df_example$pop > 60]
+df_beispiel$land[df_beispiel$bev > 60]
 ```
 
-## `ifelse` statements and the `ifelse()` function
+## `ifelse` statements und die `ifelse()` funktion
 
-One of the most frequently used and therefore most important logical operators in programming in general are `ifelse` commands. You probably know them from Excel, but every programming language includes them, because of their usefulness. A quick reminder of their logic.
+Einer der am häufigsten verwendeten und daher wichtigsten logischen Operatoren in der Programmierung im Allgemeinen sind `ifelse`-Befehle. Sie kennen sie wahrscheinlich aus Excel, aber aufgrund ihrer Nützlichkeit sind sie in jeder Programmiersprache enthalten. Eine kurze Erinnerung an ihre Logik.
 
-### If else statement with only one condition
+### If else statements mit einer Bedingung
 
-First, you define an if statement. The if statement is a logical statement for example bigger, smaller than X. The logical statement is your test expression. With this you tell the program to test the condition for an object, in excel a cell or whatever object in your programming language can be tested. The program then checks if the condition is TRUE or FALSE. Until this point every if else is the same and now we will look at some variations:
+Zunächst definieren Sie eine if-Anweisung. Die if-Anweisung ist eine logische Anweisung, zum Beispiel größer, kleiner als X. Die logische Anweisung ist Ihr Testausdruck. Damit weisen Sie das Programm an, die Bedingung für ein Objekt zu testen, in Excel eine Zelle oder jedes andere Objekt, das in Ihrer Programmiersprache getestet werden kann. Das Programm prüft dann, ob die Bedingung WAHR oder FALSCH ist. Bis zu diesem Punkt sind alle if-else-Anweisungen gleich, nun sehen wir uns einige Varianten an:
 
-![***Figure 2: Logic of if-else statements***](images/r-if-else-statement_2.png){fig-align="center" width="350"}
+![***Figure 2: Logik eines if-else statements***](images/r-if-else-statement_2.PNG){fig-align="center" width="350"}
 
-Figure 2 shows the logic of an if else statement with one condition. We say that if the test expression is true something should happen. If not nothing happens, because nothing was defined.
+Abbildung 2 zeigt die Logik einer if-else-Anweisung mit einer Bedingung. Wir sagen, dass etwas passieren soll, wenn der Testausdruck wahr ist. Wenn nicht, passiert nichts, da nichts definiert wurde.
 
--   We want R to judge our grades in school. For this reason we define an object called grade and assign 1.7 to it.
+-   Wir möchten, dass R unsere Noten in der Schule bewertet. Aus diesem Grund definieren wir ein Objekt namens „grade” und weisen ihm den Wert 1,7 zu.
 
--   In the next step we call if and open a bracket. We include the test expression in the bracket, which shall be if grade, our grade is smaller than 2
+-   Im nächsten Schritt rufen wir „if“ auf und öffnen eine Klammer. Wir fügen den Testausdruck in die Klammer ein, der lauten soll: „if grade, our grade is smaller than 2“ (wenn Note, unsere Note kleiner als 2 ist).
 
--   Then we open curly brackets to define what should happen if the test expression is TRUE. Meaning what should happen if the grade is better than 2. We define print("Good Job").
+-   Dann öffnen wir geschweifte Klammern, um zu definieren, was passieren soll, wenn der Testausdruck „TRUE“ (wahr) ist. Das heißt, was passieren soll, wenn die Note besser als 2 ist. Wir definieren „print(„Good Job“)“.
 
--   Here is the general logic of a if else statement:
+-   Hier ist die generelle Logik von ifelse statements:
 
-    `if (test expression) {`
+    `if (Testausdruck) {`
 
-    `Body of if`
+    `Körperausdruck`
 
     `}`
 
 ```{r if else statements}
 
-grade <- 1.7 
+note <- 1.7 
 
-if(grade < 2) {
+if(note < 2) {
   print("Good Job")
-} # You write down if(test expression), and then the {body expression}, thus the body expression in fancy brackets.
+} # Sie schreiben if(Testausdruck) und dann den {Körperausdruck}, also den Körperausdruck in geschweiften Klammern.
 
-grade <- 2.5 
+note <- 2.5 
 
-if(grade < 2) {
+if(note < 2) {
   print("Good Job")
-} #Since the condition is not met, nothing happens
+} #Da die Bedingung nicht erfüllt ist, passiert nichts.
 
 ```
 
-As you can see if the grade is bigger than 2 nothing happens. Otherwise "Good Job" is printed as intended.
+Wie Sie sehen können, passiert nichts, wenn die Note größer als 2 ist. Andernfalls wird wie vorgesehen „Good Job“ ausgegeben.
 
-### if statements with else condition
+### if-Anweisungen mit else-Bedingung
 
-An if command on its own is quite useless. Things get interesting, when we also have a body for the else command. What happens now, is that instead of nothing being printed when the test expression is FALSE. Then the body of else is printed.
+Ein if-Befehl allein ist ziemlich nutzlos. Interessant wird es, wenn wir auch einen Körper für den else-Befehl haben. Was nun passiert, ist, dass nicht mehr nichts ausgegeben wird, wenn der Testausdruck FALSE ist. Stattdessen wird der Körper von else ausgegeben.
 
-![**Figure 3: Standard RStudio Interface**](images/r-if-statement.png){fig-align="center" width="350"}
+![**Figure 3: Standard RStudio Interface**](images/r-if-statement.PNG){fig-align="center" width="350"}
 
-Now we just add a **body of else** into the equation, in R that means we need to define it:
+Jetzt fügen wir einfach einen **else-Block** in die Gleichung ein. In R bedeutet das, dass wir ihn definieren müssen:
 
--   We take the if else statement of the chunk before and now we add an `else` and open curly brackets, where we define the body of `else`.
+-   Wir nehmen das if-else-Statement aus dem vorherigen Abschnitt und fügen nun ein `else` hinzu und öffnen geschweifte Klammern `{}`, in denen wir den Inhalt von `else` definieren.
 
 ```{r more if else statements}
 
-grade <- 3.3 #assigning a grade
+grade <- 3.3 #Note zuweisen
 
 if (grade <= 2) {
   print("Good Job")
@@ -413,7 +420,7 @@ if (grade <= 2) {
   print("Life goes on")
 } 
 
-grade <- 1.3 #assigning a grade
+grade <- 1.3 #Note zuweisen
 
 if (grade <= 2) {
   print("Good Job")
@@ -422,37 +429,35 @@ if (grade <= 2) {
 }
 ```
 
-We see that in any case a result is printed.
+Wir sehen, dass in jedem Fall ein Ergebnis ausgegeben wird.
 
-### The `ifelse()` command
+### Der `ifelse()` Befehl
 
-What you see above is the manual way of coding an if else condition. But there is also an ifelse() function in R, where you do not have different colors and fancy brackets everywhere.
+Das oben gezeigte ist die manuelle Art, eine if-else-Bedingung zu programmieren. In R gibt es jedoch auch die Funktion `ifelse()`, bei der man keine verschiedenen Farben und geschweiften Klammern benötigt.
 
--   you call ifelse()
-
--   The first argument is your test expression
-
--   The second the body of if
-
--   The third the body of else
+-   Man ruft `ifelse()` auf.
+-   Das erste Argument ist der Testausdruck.
+-   Das zweite Argument ist der Ausdruck für den if-Fall.
+-   Das dritte Argument ist der Ausdruck für den else-Fall.
 
 `ifelse(test expression, body of if, body of else)`
 
 ```{r ifelse command}
-ifelse(grade <=2, "Good Job", "Life goes on") #ifelse command
+ifelse(grade <=2, "Good Job", "Life goes on") #ifelse Befehl
 ```
 
-### if else ladders/ if else with multiple conditions
+### if-else-Ketten / if-else mit mehreren Bedingungen
 
-The world is a complex place. Sometimes things are not black and white. Thus we have to be prepared for different scenarios. To make it less melodramatic, if else statements are also possible with several bodies of else. Let us take the example that we want to have a statement of R regarding our grade for different number intervals. What R does is to check the first condition, afterward he checks the second test expression and so forth until he finds a hit and prints it. If no expression is found, you have to define a last else expression.
+Die Welt ist komplex. Manchmal sind Dinge nicht einfach schwarz oder weiß. Deshalb müssen wir auf verschiedene Szenarien vorbereitet sein. Weniger dramatisch formuliert: if-else-Statements können auch mehrere else-Zweige enthalten.
 
--   You add else if with curly brackets where the test expression is included.
+Nehmen wir das Beispiel, dass wir abhängig von unserer Note unterschiedliche Ausgaben von R erhalten möchten. R prüft zuerst die erste Bedingung, danach den zweiten Testausdruck und so weiter, bis eine passende Bedingung gefunden wird und diese ausgegeben wird. Wenn keine Bedingung zutrifft, muss ein letzter else-Ausdruck definiert werden.
 
--   Lastly, you define an else with curly brackets for the case there is not test expression
+-   Man fügt `else if` mit geschweiften Klammern hinzu, in denen der Testausdruck steht.
+-   Zum Schluss definiert man ein `else` mit geschweiften Klammern für den Fall, dass keine Testbedingung zutrifft.
 
 ```{r if else multiple}
 
-grade <- 3.3 #Assigning a grade
+grade <- 3.3 #Note zuweisen
 
 if (grade == 1.0) {
   print("Amazing") 
@@ -466,7 +471,7 @@ if (grade == 1.0) {
   print("No expression found")
 }
   
-grade <- 1.7 #Assigning a grade
+grade <- 1.7 #Note zuweisen
 
 if (grade == 1.0) {
   print("Amazing") 
@@ -480,7 +485,7 @@ if (grade == 1.0) {
   print("No expression found")
 }
 
-grade <- 5.0 #Assigning a grade
+grade <- 5.0 #Note zuweisen
 
 if (grade == 1.0) {
   print("Amazing") 
@@ -495,15 +500,15 @@ if (grade == 1.0) {
 }
 ```
 
-Again we can do so-called **nested ifelse function**, using the `ifelse()` command:
+Dasselbe können wir auch mit einer sogenannten **verschachtelten ifelse-Funktion** umsetzen, indem wir den `ifelse()`-Befehl verwenden:
 
--   Instead of defining an else condition, we define another `ifelse()` command and do as long as we need to.
-
--   The last `ifelse()` is then the only one with a clear else condition.
+-   Anstatt eine else-Bedingung zu definieren, definieren wir einfach ein weiteres `ifelse()`.
+-   Das wiederholen wir so lange wie nötig.
+-   Das letzte `ifelse()` enthält dann die finale else-Bedingung.
 
 ```{r ifelse nested}
 
-grade <- 1.7 #Assigning a grade
+grade <- 1.7 #Note zuweisen
 
 ifelse(grade == 1.0, "Amazing", 
        ifelse(grade > 1 & grade <= 2, "Good Job", 
@@ -515,7 +520,7 @@ ifelse(grade == 1.0, "Amazing",
               )
        )
 
-grade <- 3.3 #Assigning a grade
+grade <- 3.3 #Note zuweisen
 
 ifelse(grade == 1.0, "Amazing", 
        ifelse(grade > 1 & grade <= 2, "Good Job", 
@@ -527,63 +532,67 @@ ifelse(grade == 1.0, "Amazing",
               )
        )
 
-# The same logic: ifelse(test expression, body expression if, ifelse(test expression 2, body expression if 2)) etc..
+# Dieselbe Logik: ifelse(Testausdruck, Ausdruck wenn wahr, ifelse(Testausdruck 2, Ausdruck wenn wahr 2)) usw.
 ```
 
-## Outlook
+## Ausblick
 
-This section was a brief introduction to the fundamentals of R. It was kept simple to give you a feeling for a R. These are the absolute basics, which are needed to understand everything, which will be built based on it.
+Dieser Abschnitt war eine kurze Einführung in die Grundlagen von R. Er wurde bewusst einfach gehalten, um ein erstes Gefühl für R zu vermitteln. Diese Inhalte bilden die absoluten Grundlagen, auf denen alles Weitere aufbaut.
 
-## Exercise Section
+## Übungsabschnitt
 
-### Exercise 1: Making your first Vector
+### Übung 1: Erstellen deines ersten Vektors
 
-Create a vector called `my_vector` with the values 1,2,3 and check is class.
+Erstelle einen Vektor namens `my_vector` mit den Werten 1, 2, 3 und überprüfe seine Klasse.
 
 ```{r ch1 exercise 1, eval=FALSE}
-#create the vector 
+#Vektor erstellen 
 my_vector <- 
 
-#check the class
+#Klasse überprüfen
 
 ```
 
-### Exercise 2: Making your first matrix
+### Übung 2: Erstellen deiner ersten Matrix
 
-Create a Matrix called `student`. This should contain information about the `name`, `age` and `major`. Make three vectors wiht three entries and bind them together to a the matrix `student`. Print the matrix.
+Erstelle eine Matrix namens `student`. Diese soll Informationen über `name`, `age` und `major` enthalten. Erstelle drei Vektoren mit jeweils drei Einträgen und verbinde sie anschließend zu der Matrix `student`. Gib die Matrix aus.
 
 ```{r ch2 exercise 2, eval = FALSE}
-#Create the vectors 
+#Vektoren erstellen 
 
 name <- 
 age <- 
 major <- 
 
-#Create the matrix
+#Matrix erstellen
 student <- 
   
-#Print the matrix
+#Matrix ausgeben
 
 ```
 
-### Exercise 3: `ifelse` function
+### Übung 3: `ifelse` Funktion
 
-Write an `ifelse` statement that checks if a given number is positive or negative. If the number is positive, print "Number is positive", otherwise print "Number is negative". Feel free to decide if you want to use the `ifelse` function or the `ifelse` condition.
+Schreibe ein `ifelse`-Statement, das überprüft, ob eine gegebene Zahl positiv oder negativ ist. Wenn die Zahl positiv ist, gib `"Number is positive"` aus, ansonsten `"Number is negative"`. Du kannst entscheiden, ob du die `ifelse()`-Funktion oder eine `if-else`-Bedingung verwendest.
 
 ```{r ch3 exercise 3, eval = FALSE}
 
-#Assigning the number to the object "number"
+#Zahl dem Objekt "number" zuweisen
 number <- -4
 
 
 
 ```
 
-### Exercise 4: `ifelse` ladders
+### Übung 4: `ifelse`-Kette
 
-Write an if-else ladder that categorizes a student's grade based on their score. The grading criteria are as follows:
+Schreibe eine if-else-Kette, die die Note eines Studenten basierend auf seiner Punktzahl kategorisiert. Die Bewertungskriterien sind:
 
-Score \>= 90: "A" Score \>= 80 and \< 90: "B" Score \>= 70 and \< 80: "C" Score \>= 60 and \< 70: "D" Score \< 60: "F"
+Score \>= 90: "A"\
+Score \>= 80 und \< 90: "B"\
+Score \>= 70 und \< 80: "C"\
+Score \>= 60 und \< 70: "D"\
+Score \< 60: "F"
 
 ```{r ch4 exercise 4, eval = FALSE}
 

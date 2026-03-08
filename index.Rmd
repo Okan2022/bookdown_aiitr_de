@@ -5,102 +5,98 @@ date: "`r Sys.Date()`"
 site: bookdown::bookdown_site
 ---
 
-# Welcome ! {.unnumbered}
+# Willkommen! {.unnumbered}
 
-Welcome to this R course! In this course I will teach you the workflow from raw data to your very first analyses in R. When I was a beginner myself, I tried a lot of courses like this, but there were two points, which I think slowed down my learning process, I do want to make different with this course:
+Willkommen zu diesem R-Kurs! In diesem Kurs zeige ich dir den Workflow von Rohdaten bis zu deinen ersten eigenen Analysen in R. Als ich selbst Anfänger war, habe ich viele Kurse dieser Art ausprobiert. Dabei sind mir zwei Punkte aufgefallen, die meinen Lernprozess verlangsamt haben – und die ich in diesem Kurs bewusst anders machen möchte:
 
--   The courses taught way too much unnecessary stuff for the beginning. It does not matter to know several variations of a command for example, the intuition is way more important.
+-   In vielen Kursen wurde zu Beginn viel zu viel Unnötiges vermittelt. Es ist beispielsweise nicht entscheidend, mehrere Varianten eines Befehls zu kennen – viel wichtiger ist es, ein Verständnis und eine Intuition für die Funktionsweise zu entwickeln.
 
-This course was originally a tutorial for my juniors at my university and I asked myself the question: What do they need to know, to conduct data analyses themselves with R? Well, they have to get an intuition of the workflow. So I decided to design a course, that instead of showing unnecessary variations of functions aim to show how to analyse a question of interest.
+Dieser Kurs war ursprünglich ein Tutorial für meine jüngeren Studierenden an der Universität. Dabei habe ich mir folgende Frage gestellt: Was müssen sie wissen, um eigenständig Datenanalysen mit R durchführen zu können? Die Antwort lautet: Sie brauchen ein Verständnis für den Workflow. Deshalb habe ich mich entschieden, einen Kurs zu konzipieren, der nicht unnötige Varianten von Funktionen zeigt, sondern erklärt, wie man eine konkrete Fragestellung systematisch analysiert.
 
--   The courses were not reproducible! That is not the directly the fault of the courses. There are tools to make R scripts reproducible, however they are not beginner friendly, so the authors of those courses are facing a trade-off: Teaching unnecessary complicated stuff at to beginners, or to leave it out and make the course not reproducible.
+-   Viele Kurse waren nicht reproduzierbar! Das liegt nicht direkt an den Kursen selbst. Es gibt Werkzeuge, um R-Skripte reproduzierbar zu machen. Allerdings sind diese Werkzeuge nicht besonders anfängerfreundlich. Autorinnen und Autoren solcher Kurse stehen daher vor einem Zielkonflikt: Entweder sie vermitteln Einsteigerinnen und Einsteigern unnötig komplexe Inhalte oder sie verzichten darauf und nehmen in Kauf, dass der Kurs nicht reproduzierbar ist.
 
-This course is different! In this course, you can download R-scripts and load them directly on your own device and follow the course by executing the codes for yourself to have the original experience of working with R.
+Dieser Kurs ist anders! Hier kannst du die R-Skripte herunterladen, sie direkt auf deinem eigenen Gerät ausführen und den Kurs aktiv nachvollziehen, indem du den Code selbst ausführst. So erhältst du die originale Erfahrung, mit R zu arbeiten.
 
-## About this Course {.unnumbered}
+## Über diesen Kurs {.unnumbered}
 
-### Prerequisities {.unnumbered}
+### Voraussetzungen {.unnumbered}
 
--   `R` and RStudio. You should download the most current version of R and RStudio. How to do that easily is described [here](https://posit.co/download/rstudio-desktop/ "Link to download R").
+-   `R` und RStudio. Du solltest die jeweils aktuellste Version von R und RStudio installieren. Wie das einfach funktioniert, wird [hier](https://posit.co/download/rstudio-desktop/ "Link zum Download von R") erklärt.
 
-### What is `R` and `RStudio` ? {.unnumbered}
+### Was sind `R` und `RStudio`? {.unnumbered}
 
-`R` is a programming language specifically developed for statistical analysis. `RStudio` is the standard graphical interface to work with R.
+`R` ist eine Programmiersprache, die speziell für statistische Analysen entwickelt wurde. `RStudio` ist die Standard-Entwicklungsumgebung (IDE), um mit R zu arbeiten.
 
-### Why `R` ? {.unnumbered}
+### Warum `R`? {.unnumbered}
 
--   Free of cost and open-source
--   Functionalities for all steps of research process from Data Collection to Data Analysis
--   Programming language specifically developed for statistical analysis
--   Very active Community:
--   e.g. `R` community on [StackOverflow](https://stackoverflow.blog/2017/10/10/impressive-growth-r/)
--   e.g. *#rstats* on twitter
+-   Kostenlos und Open Source  
+-   Funktionalitäten für alle Schritte des Forschungsprozesses – von der Datenerhebung bis zur Datenanalyse  
+-   Speziell für statistische Analysen entwickelte Programmiersprache  
+-   Sehr aktive Community:  
+-   z. B. die `R`-Community auf [StackOverflow](https://stackoverflow.blog/2017/10/10/impressive-growth-r/)  
+-   z. B. *#rstats* auf Twitter  
 
-### What expects you and what not {.unnumbered}
+### Was dich erwartet – und was nicht {.unnumbered}
 
-In this course you will learn:
+In diesem Kurs lernst du:
 
--   To get familiar with `R` and its basic language
--   Core commands from the tidyverse package
--   Data Wrangling, Data Bridging, Data Munging, Data Manipulation
--   An efficient Workflow
--   A brief introduction into basic Data Analysis and Exploratory Data Analysis.
+-   Dich mit `R` und seiner grundlegenden Syntax vertraut zu machen  
+-   Zentrale Befehle aus dem tidyverse-Paket  
+-   Data Wrangling, Data Bridging, Data Munging und Data Manipulation  
+-   Einen effizienten Workflow  
+-   Eine kurze Einführung in grundlegende Datenanalyse und Explorative Datenanalyse (EDA)  
 
-You will **not** learn:
+Du wirst **nicht** lernen:
 
--   Advanced R usage (Webscraping, Quantitative Text Analysis etc...)
+-   Fortgeschrittene R-Anwendungen (z. B. Webscraping, quantitative Textanalyse etc.)
 
-### Overview of the course structure: {.unnumbered}
+### Überblick über die Kursstruktur {.unnumbered}
 
-**1. The R environment**
+**1. Die R-Umgebung**
 
--   Basic Functionality (Calculations, Vectors, Matrices, Lists)
--   Object classes
--   Accessing, Subsetting and Naming Objects
+-   Grundlegende Funktionalitäten (Berechnungen, Vektoren, Matrizen, Listen)  
+-   Objektklassen  
+-   Zugriff auf, Subsetting und Benennung von Objekten  
 
-**2. Data Manipulation**
+**2. Datenmanipulation**
 
--   Pipelines or Piping
--   The tidyverse - Dplyr
--   Loading and Storing Data
--   Ordering your Data: Renaming, Re-Ordering, Subsetting and Selecting
--   Transforming Variables
--   Merging Data
--   Missing Values
+-   Pipelines bzw. Piping  
+-   Das tidyverse – dplyr  
+-   Laden und Speichern von Daten  
+-   Daten strukturieren: Umbenennen, Neuordnen, Subsetting und Selektieren  
+-   Variablen transformieren  
+-   Daten zusammenführen (Merging)  
+-   Fehlende Werte  
 
-**3. Exploratory Data Analysis/Descriptives**
+**3. Explorative Datenanalyse / Deskriptive Statistik**
 
--   Standard Descriptive Statistics (Mean, Median, SD,....)
--   Contingency Tables
--   Correlations
--   Working with EDA packages
+-   Standardkennzahlen (Mittelwert, Median, Standardabweichung usw.)  
+-   Kontingenztafeln  
+-   Korrelationen  
+-   Arbeiten mit EDA-Paketen  
 
-**4. Data Visualization**
+**4. Datenvisualisierung**
 
--   The Tidyverse - ggplot 2
--   Constructing Plots
--   Plotting anything
+-   Das tidyverse – ggplot2  
+-   Erstellung von Plots  
+-   Visualisierung beliebiger Datenstrukturen  
 
-**5. Data Analysis**
+**5. Datenanalyse**
 
--   Linear Regression
+-   Lineare Regression  
+-   Modellgüte  
+-   Hypothesentests mit R  
+-   Multiple Regression  
+-   Kategoriale Variablen  
 
--   Model Fit
+**6. R-Programmierung**
 
--   Hypothesis Testing with R
+-   For-Schleifen  
+-   Die apply-Familie  
+-   Eigene Funktionen  
 
--   Multivariate Regression
+## Über mich {.unnumbered}
 
--   Categorical Variables
+Mein Name ist Okan und ich bin Data Scientist. Genauer gesagt ist Data Science mein Beruf – ursprünglich habe ich jedoch Politikwissenschaft studiert. Von Politik zu Daten? Meine Universität war stark auf empirische Forschung ausgerichtet, und die Politikwissenschaft bildete hier keine Ausnahme. Um politische Phänomene zu erklären, habe ich große Datensätze analysiert – und das war der spannendste Teil meines Studiums. Deshalb habe ich mich entschieden, Data Scientist zu werden. Und ich bin sehr glücklich mit dieser Entscheidung.
 
-**6. R Programming**
-
--   For loops
--   Apply function
--   Functions
-
-## About Me {.unnumbered}
-
-My name is Okan and I am a Data Scientist. To be more precise, my profession is Data Science, but originally I graduated in Political Science. I know, what kind of transition is that? From Politics to Data? Well, my university was specialized in empirical research and Political Science was no exception. To explain political phenomena, I analysed large data sets and it was the most fun part of my studies. So I decided to become a Data Scientist and I could not be happier about that decision!
-
-Be part of this Course! Please report errors, bugs and problems with the code. If you have any ideas how to improve this course please contact me on GitHub or via E-Mail. In general, let us stay in touch, follow me on GitHub and LinkedIn and if you like this course share your experience and recommend it to others!
+Werde Teil dieses Kurses! Bitte melde Fehler, Bugs oder Probleme im Code. Wenn du Ideen hast, wie sich dieser Kurs verbessern lässt, kontaktiere mich gerne über GitHub oder per E-Mail. Lass uns generell in Kontakt bleiben – folge mir auf GitHub und LinkedIn. Wenn dir der Kurs gefällt, teile deine Erfahrungen und empfehle ihn weiter!
