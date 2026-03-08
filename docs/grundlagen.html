@@ -1,0 +1,920 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 1 Grundlagen | An intuitive Introduction to R</title>
+  <meta name="description" content="Chapter 1 Grundlagen | An intuitive Introduction to R" />
+  <meta name="generator" content="bookdown 0.42 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapter 1 Grundlagen | An intuitive Introduction to R" />
+  <meta property="og:type" content="book" />
+  
+  
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 1 Grundlagen | An intuitive Introduction to R" />
+  
+  
+  
+
+<meta name="author" content="Okan Sarioglu" />
+
+
+<meta name="date" content="2026-03-08" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="index.html"/>
+<link rel="next" href="datenmanipulation.html"/>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+<link href="libs/htmltools-fill-0.5.8.1/fill.css" rel="stylesheet" />
+<script src="libs/htmlwidgets-1.6.4/htmlwidgets.js"></script>
+<link href="libs/leaflet-1.3.1/leaflet.css" rel="stylesheet" />
+<script src="libs/leaflet-1.3.1/leaflet.js"></script>
+<link href="libs/leafletfix-1.0.0/leafletfix.css" rel="stylesheet" />
+<script src="libs/proj4-2.6.2/proj4.min.js"></script>
+<script src="libs/Proj4Leaflet-1.0.1/proj4leaflet.js"></script>
+<link href="libs/rstudio_leaflet-1.3.1/rstudio_leaflet.css" rel="stylesheet" />
+<script src="libs/leaflet-binding-2.2.2/leaflet.js"></script>
+<script src="libs/leaflet-providers-2.0.0/leaflet-providers_2.0.0.js"></script>
+<script src="libs/leaflet-providers-plugin-2.2.2/leaflet-providers-plugin.js"></script>
+<script src="libs/plotly-binding-4.10.4/plotly.js"></script>
+<script src="libs/typedarray-0.1/typedarray.min.js"></script>
+<link href="libs/crosstalk-1.2.1/css/crosstalk.min.css" rel="stylesheet" />
+<script src="libs/crosstalk-1.2.1/js/crosstalk.min.js"></script>
+<link href="libs/plotly-htmlwidgets-css-2.11.1/plotly-htmlwidgets.css" rel="stylesheet" />
+<script src="libs/plotly-main-2.11.1/plotly-latest.min.js"></script>
+<script src="libs/kePrint-0.0.1/kePrint.js"></script>
+<link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
+
+
+<style type="text/css">
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<div style="text-align: center;">
+  <img src="images/AIITR.svg" alt="AIITR Logo" style="vertical-align: middle; margin-left: 5px; width: 125px; height: auto;">
+</div>
+<div style="text-align: center;">
+<li style="list-style: none;"><a href="./">by Okan Sarioglu</a></li>
+</div>
+<div style="text-align: center; margin-top: 10px;">
+  <a href="https://github.com/Okan2022" target="_blank">
+    <img src="images/github-mark.svg" alt="GitHub" style="vertical-align: middle; width: 25px; height: auto;">
+  </a>
+  <a href="https://www.linkedin.com/in/osarioglu" target="_blank" style="margin-left: 10px;">
+    <img src="images/LinkedIn_icon.svg" alt="LinkedIn" style="vertical-align: middle; width: 25px; height: auto;">
+  </a>
+</div> 
+<div style="text-align: center; margin-top: 10px; margin-bottom: 10px;">
+  <a href="script/aiitr_script.R" download="aiitr_script.R" style="display: inline-block; padding: 10px 20px; font-size: 16px; color: #fff; background-color: #4169e1; text-decoration: none; border-radius: 8px;">Download R Script</a>
+</div>
+<div style="text-align: center; margin-top: 10px; margin-bottom: 10px;">
+  <a href="https://www.paypal.com/donate?hosted_button_id=ZBMC2WD84P75S"
+     style="display: inline-block; padding: 10px 20px; font-size: 16px; color: #fff; background-color: #FCBB32; text-decoration: none; border-radius: 8px;">
+     <img src="images/pp_logo.png" alt="PayPal" style="height: 24px; vertical-align: middle; margin-right: 8px;">
+     Support me here!
+  </a>
+</div>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Willkommen!</a>
+<ul>
+<li class="chapter" data-level="" data-path=""><a href="#%C3%BCber-diesen-kurs"><i class="fa fa-check"></i>Über diesen Kurs</a></li>
+<li class="chapter" data-level="" data-path=""><a href="#%C3%BCber-mich"><i class="fa fa-check"></i>Über mich</a></li>
+</ul></li>
+<li class="chapter" data-level="1" data-path="grundlagen.html"><a href="grundlagen.html"><i class="fa fa-check"></i><b>1</b> Grundlagen</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="grundlagen.html"><a href="grundlagen.html#rstudio-kennenlernen-und-einen-workflow-etablieren"><i class="fa fa-check"></i><b>1.1</b> RStudio kennenlernen und einen Workflow etablieren</a></li>
+<li class="chapter" data-level="1.2" data-path="02-fundamentals.html"><a href="#los-gehts-r-als-leistungsf%C3%A4higer-taschenrechner"><i class="fa fa-check"></i><b>1.2</b> Los geht’s: R als leistungsfähiger Taschenrechner</a></li>
+<li class="chapter" data-level="1.3" data-path="grundlagen.html"><a href="grundlagen.html#ifelse-statements-und-die-ifelse-funktion"><i class="fa fa-check"></i><b>1.3</b> <code>ifelse</code> statements und die <code>ifelse()</code> funktion</a></li>
+<li class="chapter" data-level="1.4" data-path="grundlagen.html"><a href="grundlagen.html#ausblick"><i class="fa fa-check"></i><b>1.4</b> Ausblick</a></li>
+<li class="chapter" data-level="1.5" data-path="02-fundamentals.html"><a href="#%C3%BCbungsabschnitt"><i class="fa fa-check"></i><b>1.5</b> Übungsabschnitt</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="datenmanipulation.html"><a href="datenmanipulation.html"><i class="fa fa-check"></i><b>2</b> Datenmanipulation</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="datenmanipulation.html"><a href="datenmanipulation.html#pakete"><i class="fa fa-check"></i><b>2.1</b> Pakete</a></li>
+<li class="chapter" data-level="2.2" data-path="datenmanipulation.html"><a href="datenmanipulation.html#mit-paketen-arbeiten"><i class="fa fa-check"></i><b>2.2</b> Mit Paketen arbeiten</a></li>
+<li class="chapter" data-level="2.3" data-path="datenmanipulation.html"><a href="datenmanipulation.html#die-daten-mit-denen-wir-arbeiten-der-european-social-survey-ess"><i class="fa fa-check"></i><b>2.3</b> Die Daten, mit denen wir arbeiten: Der European Social Survey (ESS)</a></li>
+<li class="chapter" data-level="2.4" data-path="datenmanipulation.html"><a href="datenmanipulation.html#ran-an-die-daten-das-dplyr-paket"><i class="fa fa-check"></i><b>2.4</b> Ran an die Daten: Das <code>dplyr</code>-Paket</a></li>
+<li class="chapter" data-level="2.5" data-path="02-fundamentals.html"><a href="#datens%C3%A4tze-zusammenf%C3%BChren"><i class="fa fa-check"></i><b>2.5</b> Datensätze zusammenführen</a></li>
+<li class="chapter" data-level="2.6" data-path="datenmanipulation.html"><a href="datenmanipulation.html#ausblick-1"><i class="fa fa-check"></i><b>2.6</b> Ausblick</a></li>
+<li class="chapter" data-level="2.7" data-path="02-fundamentals.html"><a href="#%C3%BCbungsaufgaben"><i class="fa fa-check"></i><b>2.7</b> Übungsaufgaben</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="datenvisualisierung.html"><a href="datenvisualisierung.html"><i class="fa fa-check"></i><b>3</b> Datenvisualisierung</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="02-fundamentals.html"><a href="#einf%C3%BChrung-in-ggplot2"><i class="fa fa-check"></i><b>3.1</b> Einführung in <code>ggplot2</code></a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="verteilungen-histogramme-dichteplots-und-boxplots.html"><a href="verteilungen-histogramme-dichteplots-und-boxplots.html"><i class="fa fa-check"></i><b>4</b> Verteilungen: Histogramme, Dichteplots und Boxplots</a></li>
+<li class="chapter" data-level="5" data-path="histogramme.html"><a href="histogramme.html"><i class="fa fa-check"></i><b>5</b> Histogramme</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="histogramme.html"><a href="histogramme.html#einfaches-histogramm"><i class="fa fa-check"></i><b>5.1</b> Einfaches Histogramm</a></li>
+<li class="chapter" data-level="5.2" data-path="histogramme.html"><a href="histogramme.html#binwidth"><i class="fa fa-check"></i><b>5.2</b> Binwidth</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="mehrere-histogramme.html"><a href="mehrere-histogramme.html"><i class="fa fa-check"></i><b>6</b> Mehrere Histogramme</a></li>
+<li class="chapter" data-level="7" data-path="dichteplots.html"><a href="dichteplots.html"><i class="fa fa-check"></i><b>7</b> Dichteplots</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="dichteplots.html"><a href="dichteplots.html#einfacher-dichteplot"><i class="fa fa-check"></i><b>7.1</b> Einfacher Dichteplot</a></li>
+<li class="chapter" data-level="7.2" data-path="dichteplots.html"><a href="dichteplots.html#mehrere-dichteplots"><i class="fa fa-check"></i><b>7.2</b> Mehrere Dichteplots</a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="boxplots.html"><a href="boxplots.html"><i class="fa fa-check"></i><b>8</b> Boxplots</a>
+<ul>
+<li class="chapter" data-level="8.1" data-path="boxplots.html"><a href="boxplots.html#einfache-boxplots"><i class="fa fa-check"></i><b>8.1</b> Einfache Boxplots</a></li>
+<li class="chapter" data-level="8.2" data-path="boxplots.html"><a href="boxplots.html#rangfolge-barplot"><i class="fa fa-check"></i><b>8.2</b> Rangfolge: Barplot</a></li>
+<li class="chapter" data-level="8.3" data-path="boxplots.html"><a href="boxplots.html#entwicklung-liniendiagramm"><i class="fa fa-check"></i><b>8.3</b> Entwicklung: Liniendiagramm</a></li>
+<li class="chapter" data-level="8.4" data-path="boxplots.html"><a href="boxplots.html#korrelation-streudiagramme"><i class="fa fa-check"></i><b>8.4</b> Korrelation: Streudiagramme</a></li>
+<li class="chapter" data-level="8.5" data-path="boxplots.html"><a href="boxplots.html#plots-mit-facet_wrap-und-facet_grid"><i class="fa fa-check"></i><b>8.5</b> Plots mit <code>facet_wrap()</code> und <code>facet_grid()</code></a></li>
+<li class="chapter" data-level="8.6" data-path="boxplots.html"><a href="boxplots.html#ausblick-2"><i class="fa fa-check"></i><b>8.6</b> Ausblick</a></li>
+<li class="chapter" data-level="8.7" data-path="boxplots.html"><a href="boxplots.html#ausblick-3"><i class="fa fa-check"></i><b>8.7</b> Ausblick</a></li>
+<li class="chapter" data-level="8.8" data-path="02-fundamentals.html"><a href="#%C3%BCbungsaufgaben-1"><i class="fa fa-check"></i><b>8.8</b> Übungsaufgaben</a></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="explorative-datenanalyse-eda.html"><a href="explorative-datenanalyse-eda.html"><i class="fa fa-check"></i><b>9</b> Explorative Datenanalyse (EDA)</a>
+<ul>
+<li class="chapter" data-level="9.1" data-path="explorative-datenanalyse-eda.html"><a href="explorative-datenanalyse-eda.html#standard-deskriptivstatistik"><i class="fa fa-check"></i><b>9.1</b> Standard-Deskriptivstatistik</a></li>
+<li class="chapter" data-level="9.2" data-path="explorative-datenanalyse-eda.html"><a href="explorative-datenanalyse-eda.html#arbeiten-mit-eda-paketen"><i class="fa fa-check"></i><b>9.2</b> Arbeiten mit EDA-Paketen</a></li>
+<li class="chapter" data-level="9.3" data-path="explorative-datenanalyse-eda.html"><a href="explorative-datenanalyse-eda.html#fazit"><i class="fa fa-check"></i><b>9.3</b> Fazit</a></li>
+<li class="chapter" data-level="9.4" data-path="02-fundamentals.html"><a href="#%C3%BCbungsaufgaben-2"><i class="fa fa-check"></i><b>9.4</b> Übungsaufgaben</a></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="datenanalyse.html"><a href="datenanalyse.html"><i class="fa fa-check"></i><b>10</b> Datenanalyse</a>
+<ul>
+<li class="chapter" data-level="10.1" data-path="datenanalyse.html"><a href="datenanalyse.html#lineare-regression"><i class="fa fa-check"></i><b>10.1</b> Lineare Regression</a></li>
+<li class="chapter" data-level="10.2" data-path="datenanalyse.html"><a href="datenanalyse.html#hypothesentesten-in-r"><i class="fa fa-check"></i><b>10.2</b> Hypothesentesten in R</a></li>
+<li class="chapter" data-level="10.3" data-path="datenanalyse.html"><a href="datenanalyse.html#multivariate-regression"><i class="fa fa-check"></i><b>10.3</b> Multivariate Regression</a></li>
+<li class="chapter" data-level="10.4" data-path="datenanalyse.html"><a href="datenanalyse.html#kategoriale-variablen"><i class="fa fa-check"></i><b>10.4</b> Kategoriale Variablen</a></li>
+<li class="chapter" data-level="10.5" data-path="datenanalyse.html"><a href="datenanalyse.html#ausblick-4"><i class="fa fa-check"></i><b>10.5</b> Ausblick</a></li>
+<li class="chapter" data-level="10.6" data-path="02-fundamentals.html"><a href="#%C3%BCbungsaufgaben-3"><i class="fa fa-check"></i><b>10.6</b> Übungsaufgaben</a></li>
+</ul></li>
+<li class="chapter" data-level="11" data-path="schleifen-und-funktionen.html"><a href="schleifen-und-funktionen.html"><i class="fa fa-check"></i><b>11</b> Schleifen und Funktionen</a>
+<ul>
+<li class="chapter" data-level="11.1" data-path="schleifen-und-funktionen.html"><a href="schleifen-und-funktionen.html#schleifen"><i class="fa fa-check"></i><b>11.1</b> Schleifen</a></li>
+<li class="chapter" data-level="11.2" data-path="schleifen-und-funktionen.html"><a href="schleifen-und-funktionen.html#die-apply-funktionsfamilie"><i class="fa fa-check"></i><b>11.2</b> Die <code>apply()</code>-Funktionsfamilie</a></li>
+<li class="chapter" data-level="11.3" data-path="schleifen-und-funktionen.html"><a href="schleifen-und-funktionen.html#eigene-funktionen-schreiben"><i class="fa fa-check"></i><b>11.3</b> Eigene Funktionen schreiben</a></li>
+<li class="chapter" data-level="11.4" data-path="schleifen-und-funktionen.html"><a href="schleifen-und-funktionen.html#ausblick-5"><i class="fa fa-check"></i><b>11.4</b> Ausblick</a></li>
+<li class="chapter" data-level="11.5" data-path="02-fundamentals.html"><a href="#%C3%BCbungsaufgaben-4"><i class="fa fa-check"></i><b>11.5</b> Übungsaufgaben</a></li>
+</ul></li>
+<li class="chapter" data-level="12" data-path="02-fundamentals.html"><a href="#weitere-erl%C3%A4uterungen"><i class="fa fa-check"></i><b>12</b> Weitere Erläuterungen</a>
+<ul>
+<li class="chapter" data-level="12.1" data-path="02-fundamentals.html"><a href="#funktion-definieren-f%C3%BCr-sp%C3%A4ter"><i class="fa fa-check"></i><b>12.1</b> Funktion definieren (für später)</a></li>
+<li class="chapter" data-level="12.2" data-path="weitere-erläuterungen.html"><a href="weitere-erläuterungen.html"><i class="fa fa-check"></i><b>12.2</b> Wahrscheinlichkeitstheorie</a></li>
+<li class="chapter" data-level="12.3" data-path="weitere-erläuterungen.html"><a href="weitere-erläuterungen.html#regressionsdiagnostik"><i class="fa fa-check"></i><b>12.3</b> Regressionsdiagnostik</a></li>
+</ul></li>
+<li class="chapter" data-level="13" data-path="02-fundamentals.html"><a href="#l%C3%B6sungen-zu-den-%C3%BCbungsaufgaben"><i class="fa fa-check"></i><b>13</b> Lösungen zu den Übungsaufgaben</a>
+<ul>
+<li class="chapter" data-level="13.1" data-path="lösungen-zu-den-übungsaufgaben.html"><a href="lösungen-zu-den-übungsaufgaben.html"><i class="fa fa-check"></i><b>13.1</b> Kapitel 1: Grundlagen</a></li>
+<li class="chapter" data-level="13.2" data-path="lösungen-zu-den-übungsaufgaben.html"><a href="lösungen-zu-den-übungsaufgaben.html#kapitel-2-datenmanipulation"><i class="fa fa-check"></i><b>13.2</b> Kapitel 2: Datenmanipulation</a></li>
+<li class="chapter" data-level="13.3" data-path="lösungen-zu-den-übungsaufgaben.html"><a href="lösungen-zu-den-übungsaufgaben.html#kapitel-3-datenvisualisierung"><i class="fa fa-check"></i><b>13.3</b> Kapitel 3: Datenvisualisierung</a></li>
+<li class="chapter" data-level="13.4" data-path="lösungen-zu-den-übungsaufgaben.html"><a href="lösungen-zu-den-übungsaufgaben.html#kapitel-4-explorative-datenanalyse"><i class="fa fa-check"></i><b>13.4</b> Kapitel 4: Explorative Datenanalyse</a></li>
+<li class="chapter" data-level="13.5" data-path="lösungen-zu-den-übungsaufgaben.html"><a href="lösungen-zu-den-übungsaufgaben.html#kapitel-5-datenanalyse"><i class="fa fa-check"></i><b>13.5</b> Kapitel 5: Datenanalyse</a></li>
+<li class="chapter" data-level="13.6" data-path="lösungen-zu-den-übungsaufgaben.html"><a href="lösungen-zu-den-übungsaufgaben.html#kapitel-6-schleifen-und-funktionen"><i class="fa fa-check"></i><b>13.6</b> Kapitel 6: Schleifen und Funktionen</a></li>
+</ul></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">An intuitive Introduction to R</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="grundlagen" class="section level1 hasAnchor" number="1">
+<h1><span class="header-section-number">Chapter 1</span> Grundlagen<a href="grundlagen.html#grundlagen" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p>In diesem Kapitel lernst du die Benutzeroberfläche und die grundlegenden Funktionen in R kennen. Dazu gehören sowohl die Oberfläche als auch die Basisfunktionen für mathematische Berechnungen. Außerdem wirst du in eine der wichtigsten logischen Operationen eingeführt: die if-else-Struktur. Ziel dieses Kapitels ist es, dir einen Überblick über RStudio zu geben und dir ein erstes Gefühl sowie eine Intuition für R zu vermitteln – anhand mathematischer Konzepte, die du bereits kennst. Vergiss nicht: Niemand ist perfekt. Am Anfang haben alle Schwierigkeiten, und das kann frustrierend sein. Das ist völlig normal beim Lernen einer neuen Programmiersprache. Viel Spaß!</p>
+<div id="rstudio-kennenlernen-und-einen-workflow-etablieren" class="section level2 hasAnchor" number="1.1">
+<h2><span class="header-section-number">1.1</span> RStudio kennenlernen und einen Workflow etablieren<a href="grundlagen.html#rstudio-kennenlernen-und-einen-workflow-etablieren" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="die-benutzeroberfläche" class="section level3 hasAnchor" number="1.1.1">
+<h3><span class="header-section-number">1.1.1</span> Die Benutzeroberfläche<a href="#die-benutzeroberfl%C3%A4che" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>RStudio besteht aus vier Hauptbereichen, die jeweils eine bestimmte Funktion erfüllen:</p>
+<div class="float">
+<img src="images/example1.jpeg" width="4750" alt="Abbildung 1: Standard-RStudio-Oberfläche" />
+<div class="figcaption"><strong>Abbildung 1: Standard-RStudio-Oberfläche</strong></div>
+</div>
+<ul>
+<li><p><strong>Oben links</strong> befindet sich das <strong>Source-Fenster</strong>. Hier schreibst und ausführst du deinen Code. Die Konsole öffnet sich, nachdem du ausgewählt hast, welchen Skripttyp du verwenden möchtest:</p></li>
+<li><p>Das klassische <strong>R-Skript</strong> (<code>Ctrl + Shift + N</code>): In dieser Datei kannst du Code schreiben und ausführen. Kommentare fügst du hinzu, indem du ein <code>#</code> vor die entsprechende Zeile setzt.</p></li>
+<li><p>Die <strong>R-Markdown-Datei</strong>: Im Gegensatz zum klassischen <strong>R-Skript</strong> wird in einer <strong>R-Markdown-Datei</strong> nicht alles automatisch als Code interpretiert (sofern es nicht als Code gekennzeichnet ist). Eine <strong>R-Markdown-Datei</strong> bietet die Möglichkeit, HTML- oder PDF-Outputs zu erzeugen. Das erhöht die Effizienz, insbesondere bei der Zusammenarbeit. Außerdem kannst du Code in sogenannten <strong>Chunks</strong> strukturieren und hast zahlreiche Optionen zur Steuerung dieser <strong>Chunks</strong>. In QM und AQM wirst du ausschließlich mit <strong>R Markdown</strong> arbeiten und mit der Zeit die Vorteile erkennen.</p></li>
+<li><p><strong>Oben rechts</strong> siehst du das <strong>Environment</strong>. Hier erhältst du einen Überblick über alle aktuell geladenen Objekte. Mehr über Objekte erfährst du später im Kurs.</p></li>
+<li><p><strong>Unten links</strong> befindet sich die <strong>Konsole</strong>: Hier erscheinen die Ergebnisse, sobald du deinen R-Code ausführst. Du kannst Code auch direkt in die Konsole eingeben. Allerdings wird dieser Code nicht gespeichert, weshalb wir in der Regel im Editor arbeiten.</p></li>
+<li><p><strong>Unten rechts</strong> findest du den <strong>Output-Bereich</strong>: Hier erscheinen beispielsweise Plots (bei Verwendung eines klassischen R-Skripts) und andere Ausgaben. Für den Moment musst du dich damit noch nicht intensiver beschäftigen.</p></li>
+</ul>
+</div>
+<div id="oberfläche-anpassen-optional" class="section level3 hasAnchor" number="1.1.2">
+<h3><span class="header-section-number">1.1.2</span> Oberfläche anpassen (optional)<a href="#oberfl%C3%A4che-anpassen-optional" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<ul>
+<li><p>Du kannst das Erscheinungsbild von <code>RStudio</code> ändern: <code>Tools &gt; Global Options &gt; Appearance</code>. Hier kannst du unter anderem die Zoomstufe der Konsole, die Schriftgröße und das Farbschema anpassen. Außerdem kannst du ein dunkles Theme aktivieren. Probiere verschiedene Einstellungen aus und finde heraus, was für dich am angenehmsten ist – du kannst es jederzeit wieder ändern.</p></li>
+<li><p>Du kannst das <strong>Pane Layout</strong> ändern, also die Anordnung der vier Bereiche: <code>Tools &gt; Global Options &gt; Pane Layout</code>.</p></li>
+<li><p>Nutze Tastenkürzel. RStudio bietet viele voreingestellte Shortcuts, die sehr hilfreich sind. Du solltest dich mit ihnen vertraut machen: <code>Tools &gt; Keyboard Shortcuts Help</code> oder direkt mit <code>Ctrl + Shift + K</code>. Du kannst auch eigene Shortcuts definieren – das werden wir im Kurs tun.</p></li>
+</ul>
+</div>
+</div>
+<div id="los-gehts-r-als-leistungsfähiger-taschenrechner" class="section level2 hasAnchor" number="1.2">
+<h2><span class="header-section-number">1.2</span> Los geht’s: R als leistungsfähiger Taschenrechner<a href="#los-gehts-r-als-leistungsf%C3%A4higer-taschenrechner" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="mathematische-operationen-in-r" class="section level3 hasAnchor" number="1.2.1">
+<h3><span class="header-section-number">1.2.1</span> Mathematische Operationen in R<a href="grundlagen.html#mathematische-operationen-in-r" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>R kann für einfache Berechnungen verwendet werden:</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="grundlagen.html#cb1-1" tabindex="-1"></a><span class="co">#Mit dem Hashtag kannst du Kommentare schreiben</span></span>
+<span id="cb1-2"><a href="grundlagen.html#cb1-2" tabindex="-1"></a></span>
+<span id="cb1-3"><a href="grundlagen.html#cb1-3" tabindex="-1"></a><span class="dv">1</span> <span class="sc">+</span> <span class="dv">1</span> <span class="co">#Addition</span></span></code></pre></div>
+<pre><code>## [1] 2</code></pre>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="grundlagen.html#cb3-1" tabindex="-1"></a><span class="dv">1</span> <span class="sc">-</span> <span class="dv">1</span> <span class="co">#Subtraktion</span></span></code></pre></div>
+<pre><code>## [1] 0</code></pre>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="grundlagen.html#cb5-1" tabindex="-1"></a><span class="dv">1</span> <span class="sc">*</span> <span class="dv">1</span> <span class="co">#Multiplikation </span></span></code></pre></div>
+<pre><code>## [1] 1</code></pre>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="grundlagen.html#cb7-1" tabindex="-1"></a><span class="dv">1</span> <span class="sc">/</span> <span class="dv">1</span> <span class="co">#Division</span></span></code></pre></div>
+<pre><code>## [1] 1</code></pre>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="grundlagen.html#cb9-1" tabindex="-1"></a><span class="dv">2</span><span class="sc">^</span>(<span class="dv">1</span> <span class="sc">/</span> <span class="dv">2</span>) <span class="co">#Gemischter Term</span></span></code></pre></div>
+<pre><code>## [1] 1.414214</code></pre>
+<p>Du kannst R auch für logische TRUE/FALSE-Aussagen verwenden – mithilfe von Vergleichsoperatoren:</p>
+<ul>
+<li><code>&gt;</code> größer als</li>
+<li><code>&lt;</code> kleiner als</li>
+<li><code>==</code> gleich</li>
+<li><code>!=</code> ungleich</li>
+<li><code>&gt;=</code> größer oder gleich</li>
+<li><code>&lt;=</code> kleiner oder gleich</li>
+</ul>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="grundlagen.html#cb11-1" tabindex="-1"></a><span class="dv">1</span> <span class="sc">&lt;</span> <span class="dv">3</span> <span class="co">#TRUE</span></span></code></pre></div>
+<pre><code>## [1] TRUE</code></pre>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="grundlagen.html#cb13-1" tabindex="-1"></a><span class="dv">5</span> <span class="sc">&gt;=</span> <span class="dv">8</span> <span class="co">#FALSE</span></span></code></pre></div>
+<pre><code>## [1] FALSE</code></pre>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="grundlagen.html#cb15-1" tabindex="-1"></a><span class="dv">11</span> <span class="sc">!=</span> <span class="dv">10</span> <span class="co">#TRUE</span></span></code></pre></div>
+<pre><code>## [1] TRUE</code></pre>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="grundlagen.html#cb17-1" tabindex="-1"></a><span class="dv">22</span> <span class="sc">==</span> <span class="dv">22</span> <span class="co">#TRUE</span></span></code></pre></div>
+<pre><code>## [1] TRUE</code></pre>
+<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="grundlagen.html#cb19-1" tabindex="-1"></a><span class="dv">7</span> <span class="sc">&lt;</span> <span class="dv">3</span> <span class="co">#FALSE</span></span></code></pre></div>
+<pre><code>## [1] FALSE</code></pre>
+<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="grundlagen.html#cb21-1" tabindex="-1"></a><span class="dv">5</span> <span class="sc">&lt;=</span> <span class="dv">2</span><span class="sc">+</span><span class="dv">3</span> <span class="co">#TRUE</span></span></code></pre></div>
+<pre><code>## [1] TRUE</code></pre>
+<p>Weitere logische Operatoren:</p>
+<ul>
+<li><p><code>&amp;</code> elementweises UND – gibt TRUE zurück, wenn beide Aussagen TRUE sind</p></li>
+<li><p><code>|</code> elementweises ODER – gibt TRUE zurück, wenn mindestens eine Aussage TRUE ist</p></li>
+<li><p><code>!</code> logisches NICHT – kehrt den Wahrheitswert um</p></li>
+</ul>
+<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb23-1"><a href="grundlagen.html#cb23-1" tabindex="-1"></a><span class="dv">5</span> <span class="sc">&amp;</span> <span class="dv">4</span> <span class="sc">&lt;</span> <span class="dv">8</span> <span class="co">#TRUE</span></span></code></pre></div>
+<pre><code>## [1] TRUE</code></pre>
+<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb25-1"><a href="grundlagen.html#cb25-1" tabindex="-1"></a><span class="dv">5</span> <span class="sc">|</span> <span class="dv">4</span> <span class="sc">&lt;</span> <span class="dv">8</span> <span class="co">#TRUE</span></span></code></pre></div>
+<pre><code>## [1] TRUE</code></pre>
+<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb27-1"><a href="grundlagen.html#cb27-1" tabindex="-1"></a><span class="sc">!</span><span class="dv">5</span> <span class="sc">&gt;</span> <span class="dv">2</span> <span class="co">#FALSE</span></span></code></pre></div>
+<pre><code>## [1] FALSE</code></pre>
+</div>
+<div id="verwendung-von-funktionen" class="section level3 hasAnchor" number="1.2.2">
+<h3><span class="header-section-number">1.2.2</span> Verwendung von Funktionen<a href="grundlagen.html#verwendung-von-funktionen" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Für komplexere Operationen solltest du Funktionen verwenden. Funktionen bestehen meist aus einem Namen mit runden Klammern. Innerhalb der Klammern befinden sich sogenannte Argumente. Diese liefern der Funktion die benötigten Informationen.</p>
+<p>Beispiele:</p>
+<ul>
+<li><p><code>sqrt(x)</code> berechnet die Quadratwurzel, <code>x</code> ist eine Zahl.</p></li>
+<li><p><code>exp(x)</code> berechnet e hoch x.</p></li>
+<li><p><code>mean(x)</code> berechnet den Mittelwert.</p></li>
+<li><p><code>median(x)</code> berechnet den Median.</p></li>
+</ul>
+<div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb29-1"><a href="grundlagen.html#cb29-1" tabindex="-1"></a><span class="fu">sqrt</span>(<span class="at">x =</span> <span class="dv">36</span>) <span class="co">#Quadratwurzel</span></span>
+<span id="cb29-2"><a href="grundlagen.html#cb29-2" tabindex="-1"></a></span>
+<span id="cb29-3"><a href="grundlagen.html#cb29-3" tabindex="-1"></a><span class="fu">exp</span>(<span class="at">x =</span> <span class="dv">0</span>) <span class="co">#Exponentialfunktion</span></span>
+<span id="cb29-4"><a href="grundlagen.html#cb29-4" tabindex="-1"></a></span>
+<span id="cb29-5"><a href="grundlagen.html#cb29-5" tabindex="-1"></a><span class="fu">print</span>(<span class="st">&quot;Über 7 Brücken musst du gehen&quot;</span>) <span class="co">#Mit diesem Befehl kannst du beliebigen Text ausgeben</span></span></code></pre></div>
+<p>Manche Funktionen erfordern spezielle Eingaben. Wenn du Hilfe brauchst:</p>
+<ul>
+<li><p>Setze ein Fragezeichen vor eine Funktion und führe den Befehl aus.</p></li>
+<li><p>Oder nutze <code>help()</code> und gib den Funktionsnamen ohne Klammern an.</p></li>
+</ul>
+<div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb30-1"><a href="grundlagen.html#cb30-1" tabindex="-1"></a>?<span class="fu">exp</span>() <span class="co">#Fragezeichen-Methode</span></span>
+<span id="cb30-2"><a href="grundlagen.html#cb30-2" tabindex="-1"></a><span class="fu">help</span>(exp) <span class="co">#help-Funktion</span></span></code></pre></div>
+</div>
+<div id="objekte-zuweisen-und-ausgeben" class="section level3 hasAnchor" number="1.2.3">
+<h3><span class="header-section-number">1.2.3</span> Objekte zuweisen und ausgeben<a href="grundlagen.html#objekte-zuweisen-und-ausgeben" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Ergebnisse werden meist in Objekten gespeichert.</p>
+<ul>
+<li>Mit <code>&lt;-</code> weist du einem Objekt einen Wert zu.</li>
+</ul>
+<div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb31-1"><a href="grundlagen.html#cb31-1" tabindex="-1"></a>Pizza <span class="ot">&lt;-</span> <span class="fl">7.50</span> <span class="co">#Objekt Pizza</span></span>
+<span id="cb31-2"><a href="grundlagen.html#cb31-2" tabindex="-1"></a></span>
+<span id="cb31-3"><a href="grundlagen.html#cb31-3" tabindex="-1"></a>Cola <span class="ot">&lt;-</span> <span class="fl">3.50</span> <span class="co">#Objekt Cola</span></span>
+<span id="cb31-4"><a href="grundlagen.html#cb31-4" tabindex="-1"></a></span>
+<span id="cb31-5"><a href="grundlagen.html#cb31-5" tabindex="-1"></a>Pizza <span class="sc">+</span> Cola <span class="co">#Addition der Objekte</span></span></code></pre></div>
+<pre><code>## [1] 11</code></pre>
+<p>Wir können nun mit den Objekten weiterarbeiten und Sie nachnutzen:</p>
+<ul>
+<li><p>Lasst uns für den Anfang doch einfach die Summe aus dem Objekt <code>Pizza</code> und <code>Cola</code> bilden</p></li>
+<li><p>Wir könnten die Summe aus <code>Pizza</code> und <code>Cola</code> ebenfalls in einem weiteren Objekt speichern und dann dieses Objekt weiternutzen und so könnte man stetig weitere Objekte aus Objekten entstehen lassen.</p></li>
+</ul>
+<div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb33-1"><a href="grundlagen.html#cb33-1" tabindex="-1"></a>Angebot <span class="ot">&lt;-</span> Pizza <span class="sc">+</span> Cola <span class="co">#Addition speichern </span></span>
+<span id="cb33-2"><a href="grundlagen.html#cb33-2" tabindex="-1"></a></span>
+<span id="cb33-3"><a href="grundlagen.html#cb33-3" tabindex="-1"></a>Angebot <span class="co">#Objekt ausgeben</span></span></code></pre></div>
+<pre><code>## [1] 11</code></pre>
+<div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb35-1"><a href="grundlagen.html#cb35-1" tabindex="-1"></a>Angebot<span class="sc">^</span><span class="dv">2</span> <span class="co">#Term quadrieren</span></span></code></pre></div>
+<pre><code>## [1] 121</code></pre>
+</div>
+<div id="vektoren" class="section level3 hasAnchor" number="1.2.4">
+<h3><span class="header-section-number">1.2.4</span> Vektoren<a href="grundlagen.html#vektoren" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Ein Vektor enthält mehrere Werte.</p>
+<ul>
+<li>Mit <code>c()</code> erzeugst du einen Vektor. Du kannst die Werte innerhalb des Vektors mit einem Komma (<code>,</code>) trennen.</li>
+</ul>
+<div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb37-1"><a href="grundlagen.html#cb37-1" tabindex="-1"></a>essen <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;Pizza&quot;</span>, <span class="st">&quot;Kebab&quot;</span>, <span class="st">&quot;Curry&quot;</span>, </span>
+<span id="cb37-2"><a href="grundlagen.html#cb37-2" tabindex="-1"></a>          <span class="st">&quot;Fish&quot;</span>, <span class="st">&quot;Burrito&quot;</span>) <span class="co">#Lebensmittel-Vektor</span></span>
+<span id="cb37-3"><a href="grundlagen.html#cb37-3" tabindex="-1"></a></span>
+<span id="cb37-4"><a href="grundlagen.html#cb37-4" tabindex="-1"></a><span class="fu">print</span>(essen)</span></code></pre></div>
+<pre><code>## [1] &quot;Pizza&quot;   &quot;Kebab&quot;   &quot;Curry&quot;   &quot;Fish&quot;    &quot;Burrito&quot;</code></pre>
+<div class="sourceCode" id="cb39"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb39-1"><a href="grundlagen.html#cb39-1" tabindex="-1"></a>preise <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fl">7.50</span>, <span class="fl">6.00</span>, <span class="fl">8.50</span>, <span class="fl">3.00</span>, <span class="fl">11.00</span>) <span class="co">#Preis-Vektor</span></span>
+<span id="cb39-2"><a href="grundlagen.html#cb39-2" tabindex="-1"></a></span>
+<span id="cb39-3"><a href="grundlagen.html#cb39-3" tabindex="-1"></a><span class="fu">print</span>(preise)</span></code></pre></div>
+<pre><code>## [1]  7.5  6.0  8.5  3.0 11.0</code></pre>
+<div class="sourceCode" id="cb41"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb41-1"><a href="grundlagen.html#cb41-1" tabindex="-1"></a>cola_preise <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fl">3.50</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="fl">2.50</span>, <span class="dv">3</span>) <span class="co">#Cola-Preise</span></span>
+<span id="cb41-2"><a href="grundlagen.html#cb41-2" tabindex="-1"></a></span>
+<span id="cb41-3"><a href="grundlagen.html#cb41-3" tabindex="-1"></a><span class="fu">print</span>(cola_preise)</span></code></pre></div>
+<pre><code>## [1] 3.5 3.0 4.0 2.5 3.0</code></pre>
+<p>Now we can calculate the prices for a decent meal in one step by adding the two vectors together. The vector prices_combined will give us the prices for a meal plus a cola:</p>
+<p>Jetzt können wir aus den Preis für die mahlzeiten (Essen + Getränk) in einem Schritt berechnen, indem wir die beiden Vektoren addieren und so einen Vektor bekommen, der den Preis für das Essen plus die Cola anzeigt.</p>
+<div class="sourceCode" id="cb43"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb43-1"><a href="grundlagen.html#cb43-1" tabindex="-1"></a>preise_kombiniert <span class="ot">&lt;-</span> preise <span class="sc">+</span> cola_preise <span class="co">#Preise addieren</span></span>
+<span id="cb43-2"><a href="grundlagen.html#cb43-2" tabindex="-1"></a></span>
+<span id="cb43-3"><a href="grundlagen.html#cb43-3" tabindex="-1"></a><span class="fu">print</span>(preise_kombiniert)</span></code></pre></div>
+<pre><code>## [1] 11.0  9.0 12.5  5.5 14.0</code></pre>
+</div>
+<div id="objekt-klassen" class="section level3 hasAnchor" number="1.2.5">
+<h3><span class="header-section-number">1.2.5</span> Objekt Klassen<a href="grundlagen.html#objekt-klassen" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Objekte können unterschiedliche Datentypen besitzen:</p>
+<table>
+<colgroup>
+<col width="20%" />
+<col width="20%" />
+<col width="58%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td><strong>Numeric</strong></td>
+<td>Zahlen</td>
+<td><code>c(1, 2.4, 3.14, 4)</code></td>
+</tr>
+<tr class="even">
+<td><strong>Character</strong></td>
+<td>Text</td>
+<td><code>c("1", "blue", "Spaß", "monster")</code></td>
+</tr>
+<tr class="odd">
+<td><strong>Logical</strong></td>
+<td>TRUE/FALSE</td>
+<td><code>c(TRUE, FALSE, TRUE, FALSE)</code></td>
+</tr>
+<tr class="even">
+<td><strong>Factor</strong></td>
+<td>Kategorie</td>
+<td><code>c("Stimme nicht zu", "Neutral", "Stimme zu")</code></td>
+</tr>
+</tbody>
+</table>
+<p>Für die Datenanalyse erfordern Befehle manchmal spezielle Objektklassen. Mit dem Befehl <code>class()</code> können wir die Klasse herausfinden. Und mit <code>as.numeric</code> können wir beispielsweise Klassen ändern, indem wir sie sich selbst zuweisen, wobei es üblich ist, sie einem neuen Objekt zuzuweisen:</p>
+<div class="sourceCode" id="cb45"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb45-1"><a href="grundlagen.html#cb45-1" tabindex="-1"></a><span class="co">#Klassen überprüfen</span></span>
+<span id="cb45-2"><a href="grundlagen.html#cb45-2" tabindex="-1"></a><span class="fu">class</span>(preise)</span></code></pre></div>
+<pre><code>## [1] &quot;numeric&quot;</code></pre>
+<div class="sourceCode" id="cb47"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb47-1"><a href="grundlagen.html#cb47-1" tabindex="-1"></a><span class="fu">class</span>(essen)</span></code></pre></div>
+<pre><code>## [1] &quot;character&quot;</code></pre>
+<div class="sourceCode" id="cb49"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb49-1"><a href="grundlagen.html#cb49-1" tabindex="-1"></a><span class="fu">class</span>(cola_preise)</span></code></pre></div>
+<pre><code>## [1] &quot;numeric&quot;</code></pre>
+<p>Wir können auch die Klassen von Variablen ändern. Dazu können wir <code>as.factor()</code>, <code>as.numeric()</code>, <code>as.character()</code> usw. verwenden. Das können Sie für jede Klasse tun. Lassen Sie uns <code>cola_preise</code> in einen Vektor ändern.</p>
+<ul>
+<li>Dazu ändern wir call <code>as.character()</code> und fügen das Objekt hinzu. Anschließend weisen wir es einem anderen Objekt namens <code>cola_preise_character</code> zu. Dieses Objekt hat die Klasse „character”.</li>
+</ul>
+<div class="sourceCode" id="cb51"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb51-1"><a href="grundlagen.html#cb51-1" tabindex="-1"></a><span class="co">#We want the cola_prices vector to be a character </span></span>
+<span id="cb51-2"><a href="grundlagen.html#cb51-2" tabindex="-1"></a>cola_preise_character <span class="ot">&lt;-</span> <span class="fu">as.character</span>(cola_preise)</span>
+<span id="cb51-3"><a href="grundlagen.html#cb51-3" tabindex="-1"></a></span>
+<span id="cb51-4"><a href="grundlagen.html#cb51-4" tabindex="-1"></a><span class="co">#Checking it</span></span>
+<span id="cb51-5"><a href="grundlagen.html#cb51-5" tabindex="-1"></a><span class="fu">class</span>(cola_preise_character)</span></code></pre></div>
+<pre><code>## [1] &quot;character&quot;</code></pre>
+<div class="sourceCode" id="cb53"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb53-1"><a href="grundlagen.html#cb53-1" tabindex="-1"></a><span class="fu">print</span>(cola_preise_character)</span></code></pre></div>
+<pre><code>## [1] &quot;3.5&quot; &quot;3&quot;   &quot;4&quot;   &quot;2.5&quot; &quot;3&quot;</code></pre>
+</div>
+<div id="matrizen" class="section level3 hasAnchor" number="1.2.6">
+<h3><span class="header-section-number">1.2.6</span> Matrizen<a href="grundlagen.html#matrizen" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="matrizen-erstellen" class="section level4 hasAnchor" number="1.2.6.1">
+<h4><span class="header-section-number">1.2.6.1</span> Matrizen erstellen<a href="grundlagen.html#matrizen-erstellen" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>Es gibt verschiedene Möglichkeiten, eine Matrix zu erstellen. Beginnen wir damit, die Vektoren einfach als Spalten miteinander zu verbinden. Dazu können Sie <code>cbind()</code> verwenden, wenn Sie Spalten miteinander verbinden möchten. <code>rbind()</code> ist daher der Befehl, um Zeilen miteinander zu verbinden.</p>
+<ul>
+<li><p>Ihr müsst <code>cbind()</code> aufrufen und die Vektoren angeben, die ihr miteinander verbinden möchtet.</p></li>
+<li><p>Das Gleiche gilt für <code>rbind()</code>.</p></li>
+</ul>
+<div class="sourceCode" id="cb55"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb55-1"><a href="grundlagen.html#cb55-1" tabindex="-1"></a>preis_index <span class="ot">&lt;-</span> <span class="fu">cbind</span>(essen, </span>
+<span id="cb55-2"><a href="grundlagen.html#cb55-2" tabindex="-1"></a>                     preise,</span>
+<span id="cb55-3"><a href="grundlagen.html#cb55-3" tabindex="-1"></a>                     cola_preise) <span class="co">#Spalten zusammenfügen</span></span>
+<span id="cb55-4"><a href="grundlagen.html#cb55-4" tabindex="-1"></a></span>
+<span id="cb55-5"><a href="grundlagen.html#cb55-5" tabindex="-1"></a><span class="fu">print</span>(preis_index) <span class="co">#Ausgeben lassen</span></span></code></pre></div>
+<pre><code>##      essen     preise cola_preise
+## [1,] &quot;Pizza&quot;   &quot;7.5&quot;  &quot;3.5&quot;      
+## [2,] &quot;Kebab&quot;   &quot;6&quot;    &quot;3&quot;        
+## [3,] &quot;Curry&quot;   &quot;8.5&quot;  &quot;4&quot;        
+## [4,] &quot;Fish&quot;    &quot;3&quot;    &quot;2.5&quot;      
+## [5,] &quot;Burrito&quot; &quot;11&quot;   &quot;3&quot;</code></pre>
+<div class="sourceCode" id="cb57"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb57-1"><a href="grundlagen.html#cb57-1" tabindex="-1"></a><span class="co">#Lasst uns das Gleiche machen, indem wir die Zeilen zusammenfassen</span></span>
+<span id="cb57-2"><a href="grundlagen.html#cb57-2" tabindex="-1"></a></span>
+<span id="cb57-3"><a href="grundlagen.html#cb57-3" tabindex="-1"></a>preis_index2 <span class="ot">&lt;-</span> <span class="fu">rbind</span>(essen, </span>
+<span id="cb57-4"><a href="grundlagen.html#cb57-4" tabindex="-1"></a>                     preise,</span>
+<span id="cb57-5"><a href="grundlagen.html#cb57-5" tabindex="-1"></a>                     cola_preise) <span class="co">#Wir binden die Zeilen zusammen</span></span>
+<span id="cb57-6"><a href="grundlagen.html#cb57-6" tabindex="-1"></a></span>
+<span id="cb57-7"><a href="grundlagen.html#cb57-7" tabindex="-1"></a><span class="fu">print</span>(preis_index2) <span class="co">#Ausgeben lassen</span></span></code></pre></div>
+<pre><code>##             [,1]    [,2]    [,3]    [,4]   [,5]     
+## essen       &quot;Pizza&quot; &quot;Kebab&quot; &quot;Curry&quot; &quot;Fish&quot; &quot;Burrito&quot;
+## preise      &quot;7.5&quot;   &quot;6&quot;     &quot;8.5&quot;   &quot;3&quot;    &quot;11&quot;     
+## cola_preise &quot;3.5&quot;   &quot;3&quot;     &quot;4&quot;     &quot;2.5&quot;  &quot;3&quot;</code></pre>
+<p>Wir können eine Matrix auch durch Simulation generieren. Dabei gibt es viele Dinge zu beachten, einfach weil vieles möglich ist:</p>
+<ul>
+<li><p>Zuerst ruft ihr den Befehl <code>matrix()</code> auf.</p></li>
+<li><p>Das erste Argument ist ein Zahlenintervall. Das sind sozusagen unsere gesamten Beobachtungen.</p></li>
+<li><p>Das zweite und dritte Argument sind unsere Zeilenzahl <code>nrow()</code> und unsere Spaltenzahl <code>ncol()</code>. Wenn Sie diese miteinander multiplizieren, müssen sie die zuvor definierte Anzahl von Beobachtungen ergeben. Wir haben 20 Zahlen und 4 mal 5 ergibt 20, also ist das in Ordnung.</p></li>
+<li><p>Zuletzt müssen Sie festlegen, ob die Zahlen von links nach rechts, also zeilenweise, oder von oben nach unten angeordnet werden sollen. Wir gehen beide Beispiele durch, dann sollte es klar werden.</p></li>
+<li><p>Der Befehl <code>dim()</code> ist hilfreich, weil er uns zeigt, wie wir die Dimensionen überprüfen können.</p></li>
+</ul>
+<div class="sourceCode" id="cb59"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb59-1"><a href="grundlagen.html#cb59-1" tabindex="-1"></a><span class="co"># Matrix erzeugen</span></span>
+<span id="cb59-2"><a href="grundlagen.html#cb59-2" tabindex="-1"></a>matrix_beispiel <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">20</span>, <span class="at">nrow =</span> <span class="dv">4</span>, <span class="at">ncol =</span> <span class="dv">5</span>, <span class="at">byrow =</span> T) <span class="co">#</span></span>
+<span id="cb59-3"><a href="grundlagen.html#cb59-3" tabindex="-1"></a></span>
+<span id="cb59-4"><a href="grundlagen.html#cb59-4" tabindex="-1"></a><span class="co"># Checking it</span></span>
+<span id="cb59-5"><a href="grundlagen.html#cb59-5" tabindex="-1"></a><span class="fu">print</span>(matrix_beispiel)</span></code></pre></div>
+<pre><code>##      [,1] [,2] [,3] [,4] [,5]
+## [1,]    1    2    3    4    5
+## [2,]    6    7    8    9   10
+## [3,]   11   12   13   14   15
+## [4,]   16   17   18   19   20</code></pre>
+<div class="sourceCode" id="cb61"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb61-1"><a href="grundlagen.html#cb61-1" tabindex="-1"></a><span class="co"># Checking the dimensions</span></span>
+<span id="cb61-2"><a href="grundlagen.html#cb61-2" tabindex="-1"></a><span class="fu">dim</span>(matrix_beispiel)</span></code></pre></div>
+<pre><code>## [1] 4 5</code></pre>
+<div class="sourceCode" id="cb63"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb63-1"><a href="grundlagen.html#cb63-1" tabindex="-1"></a><span class="co"># Was passiert wenn wir byrow auf FALSE setzen?</span></span>
+<span id="cb63-2"><a href="grundlagen.html#cb63-2" tabindex="-1"></a>matrix_beispiel2 <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">20</span>, <span class="at">nrow =</span> <span class="dv">4</span>, <span class="at">ncol =</span> <span class="dv">5</span>, <span class="at">byrow =</span> F)</span>
+<span id="cb63-3"><a href="grundlagen.html#cb63-3" tabindex="-1"></a></span>
+<span id="cb63-4"><a href="grundlagen.html#cb63-4" tabindex="-1"></a><span class="co"># Checking it </span></span>
+<span id="cb63-5"><a href="grundlagen.html#cb63-5" tabindex="-1"></a><span class="fu">print</span>(matrix_beispiel2)</span></code></pre></div>
+<pre><code>##      [,1] [,2] [,3] [,4] [,5]
+## [1,]    1    5    9   13   17
+## [2,]    2    6   10   14   18
+## [3,]    3    7   11   15   19
+## [4,]    4    8   12   16   20</code></pre>
+<div class="sourceCode" id="cb65"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb65-1"><a href="grundlagen.html#cb65-1" tabindex="-1"></a><span class="fu">dim</span>(matrix_beispiel2)</span></code></pre></div>
+<pre><code>## [1] 4 5</code></pre>
+</div>
+<div id="arbeiten-mit-matrizen" class="section level4 hasAnchor" number="1.2.6.2">
+<h4><span class="header-section-number">1.2.6.2</span> Arbeiten mit Matrizen<a href="grundlagen.html#arbeiten-mit-matrizen" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>Wir möchten mit Matrizen arbeiten. Als Erstes müssen wir lernen, wie man Matrizen überprüft:</p>
+<ul>
+<li><p>Zunächst ruft ihr die Matrix auf. In unserem Beispiel <code>matrix_beispiel</code> mit eckigen Klammern.</p></li>
+<li><p>In diesen Klammern könnt ihr die einzelne Zeilen aufrufen, indem ihr die Nummer der Zeile eingebt, die ihr überprüfen möchten, und dann ein Komma dahinter setzt, um R zu signalisieren, dass ihr die Zeile haben möchten.</p></li>
+<li><p>Wenn ihr eine Zahl hinter das Komma setzt, weist ihr R an, euch die Spalte mit der Nummer anzuzeigen.</p></li>
+<li><p>Wenn ihr eine einzelne Zahl möchtet, müsst ihr eine Zeile und eine Spalte definieren.</p></li>
+</ul>
+<div class="sourceCode" id="cb67"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb67-1"><a href="grundlagen.html#cb67-1" tabindex="-1"></a><span class="co">#Lasst uns angewöhnen mit Objekten zu arbeiten</span></span>
+<span id="cb67-2"><a href="grundlagen.html#cb67-2" tabindex="-1"></a>zeile <span class="ot">&lt;-</span> <span class="dv">1</span> </span>
+<span id="cb67-3"><a href="grundlagen.html#cb67-3" tabindex="-1"></a>spalte <span class="ot">&lt;-</span> <span class="dv">1</span> </span>
+<span id="cb67-4"><a href="grundlagen.html#cb67-4" tabindex="-1"></a></span>
+<span id="cb67-5"><a href="grundlagen.html#cb67-5" tabindex="-1"></a><span class="co">#Ausgeben lassen</span></span>
+<span id="cb67-6"><a href="grundlagen.html#cb67-6" tabindex="-1"></a><span class="fu">print</span>(objekt1 <span class="ot">&lt;-</span> matrix_beispiel[zeile, ]) <span class="co">#erste zeile ausgeben</span></span></code></pre></div>
+<pre><code>## [1] 1 2 3 4 5</code></pre>
+<div class="sourceCode" id="cb69"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb69-1"><a href="grundlagen.html#cb69-1" tabindex="-1"></a><span class="fu">print</span>(objekt2 <span class="ot">&lt;-</span> matrix_beispiel[, spalte]) <span class="co">#erste spalte ausgeben </span></span></code></pre></div>
+<pre><code>## [1]  1  6 11 16</code></pre>
+<div class="sourceCode" id="cb71"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb71-1"><a href="grundlagen.html#cb71-1" tabindex="-1"></a><span class="fu">print</span>(objekt3 <span class="ot">&lt;-</span> matrix_beispiel[zeile, spalte]) <span class="co">#Wert in erster Spalte und erster Zeile ausgeben lassen</span></span></code></pre></div>
+<pre><code>## [1] 1</code></pre>
+<div class="sourceCode" id="cb73"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb73-1"><a href="grundlagen.html#cb73-1" tabindex="-1"></a><span class="fu">print</span>(matrix_beispiel) <span class="co">#matrix ausgeben lassen</span></span></code></pre></div>
+<pre><code>##      [,1] [,2] [,3] [,4] [,5]
+## [1,]    1    2    3    4    5
+## [2,]    6    7    8    9   10
+## [3,]   11   12   13   14   15
+## [4,]   16   17   18   19   20</code></pre>
+<div class="sourceCode" id="cb75"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb75-1"><a href="grundlagen.html#cb75-1" tabindex="-1"></a><span class="co">#Mehr Informationen </span></span>
+<span id="cb75-2"><a href="grundlagen.html#cb75-2" tabindex="-1"></a></span>
+<span id="cb75-3"><a href="grundlagen.html#cb75-3" tabindex="-1"></a><span class="fu">nrow</span>(matrix_beispiel) <span class="co">#Wie viele zeilen</span></span></code></pre></div>
+<pre><code>## [1] 4</code></pre>
+<div class="sourceCode" id="cb77"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb77-1"><a href="grundlagen.html#cb77-1" tabindex="-1"></a><span class="fu">ncol</span>(matrix_beispiel) <span class="co">#Wie viele spalten</span></span></code></pre></div>
+<pre><code>## [1] 5</code></pre>
+<div class="sourceCode" id="cb79"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb79-1"><a href="grundlagen.html#cb79-1" tabindex="-1"></a><span class="fu">dim</span>(matrix_beispiel) <span class="co">#wie viele dimensionen</span></span></code></pre></div>
+<pre><code>## [1] 4 5</code></pre>
+</div>
+</div>
+<div id="data-frames" class="section level3 hasAnchor" number="1.2.7">
+<h3><span class="header-section-number">1.2.7</span> Data Frames<a href="grundlagen.html#data-frames" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Die nächste Art der Datenspeicherung sind Data Frames. Dies sind die Standard-Speicherobjekte für Daten in R. Der Grund dafür ist einfach: Matrizen können nur einen Variablentyp enthalten (numerisch, Zeichen usw.), während Data Frames verschiedene Datentypen beinhalten können.</p>
+<ul>
+<li>In diesem Beispiel haben wir einen Datensatz mit der Variable „Land“ (character), der Hauptstadt (character), der Bevölkerung (numeric) in Millionen und einer Angabe, ob das Land in Europa liegt (logisch).</li>
+</ul>
+<div class="sourceCode" id="cb81"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb81-1"><a href="grundlagen.html#cb81-1" tabindex="-1"></a><span class="co"># making an example df</span></span>
+<span id="cb81-2"><a href="grundlagen.html#cb81-2" tabindex="-1"></a>df_beispiel <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb81-3"><a href="grundlagen.html#cb81-3" tabindex="-1"></a>    <span class="at">land =</span> <span class="fu">c</span>(<span class="st">&quot;Austria&quot;</span>, <span class="st">&quot;England&quot;</span>, </span>
+<span id="cb81-4"><a href="grundlagen.html#cb81-4" tabindex="-1"></a>                <span class="st">&quot;Brazil&quot;</span>, <span class="st">&quot;Germany&quot;</span>), </span>
+<span id="cb81-5"><a href="grundlagen.html#cb81-5" tabindex="-1"></a>    <span class="at">hauptstadt =</span> <span class="fu">c</span>(<span class="st">&quot;Vienna&quot;</span>, <span class="st">&quot;London&quot;</span>, </span>
+<span id="cb81-6"><a href="grundlagen.html#cb81-6" tabindex="-1"></a>                <span class="st">&quot;Brasilia&quot;</span>, <span class="st">&quot;Berlin&quot;</span>), </span>
+<span id="cb81-7"><a href="grundlagen.html#cb81-7" tabindex="-1"></a>    <span class="at">bev =</span> <span class="fu">c</span>(<span class="fl">9.04</span>, <span class="fl">55.98</span>, <span class="fl">215.3</span>, <span class="fl">83.8</span>),</span>
+<span id="cb81-8"><a href="grundlagen.html#cb81-8" tabindex="-1"></a>    <span class="at">europa =</span> <span class="fu">c</span>(<span class="cn">TRUE</span>, <span class="cn">FALSE</span>, <span class="cn">TRUE</span>, <span class="cn">TRUE</span>)</span>
+<span id="cb81-9"><a href="grundlagen.html#cb81-9" tabindex="-1"></a>  )</span>
+<span id="cb81-10"><a href="grundlagen.html#cb81-10" tabindex="-1"></a></span>
+<span id="cb81-11"><a href="grundlagen.html#cb81-11" tabindex="-1"></a><span class="co"># Checking it</span></span>
+<span id="cb81-12"><a href="grundlagen.html#cb81-12" tabindex="-1"></a><span class="fu">print</span>(df_beispiel)</span></code></pre></div>
+<pre><code>##      land hauptstadt    bev europa
+## 1 Austria     Vienna   9.04   TRUE
+## 2 England     London  55.98  FALSE
+## 3  Brazil   Brasilia 215.30   TRUE
+## 4 Germany     Berlin  83.80   TRUE</code></pre>
+<ul>
+<li>Wenn Sie mit Datenrahmen arbeiten möchten, können Sie Spalten aufrufen, indem Sie den Namen des Datenrahmens mit einem Dollarzeichen dahinter und anschließend den Namen der Spalte, die Sie überprüfen möchten, aufrufen:</li>
+</ul>
+<div class="sourceCode" id="cb83"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb83-1"><a href="grundlagen.html#cb83-1" tabindex="-1"></a>df_beispiel<span class="sc">$</span>land  </span></code></pre></div>
+<pre><code>## [1] &quot;Austria&quot; &quot;England&quot; &quot;Brazil&quot;  &quot;Germany&quot;</code></pre>
+<p>Sie sehen, dass Sie den Vektor der Spalte erhalten. Wir können noch weiter gehen und mehr mit Datenrahmen arbeiten</p>
+<ul>
+<li><p>Rufen wir eine einzelne Beobachtung im Datenrahmen auf: Sie rufen die Spalte, die Sie untersuchen möchten, auf die gleiche Weise wie zuvor auf, diesmal fügen Sie jedoch eckige Klammern hinzu und geben die Nummer der Beobachtung in der Spalte an.</p></li>
+<li><p>Wir möchten „Brazil” haben. „Brazil” ist das dritte Element von df_beispiel$land, daher setzen wir eine 3 in die eckigen Klammern:</p></li>
+</ul>
+<div class="sourceCode" id="cb85"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb85-1"><a href="grundlagen.html#cb85-1" tabindex="-1"></a>df_beispiel<span class="sc">$</span>land[<span class="dv">3</span>]</span></code></pre></div>
+<pre><code>## [1] &quot;Brazil&quot;</code></pre>
+<p>Das Letzte, was wir mit Datenrahmen tun müssen, ist, Spalten basierend auf Bedingungen zu erhalten. Im nächsten Teil dieses Kapitels werden wir eine Methode dafür kennenlernen, aber wir können dies auch mit dem Datenrahmen tun. Stellen Sie sich vor, Sie möchten einen Vektor von <code>df$land</code> haben, aber nur mit Ländern, deren <code>df$bev</code> größer als 60 ist. Das bedeutet eine Bevölkerung von mehr als 60 Einwohnern.</p>
+<ul>
+<li><p>Dazu rufen wir die Spalte <code>df$land</code> auf und setzen sie in eckige Klammern.</p></li>
+<li><p>Außerdem müssen wir in den eckigen Klammern die Bedingung aufrufen. Also die Variable df_example$pop und sie auf größer als 60 setzen. Et voilà, wir erhalten die Spalten von <code>df_example$land</code>, die größer als 60 sind.</p></li>
+</ul>
+<div class="sourceCode" id="cb87"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb87-1"><a href="grundlagen.html#cb87-1" tabindex="-1"></a>df_beispiel<span class="sc">$</span>land[df_beispiel<span class="sc">$</span>bev <span class="sc">&gt;</span> <span class="dv">60</span>]</span></code></pre></div>
+<pre><code>## [1] &quot;Brazil&quot;  &quot;Germany&quot;</code></pre>
+</div>
+</div>
+<div id="ifelse-statements-und-die-ifelse-funktion" class="section level2 hasAnchor" number="1.3">
+<h2><span class="header-section-number">1.3</span> <code>ifelse</code> statements und die <code>ifelse()</code> funktion<a href="grundlagen.html#ifelse-statements-und-die-ifelse-funktion" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Einer der am häufigsten verwendeten und daher wichtigsten logischen Operatoren in der Programmierung im Allgemeinen sind <code>ifelse</code>-Befehle. Sie kennen sie wahrscheinlich aus Excel, aber aufgrund ihrer Nützlichkeit sind sie in jeder Programmiersprache enthalten. Eine kurze Erinnerung an ihre Logik.</p>
+<div id="if-else-statements-mit-einer-bedingung" class="section level3 hasAnchor" number="1.3.1">
+<h3><span class="header-section-number">1.3.1</span> If else statements mit einer Bedingung<a href="grundlagen.html#if-else-statements-mit-einer-bedingung" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Zunächst definieren Sie eine if-Anweisung. Die if-Anweisung ist eine logische Anweisung, zum Beispiel größer, kleiner als X. Die logische Anweisung ist Ihr Testausdruck. Damit weisen Sie das Programm an, die Bedingung für ein Objekt zu testen, in Excel eine Zelle oder jedes andere Objekt, das in Ihrer Programmiersprache getestet werden kann. Das Programm prüft dann, ob die Bedingung WAHR oder FALSCH ist. Bis zu diesem Punkt sind alle if-else-Anweisungen gleich, nun sehen wir uns einige Varianten an:</p>
+<div class="float">
+<img src="images/r-if-else-statement_2.PNG" fig-align="center" width="350" alt="Figure 2: Logik eines if-else statements" />
+<div class="figcaption"><strong><em>Figure 2: Logik eines if-else statements</em></strong></div>
+</div>
+<p>Abbildung 2 zeigt die Logik einer if-else-Anweisung mit einer Bedingung. Wir sagen, dass etwas passieren soll, wenn der Testausdruck wahr ist. Wenn nicht, passiert nichts, da nichts definiert wurde.</p>
+<ul>
+<li><p>Wir möchten, dass R unsere Noten in der Schule bewertet. Aus diesem Grund definieren wir ein Objekt namens „grade” und weisen ihm den Wert 1,7 zu.</p></li>
+<li><p>Im nächsten Schritt rufen wir „if“ auf und öffnen eine Klammer. Wir fügen den Testausdruck in die Klammer ein, der lauten soll: „if grade, our grade is smaller than 2“ (wenn Note, unsere Note kleiner als 2 ist).</p></li>
+<li><p>Dann öffnen wir geschweifte Klammern, um zu definieren, was passieren soll, wenn der Testausdruck „TRUE“ (wahr) ist. Das heißt, was passieren soll, wenn die Note besser als 2 ist. Wir definieren „print(„Good Job“)“.</p></li>
+<li><p>Hier ist die generelle Logik von ifelse statements:</p>
+<p><code>if (Testausdruck) {</code></p>
+<p><code>Körperausdruck</code></p>
+<p><code>}</code></p></li>
+</ul>
+<div class="sourceCode" id="cb89"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb89-1"><a href="grundlagen.html#cb89-1" tabindex="-1"></a>note <span class="ot">&lt;-</span> <span class="fl">1.7</span> </span>
+<span id="cb89-2"><a href="grundlagen.html#cb89-2" tabindex="-1"></a></span>
+<span id="cb89-3"><a href="grundlagen.html#cb89-3" tabindex="-1"></a><span class="cf">if</span>(note <span class="sc">&lt;</span> <span class="dv">2</span>) {</span>
+<span id="cb89-4"><a href="grundlagen.html#cb89-4" tabindex="-1"></a>  <span class="fu">print</span>(<span class="st">&quot;Good Job&quot;</span>)</span>
+<span id="cb89-5"><a href="grundlagen.html#cb89-5" tabindex="-1"></a>} <span class="co"># Sie schreiben if(Testausdruck) und dann den {Körperausdruck}, also den Körperausdruck in geschweiften Klammern.</span></span></code></pre></div>
+<pre><code>## [1] &quot;Good Job&quot;</code></pre>
+<div class="sourceCode" id="cb91"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb91-1"><a href="grundlagen.html#cb91-1" tabindex="-1"></a>note <span class="ot">&lt;-</span> <span class="fl">2.5</span> </span>
+<span id="cb91-2"><a href="grundlagen.html#cb91-2" tabindex="-1"></a></span>
+<span id="cb91-3"><a href="grundlagen.html#cb91-3" tabindex="-1"></a><span class="cf">if</span>(note <span class="sc">&lt;</span> <span class="dv">2</span>) {</span>
+<span id="cb91-4"><a href="grundlagen.html#cb91-4" tabindex="-1"></a>  <span class="fu">print</span>(<span class="st">&quot;Good Job&quot;</span>)</span>
+<span id="cb91-5"><a href="grundlagen.html#cb91-5" tabindex="-1"></a>} <span class="co">#Da die Bedingung nicht erfüllt ist, passiert nichts.</span></span></code></pre></div>
+<p>Wie Sie sehen können, passiert nichts, wenn die Note größer als 2 ist. Andernfalls wird wie vorgesehen „Good Job“ ausgegeben.</p>
+</div>
+<div id="if-anweisungen-mit-else-bedingung" class="section level3 hasAnchor" number="1.3.2">
+<h3><span class="header-section-number">1.3.2</span> if-Anweisungen mit else-Bedingung<a href="grundlagen.html#if-anweisungen-mit-else-bedingung" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Ein if-Befehl allein ist ziemlich nutzlos. Interessant wird es, wenn wir auch einen Körper für den else-Befehl haben. Was nun passiert, ist, dass nicht mehr nichts ausgegeben wird, wenn der Testausdruck FALSE ist. Stattdessen wird der Körper von else ausgegeben.</p>
+<div class="float">
+<img src="images/r-if-statement.PNG" fig-align="center" width="350" alt="Figure 3: Standard RStudio Interface" />
+<div class="figcaption"><strong>Figure 3: Standard RStudio Interface</strong></div>
+</div>
+<p>Jetzt fügen wir einfach einen <strong>else-Block</strong> in die Gleichung ein. In R bedeutet das, dass wir ihn definieren müssen:</p>
+<ul>
+<li>Wir nehmen das if-else-Statement aus dem vorherigen Abschnitt und fügen nun ein <code>else</code> hinzu und öffnen geschweifte Klammern <code>{}</code>, in denen wir den Inhalt von <code>else</code> definieren.</li>
+</ul>
+<div class="sourceCode" id="cb92"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb92-1"><a href="grundlagen.html#cb92-1" tabindex="-1"></a>grade <span class="ot">&lt;-</span> <span class="fl">3.3</span> <span class="co">#Note zuweisen</span></span>
+<span id="cb92-2"><a href="grundlagen.html#cb92-2" tabindex="-1"></a></span>
+<span id="cb92-3"><a href="grundlagen.html#cb92-3" tabindex="-1"></a><span class="cf">if</span> (grade <span class="sc">&lt;=</span> <span class="dv">2</span>) {</span>
+<span id="cb92-4"><a href="grundlagen.html#cb92-4" tabindex="-1"></a>  <span class="fu">print</span>(<span class="st">&quot;Good Job&quot;</span>)</span>
+<span id="cb92-5"><a href="grundlagen.html#cb92-5" tabindex="-1"></a>} <span class="cf">else</span> {</span>
+<span id="cb92-6"><a href="grundlagen.html#cb92-6" tabindex="-1"></a>  <span class="fu">print</span>(<span class="st">&quot;Life goes on&quot;</span>)</span>
+<span id="cb92-7"><a href="grundlagen.html#cb92-7" tabindex="-1"></a>} </span></code></pre></div>
+<pre><code>## [1] &quot;Life goes on&quot;</code></pre>
+<div class="sourceCode" id="cb94"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb94-1"><a href="grundlagen.html#cb94-1" tabindex="-1"></a>grade <span class="ot">&lt;-</span> <span class="fl">1.3</span> <span class="co">#Note zuweisen</span></span>
+<span id="cb94-2"><a href="grundlagen.html#cb94-2" tabindex="-1"></a></span>
+<span id="cb94-3"><a href="grundlagen.html#cb94-3" tabindex="-1"></a><span class="cf">if</span> (grade <span class="sc">&lt;=</span> <span class="dv">2</span>) {</span>
+<span id="cb94-4"><a href="grundlagen.html#cb94-4" tabindex="-1"></a>  <span class="fu">print</span>(<span class="st">&quot;Good Job&quot;</span>)</span>
+<span id="cb94-5"><a href="grundlagen.html#cb94-5" tabindex="-1"></a>} <span class="cf">else</span> {</span>
+<span id="cb94-6"><a href="grundlagen.html#cb94-6" tabindex="-1"></a>  <span class="fu">print</span>(<span class="st">&quot;Life goes on&quot;</span>)</span>
+<span id="cb94-7"><a href="grundlagen.html#cb94-7" tabindex="-1"></a>}</span></code></pre></div>
+<pre><code>## [1] &quot;Good Job&quot;</code></pre>
+<p>Wir sehen, dass in jedem Fall ein Ergebnis ausgegeben wird.</p>
+</div>
+<div id="der-ifelse-befehl" class="section level3 hasAnchor" number="1.3.3">
+<h3><span class="header-section-number">1.3.3</span> Der <code>ifelse()</code> Befehl<a href="grundlagen.html#der-ifelse-befehl" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Das oben gezeigte ist die manuelle Art, eine if-else-Bedingung zu programmieren. In R gibt es jedoch auch die Funktion <code>ifelse()</code>, bei der man keine verschiedenen Farben und geschweiften Klammern benötigt.</p>
+<ul>
+<li>Man ruft <code>ifelse()</code> auf.</li>
+<li>Das erste Argument ist der Testausdruck.</li>
+<li>Das zweite Argument ist der Ausdruck für den if-Fall.</li>
+<li>Das dritte Argument ist der Ausdruck für den else-Fall.</li>
+</ul>
+<p><code>ifelse(test expression, body of if, body of else)</code></p>
+<div class="sourceCode" id="cb96"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb96-1"><a href="grundlagen.html#cb96-1" tabindex="-1"></a><span class="fu">ifelse</span>(grade <span class="sc">&lt;=</span><span class="dv">2</span>, <span class="st">&quot;Good Job&quot;</span>, <span class="st">&quot;Life goes on&quot;</span>) <span class="co">#ifelse Befehl</span></span></code></pre></div>
+<pre><code>## [1] &quot;Good Job&quot;</code></pre>
+</div>
+<div id="if-else-ketten-if-else-mit-mehreren-bedingungen" class="section level3 hasAnchor" number="1.3.4">
+<h3><span class="header-section-number">1.3.4</span> if-else-Ketten / if-else mit mehreren Bedingungen<a href="grundlagen.html#if-else-ketten-if-else-mit-mehreren-bedingungen" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Die Welt ist komplex. Manchmal sind Dinge nicht einfach schwarz oder weiß. Deshalb müssen wir auf verschiedene Szenarien vorbereitet sein. Weniger dramatisch formuliert: if-else-Statements können auch mehrere else-Zweige enthalten.</p>
+<p>Nehmen wir das Beispiel, dass wir abhängig von unserer Note unterschiedliche Ausgaben von R erhalten möchten. R prüft zuerst die erste Bedingung, danach den zweiten Testausdruck und so weiter, bis eine passende Bedingung gefunden wird und diese ausgegeben wird. Wenn keine Bedingung zutrifft, muss ein letzter else-Ausdruck definiert werden.</p>
+<ul>
+<li>Man fügt <code>else if</code> mit geschweiften Klammern hinzu, in denen der Testausdruck steht.</li>
+<li>Zum Schluss definiert man ein <code>else</code> mit geschweiften Klammern für den Fall, dass keine Testbedingung zutrifft.</li>
+</ul>
+<div class="sourceCode" id="cb98"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb98-1"><a href="grundlagen.html#cb98-1" tabindex="-1"></a>grade <span class="ot">&lt;-</span> <span class="fl">3.3</span> <span class="co">#Note zuweisen</span></span>
+<span id="cb98-2"><a href="grundlagen.html#cb98-2" tabindex="-1"></a></span>
+<span id="cb98-3"><a href="grundlagen.html#cb98-3" tabindex="-1"></a><span class="cf">if</span> (grade <span class="sc">==</span> <span class="fl">1.0</span>) {</span>
+<span id="cb98-4"><a href="grundlagen.html#cb98-4" tabindex="-1"></a>  <span class="fu">print</span>(<span class="st">&quot;Amazing&quot;</span>) </span>
+<span id="cb98-5"><a href="grundlagen.html#cb98-5" tabindex="-1"></a>} <span class="cf">else</span> <span class="cf">if</span> (grade <span class="sc">&gt;</span> <span class="fl">1.0</span> <span class="sc">&amp;</span> grade <span class="sc">&lt;=</span> <span class="fl">2.0</span>) {</span>
+<span id="cb98-6"><a href="grundlagen.html#cb98-6" tabindex="-1"></a>  <span class="fu">print</span>(<span class="st">&quot;Good Job&quot;</span>)</span>
+<span id="cb98-7"><a href="grundlagen.html#cb98-7" tabindex="-1"></a>} <span class="cf">else</span> <span class="cf">if</span> (grade <span class="sc">&gt;</span> <span class="fl">2.0</span> <span class="sc">&amp;</span> grade <span class="sc">&lt;=</span> <span class="fl">3.0</span>) {</span>
+<span id="cb98-8"><a href="grundlagen.html#cb98-8" tabindex="-1"></a>  <span class="fu">print</span>(<span class="st">&quot;OK&quot;</span>)</span>
+<span id="cb98-9"><a href="grundlagen.html#cb98-9" tabindex="-1"></a>} <span class="cf">else</span> <span class="cf">if</span> (grade <span class="sc">&gt;</span> <span class="fl">3.0</span> <span class="sc">&amp;</span> grade <span class="sc">&lt;=</span> <span class="fl">4.0</span>) {</span>
+<span id="cb98-10"><a href="grundlagen.html#cb98-10" tabindex="-1"></a>  <span class="fu">print</span>(<span class="st">&quot;Life goes on&quot;</span>)</span>
+<span id="cb98-11"><a href="grundlagen.html#cb98-11" tabindex="-1"></a>} <span class="cf">else</span> {</span>
+<span id="cb98-12"><a href="grundlagen.html#cb98-12" tabindex="-1"></a>  <span class="fu">print</span>(<span class="st">&quot;No expression found&quot;</span>)</span>
+<span id="cb98-13"><a href="grundlagen.html#cb98-13" tabindex="-1"></a>}</span></code></pre></div>
+<pre><code>## [1] &quot;Life goes on&quot;</code></pre>
+<div class="sourceCode" id="cb100"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb100-1"><a href="grundlagen.html#cb100-1" tabindex="-1"></a>grade <span class="ot">&lt;-</span> <span class="fl">1.7</span> <span class="co">#Note zuweisen</span></span>
+<span id="cb100-2"><a href="grundlagen.html#cb100-2" tabindex="-1"></a></span>
+<span id="cb100-3"><a href="grundlagen.html#cb100-3" tabindex="-1"></a><span class="cf">if</span> (grade <span class="sc">==</span> <span class="fl">1.0</span>) {</span>
+<span id="cb100-4"><a href="grundlagen.html#cb100-4" tabindex="-1"></a>  <span class="fu">print</span>(<span class="st">&quot;Amazing&quot;</span>) </span>
+<span id="cb100-5"><a href="grundlagen.html#cb100-5" tabindex="-1"></a>} <span class="cf">else</span> <span class="cf">if</span> (grade <span class="sc">&gt;</span> <span class="fl">1.0</span> <span class="sc">&amp;</span> grade <span class="sc">&lt;=</span> <span class="fl">2.0</span>) {</span>
+<span id="cb100-6"><a href="grundlagen.html#cb100-6" tabindex="-1"></a>  <span class="fu">print</span>(<span class="st">&quot;Good Job&quot;</span>)</span>
+<span id="cb100-7"><a href="grundlagen.html#cb100-7" tabindex="-1"></a>} <span class="cf">else</span> <span class="cf">if</span> (grade <span class="sc">&gt;</span> <span class="fl">2.0</span> <span class="sc">&amp;</span> grade <span class="sc">&lt;=</span> <span class="fl">3.0</span>) {</span>
+<span id="cb100-8"><a href="grundlagen.html#cb100-8" tabindex="-1"></a>  <span class="fu">print</span>(<span class="st">&quot;OK&quot;</span>)</span>
+<span id="cb100-9"><a href="grundlagen.html#cb100-9" tabindex="-1"></a>} <span class="cf">else</span> <span class="cf">if</span> (grade <span class="sc">&gt;</span> <span class="fl">3.0</span> <span class="sc">&amp;</span> grade <span class="sc">&lt;=</span> <span class="fl">4.0</span>) {</span>
+<span id="cb100-10"><a href="grundlagen.html#cb100-10" tabindex="-1"></a>  <span class="fu">print</span>(<span class="st">&quot;Life goes on&quot;</span>)</span>
+<span id="cb100-11"><a href="grundlagen.html#cb100-11" tabindex="-1"></a>} <span class="cf">else</span> {</span>
+<span id="cb100-12"><a href="grundlagen.html#cb100-12" tabindex="-1"></a>  <span class="fu">print</span>(<span class="st">&quot;No expression found&quot;</span>)</span>
+<span id="cb100-13"><a href="grundlagen.html#cb100-13" tabindex="-1"></a>}</span></code></pre></div>
+<pre><code>## [1] &quot;Good Job&quot;</code></pre>
+<div class="sourceCode" id="cb102"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb102-1"><a href="grundlagen.html#cb102-1" tabindex="-1"></a>grade <span class="ot">&lt;-</span> <span class="fl">5.0</span> <span class="co">#Note zuweisen</span></span>
+<span id="cb102-2"><a href="grundlagen.html#cb102-2" tabindex="-1"></a></span>
+<span id="cb102-3"><a href="grundlagen.html#cb102-3" tabindex="-1"></a><span class="cf">if</span> (grade <span class="sc">==</span> <span class="fl">1.0</span>) {</span>
+<span id="cb102-4"><a href="grundlagen.html#cb102-4" tabindex="-1"></a>  <span class="fu">print</span>(<span class="st">&quot;Amazing&quot;</span>) </span>
+<span id="cb102-5"><a href="grundlagen.html#cb102-5" tabindex="-1"></a>} <span class="cf">else</span> <span class="cf">if</span> (grade <span class="sc">&gt;</span> <span class="fl">1.0</span> <span class="sc">&amp;</span> grade <span class="sc">&lt;=</span> <span class="fl">2.0</span>) {</span>
+<span id="cb102-6"><a href="grundlagen.html#cb102-6" tabindex="-1"></a>  <span class="fu">print</span>(<span class="st">&quot;Good Job&quot;</span>)</span>
+<span id="cb102-7"><a href="grundlagen.html#cb102-7" tabindex="-1"></a>} <span class="cf">else</span> <span class="cf">if</span> (grade <span class="sc">&gt;</span> <span class="fl">2.0</span> <span class="sc">&amp;</span> grade <span class="sc">&lt;=</span> <span class="fl">3.0</span>) {</span>
+<span id="cb102-8"><a href="grundlagen.html#cb102-8" tabindex="-1"></a>  <span class="fu">print</span>(<span class="st">&quot;OK&quot;</span>)</span>
+<span id="cb102-9"><a href="grundlagen.html#cb102-9" tabindex="-1"></a>} <span class="cf">else</span> <span class="cf">if</span> (grade <span class="sc">&gt;</span> <span class="fl">3.0</span> <span class="sc">&amp;</span> grade <span class="sc">&lt;=</span> <span class="fl">4.0</span>) {</span>
+<span id="cb102-10"><a href="grundlagen.html#cb102-10" tabindex="-1"></a>  <span class="fu">print</span>(<span class="st">&quot;Life goes on&quot;</span>)</span>
+<span id="cb102-11"><a href="grundlagen.html#cb102-11" tabindex="-1"></a>} <span class="cf">else</span> {</span>
+<span id="cb102-12"><a href="grundlagen.html#cb102-12" tabindex="-1"></a>  <span class="fu">print</span>(<span class="st">&quot;No expression found&quot;</span>)</span>
+<span id="cb102-13"><a href="grundlagen.html#cb102-13" tabindex="-1"></a>}</span></code></pre></div>
+<pre><code>## [1] &quot;No expression found&quot;</code></pre>
+<p>Dasselbe können wir auch mit einer sogenannten <strong>verschachtelten ifelse-Funktion</strong> umsetzen, indem wir den <code>ifelse()</code>-Befehl verwenden:</p>
+<ul>
+<li>Anstatt eine else-Bedingung zu definieren, definieren wir einfach ein weiteres <code>ifelse()</code>.</li>
+<li>Das wiederholen wir so lange wie nötig.</li>
+<li>Das letzte <code>ifelse()</code> enthält dann die finale else-Bedingung.</li>
+</ul>
+<div class="sourceCode" id="cb104"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb104-1"><a href="grundlagen.html#cb104-1" tabindex="-1"></a>grade <span class="ot">&lt;-</span> <span class="fl">1.7</span> <span class="co">#Note zuweisen</span></span>
+<span id="cb104-2"><a href="grundlagen.html#cb104-2" tabindex="-1"></a></span>
+<span id="cb104-3"><a href="grundlagen.html#cb104-3" tabindex="-1"></a><span class="fu">ifelse</span>(grade <span class="sc">==</span> <span class="fl">1.0</span>, <span class="st">&quot;Amazing&quot;</span>, </span>
+<span id="cb104-4"><a href="grundlagen.html#cb104-4" tabindex="-1"></a>       <span class="fu">ifelse</span>(grade <span class="sc">&gt;</span> <span class="dv">1</span> <span class="sc">&amp;</span> grade <span class="sc">&lt;=</span> <span class="dv">2</span>, <span class="st">&quot;Good Job&quot;</span>, </span>
+<span id="cb104-5"><a href="grundlagen.html#cb104-5" tabindex="-1"></a>              <span class="fu">ifelse</span>(grade <span class="sc">&gt;</span> <span class="dv">2</span> <span class="sc">&amp;</span> grade <span class="sc">&lt;=</span> <span class="dv">3</span>, <span class="st">&quot;OK&quot;</span>, </span>
+<span id="cb104-6"><a href="grundlagen.html#cb104-6" tabindex="-1"></a>                     <span class="fu">ifelse</span>(grade <span class="sc">&gt;</span> <span class="dv">3</span> <span class="sc">&amp;</span> grade <span class="sc">&lt;=</span><span class="dv">4</span>, <span class="st">&quot;Life goes on&quot;</span>, </span>
+<span id="cb104-7"><a href="grundlagen.html#cb104-7" tabindex="-1"></a>                            <span class="st">&quot;No expression found&quot;</span></span>
+<span id="cb104-8"><a href="grundlagen.html#cb104-8" tabindex="-1"></a>                            )</span>
+<span id="cb104-9"><a href="grundlagen.html#cb104-9" tabindex="-1"></a>                     )</span>
+<span id="cb104-10"><a href="grundlagen.html#cb104-10" tabindex="-1"></a>              )</span>
+<span id="cb104-11"><a href="grundlagen.html#cb104-11" tabindex="-1"></a>       )</span></code></pre></div>
+<pre><code>## [1] &quot;Good Job&quot;</code></pre>
+<div class="sourceCode" id="cb106"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb106-1"><a href="grundlagen.html#cb106-1" tabindex="-1"></a>grade <span class="ot">&lt;-</span> <span class="fl">3.3</span> <span class="co">#Note zuweisen</span></span>
+<span id="cb106-2"><a href="grundlagen.html#cb106-2" tabindex="-1"></a></span>
+<span id="cb106-3"><a href="grundlagen.html#cb106-3" tabindex="-1"></a><span class="fu">ifelse</span>(grade <span class="sc">==</span> <span class="fl">1.0</span>, <span class="st">&quot;Amazing&quot;</span>, </span>
+<span id="cb106-4"><a href="grundlagen.html#cb106-4" tabindex="-1"></a>       <span class="fu">ifelse</span>(grade <span class="sc">&gt;</span> <span class="dv">1</span> <span class="sc">&amp;</span> grade <span class="sc">&lt;=</span> <span class="dv">2</span>, <span class="st">&quot;Good Job&quot;</span>, </span>
+<span id="cb106-5"><a href="grundlagen.html#cb106-5" tabindex="-1"></a>              <span class="fu">ifelse</span>(grade <span class="sc">&gt;</span> <span class="dv">2</span> <span class="sc">&amp;</span> grade <span class="sc">&lt;=</span> <span class="dv">3</span>, <span class="st">&quot;OK&quot;</span>, </span>
+<span id="cb106-6"><a href="grundlagen.html#cb106-6" tabindex="-1"></a>                     <span class="fu">ifelse</span>(grade <span class="sc">&gt;</span> <span class="dv">3</span> <span class="sc">&amp;</span></span>
+<span id="cb106-7"><a href="grundlagen.html#cb106-7" tabindex="-1"></a>                            grade <span class="sc">&lt;=</span><span class="dv">4</span>, <span class="st">&quot;Life goes on&quot;</span>, </span>
+<span id="cb106-8"><a href="grundlagen.html#cb106-8" tabindex="-1"></a>                            <span class="st">&quot;No expression found&quot;</span>)</span>
+<span id="cb106-9"><a href="grundlagen.html#cb106-9" tabindex="-1"></a>                     )</span>
+<span id="cb106-10"><a href="grundlagen.html#cb106-10" tabindex="-1"></a>              )</span>
+<span id="cb106-11"><a href="grundlagen.html#cb106-11" tabindex="-1"></a>       )</span></code></pre></div>
+<pre><code>## [1] &quot;Life goes on&quot;</code></pre>
+<div class="sourceCode" id="cb108"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb108-1"><a href="grundlagen.html#cb108-1" tabindex="-1"></a><span class="co"># Dieselbe Logik: ifelse(Testausdruck, Ausdruck wenn wahr, ifelse(Testausdruck 2, Ausdruck wenn wahr 2)) usw.</span></span></code></pre></div>
+</div>
+</div>
+<div id="ausblick" class="section level2 hasAnchor" number="1.4">
+<h2><span class="header-section-number">1.4</span> Ausblick<a href="grundlagen.html#ausblick" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Dieser Abschnitt war eine kurze Einführung in die Grundlagen von R. Er wurde bewusst einfach gehalten, um ein erstes Gefühl für R zu vermitteln. Diese Inhalte bilden die absoluten Grundlagen, auf denen alles Weitere aufbaut.</p>
+</div>
+<div id="übungsabschnitt" class="section level2 hasAnchor" number="1.5">
+<h2><span class="header-section-number">1.5</span> Übungsabschnitt<a href="#%C3%BCbungsabschnitt" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="übung-1-erstellen-deines-ersten-vektors" class="section level3 hasAnchor" number="1.5.1">
+<h3><span class="header-section-number">1.5.1</span> Übung 1: Erstellen deines ersten Vektors<a href="#%C3%BCbung-1-erstellen-deines-ersten-vektors" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Erstelle einen Vektor namens <code>my_vector</code> mit den Werten 1, 2, 3 und überprüfe seine Klasse.</p>
+<div class="sourceCode" id="cb109"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb109-1"><a href="grundlagen.html#cb109-1" tabindex="-1"></a><span class="co">#Vektor erstellen </span></span>
+<span id="cb109-2"><a href="grundlagen.html#cb109-2" tabindex="-1"></a>my_vector <span class="ot">&lt;-</span> </span>
+<span id="cb109-3"><a href="grundlagen.html#cb109-3" tabindex="-1"></a></span>
+<span id="cb109-4"><a href="grundlagen.html#cb109-4" tabindex="-1"></a><span class="co">#Klasse überprüfen</span></span></code></pre></div>
+</div>
+<div id="übung-2-erstellen-deiner-ersten-matrix" class="section level3 hasAnchor" number="1.5.2">
+<h3><span class="header-section-number">1.5.2</span> Übung 2: Erstellen deiner ersten Matrix<a href="#%C3%BCbung-2-erstellen-deiner-ersten-matrix" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Erstelle eine Matrix namens <code>student</code>. Diese soll Informationen über <code>name</code>, <code>age</code> und <code>major</code> enthalten. Erstelle drei Vektoren mit jeweils drei Einträgen und verbinde sie anschließend zu der Matrix <code>student</code>. Gib die Matrix aus.</p>
+<div class="sourceCode" id="cb110"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb110-1"><a href="grundlagen.html#cb110-1" tabindex="-1"></a><span class="co">#Vektoren erstellen </span></span>
+<span id="cb110-2"><a href="grundlagen.html#cb110-2" tabindex="-1"></a></span>
+<span id="cb110-3"><a href="grundlagen.html#cb110-3" tabindex="-1"></a>name <span class="ot">&lt;-</span> </span>
+<span id="cb110-4"><a href="grundlagen.html#cb110-4" tabindex="-1"></a>age <span class="ot">&lt;-</span> </span>
+<span id="cb110-5"><a href="grundlagen.html#cb110-5" tabindex="-1"></a>major <span class="ot">&lt;-</span> </span>
+<span id="cb110-6"><a href="grundlagen.html#cb110-6" tabindex="-1"></a></span>
+<span id="cb110-7"><a href="grundlagen.html#cb110-7" tabindex="-1"></a><span class="co">#Matrix erstellen</span></span>
+<span id="cb110-8"><a href="grundlagen.html#cb110-8" tabindex="-1"></a>student <span class="ot">&lt;-</span> </span>
+<span id="cb110-9"><a href="grundlagen.html#cb110-9" tabindex="-1"></a>  </span>
+<span id="cb110-10"><a href="grundlagen.html#cb110-10" tabindex="-1"></a><span class="co">#Matrix ausgeben</span></span></code></pre></div>
+</div>
+<div id="übung-3-ifelse-funktion" class="section level3 hasAnchor" number="1.5.3">
+<h3><span class="header-section-number">1.5.3</span> Übung 3: <code>ifelse</code> Funktion<a href="#%C3%BCbung-3-ifelse-funktion" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Schreibe ein <code>ifelse</code>-Statement, das überprüft, ob eine gegebene Zahl positiv oder negativ ist. Wenn die Zahl positiv ist, gib <code>"Number is positive"</code> aus, ansonsten <code>"Number is negative"</code>. Du kannst entscheiden, ob du die <code>ifelse()</code>-Funktion oder eine <code>if-else</code>-Bedingung verwendest.</p>
+<div class="sourceCode" id="cb111"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb111-1"><a href="grundlagen.html#cb111-1" tabindex="-1"></a><span class="co">#Zahl dem Objekt &quot;number&quot; zuweisen</span></span>
+<span id="cb111-2"><a href="grundlagen.html#cb111-2" tabindex="-1"></a>number <span class="ot">&lt;-</span> <span class="sc">-</span><span class="dv">4</span></span></code></pre></div>
+</div>
+<div id="übung-4-ifelse-kette" class="section level3 hasAnchor" number="1.5.4">
+<h3><span class="header-section-number">1.5.4</span> Übung 4: <code>ifelse</code>-Kette<a href="#%C3%BCbung-4-ifelse-kette" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Schreibe eine if-else-Kette, die die Note eines Studenten basierend auf seiner Punktzahl kategorisiert. Die Bewertungskriterien sind:</p>
+<p>Score &gt;= 90: “A”<br />
+Score &gt;= 80 und &lt; 90: “B”<br />
+Score &gt;= 70 und &lt; 80: “C”<br />
+Score &gt;= 60 und &lt; 70: “D”<br />
+Score &lt; 60: “F”</p>
+
+</div>
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="index.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="datenmanipulation.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": false,
+"twitter": false,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": {}
+},
+"fontsettings": null,
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": null,
+"search": null,
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

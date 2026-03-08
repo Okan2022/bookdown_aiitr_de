@@ -1,43 +1,40 @@
-# Data Analysis
+# Datenanalyse
 
-In this chapter you I introduce you to the basic ideas of statistical analysis and hypothesis testing. For me, it is important that you get an intuition about what is going on rather than terrorizing you with complicated math. Although, I cannot and will not leave out central formulas, you will be fine with the maths. There extensively commented and in the end of the day not that hard to understand. You will notice that the programming in this chapter is quite easy compared to before. In the end, you only need formulas, who do everything you need to analyse data, that is also a strength of R. Please concentrate more on the concepts and get an idea what is going on. The goal of this chapter is that you get to know linear regression and how to check if the model fits and the results are robust and significant.
-
-```{r loading packages}
+In diesem Kapitel stelle ich euch die grundlegenden Ideen der statistischen Analyse und des Hypothesentestens vor. Mir ist es wichtig, dass ihr ein Gespür dafür bekommt, was vor sich geht, anstatt euch mit komplizierter Mathematik zu überhäufen. Auch wenn ich zentrale Formeln nicht weglassen kann und werde, werdet ihr mit der Mathematik gut zurechtkommen. Sie ist ausführlich kommentiert und am Ende des Tages gar nicht so schwer zu verstehen. Ihr werdet feststellen, dass die Programmierung in diesem Kapitel im Vergleich zu den vorherigen recht einfach ist. Am Ende braucht ihr nur Formeln, die alles erledigen, was ihr zur Datenanalyse benötigt – das ist auch eine Stärke von R. Bitte konzentriert euch mehr auf die Konzepte und versucht zu verstehen, was vor sich geht. Das Ziel dieses Kapitels ist, dass ihr die lineare Regression kennenlernt und wisst, wie ihr überprüft, ob das Modell gut passt und die Ergebnisse robust und signifikant sind.
+```{r pakete laden}
 pacman::p_load("tidyverse", "ggpubr","gapminder", 
                "sjPlot", "GGally", "car", "margins", "plotly")
 ```
 
-## Linear Regression
+## Lineare Regression
 
-### Terminology
+### Terminologie
 
-The classical (bivariate) linear regression can be expressed in the following equation (systematic component):
+Die klassische (bivariate) lineare Regression lässt sich in folgender Gleichung (systematische Komponente) ausdrücken:
 
 $$
 Y_i = \beta_0 + \beta_1X_i + e_i 
 $$
 
-where
+dabei gilt:
 
--   the index *i* runs over the observations (Respondents, Countries,...), *i* = 1,...,*n*
+-   Der Index *i* läuft über die Beobachtungen (Befragte, Länder,...), *i* = 1,...,*n*
 
--   $Y_i$ is the dependent variable, the variable we want to explain
+-   $Y_i$ ist die abhängige Variable, die Variable, die wir erklären möchten
 
--   $X_i$ is the independent variable or explanatory variable.
+-   $X_i$ ist die unabhängige Variable bzw. die erklärende Variable
 
--   $\beta_0$ is the *intercept* of the regression line
+-   $\beta_0$ ist der *Achsenabschnitt* (Intercept) der Regressionsgeraden
 
--   $\beta_1$ is the *slope* of the regression line
+-   $\beta_1$ ist die *Steigung* (Slope) der Regressionsgeraden
 
--   $\epsilon_i$ is the *error term*, thus how our observed data differs from actual population data (e.g. Measurement Error).
+-   $\epsilon_i$ ist der *Fehlerterm*, also die Abweichung unserer beobachteten Daten von den tatsächlichen Populationsdaten (z. B. Messfehler)
 
-### Estimating the Ordinary Least Squares Estimator
+### Schätzung des Kleinste-Quadrate-Schätzers
 
-To get the idea of linear regression, let us look at an example. To do so, let us simulate some data and plot it.You now should have the data frame `df` in your environment. It contains a variable X, which is our independent variable. Y is also included, which is your dependent variable. You want to explain Y with your X. Let us plot the variables with a scatterplot:
-
-```{r simulating data, echo=FALSE}
-
-set.seed(123) # For reproducibility
+Um ein Gefühl für die lineare Regression zu bekommen, schauen wir uns ein Beispiel an. Dazu simulieren wir einige Daten und stellen sie grafisch dar. Ihr solltet nun den Dataframe `df` in eurer Umgebung haben. Er enthält die Variable X, unsere unabhängige Variable, sowie Y, unsere abhängige Variable. Wir möchten Y mit X erklären. Stellen wir die Variablen zunächst in einem Streudiagramm dar:
+```{r daten simulieren 2, echo=FALSE}
+set.seed(123) # Reproduzierbarkeit sicherstellen
 
 n <- 30 
 
@@ -47,21 +44,20 @@ categorical_variable <- factor(sample(c(0, 1), n, replace = TRUE))
 
 y <- 0.8 + 1.6 * x + rnorm(n, 0, 3)
 
-df <- data.frame(x,y, categorical_variable)
+df <- data.frame(x, y, categorical_variable)
 
-#Simulate further data
-
+# Weitere Daten simulieren
 X_quadratic <- X <- runif(50, min = -5, max = 5)
 u <- rnorm(50, sd = 1)  
 
-#True relation
+# Wahre Beziehung
 Y_quadratic <- X^2 + 2 * X + u
 
-#Making a data frame out of it
+# Dataframe erstellen
 df2 <- data.frame(X_quadratic, Y_quadratic)
 ```
 
-```{r plotting x and y in df}
+```{r x und y in df plotten}
 ggplot(df, aes(x, y)) + 
   geom_point() +
   theme_bw() + 
@@ -69,13 +65,12 @@ ggplot(df, aes(x, y)) +
   scale_y_continuous(breaks = seq(0, 20, by = 2))
 ```
 
-We can see that there has to be some relationship between both those variables: The higher x gets the higher y gets. Linear regression can help us investigate the relationship. We just have to take the formula and estimated $\beta_0$ and $\beta_1$ . To do so, we estimate the **ordinary least square (OLS) estimator**. To understand what the OLS estimator does, look at the scatter plot again: **The OLS estimator fits a line through all the dots, that minimizes the distance to the dots as much as possible**. Afterward, we only extract the intercept $\beta_0$ (that is the point, where the line crosses the y-axis), and $\beta_1$ (that is the slope of the line). However, since these are estimated values for our model we have to call them by convention $\hat{\beta_0}$ and $\hat{\beta_1}$ . We will denote them in the following as such.
+Wir können erkennen, dass es eine Beziehung zwischen diesen beiden Variablen geben muss: Je größer x wird, desto größer wird y. Die lineare Regression kann uns helfen, diese Beziehung zu untersuchen. Wir müssen lediglich die Formel verwenden und $\beta_0$ sowie $\beta_1$ schätzen. Dazu schätzen wir den **Kleinste-Quadrate-Schätzer (OLS)**. Um zu verstehen, was der OLS-Schätzer macht, schauen wir uns das Streudiagramm noch einmal an: **Der OLS-Schätzer legt eine Gerade durch alle Punkte, die den Abstand zu den Punkten so weit wie möglich minimiert.** Anschließend extrahieren wir den Achsenabschnitt $\beta_0$ (der Punkt, an dem die Gerade die y-Achse schneidet) und $\beta_1$ (die Steigung der Geraden). Da es sich um geschätzte Werte für unser Modell handelt, nennen wir sie per Konvention $\hat{\beta_0}$ und $\hat{\beta_1}$, was wir im Folgenden auch so bezeichnen werden.
 
-#### Visualization
+#### Visualisierung
 
-The visual estimation is good to get an intuition with the data, but we will see later, that it does not work with multiple independent variables. Further, it does not give much information, at least not as much as we would like to have.
-
-```{r fitting an ols estimator line visually}
+Die visuelle Schätzung ist gut, um ein Gespür für die Daten zu bekommen, funktioniert jedoch – wie wir später sehen werden – nicht bei mehreren unabhängigen Variablen. Außerdem liefert sie nicht viele Informationen, zumindest nicht so viele, wie wir gerne hätten.
+```{r ols-schätzer linie visuell anpassen}
 ggplot(df, aes(x, y)) + 
   geom_point() +
   theme_bw() + 
@@ -85,212 +80,203 @@ ggplot(df, aes(x, y)) +
   geom_segment(aes(x = x, y = y, xend = x, yend = predict(lm(y ~ x, data = df))), linewidth = 0.5) 
 ```
 
-#### Calculation per Hand
+#### Berechnung von Hand
 
-We could also just calculate $\hat{\beta_0}$ and $\hat{\beta_1}$ by hand. The formula for both are as follows:
+Wir könnten $\hat{\beta_0}$ und $\hat{\beta_1}$ auch von Hand berechnen. Die Formeln lauten wie folgt:
 
 $$
 \hat{\beta_1} = \frac{\sum_{i=1}^n(x_i - \bar{x})(y_i - \bar{y})}{\sum_{i=1}^n(x_i - \bar{x})^2}
 $$
 
-where $x_i$ is the answer of respondent *i* for our independent variable x, $\bar{x}$ is the average answer of the respondents. Those two values are subtracted, thus the deviation from the mean is calculated. The same goes with our dependent variable y, where $y_i$ is the answer of respondent *i*, and $\bar{y}$ is the average answer of all respondents. his is done for every respondent *i*, thus *n* - times. This is displayed with the sum symbol. We just calculated the so-called **covariance.**
+dabei ist $x_i$ die Antwort von Beobachtung *i* für unsere unabhängige Variable x und $\bar{x}$ der Durchschnittswert. Diese beiden Werte werden subtrahiert, wodurch die Abweichung vom Mittelwert berechnet wird. Dasselbe gilt für unsere abhängige Variable y, wobei $y_i$ die Antwort von Beobachtung *i* und $\bar{y}$ der Durchschnittswert aller Beobachtungen ist. Dies wird für jede Beobachtung *i*, also *n*-mal, durchgeführt, was durch das Summenzeichen dargestellt wird. Damit haben wir die sogenannte **Kovarianz** berechnet.
 
-The **covariance** is then divided by the squared deviation to the average answer of our independent variable x. This will get us the estimated coefficient for our model $\hat{\beta_1}$ . Sounds complicated but lets do it in R:
-
-```{r calculating ols by hand}
-#Let us first get the covariance
+Die **Kovarianz** wird dann durch die quadrierte Abweichung vom Mittelwert unserer unabhängigen Variablen x dividiert. So erhalten wir den geschätzten Koeffizienten unseres Modells $\hat{\beta_1}$. Klingt kompliziert, aber schauen wir es uns in R an:
+```{r ols von hand berechnen}
+# Zunächst berechnen wir die Kovarianz
 cov <- sum((df$x - mean(df$x)) * (df$y - mean(df$y)))
 
-#Now we get the variance of x 
+# Nun berechnen wir die Varianz von x 
 x_sq <- sum((df$x - mean(df$x))^2)
 
 x_sq
 
-# We just have to divide them 
+# Wir müssen nur dividieren 
 slope <- cov/x_sq 
 
-#printing it
+# Ausgabe
 print(slope)
 ```
 
-To get the intercept $\hat{\beta_0}$ we have to take the result of the slope and implement it into this formula:
+Um den Achsenabschnitt $\hat{\beta_0}$ zu erhalten, nehmen wir das Ergebnis der Steigung und setzen es in folgende Formel ein:
 
 $$
 \hat{\beta_0} = \bar{y} - \hat{\beta_1}*\bar{x}  
 $$
 
-We multiply $\hat{\beta_1}$ with the average of our independent variable X. The result is subtracted from the average of our dependent variable y.
-
-```{r calculating intercept by hand}
-#calculating the intercept
+Wir multiplizieren $\hat{\beta_1}$ mit dem Mittelwert unserer unabhängigen Variable X und subtrahieren das Ergebnis vom Mittelwert unserer abhängigen Variable y.
+```{r achsenabschnitt von hand berechnen}
+# Achsenabschnitt berechnen
 beta_0 <- mean(df$y) - (slope * mean(df$x))
 
-#printing it
+# Ausgabe
 beta_0
 ```
 
-Now we estimated our parameters and can display the for our model by simply putting it into the systematic component:
+Nun haben wir unsere Parameter geschätzt und können sie in die systematische Komponente einsetzen:
 
 $$
 Y_i = 1.68 + 1.54 * X_i
 $$
 
-#### Automated Calculation
+#### Automatische Berechnung
 
-This procedure by hand is way to time-wasting. R has a built in function to calculate the parameter for us called `lm()` :
-
-```{r calculating linear regression automated}
-#running a linear regression
+Diese manuelle Vorgehensweise ist viel zu zeitaufwendig. R verfügt über eine eingebaute Funktion namens `lm()`, die die Parameter für uns berechnet:
+```{r lineare regression automatisch berechnen}
+# Lineare Regression berechnen
 model1 <- lm(y ~ x, 
              data = df) 
 
-#Printing a summary of the model results
+# Zusammenfassung der Modellergebnisse ausgeben
 summary(model1)
 ```
 
-When we check the results, we see that we did everything right and get the exact same values. The interpretation of the coefficient is with a one-unit increase in the independent variable X, the dependent increases on average about 0.68 units, holding all else constant. But you noticed that you get more information on the model, than just the coefficients. We will get to that later.
+Wenn wir die Ergebnisse überprüfen, sehen wir, dass wir alles richtig gemacht haben und genau dieselben Werte erhalten. Die Interpretation des Koeffizienten lautet: Bei einer Erhöhung der unabhängigen Variable X um eine Einheit steigt die abhängige Variable im Durchschnitt um 0,68 Einheiten, unter sonst gleichen Bedingungen. Ihr habt sicher bemerkt, dass ihr mehr Informationen über das Modell erhaltet als nur die Koeffizienten. Darauf kommen wir später zurück.
 
-### Predictions with Linear Regression
+### Vorhersagen mit linearer Regression
 
-We could calculated predictions based on our OLS calculations, reconsider the systematic component we calculated:
+Wir könnten Vorhersagen auf Basis unserer OLS-Berechnungen erstellen. Betrachten wir die systematische Komponente, die wir berechnet haben:
 
 $$
 \hat{y_i} = 1.68 + 1.54x_i 
 $$
 
-We just have to put in x-values and according to our model we would get a prediction of the respondents y-value $\hat{y_i}$. We can do that for all x-values in our dataset and get a column with all the predicted values, let us call it (`y_hat`) :
-
-```{r calculating predictions}
-#First, we calculate the predictions for y
+Wir müssen lediglich x-Werte einsetzen und erhalten gemäß unserem Modell eine Vorhersage des y-Werts $\hat{y_i}$. Wir können das für alle x-Werte in unserem Datensatz tun und eine Spalte mit allen vorhergesagten Werten erhalten – nennen wir sie `y_hat`:
+```{r vorhersagen berechnen}
+# Zunächst berechnen wir die Vorhersagen für y
 df$y_hat <- 1.6821 + 1.5394*df$x 
 
-#We could also do it automatically via the predict() function
+# Alternativ automatisch mit der predict()-Funktion
 df$auto_y_hat <- predict(model1)
 
-#Checking it 
+# Überprüfung
 head(df)
 ```
 
-## Hypothesis Testing in R
+## Hypothesentesten in R
 
-We are not only interested if our model fits or not. We want to investigate real world phenomena. Well, and if our model does not fit well, we have to make adjustments so it does. What comes next is that we want to know more about the world. Researcher do so by formulating **hypotheses**. These are nothing more than assumptions you make theoretically about the world. Let us say you think you assume that in our world education has an impact on income. This would be your **Alternative Hypothesis** $H_A$ . What you know want to do is to test it against the so-called **Null Hypothesis** $H_0$. That is nothing more than the opposite of our alternative hypothesis, thus that education has no impact on income. Let us formulate both to have an overview:
+Wir sind nicht nur daran interessiert, ob unser Modell passt oder nicht. Wir möchten reale Phänomene untersuchen. Und wenn unser Modell nicht gut passt, müssen wir Anpassungen vornehmen. Der nächste Schritt ist, mehr über die Welt herauszufinden. Forscher tun dies, indem sie **Hypothesen** formulieren. Das sind nichts anderes als Annahmen, die man theoretisch über die Welt aufstellt. Nehmen wir an, ihr geht davon aus, dass Bildung einen Einfluss auf das Einkommen hat. Das wäre eure **Alternativhypothese** $H_A$. Was ihr nun tun möchtet, ist, sie gegen die sogenannte **Nullhypothese** $H_0$ zu testen. Das ist nichts anderes als das Gegenteil unserer Alternativhypothese, also dass Bildung keinen Einfluss auf das Einkommen hat. Formulieren wir beide, um einen Überblick zu haben:
 
-$H_0$ = Education does not impact Income.
+$H_0$ = Bildung hat keinen Einfluss auf das Einkommen.
 
-$H_A$ = The more educated a person is, the higher the income.
+$H_A$ = Je gebildeter eine Person ist, desto höher ist ihr Einkommen.
 
-The advantage of this approach is obvious, one of those will be true. Therefore statistical testing is needed. But before introducing it to you, we have to decide how we want to test our alternative hypothesis. More specifically, how do we want to measure our variables. For our example, we decide to conduct a survey and to get data by asking a random sample of 1000 people over 18 living in Germany (*N*=1000). We decide to measure our independent variable Education, by asking the respondents about the years they invested in their education. To get their income, you just ask them about it to fill it in.
+Der Vorteil dieses Ansatzes liegt auf der Hand: Eine der beiden Aussagen muss wahr sein. Daher ist statistisches Testen notwendig. Bevor wir es euch vorstellen, müssen wir jedoch entscheiden, wie wir unsere Alternativhypothese testen wollen – genauer gesagt, wie wir unsere Variablen messen möchten. Für unser Beispiel entscheiden wir uns für eine Umfrage und erheben Daten, indem wir eine Zufallsstichprobe von 1000 Personen über 18 Jahren in Deutschland befragen (*N* = 1000). Wir messen unsere unabhängige Variable Bildung, indem wir die Befragten nach den Jahren fragen, die sie in ihre Ausbildung investiert haben. Das Einkommen erfragen wir direkt.
 
-Can you think about possible critics about our data collection strategy?
+Fällt euch mögliche Kritik an unserer Datenerhebungsstrategie ein?
 
-### Standard Error
+### Standardfehler
 
-#### Root Mean Square Error (RMSE)
+#### Wurzel des mittleren quadratischen Fehlers (RMSE)
 
-Before moving on to Standard Errors, I will introduce another metric, the root mean square error. It is the average difference between the actual values $y_i$ and our predicted values $\hat{y_i}$. To calculate it, we square the residuals, to get only positive values. Then we take the mean, and lastly we take the square root.
-
-```{r RSME}
-#Getting the the sum of squared residuals (SSR)
+Bevor wir zu den Standardfehlern übergehen, stelle ich eine weitere Kennzahl vor: den Wurzel des mittleren quadratischen Fehlers (RMSE). Er ist die durchschnittliche Differenz zwischen den tatsächlichen Werten $y_i$ und unseren vorhergesagten Werten $\hat{y_i}$. Zur Berechnung quadrieren wir die Residuen, um nur positive Werte zu erhalten. Dann berechnen wir den Mittelwert und ziehen abschließend die Quadratwurzel.
+```{r rsme}
+# Summe der quadrierten Residuen (SSR) berechnen
 SSR <- df$y_hat^2
 
-#Calculating the mean of the squared residuals 
+# Mittelwert der quadrierten Residuen berechnen
 mean_SSR <- mean(SSR) 
 
-#Calculatin the RSME 
+# RMSE berechnen
 rsme <- sqrt(mean_SSR)
 
-#Printing it 
+# Ausgabe
 print(rsme)
 ```
 
-The rule of thumb is that the lower the RSME, the better. It is a non-standardized goodness of fit measure. Its counterpart is the R-squared measure, which is a standardized measure. You can use both, and should use both to get a metric about how close the predicted values are distributed around the actual values.
+Als Faustregel gilt: Je niedriger der RMSE, desto besser. Er ist ein nicht-standardisiertes Gütemaß. Sein Pendant ist das R-Quadrat, ein standardisiertes Maß. Beide sollten verwendet werden, um ein Bild davon zu bekommen, wie eng die vorhergesagten Werte um die tatsächlichen Werte verteilt sind.
 
-#### Standard Error of the Estimate
+#### Standardfehler des Schätzers
 
-The standard error of a coefficient estimate is the metric directly presented next to the coefficient in the regression output. It is the square root of the variance of the regression coefficient.
-
+Der Standardfehler eines Koeffizientenschätzers ist die Kennzahl, die direkt neben dem Koeffizienten in der Regressionsausgabe angezeigt wird. Er ist die Quadratwurzel der Varianz des Regressionskoeffizienten.
 ```{r se}
-#calculating standard error by hand
+# Standardfehler von Hand berechnen
 se <- SSR/(nrow(df) - 2 * (sum(df$x - mean(x))))
 
-#Printing it
+# Ausgabe
 print(se)
 ```
 
-### T-Value or T-Statistic
+### T-Wert oder T-Statistik
 
-The formula for calculating the t-value is simple:
+Die Formel zur Berechnung des t-Werts ist einfach:
 
 $$
 t_i = \frac{\beta_i}{SE(\beta_i)}
 $$
 
-where $\beta_i$ is the coefficient calculated by the linear regression, and $SE(\beta_i)$ is the standard error. Let us calculate it manually by hand for our example:
-
-```{r t-value by hand}
-#t value by hand
+dabei ist $\beta_i$ der durch die lineare Regression berechnete Koeffizient und $SE(\beta_i)$ der Standardfehler. Berechnen wir ihn manuell für unser Beispiel:
+```{r t-wert von hand}
+# t-Wert von Hand
 t_value_intercept <- -0.32773/0.30271 
 t_value_x         <- 0.67949/0.04813 
 
-#printing it
-print(t_value_intercept) #-1.082653
-print(t_value_x) #-14.11781
+# Ausgabe
+print(t_value_intercept) # -1.082653
+print(t_value_x)         # 14.11781
 ```
 
-Well, that is the t-value on its own does not tell us about statistical significance. It is used to calculate the **p-value**, which tells us about the significance of the value. But before we calculate it, we have to understands some key concepts before.
+Der t-Wert allein sagt uns noch nichts über statistische Signifikanz aus. Er wird verwendet, um den **p-Wert** zu berechnen, der uns über die Signifikanz des Wertes informiert. Bevor wir ihn berechnen, müssen wir jedoch einige wichtige Konzepte verstehen.
 
--   **Degrees of Freedom** is the first concept. Let us say, we have a sample of me and my sister (*N* = 2). We collected the numbers of books each of us has, and calculated a mean of 30. I have 20 books. How many books does my sister have? Obviously, she has 40, if we have a mean of 30. Given my value, and the mean of the sample, the value of my sister had to be 20. That is what the degrees of freedom tells us. Given the mean of a sample, the values, which can freely be chosen. Or to put it more technically, the maximum number of logically independent values.
+-   **Freiheitsgrade** sind das erste Konzept. Nehmen wir an, wir haben eine Stichprobe aus mir und meiner Schwester (*N* = 2). Wir haben die Anzahl der Bücher jeder Person erfasst und einen Mittelwert von 30 berechnet. Ich habe 20 Bücher. Wie viele Bücher hat meine Schwester? Offensichtlich 40, wenn der Mittelwert 30 ist. Gegeben meinem Wert und dem Mittelwert der Stichprobe ist der Wert meiner Schwester zwingend vorgegeben. Genau das beschreiben die Freiheitsgrade: die Anzahl der Werte, die bei gegebenem Mittelwert frei gewählt werden können. Oder technisch ausgedrückt: die maximale Anzahl logisch unabhängiger Werte.
 
--   The rule is that **the larger the sample, the higher the degrees of freedom** and **the lower the sample, the lower the degrees of freedom.**
+-   Die Regel lautet: **Je größer die Stichprobe, desto höher die Freiheitsgrade** und **je kleiner die Stichprobe, desto geringer die Freiheitsgrade.**
 
--   **T-distributions** are the distribution, we will use to calculate the p-value. I will talk about that in detail in a minute. But they are connected to the degrees of freedom, because degrees of freedom determine the tail behavior and shape of the curve until the point, where the t-distribution looks like a standard normal distribution. Let us visualize that:
+-   **T-Verteilungen** sind die Verteilungen, mit denen wir den p-Wert berechnen werden. Ich werde gleich ausführlicher darauf eingehen. Sie sind mit den Freiheitsgraden verknüpft, da diese das Randverhalten und die Form der Kurve bestimmen, bis zu dem Punkt, an dem die t-Verteilung einer Standardnormalverteilung ähnelt. Visualisieren wir das:
+```{r interaktiver t-statistik plot}
+# Daten generieren
+x <- seq(-5, 5, length.out = 100)
 
-    ```{r interactive t-statistics plot}
-    # Generate data
-    x <- seq(-5, 5, length.out = 100)
+# Dichten berechnen
+densities <- data.frame(
+  x = rep(x, 4),
+  density = c(dt(x, df = 1), dt(x, df = 2), dt(x, df = 10), dnorm(x, mean = 0, sd = 1)),
+  distribution = rep(c("t(df=1)", "t(df=2)", "t(df=10)", "Normal"), each = 100)
+)
 
-    # Calculate densities
-    densities <- data.frame(
-      x = rep(x, 4),
-      density = c(dt(x, df = 1), dt(x, df = 2), dt(x, df = 10), dnorm(x, mean = 0, sd = 1)),
-      distribution = rep(c("t(df=1)", "t(df=2)", "t(df=10)", "Normal"), each = 100)
-    )
+densities$distribution <- factor(densities$distribution, 
+                                 levels = c("Normal", 
+                                            "t(df=10)", 
+                                            "t(df=2)", 
+                                            "t(df=1)"))
 
-    densities$distribution <- factor(densities$distribution, 
-                                     levels = c("Normal", 
-                                                "t(df=10)", 
-                                                "t(df=2)", 
-                                                "t(df=1)"))
+# Plot erstellen
+plotly::ggplotly(ggplot(densities, aes(x = x, y = density, color = distribution)) +
+  geom_line() +
+  theme_minimal() +
+  labs(x = "x", y = "Dichte", 
+       title = "t-Verteilungen mit verschiedenen Freiheitsgraden") + 
+  scale_color_manual(values = c("black", "red", "green", "blue")) + 
+  scale_x_continuous("X", seq(-5,5,1), limits = c(-5,5))) 
+```
 
-    # Plot
-    plotly::ggplotly(ggplot(densities, aes(x = x, y = density, color = distribution)) +
-      geom_line() +
-      theme_minimal() +
-      labs(x = "x", y = "Density", 
-           title = "t-distributions with different degrees of freedom") + 
-      scale_color_manual(values = c("black", "red", "green", "blue")) + 
-      scale_x_continuous("X", seq(-5,5,1), limits = c(-5,5))) 
-    ```
-
--   Alright, before we find out, how to determine if a value allows us to reject the null hypothesis, we have to determine a so-called **critical value**. This is no math or anything, it is a probability we decide about. More precisely, the probability that our t-value and thus our coefficient occured by chance alone. If we say the probability that it occured by chance alone is 10%, then this is our critical value. The rule of thumb is, that a probability lower than 5% that the coefficient occured by chance alone indicates statistical significance. Keep in mind, that the critical value can vary depending on the sample size, the degrees of freedom, the field you are working in etc.
-
-```{r t-static identification visually}
-#setting seed 
+-   Bevor wir herausfinden, wie wir bestimmen, ob ein Wert die Ablehnung der Nullhypothese erlaubt, müssen wir einen sogenannten **kritischen Wert** festlegen. Das ist keine Mathematik, sondern eine Wahrscheinlichkeit, über die wir selbst entscheiden. Genauer gesagt: die Wahrscheinlichkeit, dass unser t-Wert und damit unser Koeffizient rein zufällig aufgetreten ist. Wenn wir sagen, die Wahrscheinlichkeit, dass er zufällig aufgetreten ist, beträgt 10 %, dann ist das unser kritischer Wert. Als Faustregel gilt, dass eine Wahrscheinlichkeit von weniger als 5 %, dass der Koeffizient zufällig aufgetreten ist, auf statistische Signifikanz hinweist. Beachte, dass der kritische Wert je nach Stichprobengröße, Freiheitsgraden, Fachgebiet usw. variieren kann.
+```{r t-statistik visuell identifizieren}
+# Seed setzen
 set.seed(42) 
 
-# Generate data
+# Daten generieren
 x <- seq(-5, 5, length.out = 100)
 t_density <- function(x) dt(x, df = 28)
 
-# Calculate densities
+# Dichten berechnen
 t_value_data <- data.frame(
   x = rep(x, 1),
   density = dt(x, df = 28),
   distribution = rep("t(df=28)", 100)
 )
 
-# Plot
-plotly:: ggplotly(ggplot(t_value_data, aes(x = x, y = density)) + 
+# Plot erstellen
+plotly::ggplotly(ggplot(t_value_data, aes(x = x, y = density)) + 
   geom_line(lineend = "round") + 
   stat_function(fun = t_density, geom = "area", fill = "gray", 
                 alpha = 0.75, xlim = c(-5, -1.701), n = 10000) +
@@ -300,7 +286,8 @@ plotly:: ggplotly(ggplot(t_value_data, aes(x = x, y = density)) +
              colour = "red") +
   geom_vline(xintercept = 1.701, linetype = "dashed", 
              colour = "red") + 
-  ggtitle("t-distribution with 28 df", subtitle = "The pink area marks the interval of significant values on a 95% level") +
+  ggtitle("t-Verteilung mit 28 Freiheitsgraden", 
+          subtitle = "Der graue Bereich markiert das Intervall signifikanter Werte auf dem 95%-Niveau") +
   geom_segment(x = -1.082653, 
                xend = -1.082653, 
                yend = dt(-1.082653, df = 28), 
@@ -308,58 +295,56 @@ plotly:: ggplotly(ggplot(t_value_data, aes(x = x, y = density)) +
                color = "pink", 
                linetype = "dashed", 
                linewidth = 0.2) +
-    annotate("point", x = -1.082653, y = dt(-1.082653, df = 28), 
-             color = "pink") +
+  annotate("point", x = -1.082653, y = dt(-1.082653, df = 28), 
+           color = "pink") +
   scale_x_continuous("X", seq(-5,5,1), limits = c(-5,5)) +
   theme_classic() +
-    theme(legend.position = "none")
+  theme(legend.position = "none")
 )
 ```
 
--   As we can see, the blue line representing the value of the intercept is not in the area it would have to be, for us to reject the null hypothesis. However, the t-value of our coefficient from variable is with about 14 far away from the threshold, so we can reject the null hypothesis. This is how the t-value works. The problem is, that the threshold varies with the degrees of freedom, and you will not have the threshold value in your head for every degree of freedom. You could look it up every time or you use **p-values**, which directly tell you the probability of the coefficient occuring by chance alone.
+-   Wie wir sehen, liegt die blaue Linie, die den Wert des Achsenabschnitts darstellt, nicht in dem Bereich, in dem sie sein müsste, damit wir die Nullhypothese ablehnen könnten. Der t-Wert unseres Koeffizienten der Variable liegt hingegen mit etwa 14 weit über dem Schwellenwert, sodass wir die Nullhypothese ablehnen können. So funktioniert der t-Wert. Das Problem ist, dass der Schwellenwert je nach Freiheitsgraden variiert und man ihn nicht für jeden Freiheitsgrad im Kopf haben kann. Man könnte ihn jedes Mal nachschlagen – oder man verwendet **p-Werte**, die direkt die Wahrscheinlichkeit angeben, dass der Koeffizient rein zufällig aufgetreten ist.
 
-### p-values
+### p-Werte
 
--   The p-value is a statistics that shows us the probability that a statistical measure (in our example 0) is greater/less than an observed value (in our example, the estimated coefficient). The null hypothesis would tell us that our independent variable X has no impact on Y. Statistically speaking, that would mean that our coefficient has a high probability to be zero, because zero means no effect, thus we cannot reject the null hypothesis. But if the probability that our estimated coefficient is 0 is low, we may reject the null hypothesis and would found an effect.
+-   Der p-Wert ist eine Statistik, die uns die Wahrscheinlichkeit anzeigt, dass ein statistisches Maß (in unserem Beispiel 0) größer oder kleiner als ein beobachteter Wert ist (in unserem Beispiel der geschätzte Koeffizient). Die Nullhypothese würde besagen, dass unsere unabhängige Variable X keinen Einfluss auf Y hat. Statistisch gesprochen würde das bedeuten, dass unser Koeffizient eine hohe Wahrscheinlichkeit hat, null zu sein – denn null bedeutet kein Effekt, und wir könnten die Nullhypothese nicht ablehnen. Wenn die Wahrscheinlichkeit, dass unser geschätzter Koeffizient null ist, jedoch gering ist, können wir die Nullhypothese möglicherweise ablehnen und einen Effekt festgestellt haben.
 
--   Before showing you two ways to find the p-value, we have to determine a **critical value**. This is no math or anything, it is a probability we decide about. The rule of thumb is that if the p-value is smaller than 5%, we can reject the null hypothesis. However, depending on various factors, it could also be different, that depends on your data, sample size, degrees of freedom etc.
+-   Bevor wir euch zwei Wege zeigen, den p-Wert zu finden, müssen wir erneut einen **kritischen Wert** festlegen. Als Faustregel gilt: Wenn der p-Wert kleiner als 5 % ist, können wir die Nullhypothese ablehnen. Je nach verschiedenen Faktoren kann dies jedoch auch anders sein – abhängig von euren Daten, der Stichprobengröße, den Freiheitsgraden usw.
 
--   For our example, we follow the rule of thumb and set the significance level to 0.05, thus if the coefficient has a smaller probability (p-value \< 0.05) than 5% to be zero we can reject the null hypothesis, otherwise we cannot reject it.
+-   Für unser Beispiel folgen wir der Faustregel und setzen das Signifikanzniveau auf 0,05. Das bedeutet: Wenn der Koeffizient eine geringere Wahrscheinlichkeit (p-Wert < 0,05) als 5 % hat, null zu sein, können wir die Nullhypothese ablehnen – andernfalls nicht.
 
--   Since the math is complicated and thus not help to understand the intuition, I directly show you how to calculate the p-value by hand:
-
-```{r p-value by hand }
-#calculating the p values by hand
+-   Da die Mathematik kompliziert ist und nicht dazu beiträgt, die Intuition zu verstehen, zeige ich euch direkt, wie man den p-Wert von Hand berechnet:
+```{r p-wert von hand}
+# p-Werte von Hand berechnen
 p_value_1 <- 2 * pt(-abs(t_value_intercept), 28)
 p_value_2 <- 2 * pt(-abs(t_value_x), 28)
 
-#printing it
+# Ausgabe
 print(p_value_1) 
 print(p_value_2)
 ```
 
-We get the same values as in our regression, and we decided before that our critical value (denoted as $\alpha$) should be less than 0.05 to reject the null hypothesis. Therefore we can reject the null hypothesis for the coefficient of our variable x. Since the coefficient is positive, the interpretation would be that x has on average a positive effect on y, since the probability that the value is different than 0 is lower than the critical value of 5%.
+Wir erhalten dieselben Werte wie in unserer Regression. Da wir zuvor festgelegt haben, dass unser kritischer Wert (bezeichnet als $\alpha$) kleiner als 0,05 sein muss, um die Nullhypothese abzulehnen, können wir die Nullhypothese für den Koeffizienten unserer Variable x ablehnen. Da der Koeffizient positiv ist, lautet die Interpretation: x hat im Durchschnitt einen positiven Effekt auf y, da die Wahrscheinlichkeit, dass der Wert von null abweicht, unter dem kritischen Wert von 5 % liegt.
 
-### Confidence Interval
+### Konfidenzintervalle
 
-The last way of testing hypothesis are confidence intervals. I recommend to use them, since they are intuitive and easier to interpret than p-values. To understand confidence intervals, we must remember the difference between a **population** and a **sample.** The population are all people we want to infer to, for example in an election, the population are all citizens eligible to vote in that election. Let us assume, all else equal, that the the vote share in the population for Party A is 24%. This is what we call the **true population parameter.** And our goal is to estimate this parameter with statistical methods, since it is more efficient. Think about Germany, we cannot ask 80 million people before the election to give us their thoughts, so what we do instead, is to draw a representative sample of less citizens from that sample to infer to the population. The problem is that even if the sample is representative, it could be that our sample today gives us a vote share of Party A of 23%, but tomorrow we would get 25% (This could have several reasons, can you think of some?).
+Die letzte Methode zum Testen von Hypothesen sind Konfidenzintervalle. Ich empfehle deren Verwendung, da sie intuitiver und leichter zu interpretieren sind als p-Werte. Um Konfidenzintervalle zu verstehen, müssen wir uns den Unterschied zwischen **Population** und **Stichprobe** in Erinnerung rufen. Die Population umfasst alle Personen, auf die wir schließen möchten – bei einer Wahl beispielsweise alle wahlberechtigten Bürger. Nehmen wir an, dass der Stimmenanteil der Partei A in der Population 24 % beträgt. Das nennen wir den **wahren Populationsparameter**. Unser Ziel ist es, diesen Parameter mit statistischen Methoden zu schätzen, da das effizienter ist. Stellt euch Deutschland vor: Wir können nicht 80 Millionen Menschen vor der Wahl befragen. Stattdessen ziehen wir eine repräsentative Stichprobe. Das Problem ist, dass selbst eine repräsentative Stichprobe heute einen Stimmenanteil von 23 % für Partei A ergeben könnte, morgen aber 25 % (Warum könnte das so sein?).
 
-In the following, let us assume we draw 1000 samples before the election, to get the vote share of Party A. We know that our true population parameter is 24%. But before we start, we have to set a rule again. This rule is basically the definition of confidence intervals:
+Im Folgenden nehmen wir an, dass wir 1000 Stichproben vor der Wahl ziehen, um den Stimmenanteil von Partei A zu ermitteln. Wir wissen, dass unser wahrer Populationsparameter 24 % beträgt. Aber bevor wir beginnen, müssen wir erneut eine Regel festlegen – sie ist im Grunde die Definition von Konfidenzintervallen:
 
--   In 95% of all samples, that could be drawn, the confidence intervals will cover the true population parameter.
+-   In 95 % aller Stichproben, die gezogen werden könnten, werden die Konfidenzintervalle den wahren Populationsparameter enthalten.
 
-So if we draw 1000 samples, in 950 the confidence intervals have to cover the true population parameter:
-
-```{r simulating 100 CIs}
-#Since this is a simulation we need to set a seed
+Wenn wir also 1000 Stichproben ziehen, müssen in 950 davon die Konfidenzintervalle den wahren Populationsparameter enthalten:
+```{r 100 kis simulieren}
+# Da dies eine Simulation ist, setzen wir einen Seed
 set.seed(187)
 
-#We will need to have vectors for the upper confidence interval and the lower one
+# Vektoren für das obere und untere Konfidenzintervall erstellen
 lower_ci <- numeric(100)
 upper_ci <- numeric(100)
 estimates <- numeric(100)
 
-#This loop represents 
+# Diese Schleife repräsentiert die Stichprobenziehungen
 for(i in 1:length(lower_ci)) {
   
   Y <- rnorm(100, mean = 24, sd = 2)
@@ -369,299 +354,289 @@ for(i in 1:length(lower_ci)) {
   
 }
 
-#Let us bind both vectors together 
+# Beide Vektoren zusammenführen
 CIs <- data.frame(estimates, lower_ci, upper_ci)
 
-#Print it 
+# Ausgabe
 head(CIs)
 ```
 
-Now we have drawn our 1000 samples and computed our estimates as well as their corresponding intervals. Thus, 1000 samples about the vote share of Party A. Let us check, if the true population parameter is 95% of times within our computed confidence intervals:
-
-```{r plotting simulated CIs}
-#Getting the true mean 
+Nun haben wir unsere 1000 Stichproben gezogen und unsere Schätzungen sowie die zugehörigen Intervalle berechnet – also 1000 Stichproben über den Stimmenanteil von Partei A. Überprüfen wir, ob der wahre Populationsparameter in 95 % der berechneten Konfidenzintervalle enthalten ist:
+```{r simulierte kis plotten}
+# Wahren Mittelwert festlegen
 true_mean <- 24
 
-#First, we identify those who are not including 24 our true population parameter
-CIs$missed <- ifelse(CIs$lower_ci > true_mean | CIs$upper_ci < true_mean, "Out", "In")
+# Diejenigen identifizieren, die den wahren Populationsparameter 24 nicht enthalten
+CIs$missed <- ifelse(CIs$lower_ci > true_mean | CIs$upper_ci < true_mean, "Außerhalb", "Innerhalb")
 
-#Let us give every sample an identification number 
+# Jeder Stichprobe eine Identifikationsnummer geben
 CIs$id <- 1:nrow(CIs)
 
-#Plotting it 
+# Plotten
 ggplot(data = CIs) +
   geom_pointrange(
     aes(
-      x = estimates, # point value
-      xmin = lower_ci, # lower CI
-      xmax = upper_ci, # upper CI
-      y = id, # y axis - just observation number
-      color = missed
-    ) # color varies by missed variable
+      x = estimates,    # Punktschätzer
+      xmin = lower_ci,  # unteres KI
+      xmax = upper_ci,  # oberes KI
+      y = id,           # y-Achse – nur die Beobachtungsnummer
+      color = missed    # Farbe variiert je nach missed-Variable
+    )
   ) +
   geom_vline(
-    aes(xintercept = true_mean), # add vertical line at true_mean
+    aes(xintercept = true_mean), # Vertikale Linie beim wahren Mittelwert
   ) +
   scale_color_manual(values = c("azure4", "red")) + 
   theme_minimal() + 
   labs(
-    title = "Confidence Interval for Mean",
-    subtitle = "Population mean equals 24",
-    x = "Estimates",
-    y = "Sample",
-    color = "Is true population parameter inside the CI?"
+    title = "Konfidenzintervall für den Mittelwert",
+    subtitle = "Wahrer Populationsparameter = 24",
+    x = "Schätzungen",
+    y = "Stichprobe",
+    color = "Ist der wahre Populationsparameter im KI enthalten?"
   ) +
-  theme(legend.position = "top") + # switch the legend to the top
+  theme(legend.position = "top") +
   scale_x_continuous(breaks = c(seq(15, 30, by = 1)))
 ```
 
-Well, we can see that the majority of the computed intervals include the true population parameter. But there are three, which are not. That is within our definition.
+Wir können sehen, dass die Mehrheit der berechneten Intervalle den wahren Populationsparameter enthält. Es gibt jedoch drei, die ihn nicht enthalten – das liegt im Rahmen unserer Definition.
 
-What is now with confidence intervals for coefficients of linear regression? Well, it is the same story, we compute an estimate, in this case a coefficient. The true population parameter is unknown, but we know that the true population parameter is within 95% of the intervals.
+Wie ist das nun bei Konfidenzintervallen für Koeffizienten der linearen Regression? Es ist dieselbe Geschichte: Wir berechnen einen Schätzer – in diesem Fall einen Koeffizienten. Der wahre Populationsparameter ist unbekannt, aber wir wissen, dass er in 95 % der Intervalle enthalten ist.
 
-Its calculation is fairly easy and you already saw it:
+Die Berechnung ist recht einfach und ihr habt sie bereits gesehen:
 
 $$
-CI_{lower} = \beta_i - 1.96 * SE(\beta_i) \\\
-CI_{upper} = \beta_i + 1.96 * SE(\beta_i)
+KI_{unten} = \beta_i - 1.96 * SE(\beta_i) \\
+KI_{oben} = \beta_i + 1.96 * SE(\beta_i)
 $$
-
-```{r computing CIs by hand for model 1}
-#Let us look at the confindence intervals of model 1 
+```{r kis fuer modell 1 von hand berechnen}
+# Konfidenzintervalle von Modell 1 betrachten
 confint(model1)
 
-#Let us compute the confidence values by hand for the intercept and x 
+# Konfidenzintervalle von Hand für Achsenabschnitt und x berechnen
 ci_lower_int <- model1$coefficients[1] - 1.96 * summary(model1)$coef[, "Std. Error"][1]
 ci_upper_int <- model1$coefficients[1] + 1.96 * summary(model1)$coef[, "Std. Error"][1]
 
-#Print it 
+# Ausgabe
 print(ci_lower_int)
 print(ci_upper_int)
 
-#Estimate X 
+# Schätzer X
 ci_lower_est <- model1$coefficients[2] - 1.96 * summary(model1)$coef[, "Std. Error"][2]
 ci_upper_est <- model1$coefficients[2] + 1.96 * summary(model1)$coef[, "Std. Error"][2]
 
-#Print it
+# Ausgabe
 print(ci_lower_est)
 print(ci_upper_est)
 ```
 
 ## Multivariate Regression
 
-The world is a complex place and of course if we have a dependent variable Y, let us say for example income, we cannot explain it exclusively by the years of education or exclusively by the profession or any other single factor. Rather it is plausible that all these factors matter. The **Multivariate Linear Regression Model** allows us that we explain the variation in our dependent variable Y with multiple independent variables X. Mathematically, the systematic component changes like this:
+Die Welt ist komplex, und wenn wir eine abhängige Variable Y haben – z. B. das Einkommen –, können wir sie natürlich nicht ausschließlich durch die Bildungsjahre, den Beruf oder einen anderen einzelnen Faktor erklären. Es ist vielmehr plausibel, dass all diese Faktoren eine Rolle spielen. Das **multivariate lineare Regressionsmodell** ermöglicht es uns, die Variation in unserer abhängigen Variable Y mit mehreren unabhängigen Variablen X zu erklären. Mathematisch verändert sich die systematische Komponente wie folgt:
 
 $$ Y_i = \beta_0 + \beta_1X_{1i} + \beta_2X_{2i} + ... + \beta_kX_{ki} + \epsilon_i $$
 
-where
+dabei gilt:
 
--   the index ***i*** runs over the observations (Respondents, Countries,...), *i* = 1,...,*n*
+-   Der Index ***i*** läuft über die Beobachtungen (Befragte, Länder,...), *i* = 1,...,*n*
 
--   $Y_i$ is the dependent variable, the variable we want to explain
+-   $Y_i$ ist die abhängige Variable, die wir erklären möchten
 
--   $X_{1i}$ is the first independent variable or explanatory variable.
+-   $X_{1i}$ ist die erste unabhängige bzw. erklärende Variable
 
--   $X_{2i}$ is the second independent variable or explanatory variable.
+-   $X_{2i}$ ist die zweite unabhängige bzw. erklärende Variable
 
--   $X_{ki}$ is the *k*-th independent variable or explanatory variable, where *k* is the number of all our independent variables in our model.
+-   $X_{ki}$ ist die *k*-te unabhängige bzw. erklärende Variable, wobei *k* die Anzahl aller unabhängigen Variablen im Modell ist
 
--   $\beta_0$ is the *intercept* of the regression line
+-   $\beta_0$ ist der Achsenabschnitt der Regressionsgeraden
 
--   $\beta_1$ is the *slope* of the regression line of the first explanatory variable.
+-   $\beta_1$ ist die Steigung der Regressionsgeraden der ersten erklärenden Variable
 
--   $\beta_2$ is the *slope* of the regression line of the second explanatory variable.
+-   $\beta_2$ ist die Steigung der Regressionsgeraden der zweiten erklärenden Variable
 
--   $\beta_k$ is the slope of the regression line of the *k*-th explanatory variable, where *k* is the number of all our independent variables in our model.
+-   $\beta_k$ ist die Steigung der Regressionsgeraden der *k*-ten erklärenden Variable
 
--   $\epsilon_i$ is the *error term*, thus how our observed data differs from actual population data (e.g. Measurement Error).
+-   $\epsilon_i$ ist der Fehlerterm
 
-In `R`, we can implement a multivariate model very easy with the already known `lm()` function. Let us run a multiple regression with our independent Variable X and our categorical Variable Z, the systematic component for this model looks like this:
+In R können wir ein multivariates Modell sehr einfach mit der bereits bekannten Funktion `lm()` implementieren. Führen wir eine multiple Regression mit unserer unabhängigen Variable X und unserer kategorialen Variable Z durch. Die systematische Komponente für dieses Modell lautet:
 
 $$ Y_i = \beta_0 + \beta_1X_i + \beta_2Z_i + \epsilon_i $$
 
-Let us compute the slopes:
-
-```{r computing model for multivariate analysis}
+Berechnen wir die Steigungen:
+```{r modell fuer multivariate analyse berechnen}
 lm(y ~ x + categorical_variable, data = df) %>% 
   summary()
 ```
 
-We can see, that this works fine, we only had to add the independent variable in the command such as in our systematic component. Regarding the interpretation it is analogous to the normal linear regression one. For a one-unit increase in our independent variable x, the dependent variable y increases 0.67 units on average, holding all else constant. For category 1 in comparison to category 0, the dependent variable y increases 0.52 units on average, holding all else equal. Now, we can put the calculated coefficients into our systematic component and make predictions:
+Wir sehen, dass das gut funktioniert – wir mussten lediglich die unabhängige Variable in den Befehl einfügen, genau wie in der systematischen Komponente. Die Interpretation ist analog zur einfachen linearen Regression: Bei einer Erhöhung der unabhängigen Variable x um eine Einheit steigt die abhängige Variable y im Durchschnitt um 0,67 Einheiten, unter sonst gleichen Bedingungen. Für Kategorie 1 im Vergleich zu Kategorie 0 steigt die abhängige Variable y im Durchschnitt um 0,52 Einheiten, unter sonst gleichen Bedingungen. Nun können wir die berechneten Koeffizienten in unsere systematische Komponente einsetzen und Vorhersagen treffen:
 
 $$ Y_i = -0.54 + 0.67X_i + 0.52Z_i + \epsilon_i  $$
 
-If we want to visualize this, we would need a three-dimensional coordinate system. Why? Because every independent variable is one-dimension if you want. I said that *k* is the number of our independent variables, technically it is the number of dimensions our model has. I am not a fan of plotting graphs more than three dimensions and I do not recommend it to you either.
+Um das zu visualisieren, bräuchten wir ein dreidimensionales Koordinatensystem – denn jede unabhängige Variable entspricht einer Dimension. Ich sagte, dass *k* die Anzahl unserer unabhängigen Variablen ist; technisch gesehen ist es die Anzahl der Dimensionen unseres Modells. Ich bin kein Fan von Graphen mit mehr als drei Dimensionen und empfehle euch das auch nicht.
 
-## Categorical Variables
+## Kategoriale Variablen
 
-As I mentioned in the first chapter, there are different types of variables, let us reconsider them:
+Wie ich im ersten Kapitel erwähnt habe, gibt es verschiedene Variablentypen. Rufen wir sie uns in Erinnerung:
 
 |               |               |                                              |
 |---------------|---------------|----------------------------------------------|
-| **Numeric**   | Numbers       | `c(1, 2.4, 3.14, 4)`                         |
+| **Numerisch** | Zahlen        | `c(1, 2.4, 3.14, 4)`                         |
 | **Character** | Text          | `c("1", "blue", "fun", "monster")`           |
-| **Logical**   | True or false | `c(TRUE, FALSE, TRUE, FALSE)`                |
-| **Factor**    | Category      | `c("Strongly disagree", "Agree", "Neutral")` |
+| **Logisch**   | Wahr oder falsch | `c(TRUE, FALSE, TRUE, FALSE)`             |
+| **Faktor**    | Kategorie     | `c("Stimme gar nicht zu", "Stimme zu", "Neutral")` |
 
-Dependent variables must be numeric, when conducting linear regression. However, independent variables can take be scaled differently. Numeric variables are the easiest case, the interpretation is as mentioned in the previous examples. But categorical variables are differently to interpret. Let us inspect the categorical variable in our dataset, called `categorical_variable`:
-
-```{r printing table of categorical variable}
+Abhängige Variablen müssen bei der linearen Regression numerisch sein. Unabhängige Variablen können jedoch unterschiedlich skaliert sein. Numerische Variablen sind der einfachste Fall – die Interpretation erfolgt wie in den vorherigen Beispielen beschrieben. Kategoriale Variablen werden jedoch anders interpretiert. Untersuchen wir die kategoriale Variable in unserem Datensatz, `categorical_variable`:
+```{r tabelle der kategorialen variable ausgeben}
 table(df$categorical_variable) 
 ```
 
-As we can see our data set now contains a categorical variable with two categories, named "A" and "B". Those categories could be anything: Female and Male, bought a product or did not buy a product, vaccine or placebo and so on. What happens, when we now run a model?
-
-```{r model with categorical variable}
-#running a model with a categorical variable
+Wir sehen, dass unser Datensatz eine kategoriale Variable mit zwei Kategorien enthält: „A" und „B". Diese Kategorien könnten für alles stehen: Weiblich und Männlich, Produkt gekauft oder nicht gekauft, Impfstoff oder Placebo usw. Was passiert nun, wenn wir ein Modell damit berechnen?
+```{r modell mit kategorialer variable}
+# Modell mit kategorialer Variable berechnen
 model2 <- lm(y ~ categorical_variable, 
              data = df) 
 
-#Getting the summary
+# Zusammenfassung ausgeben
 summary(model2) 
 ```
 
-We see a coefficient of 0.64 that is fine. But as you see the category "category_A" is not display, why? Categorical variables are calculated based on so-called "reference categories". R determines the reference category based on alphabetical order. In this case the category "A" is the reference category. The reference category is named like this, since the computed coefficients refer to it. The reference category "A" takes on the value 0. The coefficient of the category B is "0.92". That means that category "B" if the a respondent is part of category "B" than the dependent variable Y increases on average 0.64 units in comparison to category "A", holding all else equal.
+Wir sehen einen Koeffizienten von 0,64 – das ist in Ordnung. Aber wie ihr seht, wird die Kategorie „category_A" nicht angezeigt. Warum? Kategoriale Variablen werden auf Basis sogenannter „Referenzkategorien" berechnet. R bestimmt die Referenzkategorie alphabetisch. In diesem Fall ist Kategorie „A" die Referenzkategorie. Sie heißt so, weil sich die berechneten Koeffizienten auf sie beziehen. Die Referenzkategorie „A" nimmt den Wert 0 an. Der Koeffizient der Kategorie B beträgt „0,92". Das bedeutet: Wenn eine befragte Person zu Kategorie „B" gehört, steigt die abhängige Variable Y im Durchschnitt um 0,64 Einheiten im Vergleich zu Kategorie „A", unter sonst gleichen Bedingungen.
 
-That sounds technocratic, let us get an intuition. We add a zero to our code and look at the output:
-
-```{r running the model with + 0}
-#running the model
+Das klingt technisch – schauen wir uns ein besseres Verständnis davon an. Wir fügen eine Null zu unserem Code hinzu und betrachten die Ausgabe:
+```{r modell mit + 0 berechnen}
+# Modell berechnen
 model3 <- lm(y ~ categorical_variable + 0, 
              data = df) 
-#getting a summary
+# Zusammenfassung ausgeben
 summary(model3)
 ```
 
-The coefficients changed, but not really. Let us subtract the coefficient from category A from category B:
+Die Koeffizienten haben sich verändert, aber nur geringfügig. Subtrahieren wir den Koeffizienten von Kategorie A von Kategorie B:
+```{r kategorien subtrahieren um koeffizient zu erhalten}
+# Ergebnis
+result <- coefficients(model3)[2] - coefficients(model3)[1] # Koeffizienten können so extrahiert werden
 
-```{r subtracting categories to get coefficient}
-#results
-result <- coefficients(model3)[2] - coefficients(model3)[1] #coefficents can be extracted this way
-
-#printing it
+# Ausgabe
 result
 ```
 
-We get the same coefficient as above and that is what R does automatically when computing coefficients of categorical variables. The reference category is scaled to 0 and the other categories are following.
+Wir erhalten denselben Koeffizienten wie zuvor – und genau das macht R automatisch, wenn es Koeffizienten für kategoriale Variablen berechnet. Die Referenzkategorie wird auf 0 gesetzt, und die anderen Kategorien werden relativ dazu skaliert.
 
-### Interaction Effects
+### Interaktionseffekte
 
-One technique, which is important and widely used in statistics are interaction effects. To keep things simple concentrate on our independent variable X and our categorical variable Z. As mentioned, Z shows us the coefficients for our categories "A" and "B". But what if we could further investigate the dynamics of the group? Interaction effects allow us to multiply our variable X by our categorical variable Z. Mathematically our systematic component looks like this:
+Eine wichtige und weit verbreitete Technik in der Statistik sind Interaktionseffekte. Um die Dinge einfach zu halten, konzentrieren wir uns auf unsere unabhängige Variable X und unsere kategoriale Variable Z. Wie erwähnt zeigt Z die Koeffizienten für unsere Kategorien „A" und „B". Aber was, wenn wir die Dynamik innerhalb der Gruppe genauer untersuchen könnten? Interaktionseffekte ermöglichen es uns, unsere Variable X mit der kategorialen Variable Z zu multiplizieren. Mathematisch sieht unsere systematische Komponente dann so aus:
 
 $$
 Y_i = \beta_0 + \beta_1X_i + \beta_2Z_i + \beta_3X_i*Z_i + e_i 
 $$
 
-where
+dabei gilt:
 
--   the index *i* runs over the observations (Respondents, Countries,...), *i* = 1,...,*n*
+-   Der Index *i* läuft über die Beobachtungen (Befragte, Länder,...), *i* = 1,...,*n*
 
--   $Y_i$ is the dependent variable, the variable we want to explain
+-   $Y_i$ ist die abhängige Variable
 
--   $X_i$ is the independent variable or explanatory variable.
+-   $X_i$ ist die unabhängige Variable
 
--   $Z_i$ is our categorical variable
+-   $Z_i$ ist unsere kategoriale Variable
 
--   $\beta_0$ is the *intercept* of the regression line
+-   $\beta_0$ ist der Achsenabschnitt
 
--   $\beta_1$ is the *slope* of the regression line
+-   $\beta_1$ ist die Steigung
 
--   $\epsilon_i$ is the *error term*, thus how our observed data differs from actual population data (e.g. Measurement Error).
+-   $\epsilon_i$ ist der Fehlerterm
 
-In the following, I will show you an example how to use interaction effects. Let's say that I conducted a survey among 1000 respondents and asked them about how many hours they spent on R online courses such as this one. Then I asked about their coding ability. Lastly, I asked if they learned with this course or with other courses (0 = other courses, 1 = this course). Now we want to find out if spending more hours on a course lead to a higher coding ability in R. Furthermore, we want to find out if this course in comparison to other courses lead to a higher ability. To do so, we interact hours spent on courses with the variable indicating if the respondent worked through other courses or this course.
+Im Folgenden zeige ich euch an einem Beispiel, wie Interaktionseffekte verwendet werden. Nehmen wir an, ich habe eine Umfrage unter 1000 Befragten durchgeführt und sie gefragt, wie viele Stunden sie mit R-Online-Kursen wie diesem verbracht haben. Dann habe ich nach ihren Programmierkenntnissen gefragt. Abschließend habe ich gefragt, ob sie mit diesem Kurs oder mit anderen Kursen gelernt haben (0 = andere Kurse, 1 = dieser Kurs). Nun wollen wir herausfinden, ob mehr investierte Stunden zu höheren R-Programmierkenntnissen führen. Außerdem möchten wir untersuchen, ob dieser Kurs im Vergleich zu anderen Kursen zu besseren Kenntnissen führt. Dazu interagieren wir die aufgewendeten Stunden mit der Variable, die angibt, ob die befragte Person andere Kurse oder diesen Kurs absolviert hat.
 
--   Interactions effects can be implemented in R, by simply writing it explicitly into the function `lm()`, either with an asterisks `*` or a double point `:`, let us have a look it:
-
-```{r model with interaction effect}
-# Setting seed for reproducibility
+-   Interaktionseffekte können in R implementiert werden, indem man sie explizit in die Funktion `lm()` schreibt – entweder mit einem Sternchen `*` oder einem Doppelpunkt `:`:
+```{r modell mit interaktionseffekt}
+# Seed für Reproduzierbarkeit setzen
 set.seed(123)
 
-# Generate hours spent on a course
+# Aufgewendete Stunden generieren
 hours_spent <- runif(100, min = 0, max = 10)
 
-# Generate the course dummy (0 = other courses, 1 = this course)
+# Kurs-Dummy generieren (0 = andere Kurse, 1 = dieser Kurs)
 this_course = sample(c(0, 1), 100, replace = TRUE)
 
-# Generate y with interaction effect
+# Y mit Interaktionseffekt generieren
 coding_ability <- 2 + 0.5 * hours_spent + 0 * this_course + 
   1.5 * hours_spent * this_course + rnorm(100)
 
-# Create a data frame
+# Dataframe erstellen
 df_int <- data.frame(hours_spent, this_course, coding_ability)
 
-# Fit the interaction model
-model_interaction <- lm(coding_ability ~  hours_spent * this_course, data = df_int)
+# Interaktionsmodell anpassen
+model_interaction <- lm(coding_ability ~ hours_spent * this_course, data = df_int)
 
-# Summarizing models
+# Modellzusammenfassung ausgeben
 summary(model_interaction)
 ```
 
-Interaction effects on their own are not intuitive. To get an intuition we have to graphically plot it. The `sjPlot` package offers the `plot_model()` command, which automatically plots so called predicted probabilities. It would be too much to go into detail about predicted probabilities. What is more important is, that we get a graph, which shows the effect of of the interaction:
+Interaktionseffekte sind für sich genommen nicht intuitiv. Um ein Gespür dafür zu bekommen, müssen wir sie grafisch darstellen. Das `sjPlot`-Paket bietet den Befehl `plot_model()`, der automatisch sogenannte vorhergesagte Wahrscheinlichkeiten plottet. Es würde zu weit führen, vorhergesagte Wahrscheinlichkeiten im Detail zu erklären. Wichtiger ist, dass wir einen Graphen erhalten, der den Interaktionseffekt visualisiert:
 
--   We call `plot_model()` and include our model with the interaction effect `model_interaction`
+-   Wir rufen `plot_model()` auf und übergeben unser Modell mit dem Interaktionseffekt `model_interaction`.
 
--   Then we have to call the type and set it to `type="int"`, which explicitly plots interaction effects.
-
-```{r plotting interaction effect, message=FALSE}
+-   Dann geben wir den Typ an und setzen ihn auf `type="int"`, was explizit Interaktionseffekte plottet.
+```{r interaktionseffekt plotten, message=FALSE}
 plot_model(model_interaction, type = "int") +
   scale_x_continuous(breaks = seq(0,10, 1)) + 
-  labs(title = "Coding Ability after this Course in Comparison",
-       x = "Hours spent", 
-       y = "Coding Ability in R") +
+  labs(title = "Programmierkenntnisse nach Kursart im Vergleich",
+       x = "Aufgewendete Stunden", 
+       y = "R-Programmierkenntnisse") +
   scale_color_manual(
     values = c("red", "blue"),
-    labels = c("Other Courses", "This Course")
+    labels = c("Andere Kurse", "Dieser Kurs")
   ) +
   theme_sjplot() +
   theme(legend.position = "bottom", 
         legend.title = element_blank())
 ```
 
-On the x-axis, we have our independent variable and on the y-axis we do have our dependent variable. So far, so normal. But we see two lines: One line for all observations in category "Other Courses" (red line) and one line for all observations with "This Course" (blue line). That is exactly what an interaction does. For every point in our independent variable a probability for y is computed in one category, and one line for every observation in the other category.
+Auf der x-Achse haben wir unsere unabhängige Variable, auf der y-Achse unsere abhängige Variable – soweit wie gewohnt. Wir sehen jedoch zwei Linien: eine für alle Beobachtungen in der Kategorie „Andere Kurse" (rote Linie) und eine für alle Beobachtungen in der Kategorie „Dieser Kurs" (blaue Linie). Genau das macht ein Interaktionseffekt: Für jeden Punkt in unserer unabhängigen Variable wird eine Vorhersage für y in einer Kategorie berechnet sowie eine Linie für jede Beobachtung in der anderen Kategorie.
 
-To interpret it we follow two steps: First, looking at the direction of the lines. We can see that X has a positive effect on Y. Both lines are increasing with higher X-values. Now, the interaction allows us to compare the effect from X on Y for all groups of the categorical variable. In our example that means, that observations in group 1 display a higher effect than observations in group 0. That could be for several reasons.
+Zur Interpretation gehen wir in zwei Schritten vor: Zunächst betrachten wir die Richtung der Linien. Wir sehen, dass X einen positiven Effekt auf Y hat – beide Linien steigen mit höheren X-Werten an. Der Interaktionseffekt ermöglicht es uns, den Effekt von X auf Y für alle Gruppen der kategorialen Variable zu vergleichen. In unserem Beispiel bedeutet das, dass Beobachtungen in Gruppe 1 einen stärkeren Effekt zeigen als Beobachtungen in Gruppe 0.
 
-Let us fill this example with life: We are studying **the effect of study hours (x)** on **exam scores (y)** for two different groups of students: those **who attend a preparatory course (group 1) and those who do not (group 0).**
+Bringen wir dieses Beispiel zum Leben: Wir untersuchen **den Effekt der Lernstunden (x)** auf **die Prüfungsergebnisse (y)** für zwei Gruppen von Studierenden: jene, **die einen Vorbereitungskurs besucht haben (Gruppe 1), und jene, die das nicht getan haben (Gruppe 0).**
 
 **Interpretation:**
 
-1.  **Direction of the Lines:**
-    -   Both lines (for group 0 and group 1) are increasing, indicating that more hours spent on courses lead to higher coding ability in R, on average.
-2.  **Effect Comparison**:
-    -   The slope for group 1 ( attended this course) is steeper compared to group 0 (attended to other courses).
+1.  **Richtung der Linien:**
+    -   Beide Linien (für Gruppe 0 und Gruppe 1) steigen an. Das bedeutet, dass mehr investierte Stunden im Durchschnitt zu höheren R-Programmierkenntnissen führen.
+2.  **Effektvergleich:**
+    -   Die Steigung für Gruppe 1 (dieser Kurs) ist steiler als für Gruppe 0 (andere Kurse).
 
-    -   This means that for students who attended this course, each additional hour of study has a larger positive impact on their coding ability in R compared to those who did attend another course
+    -   Das bedeutet: Für Studierende, die diesen Kurs absolviert haben, hat jede zusätzliche Lernstunde einen größeren positiven Einfluss auf ihre R-Programmierkenntnisse im Vergleich zu jenen, die einen anderen Kurs absolviert haben.
 
-By visualizing and analyzing the interaction effect, we can draw meaningful conclusions about how different factors (like attending a preparatory course) modify the relationship between study efforts and performance outcomes.
+Durch die Visualisierung und Analyse des Interaktionseffekts können wir aussagekräftige Schlussfolgerungen darüber ziehen, wie verschiedene Faktoren (z. B. die Teilnahme an einem Vorbereitungskurs) die Beziehung zwischen Lernaufwand und Leistungsergebnissen verändern.
 
-## Outlook
+## Ausblick
 
-This chapter was an introduction to hypothesis testing and basic statistical applications. Further, you were introduced in the most popular and important model, linear regression. The chapter showed not only how linear regression in R is computed, but also how to check if effects are robust and how the models fits. Also extensions to linear regression, namely multivariate regression and categorical variable were introduced.
+Dieses Kapitel war eine Einführung in das Hypothesentesten und grundlegende statistische Anwendungen. Außerdem wurde das beliebteste und wichtigste Modell vorgestellt: die lineare Regression. Das Kapitel zeigte nicht nur, wie die lineare Regression in R berechnet wird, sondern auch, wie man überprüft, ob Effekte robust sind und wie gut das Modell passt. Darüber hinaus wurden Erweiterungen der linearen Regression eingeführt: die multivariate Regression und kategoriale Variablen.
 
-Linear regression is the basis of nearly everything. Advanced modelling of different classes of dependent variables to even machine learning techniques are based on linear regression. This was the reason, I did not show just linear regression, but also how vulnerable the model is. Poor modelling will always lead to poor results, so we have to aim to check how good our model fits our data and thus research interest.
+Die lineare Regression ist die Grundlage von fast allem. Fortgeschrittene Modellierungen verschiedener Klassen abhängiger Variablen bis hin zu Techniken des maschinellen Lernens basieren auf der linearen Regression. Das war auch der Grund, warum ich nicht nur die lineare Regression vorgestellt habe, sondern auch gezeigt habe, wie anfällig das Modell ist. Schlechte Modellierung führt immer zu schlechten Ergebnissen, daher müssen wir anstreben zu überprüfen, wie gut unser Modell zu unseren Daten und damit zu unserem Forschungsinteresse passt.
 
-Further Links:
+Weiterführende Links:
 
--   A course I can recommend if you want to have a detailed deep dive into statistics is ["Introduction to Econometrics with R"](https://www.econometrics-with-r.org/index.html) by Christoph Hanck, Martin Arnold, Alexander Gerber, and Martin Schmelzer.
+-   Einen Kurs, den ich empfehlen kann, wenn ihr einen detaillierten Einblick in die Statistik erhalten möchtet, ist [„Introduction to Econometrics with R"](https://www.econometrics-with-r.org/index.html) von Christoph Hanck, Martin Arnold, Alexander Gerber und Martin Schmelzer.
 
-## Exercise Section
+## Übungsaufgaben
 
-To understand linear regression, we do not have to load any complicated data. Let us assume, you are a market analyst and your customer is the production company of a series called "Breaking Thrones". The production company wants to know how the viewers of the series judge the final episode. You conduct a survey and ask people on how satisfied they were with the season final and some social demographics. Here is your codebook:
+Um die lineare Regression zu verstehen, müssen wir keine komplizierten Daten laden. Nehmen wir an, ihr seid Marktanalysten und euer Auftraggeber ist die Produktionsfirma einer Serie namens „Breaking Thrones". Die Produktionsfirma möchte wissen, wie die Zuschauer die letzte Folge bewertet haben. Ihr führt eine Umfrage durch und fragt die Befragten nach ihrer Zufriedenheit mit dem Serienfinale sowie nach einigen soziodemografischen Merkmalen. Hier ist euer Codebuch:
 
-| Variable | Description |
+| Variable | Beschreibung |
 |----|----|
-| id | The id of the respondent |
-| satisfaction | The answer to the question "How satisfied were you with the final episode of Breaking Throne?", where 0 is completely dissatisfied and 10 completely satisfied |
-| age | The age of the respondent |
-| female | The Gender of the respondent, where 0 = Male, 1 = Female |
+| id | Die ID des Befragten |
+| satisfaction | Antwort auf die Frage „Wie zufrieden waren Sie mit der letzten Folge von Breaking Throne?", wobei 0 = völlig unzufrieden und 10 = völlig zufrieden |
+| age | Das Alter des Befragten |
+| female | Das Geschlecht des Befragten, wobei 0 = Männlich, 1 = Weiblich |
 
-Let us generate the data:
-
+Generieren wir die Daten:
 ```{r}
-#setting seed for reproduciability
+# Seed für Reproduzierbarkeit setzen
 set.seed(123)
 
-#Generating the data
+# Daten generieren
 final_BT <- data.frame(
   id = c(1:10), 
   satisfaction = round(rnorm(10, mean = 6, sd = 2.5)), 
@@ -672,48 +647,36 @@ final_BT <- data.frame(
 print(final_BT)
 ```
 
-### Exercise 1: Linear Regression with two variables
+### Übung 1: Lineare Regression mit zwei Variablen
 
-You want to know if age has an impact on the satisfaction with the last episode. You want to conduct a linear regression.
+Ihr möchtet wissen, ob das Alter einen Einfluss auf die Zufriedenheit mit der letzten Folge hat. Dazu führt ihr eine lineare Regression durch.
 
-a\. Calculate $\beta_0$ and $\beta_1$ by hand
-
-```{r ch6 exercise 1a, eval=FALSE}
-
+a\. Berechnet $\beta_0$ und $\beta_1$ von Hand.
+```{r kap6 uebung 1a, eval=FALSE}
 ```
 
-b\. Calculate $\beta_0$ and $\beta_1$ automatically with R
-
-```{r ch6 exercise 1b, eval=FALSE}
-
+b\. Berechnet $\beta_0$ und $\beta_1$ automatisch mit R.
+```{r kap6 uebung 1b, eval=FALSE}
 ```
 
-c\. Interpret all quantities of your result: Standard Error, t-statistic, p-value, confidence intervals and the $R^2$.
+c\. Interpretiert alle Größen eures Ergebnisses: Standardfehler, t-Statistik, p-Wert, Konfidenzintervalle und das $R^2$.
 
-d\. Check for influential outliers
-
-```{r ch6 exercise 1d, eval=FALSE}
-
+d\. Überprüft auf einflussreiche Ausreißer.
+```{r kap6 uebung 1d, eval=FALSE}
 ```
 
-### Exercise 2: Multivariate Regression
+### Übung 2: Multivariate Regression
 
-a\. Add the variable `female` to your regression
-
-```{r ch6 exercise 2a, eval=FALSE}
-
+a\. Fügt die Variable `female` zu eurer Regression hinzu.
+```{r kap6 uebung 2a, eval=FALSE}
 ```
 
-b\. Interpret the Output. What has changed? What stays the same?
+b\. Interpretiert die Ausgabe. Was hat sich verändert? Was bleibt gleich?
 
-c\. Make an interaction effect between age and gender and interpret it!
-
-```{r ch6 exercise 2c, eval=FALSE}
-
+c\. Erstellt einen Interaktionseffekt zwischen Alter und Geschlecht und interpretiert ihn!
+```{r kap6 uebung 2c, eval=FALSE}
 ```
 
-d\. Plot the interaction and make the plot nice
-
-```{r ch6 exercise 2d, eval=FALSE}
-
+d\. Plottet den Interaktionseffekt und gestaltet den Plot ansprechend.
+```{r kap6 uebung 2d, eval=FALSE}
 ```

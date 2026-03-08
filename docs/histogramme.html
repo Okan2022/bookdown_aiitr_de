@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 5 Histogramme | An intuitive Introduction to R</title>
+  <meta name="description" content="Chapter 5 Histogramme | An intuitive Introduction to R" />
+  <meta name="generator" content="bookdown 0.42 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapter 5 Histogramme | An intuitive Introduction to R" />
+  <meta property="og:type" content="book" />
+  
+  
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 5 Histogramme | An intuitive Introduction to R" />
+  
+  
+  
+
+<meta name="author" content="Okan Sarioglu" />
+
+
+<meta name="date" content="2026-03-08" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="verteilungen-histogramme-dichteplots-und-boxplots.html"/>
+<link rel="next" href="mehrere-histogramme.html"/>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+<link href="libs/htmltools-fill-0.5.8.1/fill.css" rel="stylesheet" />
+<script src="libs/htmlwidgets-1.6.4/htmlwidgets.js"></script>
+<link href="libs/leaflet-1.3.1/leaflet.css" rel="stylesheet" />
+<script src="libs/leaflet-1.3.1/leaflet.js"></script>
+<link href="libs/leafletfix-1.0.0/leafletfix.css" rel="stylesheet" />
+<script src="libs/proj4-2.6.2/proj4.min.js"></script>
+<script src="libs/Proj4Leaflet-1.0.1/proj4leaflet.js"></script>
+<link href="libs/rstudio_leaflet-1.3.1/rstudio_leaflet.css" rel="stylesheet" />
+<script src="libs/leaflet-binding-2.2.2/leaflet.js"></script>
+<script src="libs/leaflet-providers-2.0.0/leaflet-providers_2.0.0.js"></script>
+<script src="libs/leaflet-providers-plugin-2.2.2/leaflet-providers-plugin.js"></script>
+<script src="libs/plotly-binding-4.10.4/plotly.js"></script>
+<script src="libs/typedarray-0.1/typedarray.min.js"></script>
+<link href="libs/crosstalk-1.2.1/css/crosstalk.min.css" rel="stylesheet" />
+<script src="libs/crosstalk-1.2.1/js/crosstalk.min.js"></script>
+<link href="libs/plotly-htmlwidgets-css-2.11.1/plotly-htmlwidgets.css" rel="stylesheet" />
+<script src="libs/plotly-main-2.11.1/plotly-latest.min.js"></script>
+<script src="libs/kePrint-0.0.1/kePrint.js"></script>
+<link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
+
+
+<style type="text/css">
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<div style="text-align: center;">
+  <img src="images/AIITR.svg" alt="AIITR Logo" style="vertical-align: middle; margin-left: 5px; width: 125px; height: auto;">
+</div>
+<div style="text-align: center;">
+<li style="list-style: none;"><a href="./">by Okan Sarioglu</a></li>
+</div>
+<div style="text-align: center; margin-top: 10px;">
+  <a href="https://github.com/Okan2022" target="_blank">
+    <img src="images/github-mark.svg" alt="GitHub" style="vertical-align: middle; width: 25px; height: auto;">
+  </a>
+  <a href="https://www.linkedin.com/in/osarioglu" target="_blank" style="margin-left: 10px;">
+    <img src="images/LinkedIn_icon.svg" alt="LinkedIn" style="vertical-align: middle; width: 25px; height: auto;">
+  </a>
+</div> 
+<div style="text-align: center; margin-top: 10px; margin-bottom: 10px;">
+  <a href="script/aiitr_script.R" download="aiitr_script.R" style="display: inline-block; padding: 10px 20px; font-size: 16px; color: #fff; background-color: #4169e1; text-decoration: none; border-radius: 8px;">Download R Script</a>
+</div>
+<div style="text-align: center; margin-top: 10px; margin-bottom: 10px;">
+  <a href="https://www.paypal.com/donate?hosted_button_id=ZBMC2WD84P75S"
+     style="display: inline-block; padding: 10px 20px; font-size: 16px; color: #fff; background-color: #FCBB32; text-decoration: none; border-radius: 8px;">
+     <img src="images/pp_logo.png" alt="PayPal" style="height: 24px; vertical-align: middle; margin-right: 8px;">
+     Support me here!
+  </a>
+</div>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Willkommen!</a>
+<ul>
+<li class="chapter" data-level="" data-path=""><a href="#%C3%BCber-diesen-kurs"><i class="fa fa-check"></i>Über diesen Kurs</a></li>
+<li class="chapter" data-level="" data-path=""><a href="#%C3%BCber-mich"><i class="fa fa-check"></i>Über mich</a></li>
+</ul></li>
+<li class="chapter" data-level="1" data-path="grundlagen.html"><a href="grundlagen.html"><i class="fa fa-check"></i><b>1</b> Grundlagen</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="grundlagen.html"><a href="grundlagen.html#rstudio-kennenlernen-und-einen-workflow-etablieren"><i class="fa fa-check"></i><b>1.1</b> RStudio kennenlernen und einen Workflow etablieren</a></li>
+<li class="chapter" data-level="1.2" data-path="04-data_visualisation.html"><a href="#los-gehts-r-als-leistungsf%C3%A4higer-taschenrechner"><i class="fa fa-check"></i><b>1.2</b> Los geht’s: R als leistungsfähiger Taschenrechner</a></li>
+<li class="chapter" data-level="1.3" data-path="grundlagen.html"><a href="grundlagen.html#ifelse-statements-und-die-ifelse-funktion"><i class="fa fa-check"></i><b>1.3</b> <code>ifelse</code> statements und die <code>ifelse()</code> funktion</a></li>
+<li class="chapter" data-level="1.4" data-path="grundlagen.html"><a href="grundlagen.html#ausblick"><i class="fa fa-check"></i><b>1.4</b> Ausblick</a></li>
+<li class="chapter" data-level="1.5" data-path="04-data_visualisation.html"><a href="#%C3%BCbungsabschnitt"><i class="fa fa-check"></i><b>1.5</b> Übungsabschnitt</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="datenmanipulation.html"><a href="datenmanipulation.html"><i class="fa fa-check"></i><b>2</b> Datenmanipulation</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="datenmanipulation.html"><a href="datenmanipulation.html#pakete"><i class="fa fa-check"></i><b>2.1</b> Pakete</a></li>
+<li class="chapter" data-level="2.2" data-path="datenmanipulation.html"><a href="datenmanipulation.html#mit-paketen-arbeiten"><i class="fa fa-check"></i><b>2.2</b> Mit Paketen arbeiten</a></li>
+<li class="chapter" data-level="2.3" data-path="datenmanipulation.html"><a href="datenmanipulation.html#die-daten-mit-denen-wir-arbeiten-der-european-social-survey-ess"><i class="fa fa-check"></i><b>2.3</b> Die Daten, mit denen wir arbeiten: Der European Social Survey (ESS)</a></li>
+<li class="chapter" data-level="2.4" data-path="datenmanipulation.html"><a href="datenmanipulation.html#ran-an-die-daten-das-dplyr-paket"><i class="fa fa-check"></i><b>2.4</b> Ran an die Daten: Das <code>dplyr</code>-Paket</a></li>
+<li class="chapter" data-level="2.5" data-path="04-data_visualisation.html"><a href="#datens%C3%A4tze-zusammenf%C3%BChren"><i class="fa fa-check"></i><b>2.5</b> Datensätze zusammenführen</a></li>
+<li class="chapter" data-level="2.6" data-path="datenmanipulation.html"><a href="datenmanipulation.html#ausblick-1"><i class="fa fa-check"></i><b>2.6</b> Ausblick</a></li>
+<li class="chapter" data-level="2.7" data-path="04-data_visualisation.html"><a href="#%C3%BCbungsaufgaben"><i class="fa fa-check"></i><b>2.7</b> Übungsaufgaben</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="datenvisualisierung.html"><a href="datenvisualisierung.html"><i class="fa fa-check"></i><b>3</b> Datenvisualisierung</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="04-data_visualisation.html"><a href="#einf%C3%BChrung-in-ggplot2"><i class="fa fa-check"></i><b>3.1</b> Einführung in <code>ggplot2</code></a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="verteilungen-histogramme-dichteplots-und-boxplots.html"><a href="verteilungen-histogramme-dichteplots-und-boxplots.html"><i class="fa fa-check"></i><b>4</b> Verteilungen: Histogramme, Dichteplots und Boxplots</a></li>
+<li class="chapter" data-level="5" data-path="histogramme.html"><a href="histogramme.html"><i class="fa fa-check"></i><b>5</b> Histogramme</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="histogramme.html"><a href="histogramme.html#einfaches-histogramm"><i class="fa fa-check"></i><b>5.1</b> Einfaches Histogramm</a></li>
+<li class="chapter" data-level="5.2" data-path="histogramme.html"><a href="histogramme.html#binwidth"><i class="fa fa-check"></i><b>5.2</b> Binwidth</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="mehrere-histogramme.html"><a href="mehrere-histogramme.html"><i class="fa fa-check"></i><b>6</b> Mehrere Histogramme</a></li>
+<li class="chapter" data-level="7" data-path="dichteplots.html"><a href="dichteplots.html"><i class="fa fa-check"></i><b>7</b> Dichteplots</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="dichteplots.html"><a href="dichteplots.html#einfacher-dichteplot"><i class="fa fa-check"></i><b>7.1</b> Einfacher Dichteplot</a></li>
+<li class="chapter" data-level="7.2" data-path="dichteplots.html"><a href="dichteplots.html#mehrere-dichteplots"><i class="fa fa-check"></i><b>7.2</b> Mehrere Dichteplots</a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="boxplots.html"><a href="boxplots.html"><i class="fa fa-check"></i><b>8</b> Boxplots</a>
+<ul>
+<li class="chapter" data-level="8.1" data-path="boxplots.html"><a href="boxplots.html#einfache-boxplots"><i class="fa fa-check"></i><b>8.1</b> Einfache Boxplots</a></li>
+<li class="chapter" data-level="8.2" data-path="boxplots.html"><a href="boxplots.html#rangfolge-barplot"><i class="fa fa-check"></i><b>8.2</b> Rangfolge: Barplot</a></li>
+<li class="chapter" data-level="8.3" data-path="boxplots.html"><a href="boxplots.html#entwicklung-liniendiagramm"><i class="fa fa-check"></i><b>8.3</b> Entwicklung: Liniendiagramm</a></li>
+<li class="chapter" data-level="8.4" data-path="boxplots.html"><a href="boxplots.html#korrelation-streudiagramme"><i class="fa fa-check"></i><b>8.4</b> Korrelation: Streudiagramme</a></li>
+<li class="chapter" data-level="8.5" data-path="boxplots.html"><a href="boxplots.html#plots-mit-facet_wrap-und-facet_grid"><i class="fa fa-check"></i><b>8.5</b> Plots mit <code>facet_wrap()</code> und <code>facet_grid()</code></a></li>
+<li class="chapter" data-level="8.6" data-path="boxplots.html"><a href="boxplots.html#ausblick-2"><i class="fa fa-check"></i><b>8.6</b> Ausblick</a></li>
+<li class="chapter" data-level="8.7" data-path="boxplots.html"><a href="boxplots.html#ausblick-3"><i class="fa fa-check"></i><b>8.7</b> Ausblick</a></li>
+<li class="chapter" data-level="8.8" data-path="04-data_visualisation.html"><a href="#%C3%BCbungsaufgaben-1"><i class="fa fa-check"></i><b>8.8</b> Übungsaufgaben</a></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="explorative-datenanalyse-eda.html"><a href="explorative-datenanalyse-eda.html"><i class="fa fa-check"></i><b>9</b> Explorative Datenanalyse (EDA)</a>
+<ul>
+<li class="chapter" data-level="9.1" data-path="explorative-datenanalyse-eda.html"><a href="explorative-datenanalyse-eda.html#standard-deskriptivstatistik"><i class="fa fa-check"></i><b>9.1</b> Standard-Deskriptivstatistik</a></li>
+<li class="chapter" data-level="9.2" data-path="explorative-datenanalyse-eda.html"><a href="explorative-datenanalyse-eda.html#arbeiten-mit-eda-paketen"><i class="fa fa-check"></i><b>9.2</b> Arbeiten mit EDA-Paketen</a></li>
+<li class="chapter" data-level="9.3" data-path="explorative-datenanalyse-eda.html"><a href="explorative-datenanalyse-eda.html#fazit"><i class="fa fa-check"></i><b>9.3</b> Fazit</a></li>
+<li class="chapter" data-level="9.4" data-path="04-data_visualisation.html"><a href="#%C3%BCbungsaufgaben-2"><i class="fa fa-check"></i><b>9.4</b> Übungsaufgaben</a></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="datenanalyse.html"><a href="datenanalyse.html"><i class="fa fa-check"></i><b>10</b> Datenanalyse</a>
+<ul>
+<li class="chapter" data-level="10.1" data-path="datenanalyse.html"><a href="datenanalyse.html#lineare-regression"><i class="fa fa-check"></i><b>10.1</b> Lineare Regression</a></li>
+<li class="chapter" data-level="10.2" data-path="datenanalyse.html"><a href="datenanalyse.html#hypothesentesten-in-r"><i class="fa fa-check"></i><b>10.2</b> Hypothesentesten in R</a></li>
+<li class="chapter" data-level="10.3" data-path="datenanalyse.html"><a href="datenanalyse.html#multivariate-regression"><i class="fa fa-check"></i><b>10.3</b> Multivariate Regression</a></li>
+<li class="chapter" data-level="10.4" data-path="datenanalyse.html"><a href="datenanalyse.html#kategoriale-variablen"><i class="fa fa-check"></i><b>10.4</b> Kategoriale Variablen</a></li>
+<li class="chapter" data-level="10.5" data-path="datenanalyse.html"><a href="datenanalyse.html#ausblick-4"><i class="fa fa-check"></i><b>10.5</b> Ausblick</a></li>
+<li class="chapter" data-level="10.6" data-path="04-data_visualisation.html"><a href="#%C3%BCbungsaufgaben-3"><i class="fa fa-check"></i><b>10.6</b> Übungsaufgaben</a></li>
+</ul></li>
+<li class="chapter" data-level="11" data-path="schleifen-und-funktionen.html"><a href="schleifen-und-funktionen.html"><i class="fa fa-check"></i><b>11</b> Schleifen und Funktionen</a>
+<ul>
+<li class="chapter" data-level="11.1" data-path="schleifen-und-funktionen.html"><a href="schleifen-und-funktionen.html#schleifen"><i class="fa fa-check"></i><b>11.1</b> Schleifen</a></li>
+<li class="chapter" data-level="11.2" data-path="schleifen-und-funktionen.html"><a href="schleifen-und-funktionen.html#die-apply-funktionsfamilie"><i class="fa fa-check"></i><b>11.2</b> Die <code>apply()</code>-Funktionsfamilie</a></li>
+<li class="chapter" data-level="11.3" data-path="schleifen-und-funktionen.html"><a href="schleifen-und-funktionen.html#eigene-funktionen-schreiben"><i class="fa fa-check"></i><b>11.3</b> Eigene Funktionen schreiben</a></li>
+<li class="chapter" data-level="11.4" data-path="schleifen-und-funktionen.html"><a href="schleifen-und-funktionen.html#ausblick-5"><i class="fa fa-check"></i><b>11.4</b> Ausblick</a></li>
+<li class="chapter" data-level="11.5" data-path="04-data_visualisation.html"><a href="#%C3%BCbungsaufgaben-4"><i class="fa fa-check"></i><b>11.5</b> Übungsaufgaben</a></li>
+</ul></li>
+<li class="chapter" data-level="12" data-path="04-data_visualisation.html"><a href="#weitere-erl%C3%A4uterungen"><i class="fa fa-check"></i><b>12</b> Weitere Erläuterungen</a>
+<ul>
+<li class="chapter" data-level="12.1" data-path="04-data_visualisation.html"><a href="#funktion-definieren-f%C3%BCr-sp%C3%A4ter"><i class="fa fa-check"></i><b>12.1</b> Funktion definieren (für später)</a></li>
+<li class="chapter" data-level="12.2" data-path="weitere-erläuterungen.html"><a href="weitere-erläuterungen.html"><i class="fa fa-check"></i><b>12.2</b> Wahrscheinlichkeitstheorie</a></li>
+<li class="chapter" data-level="12.3" data-path="weitere-erläuterungen.html"><a href="weitere-erläuterungen.html#regressionsdiagnostik"><i class="fa fa-check"></i><b>12.3</b> Regressionsdiagnostik</a></li>
+</ul></li>
+<li class="chapter" data-level="13" data-path="04-data_visualisation.html"><a href="#l%C3%B6sungen-zu-den-%C3%BCbungsaufgaben"><i class="fa fa-check"></i><b>13</b> Lösungen zu den Übungsaufgaben</a>
+<ul>
+<li class="chapter" data-level="13.1" data-path="lösungen-zu-den-übungsaufgaben.html"><a href="lösungen-zu-den-übungsaufgaben.html"><i class="fa fa-check"></i><b>13.1</b> Kapitel 1: Grundlagen</a></li>
+<li class="chapter" data-level="13.2" data-path="lösungen-zu-den-übungsaufgaben.html"><a href="lösungen-zu-den-übungsaufgaben.html#kapitel-2-datenmanipulation"><i class="fa fa-check"></i><b>13.2</b> Kapitel 2: Datenmanipulation</a></li>
+<li class="chapter" data-level="13.3" data-path="lösungen-zu-den-übungsaufgaben.html"><a href="lösungen-zu-den-übungsaufgaben.html#kapitel-3-datenvisualisierung"><i class="fa fa-check"></i><b>13.3</b> Kapitel 3: Datenvisualisierung</a></li>
+<li class="chapter" data-level="13.4" data-path="lösungen-zu-den-übungsaufgaben.html"><a href="lösungen-zu-den-übungsaufgaben.html#kapitel-4-explorative-datenanalyse"><i class="fa fa-check"></i><b>13.4</b> Kapitel 4: Explorative Datenanalyse</a></li>
+<li class="chapter" data-level="13.5" data-path="lösungen-zu-den-übungsaufgaben.html"><a href="lösungen-zu-den-übungsaufgaben.html#kapitel-5-datenanalyse"><i class="fa fa-check"></i><b>13.5</b> Kapitel 5: Datenanalyse</a></li>
+<li class="chapter" data-level="13.6" data-path="lösungen-zu-den-übungsaufgaben.html"><a href="lösungen-zu-den-übungsaufgaben.html#kapitel-6-schleifen-und-funktionen"><i class="fa fa-check"></i><b>13.6</b> Kapitel 6: Schleifen und Funktionen</a></li>
+</ul></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">An intuitive Introduction to R</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="histogramme" class="section level1 hasAnchor" number="5">
+<h1><span class="header-section-number">Chapter 5</span> Histogramme<a href="histogramme.html#histogramme" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<div id="einfaches-histogramm" class="section level2 hasAnchor" number="5.1">
+<h2><span class="header-section-number">5.1</span> Einfaches Histogramm<a href="histogramme.html#einfaches-histogramm" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Beginnen wir mit einem normalen Histogramm.</p>
+<p>Ein Histogramm ist eine grafische Darstellung der <strong>Verteilung einer numerischen Variable</strong>. Dabei wird der Wertebereich in sogenannte <strong>Bins (Intervalle)</strong> unterteilt. Die Höhe der Balken zeigt, wie viele Beobachtungen in einem Intervall liegen.</p>
+<p>Bevor wir unser erstes Diagramm erstellen, simulieren wir zunächst einige Daten:</p>
+<div class="sourceCode" id="cb197"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb197-1"><a href="histogramme.html#cb197-1" tabindex="-1"></a><span class="co">#Setting Seed for reproducibility</span></span>
+<span id="cb197-2"><a href="histogramme.html#cb197-2" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123</span>)</span>
+<span id="cb197-3"><a href="histogramme.html#cb197-3" tabindex="-1"></a></span>
+<span id="cb197-4"><a href="histogramme.html#cb197-4" tabindex="-1"></a><span class="co">#Simulating data </span></span>
+<span id="cb197-5"><a href="histogramme.html#cb197-5" tabindex="-1"></a>data1 <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb197-6"><a href="histogramme.html#cb197-6" tabindex="-1"></a>  <span class="at">type =</span> <span class="fu">c</span>(<span class="fu">rep</span>(<span class="st">&quot;Variable 1&quot;</span>, <span class="dv">1000</span>)),</span>
+<span id="cb197-7"><a href="histogramme.html#cb197-7" tabindex="-1"></a>  <span class="at">value =</span> <span class="fu">c</span>(<span class="fu">rnorm</span>(<span class="dv">1000</span>))</span>
+<span id="cb197-8"><a href="histogramme.html#cb197-8" tabindex="-1"></a>)</span>
+<span id="cb197-9"><a href="histogramme.html#cb197-9" tabindex="-1"></a></span>
+<span id="cb197-10"><a href="histogramme.html#cb197-10" tabindex="-1"></a><span class="co">#Looking at the data </span></span>
+<span id="cb197-11"><a href="histogramme.html#cb197-11" tabindex="-1"></a><span class="fu">glimpse</span>(data1)</span></code></pre></div>
+<pre><code>## Rows: 1,000
+## Columns: 2
+## $ type  &lt;chr&gt; &quot;Variable 1&quot;, &quot;Variable 1&quot;, &quot;Variable 1&quot;…
+## $ value &lt;dbl&gt; -0.56047565, -0.23017749, 1.55870831, 0.…</code></pre>
+<p>Wir haben nun einen Datensatz mit einer Zufallsvariable <strong>„Variable 1“</strong> und 500 Beobachtungen.</p>
+<p>Nun möchten wir wissen, <strong>wie diese Werte verteilt sind</strong>, und erstellen deshalb ein Histogramm.</p>
+<p>Für ein Histogramm mit <code>ggplot</code> benötigen wir zunächst den Befehl <code>ggplot()</code>. Danach geben wir unseren Datensatz an – in unserem Fall <code>data</code>. Nach einem Komma folgt die Funktion <code>aes()</code>.</p>
+<p>In <code>aes()</code> definieren wir:</p>
+<ul>
+<li>die <strong>x-Achse</strong></li>
+<li>und optional die <strong>y-Achse</strong></li>
+</ul>
+<p>Bei einem Histogramm reicht jedoch die x-Achse, da <code>ggplot</code> die <strong>Häufigkeit (Count)</strong> automatisch berechnet.</p>
+<p>Danach schließen wir die Klammern und geben mit einem <code>+</code> an, welche Art von Visualisierung wir hinzufügen möchten: <code>geom_histogram()</code>.</p>
+<div class="sourceCode" id="cb199"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb199-1"><a href="histogramme.html#cb199-1" tabindex="-1"></a><span class="fu">ggplot</span>(data1, <span class="fu">aes</span>(<span class="at">x =</span> value)) <span class="sc">+</span> </span>
+<span id="cb199-2"><a href="histogramme.html#cb199-2" tabindex="-1"></a>  <span class="fu">geom_histogram</span>()</span></code></pre></div>
+<pre><code>## `stat_bin()` using `bins = 30`. Pick better value with
+## `binwidth`.</code></pre>
+<p><img src="bookdownproj_files/figure-html/basic%20histogram-1.png" width="672" /></p>
+<p>Damit hast du dein <strong>erstes Histogramm erstellt</strong>.</p>
+<p>Allerdings sieht es noch nicht besonders schön aus. Das liegt daran, dass wir <code>ggplot2</code> noch genauer sagen müssen, wie das Diagramm aussehen soll.</p>
+<p>Ein guter erster Schritt ist es, die <strong>Balken sichtbarer zu machen</strong> und die Farbe anzupassen.</p>
+<div class="sourceCode" id="cb201"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb201-1"><a href="histogramme.html#cb201-1" tabindex="-1"></a><span class="fu">ggplot</span>(data1, <span class="fu">aes</span>(<span class="at">x =</span> value)) <span class="sc">+</span> </span>
+<span id="cb201-2"><a href="histogramme.html#cb201-2" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">color =</span> <span class="st">&quot;white&quot;</span>, <span class="at">fill =</span> <span class="st">&quot;#69b3a2&quot;</span>)</span></code></pre></div>
+<pre><code>## `stat_bin()` using `bins = 30`. Pick better value with
+## `binwidth`.</code></pre>
+<p><img src="bookdownproj_files/figure-html/histogram%20with%20bins-1.png" width="672" /></p>
+<p>Das sieht schon besser aus. Aber für einen wissenschaftlichen Artikel oder Bericht reicht das noch nicht aus.</p>
+<p>Als nächstes sollten wir:</p>
+<ul>
+<li>die <strong>Achsenbeschriftungen anpassen</strong></li>
+<li>einen <strong>Titel hinzufügen</strong></li>
+</ul>
+<p>Dafür verwenden wir die Funktion <code>labs()</code>.</p>
+<p>Zusätzlich können wir die <strong>x-Achse neu skalieren</strong>. Dafür nutzen wir <code>scale_x_continuous()</code>.</p>
+<div class="sourceCode" id="cb203"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb203-1"><a href="histogramme.html#cb203-1" tabindex="-1"></a><span class="fu">ggplot</span>(data1, <span class="fu">aes</span>(<span class="at">x =</span> value)) <span class="sc">+</span> </span>
+<span id="cb203-2"><a href="histogramme.html#cb203-2" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">color =</span> <span class="st">&quot;white&quot;</span>, <span class="at">fill =</span> <span class="st">&quot;#69b3a2&quot;</span>) <span class="sc">+</span> </span>
+<span id="cb203-3"><a href="histogramme.html#cb203-3" tabindex="-1"></a>  <span class="fu">labs</span>( </span>
+<span id="cb203-4"><a href="histogramme.html#cb203-4" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">&quot;Value&quot;</span>, </span>
+<span id="cb203-5"><a href="histogramme.html#cb203-5" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">&quot;Count&quot;</span>, </span>
+<span id="cb203-6"><a href="histogramme.html#cb203-6" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">&quot;A Histogram&quot;</span>) <span class="sc">+</span> </span>
+<span id="cb203-7"><a href="histogramme.html#cb203-7" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">breaks =</span> <span class="fu">seq</span>(<span class="sc">-</span><span class="dv">4</span>, <span class="dv">4</span>, <span class="dv">1</span>), </span>
+<span id="cb203-8"><a href="histogramme.html#cb203-8" tabindex="-1"></a>                     <span class="at">limits =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">4</span>, <span class="dv">4</span>))</span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/histogram%20with%20rescaled%20x-axis-1.png" width="672" /></p>
+<p>Ein weiteres Detail: Viele Menschen mögen den <strong>grauen Hintergrund von ggplot2 nicht</strong>, der standardmäßig angezeigt wird.</p>
+<p>Wir können das Theme ändern, z.B. mit <code>theme_minimal()</code>.</p>
+<div class="sourceCode" id="cb204"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb204-1"><a href="histogramme.html#cb204-1" tabindex="-1"></a><span class="fu">ggplot</span>(data1, <span class="fu">aes</span>(<span class="at">x =</span> value)) <span class="sc">+</span> </span>
+<span id="cb204-2"><a href="histogramme.html#cb204-2" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">color =</span> <span class="st">&quot;white&quot;</span>, <span class="at">fill =</span> <span class="st">&quot;#69b3a2&quot;</span>) <span class="sc">+</span> </span>
+<span id="cb204-3"><a href="histogramme.html#cb204-3" tabindex="-1"></a>  <span class="fu">labs</span>( </span>
+<span id="cb204-4"><a href="histogramme.html#cb204-4" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">&quot;Value&quot;</span>, </span>
+<span id="cb204-5"><a href="histogramme.html#cb204-5" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">&quot;Count&quot;</span>, </span>
+<span id="cb204-6"><a href="histogramme.html#cb204-6" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">&quot;A Histogram&quot;</span>) <span class="sc">+</span> </span>
+<span id="cb204-7"><a href="histogramme.html#cb204-7" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">breaks =</span> <span class="fu">seq</span>(<span class="sc">-</span><span class="dv">4</span>, <span class="dv">4</span>, <span class="dv">1</span>), </span>
+<span id="cb204-8"><a href="histogramme.html#cb204-8" tabindex="-1"></a>                     <span class="at">limits =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">4</span>, <span class="dv">4</span>)) <span class="sc">+</span></span>
+<span id="cb204-9"><a href="histogramme.html#cb204-9" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code></pre></div>
+<pre><code>## `stat_bin()` using `bins = 30`. Pick better value with
+## `binwidth`.</code></pre>
+<p><img src="bookdownproj_files/figure-html/histogram%20with%20theme-1.png" width="672" /></p>
+<p>Jetzt haben wir eine Grafik, die sich <strong>problemlos in einem Bericht oder Paper verwenden lässt</strong>.</p>
+<hr />
+</div>
+<div id="binwidth" class="section level2 hasAnchor" number="5.2">
+<h2><span class="header-section-number">5.2</span> Binwidth<a href="histogramme.html#binwidth" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Ein wichtiger Parameter ist die <strong>Breite der Intervalle (binwidth)</strong>.</p>
+<p>Standardmäßig liegt sie hier bei etwa <strong>0.3</strong>. Wir können sie jedoch selbst festlegen.</p>
+<div class="sourceCode" id="cb206"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb206-1"><a href="histogramme.html#cb206-1" tabindex="-1"></a><span class="co">#histogram bindwidth = 0.1</span></span>
+<span id="cb206-2"><a href="histogramme.html#cb206-2" tabindex="-1"></a><span class="fu">ggplot</span>(data1, <span class="fu">aes</span>(<span class="at">x =</span> value)) <span class="sc">+</span> </span>
+<span id="cb206-3"><a href="histogramme.html#cb206-3" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">color =</span> <span class="st">&quot;white&quot;</span>, <span class="at">fill =</span> <span class="st">&quot;#69b3a2&quot;</span>, </span>
+<span id="cb206-4"><a href="histogramme.html#cb206-4" tabindex="-1"></a>                 <span class="at">binwidth =</span> <span class="fl">0.1</span>) <span class="sc">+</span> </span>
+<span id="cb206-5"><a href="histogramme.html#cb206-5" tabindex="-1"></a>  <span class="fu">labs</span>( </span>
+<span id="cb206-6"><a href="histogramme.html#cb206-6" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">&quot;Value&quot;</span>, </span>
+<span id="cb206-7"><a href="histogramme.html#cb206-7" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">&quot;Count&quot;</span>, </span>
+<span id="cb206-8"><a href="histogramme.html#cb206-8" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">&quot;A Histogram with binwidth = 0.1&quot;</span>) <span class="sc">+</span> </span>
+<span id="cb206-9"><a href="histogramme.html#cb206-9" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">breaks =</span> <span class="fu">seq</span>(<span class="sc">-</span><span class="dv">4</span>, <span class="dv">4</span>, <span class="dv">1</span>), </span>
+<span id="cb206-10"><a href="histogramme.html#cb206-10" tabindex="-1"></a>                     <span class="at">limits =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">4</span>, <span class="dv">4</span>)) <span class="sc">+</span></span>
+<span id="cb206-11"><a href="histogramme.html#cb206-11" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/histogram%20with%20different%20binwidth-1.png" width="672" /></p>
+<div class="sourceCode" id="cb207"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb207-1"><a href="histogramme.html#cb207-1" tabindex="-1"></a><span class="co">#histogram with bindwidth = 0.6</span></span>
+<span id="cb207-2"><a href="histogramme.html#cb207-2" tabindex="-1"></a><span class="fu">ggplot</span>(data1, <span class="fu">aes</span>(<span class="at">x =</span> value)) <span class="sc">+</span> </span>
+<span id="cb207-3"><a href="histogramme.html#cb207-3" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">color =</span> <span class="st">&quot;white&quot;</span>, <span class="at">fill =</span> <span class="st">&quot;#69b3a2&quot;</span>, </span>
+<span id="cb207-4"><a href="histogramme.html#cb207-4" tabindex="-1"></a>                 <span class="at">binwidth =</span> <span class="fl">0.6</span>) <span class="sc">+</span> </span>
+<span id="cb207-5"><a href="histogramme.html#cb207-5" tabindex="-1"></a>  <span class="fu">labs</span>( </span>
+<span id="cb207-6"><a href="histogramme.html#cb207-6" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">&quot;Value&quot;</span>, </span>
+<span id="cb207-7"><a href="histogramme.html#cb207-7" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">&quot;Count&quot;</span>, </span>
+<span id="cb207-8"><a href="histogramme.html#cb207-8" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">&quot;A Histogram with binwidth = 0.6&quot;</span>) <span class="sc">+</span> </span>
+<span id="cb207-9"><a href="histogramme.html#cb207-9" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">breaks =</span> <span class="fu">seq</span>(<span class="sc">-</span><span class="dv">4</span>, <span class="dv">4</span>, <span class="dv">1</span>), </span>
+<span id="cb207-10"><a href="histogramme.html#cb207-10" tabindex="-1"></a>                     <span class="at">limits =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">4</span>, <span class="dv">4</span>)) <span class="sc">+</span></span>
+<span id="cb207-11"><a href="histogramme.html#cb207-11" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/histogram%20with%20different%20binwidth-2.png" width="672" /></p>
+<hr />
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="verteilungen-histogramme-dichteplots-und-boxplots.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="mehrere-histogramme.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": false,
+"twitter": false,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": {}
+},
+"fontsettings": null,
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": null,
+"search": null,
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

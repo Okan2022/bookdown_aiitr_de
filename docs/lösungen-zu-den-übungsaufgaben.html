@@ -1,0 +1,2657 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 13 Lösungen zu den Übungsaufgaben | An intuitive Introduction to R</title>
+  <meta name="description" content="Chapter 13 Lösungen zu den Übungsaufgaben | An intuitive Introduction to R" />
+  <meta name="generator" content="bookdown 0.42 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapter 13 Lösungen zu den Übungsaufgaben | An intuitive Introduction to R" />
+  <meta property="og:type" content="book" />
+  
+  
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 13 Lösungen zu den Übungsaufgaben | An intuitive Introduction to R" />
+  
+  
+  
+
+<meta name="author" content="Okan Sarioglu" />
+
+
+<meta name="date" content="2026-03-08" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="weitere-erläuterungen.html"/>
+
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+<link href="libs/htmltools-fill-0.5.8.1/fill.css" rel="stylesheet" />
+<script src="libs/htmlwidgets-1.6.4/htmlwidgets.js"></script>
+<link href="libs/leaflet-1.3.1/leaflet.css" rel="stylesheet" />
+<script src="libs/leaflet-1.3.1/leaflet.js"></script>
+<link href="libs/leafletfix-1.0.0/leafletfix.css" rel="stylesheet" />
+<script src="libs/proj4-2.6.2/proj4.min.js"></script>
+<script src="libs/Proj4Leaflet-1.0.1/proj4leaflet.js"></script>
+<link href="libs/rstudio_leaflet-1.3.1/rstudio_leaflet.css" rel="stylesheet" />
+<script src="libs/leaflet-binding-2.2.2/leaflet.js"></script>
+<script src="libs/leaflet-providers-2.0.0/leaflet-providers_2.0.0.js"></script>
+<script src="libs/leaflet-providers-plugin-2.2.2/leaflet-providers-plugin.js"></script>
+<script src="libs/plotly-binding-4.10.4/plotly.js"></script>
+<script src="libs/typedarray-0.1/typedarray.min.js"></script>
+<link href="libs/crosstalk-1.2.1/css/crosstalk.min.css" rel="stylesheet" />
+<script src="libs/crosstalk-1.2.1/js/crosstalk.min.js"></script>
+<link href="libs/plotly-htmlwidgets-css-2.11.1/plotly-htmlwidgets.css" rel="stylesheet" />
+<script src="libs/plotly-main-2.11.1/plotly-latest.min.js"></script>
+<script src="libs/kePrint-0.0.1/kePrint.js"></script>
+<link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
+
+
+<style type="text/css">
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<div style="text-align: center;">
+  <img src="images/AIITR.svg" alt="AIITR Logo" style="vertical-align: middle; margin-left: 5px; width: 125px; height: auto;">
+</div>
+<div style="text-align: center;">
+<li style="list-style: none;"><a href="./">by Okan Sarioglu</a></li>
+</div>
+<div style="text-align: center; margin-top: 10px;">
+  <a href="https://github.com/Okan2022" target="_blank">
+    <img src="images/github-mark.svg" alt="GitHub" style="vertical-align: middle; width: 25px; height: auto;">
+  </a>
+  <a href="https://www.linkedin.com/in/osarioglu" target="_blank" style="margin-left: 10px;">
+    <img src="images/LinkedIn_icon.svg" alt="LinkedIn" style="vertical-align: middle; width: 25px; height: auto;">
+  </a>
+</div> 
+<div style="text-align: center; margin-top: 10px; margin-bottom: 10px;">
+  <a href="script/aiitr_script.R" download="aiitr_script.R" style="display: inline-block; padding: 10px 20px; font-size: 16px; color: #fff; background-color: #4169e1; text-decoration: none; border-radius: 8px;">Download R Script</a>
+</div>
+<div style="text-align: center; margin-top: 10px; margin-bottom: 10px;">
+  <a href="https://www.paypal.com/donate?hosted_button_id=ZBMC2WD84P75S"
+     style="display: inline-block; padding: 10px 20px; font-size: 16px; color: #fff; background-color: #FCBB32; text-decoration: none; border-radius: 8px;">
+     <img src="images/pp_logo.png" alt="PayPal" style="height: 24px; vertical-align: middle; margin-right: 8px;">
+     Support me here!
+  </a>
+</div>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Willkommen!</a>
+<ul>
+<li class="chapter" data-level="" data-path=""><a href="#%C3%BCber-diesen-kurs"><i class="fa fa-check"></i>Über diesen Kurs</a></li>
+<li class="chapter" data-level="" data-path=""><a href="#%C3%BCber-mich"><i class="fa fa-check"></i>Über mich</a></li>
+</ul></li>
+<li class="chapter" data-level="1" data-path="grundlagen.html"><a href="grundlagen.html"><i class="fa fa-check"></i><b>1</b> Grundlagen</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="grundlagen.html"><a href="grundlagen.html#rstudio-kennenlernen-und-einen-workflow-etablieren"><i class="fa fa-check"></i><b>1.1</b> RStudio kennenlernen und einen Workflow etablieren</a></li>
+<li class="chapter" data-level="1.2" data-path="09-solutions_exercises.html"><a href="#los-gehts-r-als-leistungsf%C3%A4higer-taschenrechner"><i class="fa fa-check"></i><b>1.2</b> Los geht’s: R als leistungsfähiger Taschenrechner</a></li>
+<li class="chapter" data-level="1.3" data-path="grundlagen.html"><a href="grundlagen.html#ifelse-statements-und-die-ifelse-funktion"><i class="fa fa-check"></i><b>1.3</b> <code>ifelse</code> statements und die <code>ifelse()</code> funktion</a></li>
+<li class="chapter" data-level="1.4" data-path="grundlagen.html"><a href="grundlagen.html#ausblick"><i class="fa fa-check"></i><b>1.4</b> Ausblick</a></li>
+<li class="chapter" data-level="1.5" data-path="09-solutions_exercises.html"><a href="#%C3%BCbungsabschnitt"><i class="fa fa-check"></i><b>1.5</b> Übungsabschnitt</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="datenmanipulation.html"><a href="datenmanipulation.html"><i class="fa fa-check"></i><b>2</b> Datenmanipulation</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="datenmanipulation.html"><a href="datenmanipulation.html#pakete"><i class="fa fa-check"></i><b>2.1</b> Pakete</a></li>
+<li class="chapter" data-level="2.2" data-path="datenmanipulation.html"><a href="datenmanipulation.html#mit-paketen-arbeiten"><i class="fa fa-check"></i><b>2.2</b> Mit Paketen arbeiten</a></li>
+<li class="chapter" data-level="2.3" data-path="datenmanipulation.html"><a href="datenmanipulation.html#die-daten-mit-denen-wir-arbeiten-der-european-social-survey-ess"><i class="fa fa-check"></i><b>2.3</b> Die Daten, mit denen wir arbeiten: Der European Social Survey (ESS)</a></li>
+<li class="chapter" data-level="2.4" data-path="datenmanipulation.html"><a href="datenmanipulation.html#ran-an-die-daten-das-dplyr-paket"><i class="fa fa-check"></i><b>2.4</b> Ran an die Daten: Das <code>dplyr</code>-Paket</a></li>
+<li class="chapter" data-level="2.5" data-path="09-solutions_exercises.html"><a href="#datens%C3%A4tze-zusammenf%C3%BChren"><i class="fa fa-check"></i><b>2.5</b> Datensätze zusammenführen</a></li>
+<li class="chapter" data-level="2.6" data-path="datenmanipulation.html"><a href="datenmanipulation.html#ausblick-1"><i class="fa fa-check"></i><b>2.6</b> Ausblick</a></li>
+<li class="chapter" data-level="2.7" data-path="09-solutions_exercises.html"><a href="#%C3%BCbungsaufgaben"><i class="fa fa-check"></i><b>2.7</b> Übungsaufgaben</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="datenvisualisierung.html"><a href="datenvisualisierung.html"><i class="fa fa-check"></i><b>3</b> Datenvisualisierung</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="09-solutions_exercises.html"><a href="#einf%C3%BChrung-in-ggplot2"><i class="fa fa-check"></i><b>3.1</b> Einführung in <code>ggplot2</code></a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="verteilungen-histogramme-dichteplots-und-boxplots.html"><a href="verteilungen-histogramme-dichteplots-und-boxplots.html"><i class="fa fa-check"></i><b>4</b> Verteilungen: Histogramme, Dichteplots und Boxplots</a></li>
+<li class="chapter" data-level="5" data-path="histogramme.html"><a href="histogramme.html"><i class="fa fa-check"></i><b>5</b> Histogramme</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="histogramme.html"><a href="histogramme.html#einfaches-histogramm"><i class="fa fa-check"></i><b>5.1</b> Einfaches Histogramm</a></li>
+<li class="chapter" data-level="5.2" data-path="histogramme.html"><a href="histogramme.html#binwidth"><i class="fa fa-check"></i><b>5.2</b> Binwidth</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="mehrere-histogramme.html"><a href="mehrere-histogramme.html"><i class="fa fa-check"></i><b>6</b> Mehrere Histogramme</a></li>
+<li class="chapter" data-level="7" data-path="dichteplots.html"><a href="dichteplots.html"><i class="fa fa-check"></i><b>7</b> Dichteplots</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="dichteplots.html"><a href="dichteplots.html#einfacher-dichteplot"><i class="fa fa-check"></i><b>7.1</b> Einfacher Dichteplot</a></li>
+<li class="chapter" data-level="7.2" data-path="dichteplots.html"><a href="dichteplots.html#mehrere-dichteplots"><i class="fa fa-check"></i><b>7.2</b> Mehrere Dichteplots</a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="boxplots.html"><a href="boxplots.html"><i class="fa fa-check"></i><b>8</b> Boxplots</a>
+<ul>
+<li class="chapter" data-level="8.1" data-path="boxplots.html"><a href="boxplots.html#einfache-boxplots"><i class="fa fa-check"></i><b>8.1</b> Einfache Boxplots</a></li>
+<li class="chapter" data-level="8.2" data-path="boxplots.html"><a href="boxplots.html#rangfolge-barplot"><i class="fa fa-check"></i><b>8.2</b> Rangfolge: Barplot</a></li>
+<li class="chapter" data-level="8.3" data-path="boxplots.html"><a href="boxplots.html#entwicklung-liniendiagramm"><i class="fa fa-check"></i><b>8.3</b> Entwicklung: Liniendiagramm</a></li>
+<li class="chapter" data-level="8.4" data-path="boxplots.html"><a href="boxplots.html#korrelation-streudiagramme"><i class="fa fa-check"></i><b>8.4</b> Korrelation: Streudiagramme</a></li>
+<li class="chapter" data-level="8.5" data-path="boxplots.html"><a href="boxplots.html#plots-mit-facet_wrap-und-facet_grid"><i class="fa fa-check"></i><b>8.5</b> Plots mit <code>facet_wrap()</code> und <code>facet_grid()</code></a></li>
+<li class="chapter" data-level="8.6" data-path="boxplots.html"><a href="boxplots.html#ausblick-2"><i class="fa fa-check"></i><b>8.6</b> Ausblick</a></li>
+<li class="chapter" data-level="8.7" data-path="boxplots.html"><a href="boxplots.html#ausblick-3"><i class="fa fa-check"></i><b>8.7</b> Ausblick</a></li>
+<li class="chapter" data-level="8.8" data-path="09-solutions_exercises.html"><a href="#%C3%BCbungsaufgaben-1"><i class="fa fa-check"></i><b>8.8</b> Übungsaufgaben</a></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="explorative-datenanalyse-eda.html"><a href="explorative-datenanalyse-eda.html"><i class="fa fa-check"></i><b>9</b> Explorative Datenanalyse (EDA)</a>
+<ul>
+<li class="chapter" data-level="9.1" data-path="explorative-datenanalyse-eda.html"><a href="explorative-datenanalyse-eda.html#standard-deskriptivstatistik"><i class="fa fa-check"></i><b>9.1</b> Standard-Deskriptivstatistik</a></li>
+<li class="chapter" data-level="9.2" data-path="explorative-datenanalyse-eda.html"><a href="explorative-datenanalyse-eda.html#arbeiten-mit-eda-paketen"><i class="fa fa-check"></i><b>9.2</b> Arbeiten mit EDA-Paketen</a></li>
+<li class="chapter" data-level="9.3" data-path="explorative-datenanalyse-eda.html"><a href="explorative-datenanalyse-eda.html#fazit"><i class="fa fa-check"></i><b>9.3</b> Fazit</a></li>
+<li class="chapter" data-level="9.4" data-path="09-solutions_exercises.html"><a href="#%C3%BCbungsaufgaben-2"><i class="fa fa-check"></i><b>9.4</b> Übungsaufgaben</a></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="datenanalyse.html"><a href="datenanalyse.html"><i class="fa fa-check"></i><b>10</b> Datenanalyse</a>
+<ul>
+<li class="chapter" data-level="10.1" data-path="datenanalyse.html"><a href="datenanalyse.html#lineare-regression"><i class="fa fa-check"></i><b>10.1</b> Lineare Regression</a></li>
+<li class="chapter" data-level="10.2" data-path="datenanalyse.html"><a href="datenanalyse.html#hypothesentesten-in-r"><i class="fa fa-check"></i><b>10.2</b> Hypothesentesten in R</a></li>
+<li class="chapter" data-level="10.3" data-path="datenanalyse.html"><a href="datenanalyse.html#multivariate-regression"><i class="fa fa-check"></i><b>10.3</b> Multivariate Regression</a></li>
+<li class="chapter" data-level="10.4" data-path="datenanalyse.html"><a href="datenanalyse.html#kategoriale-variablen"><i class="fa fa-check"></i><b>10.4</b> Kategoriale Variablen</a></li>
+<li class="chapter" data-level="10.5" data-path="datenanalyse.html"><a href="datenanalyse.html#ausblick-4"><i class="fa fa-check"></i><b>10.5</b> Ausblick</a></li>
+<li class="chapter" data-level="10.6" data-path="09-solutions_exercises.html"><a href="#%C3%BCbungsaufgaben-3"><i class="fa fa-check"></i><b>10.6</b> Übungsaufgaben</a></li>
+</ul></li>
+<li class="chapter" data-level="11" data-path="schleifen-und-funktionen.html"><a href="schleifen-und-funktionen.html"><i class="fa fa-check"></i><b>11</b> Schleifen und Funktionen</a>
+<ul>
+<li class="chapter" data-level="11.1" data-path="schleifen-und-funktionen.html"><a href="schleifen-und-funktionen.html#schleifen"><i class="fa fa-check"></i><b>11.1</b> Schleifen</a></li>
+<li class="chapter" data-level="11.2" data-path="schleifen-und-funktionen.html"><a href="schleifen-und-funktionen.html#die-apply-funktionsfamilie"><i class="fa fa-check"></i><b>11.2</b> Die <code>apply()</code>-Funktionsfamilie</a></li>
+<li class="chapter" data-level="11.3" data-path="schleifen-und-funktionen.html"><a href="schleifen-und-funktionen.html#eigene-funktionen-schreiben"><i class="fa fa-check"></i><b>11.3</b> Eigene Funktionen schreiben</a></li>
+<li class="chapter" data-level="11.4" data-path="schleifen-und-funktionen.html"><a href="schleifen-und-funktionen.html#ausblick-5"><i class="fa fa-check"></i><b>11.4</b> Ausblick</a></li>
+<li class="chapter" data-level="11.5" data-path="09-solutions_exercises.html"><a href="#%C3%BCbungsaufgaben-4"><i class="fa fa-check"></i><b>11.5</b> Übungsaufgaben</a></li>
+</ul></li>
+<li class="chapter" data-level="12" data-path="09-solutions_exercises.html"><a href="#weitere-erl%C3%A4uterungen"><i class="fa fa-check"></i><b>12</b> Weitere Erläuterungen</a>
+<ul>
+<li class="chapter" data-level="12.1" data-path="09-solutions_exercises.html"><a href="#funktion-definieren-f%C3%BCr-sp%C3%A4ter"><i class="fa fa-check"></i><b>12.1</b> Funktion definieren (für später)</a></li>
+<li class="chapter" data-level="12.2" data-path="weitere-erläuterungen.html"><a href="weitere-erläuterungen.html"><i class="fa fa-check"></i><b>12.2</b> Wahrscheinlichkeitstheorie</a></li>
+<li class="chapter" data-level="12.3" data-path="weitere-erläuterungen.html"><a href="weitere-erläuterungen.html#regressionsdiagnostik"><i class="fa fa-check"></i><b>12.3</b> Regressionsdiagnostik</a></li>
+</ul></li>
+<li class="chapter" data-level="13" data-path="09-solutions_exercises.html"><a href="#l%C3%B6sungen-zu-den-%C3%BCbungsaufgaben"><i class="fa fa-check"></i><b>13</b> Lösungen zu den Übungsaufgaben</a>
+<ul>
+<li class="chapter" data-level="13.1" data-path="lösungen-zu-den-übungsaufgaben.html"><a href="lösungen-zu-den-übungsaufgaben.html"><i class="fa fa-check"></i><b>13.1</b> Kapitel 1: Grundlagen</a></li>
+<li class="chapter" data-level="13.2" data-path="lösungen-zu-den-übungsaufgaben.html"><a href="lösungen-zu-den-übungsaufgaben.html#kapitel-2-datenmanipulation"><i class="fa fa-check"></i><b>13.2</b> Kapitel 2: Datenmanipulation</a></li>
+<li class="chapter" data-level="13.3" data-path="lösungen-zu-den-übungsaufgaben.html"><a href="lösungen-zu-den-übungsaufgaben.html#kapitel-3-datenvisualisierung"><i class="fa fa-check"></i><b>13.3</b> Kapitel 3: Datenvisualisierung</a></li>
+<li class="chapter" data-level="13.4" data-path="lösungen-zu-den-übungsaufgaben.html"><a href="lösungen-zu-den-übungsaufgaben.html#kapitel-4-explorative-datenanalyse"><i class="fa fa-check"></i><b>13.4</b> Kapitel 4: Explorative Datenanalyse</a></li>
+<li class="chapter" data-level="13.5" data-path="lösungen-zu-den-übungsaufgaben.html"><a href="lösungen-zu-den-übungsaufgaben.html#kapitel-5-datenanalyse"><i class="fa fa-check"></i><b>13.5</b> Kapitel 5: Datenanalyse</a></li>
+<li class="chapter" data-level="13.6" data-path="lösungen-zu-den-übungsaufgaben.html"><a href="lösungen-zu-den-übungsaufgaben.html#kapitel-6-schleifen-und-funktionen"><i class="fa fa-check"></i><b>13.6</b> Kapitel 6: Schleifen und Funktionen</a></li>
+</ul></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">An intuitive Introduction to R</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="lösungen-zu-den-übungsaufgaben" class="section level1 hasAnchor" number="13">
+<h1><span class="header-section-number">Chapter 13</span> Lösungen zu den Übungsaufgaben<a href="#l%C3%B6sungen-zu-den-%C3%BCbungsaufgaben" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<div class="sourceCode" id="cb525"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb525-1"><a href="lösungen-zu-den-übungsaufgaben.html#cb525-1" tabindex="-1"></a>pacman<span class="sc">::</span><span class="fu">p_load</span>(<span class="st">&quot;tidyverse&quot;</span>, <span class="st">&quot;gapminder&quot;</span>, <span class="st">&quot;babynames&quot;</span>, <span class="st">&quot;sjPlot&quot;</span>, <span class="st">&quot;ggridges&quot;</span>)</span></code></pre></div>
+<div id="kapitel-1-grundlagen" class="section level2 hasAnchor" number="13.1">
+<h2><span class="header-section-number">13.1</span> Kapitel 1: Grundlagen<a href="lösungen-zu-den-übungsaufgaben.html#kapitel-1-grundlagen" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="übung-1-deinen-ersten-vektor-erstellen" class="section level3 hasAnchor" number="13.1.1">
+<h3><span class="header-section-number">13.1.1</span> Übung 1: Deinen ersten Vektor erstellen<a href="#%C3%BCbung-1-deinen-ersten-vektor-erstellen" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Erstelle einen Vektor namens <code>my_vector</code> mit den Werten 1, 2, 3 und überprüfe seine Klasse.</p>
+<div class="sourceCode" id="cb526"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb526-1"><a href="lösungen-zu-den-übungsaufgaben.html#cb526-1" tabindex="-1"></a><span class="co"># Vektor erstellen</span></span>
+<span id="cb526-2"><a href="lösungen-zu-den-übungsaufgaben.html#cb526-2" tabindex="-1"></a>my_vector <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>)</span>
+<span id="cb526-3"><a href="lösungen-zu-den-übungsaufgaben.html#cb526-3" tabindex="-1"></a></span>
+<span id="cb526-4"><a href="lösungen-zu-den-übungsaufgaben.html#cb526-4" tabindex="-1"></a><span class="co"># Klasse überprüfen</span></span>
+<span id="cb526-5"><a href="lösungen-zu-den-übungsaufgaben.html#cb526-5" tabindex="-1"></a><span class="fu">class</span>(my_vector)</span></code></pre></div>
+</div>
+<div id="übung-2-deine-erste-matrix-erstellen" class="section level3 hasAnchor" number="13.1.2">
+<h3><span class="header-section-number">13.1.2</span> Übung 2: Deine erste Matrix erstellen<a href="#%C3%BCbung-2-deine-erste-matrix-erstellen" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Erstelle eine Matrix namens <code>student</code>. Diese soll Informationen über <code>name</code>, <code>age</code> und <code>major</code> enthalten. Erstelle drei Vektoren mit je drei Einträgen und verbinde sie zur Matrix <code>student</code>. Gib die Matrix aus. Die Namen, das Alter und das Studienfach kannst du frei wählen:</p>
+<div class="sourceCode" id="cb527"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb527-1"><a href="lösungen-zu-den-übungsaufgaben.html#cb527-1" tabindex="-1"></a><span class="co"># Vektoren erstellen</span></span>
+<span id="cb527-2"><a href="lösungen-zu-den-übungsaufgaben.html#cb527-2" tabindex="-1"></a>name  <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;James&quot;</span>, <span class="st">&quot;Elif&quot;</span>, <span class="st">&quot;Jonas&quot;</span>)</span>
+<span id="cb527-3"><a href="lösungen-zu-den-übungsaufgaben.html#cb527-3" tabindex="-1"></a>age   <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;19&quot;</span>, <span class="st">&quot;17&quot;</span>, <span class="st">&quot;24&quot;</span>)</span>
+<span id="cb527-4"><a href="lösungen-zu-den-übungsaufgaben.html#cb527-4" tabindex="-1"></a>major <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;Politikwissenschaft&quot;</span>, <span class="st">&quot;Data Science&quot;</span>, <span class="st">&quot;Physik&quot;</span>)</span>
+<span id="cb527-5"><a href="lösungen-zu-den-übungsaufgaben.html#cb527-5" tabindex="-1"></a></span>
+<span id="cb527-6"><a href="lösungen-zu-den-übungsaufgaben.html#cb527-6" tabindex="-1"></a><span class="co"># Matrix erstellen</span></span>
+<span id="cb527-7"><a href="lösungen-zu-den-übungsaufgaben.html#cb527-7" tabindex="-1"></a>student <span class="ot">&lt;-</span> <span class="fu">cbind</span>(name, age, major)</span>
+<span id="cb527-8"><a href="lösungen-zu-den-übungsaufgaben.html#cb527-8" tabindex="-1"></a></span>
+<span id="cb527-9"><a href="lösungen-zu-den-übungsaufgaben.html#cb527-9" tabindex="-1"></a><span class="co"># Oder mit dem matrix-Befehl</span></span>
+<span id="cb527-10"><a href="lösungen-zu-den-übungsaufgaben.html#cb527-10" tabindex="-1"></a>student <span class="ot">&lt;-</span> <span class="fu">matrix</span>(name, age, major)</span>
+<span id="cb527-11"><a href="lösungen-zu-den-übungsaufgaben.html#cb527-11" tabindex="-1"></a></span>
+<span id="cb527-12"><a href="lösungen-zu-den-übungsaufgaben.html#cb527-12" tabindex="-1"></a><span class="co"># Matrix ausgeben</span></span>
+<span id="cb527-13"><a href="lösungen-zu-den-übungsaufgaben.html#cb527-13" tabindex="-1"></a><span class="fu">print</span>(student)</span></code></pre></div>
+</div>
+<div id="übung-3-ifelse-funktion-1" class="section level3 hasAnchor" number="13.1.3">
+<h3><span class="header-section-number">13.1.3</span> Übung 3: <code>ifelse</code>-Funktion<a href="#%C3%BCbung-3-ifelse-funktion-1" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Schreibe eine <code>ifelse</code>-Anweisung, die prüft, ob eine gegebene Zahl positiv oder negativ ist. Wenn die Zahl positiv oder 0 ist, gib „Zahl ist positiv” aus, andernfalls „Zahl ist negativ”. Du kannst selbst entscheiden, ob du die <code>ifelse()</code>-Funktion oder die <code>ifelse</code>-Bedingung verwenden möchtest.</p>
+<div class="sourceCode" id="cb528"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb528-1"><a href="lösungen-zu-den-übungsaufgaben.html#cb528-1" tabindex="-1"></a><span class="co"># Die Zahl dem Objekt &quot;number&quot; zuweisen</span></span>
+<span id="cb528-2"><a href="lösungen-zu-den-übungsaufgaben.html#cb528-2" tabindex="-1"></a>number <span class="ot">&lt;-</span> <span class="dv">0</span></span>
+<span id="cb528-3"><a href="lösungen-zu-den-übungsaufgaben.html#cb528-3" tabindex="-1"></a></span>
+<span id="cb528-4"><a href="lösungen-zu-den-übungsaufgaben.html#cb528-4" tabindex="-1"></a><span class="co"># Mit der ifelse()-Funktion</span></span>
+<span id="cb528-5"><a href="lösungen-zu-den-übungsaufgaben.html#cb528-5" tabindex="-1"></a><span class="fu">ifelse</span>(number <span class="sc">&gt;=</span> <span class="dv">0</span>, <span class="st">&quot;Zahl ist positiv&quot;</span>, <span class="st">&quot;Zahl ist negativ&quot;</span>)</span>
+<span id="cb528-6"><a href="lösungen-zu-den-übungsaufgaben.html#cb528-6" tabindex="-1"></a></span>
+<span id="cb528-7"><a href="lösungen-zu-den-übungsaufgaben.html#cb528-7" tabindex="-1"></a><span class="co"># Mit einer ifelse-Bedingung</span></span>
+<span id="cb528-8"><a href="lösungen-zu-den-übungsaufgaben.html#cb528-8" tabindex="-1"></a><span class="cf">if</span> (number <span class="sc">&gt;</span> <span class="dv">0</span>) {</span>
+<span id="cb528-9"><a href="lösungen-zu-den-übungsaufgaben.html#cb528-9" tabindex="-1"></a>  <span class="fu">print</span>(<span class="st">&quot;Positive Zahl&quot;</span>)</span>
+<span id="cb528-10"><a href="lösungen-zu-den-übungsaufgaben.html#cb528-10" tabindex="-1"></a>} <span class="cf">else</span> {</span>
+<span id="cb528-11"><a href="lösungen-zu-den-übungsaufgaben.html#cb528-11" tabindex="-1"></a>  <span class="fu">print</span>(<span class="st">&quot;Negative Zahl&quot;</span>)</span>
+<span id="cb528-12"><a href="lösungen-zu-den-übungsaufgaben.html#cb528-12" tabindex="-1"></a>}</span></code></pre></div>
+</div>
+<div id="übung-4-ifelse-leitern" class="section level3 hasAnchor" number="13.1.4">
+<h3><span class="header-section-number">13.1.4</span> Übung 4: <code>ifelse</code>-Leitern<a href="#%C3%BCbung-4-ifelse-leitern" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Schreibe eine if-else-Leiter, die die Note eines Studierenden anhand ihres Punktestands kategorisiert. Die Bewertungskriterien lauten:</p>
+<p>Punktzahl &gt;= 90: „A”; Punktzahl &gt;= 80 und &lt; 90: „B”; Punktzahl &gt;= 70 und &lt; 80: „C”; Punktzahl &gt;= 60 und &lt; 70: „D”; Punktzahl &lt; 60: „F”.</p>
+<div class="sourceCode" id="cb529"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb529-1"><a href="lösungen-zu-den-übungsaufgaben.html#cb529-1" tabindex="-1"></a><span class="co"># Vektor Score definieren</span></span>
+<span id="cb529-2"><a href="lösungen-zu-den-übungsaufgaben.html#cb529-2" tabindex="-1"></a>Score <span class="ot">&lt;-</span> <span class="dv">90</span></span>
+<span id="cb529-3"><a href="lösungen-zu-den-übungsaufgaben.html#cb529-3" tabindex="-1"></a></span>
+<span id="cb529-4"><a href="lösungen-zu-den-übungsaufgaben.html#cb529-4" tabindex="-1"></a><span class="co"># ifelse-Leiter mit der ifelse()-Funktion</span></span>
+<span id="cb529-5"><a href="lösungen-zu-den-übungsaufgaben.html#cb529-5" tabindex="-1"></a><span class="fu">ifelse</span>(Score <span class="sc">&gt;=</span> <span class="dv">90</span>, <span class="st">&quot;A&quot;</span>, </span>
+<span id="cb529-6"><a href="lösungen-zu-den-übungsaufgaben.html#cb529-6" tabindex="-1"></a>       <span class="fu">ifelse</span>(Score <span class="sc">&gt;=</span> <span class="dv">80</span> <span class="sc">&amp;</span> Score <span class="sc">&lt;</span> <span class="dv">90</span>, <span class="st">&quot;B&quot;</span>,</span>
+<span id="cb529-7"><a href="lösungen-zu-den-übungsaufgaben.html#cb529-7" tabindex="-1"></a>              <span class="fu">ifelse</span>(Score <span class="sc">&gt;=</span> <span class="dv">70</span> <span class="sc">&amp;</span> Score <span class="sc">&lt;</span> <span class="dv">80</span>, <span class="st">&quot;C&quot;</span>,</span>
+<span id="cb529-8"><a href="lösungen-zu-den-übungsaufgaben.html#cb529-8" tabindex="-1"></a>                     <span class="fu">ifelse</span>(Score <span class="sc">&gt;=</span> <span class="dv">60</span> <span class="sc">&amp;</span> Score <span class="sc">&lt;</span> <span class="dv">70</span>, <span class="st">&quot;D&quot;</span>, </span>
+<span id="cb529-9"><a href="lösungen-zu-den-übungsaufgaben.html#cb529-9" tabindex="-1"></a>                            <span class="fu">ifelse</span>(Score <span class="sc">&lt;</span> <span class="dv">60</span>, <span class="st">&quot;F&quot;</span>)))))</span>
+<span id="cb529-10"><a href="lösungen-zu-den-übungsaufgaben.html#cb529-10" tabindex="-1"></a></span>
+<span id="cb529-11"><a href="lösungen-zu-den-übungsaufgaben.html#cb529-11" tabindex="-1"></a><span class="co"># ifelse-Leiter mit einer ifelse-Bedingung</span></span>
+<span id="cb529-12"><a href="lösungen-zu-den-übungsaufgaben.html#cb529-12" tabindex="-1"></a><span class="cf">if</span> (score <span class="sc">&gt;=</span> <span class="dv">90</span>) {</span>
+<span id="cb529-13"><a href="lösungen-zu-den-übungsaufgaben.html#cb529-13" tabindex="-1"></a>  <span class="fu">print</span>(<span class="st">&quot;A&quot;</span>) </span>
+<span id="cb529-14"><a href="lösungen-zu-den-übungsaufgaben.html#cb529-14" tabindex="-1"></a>} <span class="cf">else</span> <span class="cf">if</span> (score <span class="sc">&gt;=</span> <span class="dv">80</span> <span class="sc">&amp;</span> score <span class="sc">&lt;</span> <span class="dv">90</span>) {</span>
+<span id="cb529-15"><a href="lösungen-zu-den-übungsaufgaben.html#cb529-15" tabindex="-1"></a>  <span class="fu">print</span>(<span class="st">&quot;B&quot;</span>)</span>
+<span id="cb529-16"><a href="lösungen-zu-den-übungsaufgaben.html#cb529-16" tabindex="-1"></a>} <span class="cf">else</span> <span class="cf">if</span> (score <span class="sc">&gt;=</span> <span class="dv">70</span> <span class="sc">&amp;</span> score <span class="sc">&lt;</span> <span class="dv">80</span>) {</span>
+<span id="cb529-17"><a href="lösungen-zu-den-übungsaufgaben.html#cb529-17" tabindex="-1"></a>  <span class="fu">print</span>(<span class="st">&quot;C&quot;</span>)</span>
+<span id="cb529-18"><a href="lösungen-zu-den-übungsaufgaben.html#cb529-18" tabindex="-1"></a>} <span class="cf">else</span> <span class="cf">if</span> (score <span class="sc">&gt;=</span> <span class="dv">60</span> <span class="sc">&amp;</span> score <span class="sc">&lt;</span> <span class="dv">70</span>) {</span>
+<span id="cb529-19"><a href="lösungen-zu-den-übungsaufgaben.html#cb529-19" tabindex="-1"></a>  <span class="fu">print</span>(<span class="st">&quot;D&quot;</span>) </span>
+<span id="cb529-20"><a href="lösungen-zu-den-übungsaufgaben.html#cb529-20" tabindex="-1"></a>} <span class="cf">else</span> <span class="cf">if</span> (score <span class="sc">&lt;</span> <span class="dv">60</span>) {</span>
+<span id="cb529-21"><a href="lösungen-zu-den-übungsaufgaben.html#cb529-21" tabindex="-1"></a>  <span class="fu">print</span>(<span class="st">&quot;F&quot;</span>)</span>
+<span id="cb529-22"><a href="lösungen-zu-den-übungsaufgaben.html#cb529-22" tabindex="-1"></a>}</span></code></pre></div>
+</div>
+</div>
+<div id="kapitel-2-datenmanipulation" class="section level2 hasAnchor" number="13.2">
+<h2><span class="header-section-number">13.2</span> Kapitel 2: Datenmanipulation<a href="lösungen-zu-den-übungsaufgaben.html#kapitel-2-datenmanipulation" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div class="sourceCode" id="cb530"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb530-1"><a href="lösungen-zu-den-übungsaufgaben.html#cb530-1" tabindex="-1"></a>pacman<span class="sc">::</span><span class="fu">p_load</span>(<span class="st">&quot;tidyverse&quot;</span>)</span></code></pre></div>
+<div id="übung-1-ran-an-die-daten-1" class="section level3 hasAnchor" number="13.2.1">
+<h3><span class="header-section-number">13.2.1</span> Übung 1: Ran an die Daten!<a href="#%C3%BCbung-1-ran-an-die-daten-1" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Du interessierst dich für Diskriminierung und die Wahrnehmung der Justiz. Genauer gesagt möchtest du wissen, ob Menschen, die sich diskriminiert fühlen, Gerichte anders bewerten. In der folgenden Tabelle siehst du alle Variablen, die du in deine Analyse einbeziehen möchtest:</p>
+<table style="width:99%;">
+<colgroup>
+<col width="7%" />
+<col width="34%" />
+<col width="54%" />
+<col width="2%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td rowspan="2"><strong>Variable</strong>
+:============:
+<strong>idnt</strong></td>
+<td rowspan="2"><h1 id="beschreibung" class="hasAnchor"><strong>Beschreibung</strong><a href="lösungen-zu-den-übungsaufgaben.html#beschreibung" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p>Identifikationsnummer der befragten Person</p></td>
+<td rowspan="2"><h1 id="skalen" class="hasAnchor">Skalen<a href="lösungen-zu-den-übungsaufgaben.html#skalen" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p>eindeutige Nummer von 1–9000</p></td>
+<td></td>
+</tr>
+<tr class="even">
+<td></td>
+</tr>
+<tr class="odd">
+<td><strong>year</strong></td>
+<td>Jahr der Durchführung der Befragung</td>
+<td>nur 2020</td>
+<td></td>
+</tr>
+<tr class="even">
+<td><strong>cntry</strong></td>
+<td>Land</td>
+<td colspan="2">BE, BG, CH, CZ, EE, FI, FR, GB, GR, HR, HU, IE, IS, IT, LT, NL, NO, PT, SI, SK |</td>
+</tr>
+<tr class="odd">
+<td><strong>agea</strong></td>
+<td>Alter der befragten Person, berechnet</td>
+<td><p>Alter in Jahren = 15–90</p>
+<p>999 = Nicht verfügbar</p></td>
+<td></td>
+</tr>
+<tr class="even">
+<td><strong>gndr</strong></td>
+<td>Geschlecht</td>
+<td><p>1 = Männlich;</p>
+<p>2 = Weiblich;</p>
+<p>9 = Keine Antwort</p></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td><strong>happy</strong></td>
+<td>Wie glücklich bist du?</td>
+<td><p>0 (Extrem unglücklich) – 10 (Extrem glücklich);</p>
+<p>77 = Verweigerung;</p>
+<p>88 = Weiß nicht;</p>
+<p>99 = Keine Antwort</p></td>
+<td></td>
+</tr>
+<tr class="even">
+<td><strong>eisced</strong></td>
+<td>Höchster Bildungsabschluss, ES-ISCED</td>
+<td><p>0 = Nicht in ES-ISCED harmonisierbar;</p>
+<p>1 (ES-ISCED I, unter Sekundarstufe I) – 7 (ES-ISCED V2, höhere Tertiärbildung, &gt;= MA-Niveau);</p>
+<p>55 = Sonstiges;</p>
+<p>77 = Verweigerung;</p>
+<p>88 = Weiß nicht;</p>
+<p>99 = Keine Antwort</p></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td><strong>netusoft</strong></td>
+<td>Internetnutzung, wie oft</td>
+<td><p>1 (Nie) – 5 (Jeden Tag);</p>
+<p>7 = Verweigerung;</p>
+<p>8 = Weiß nicht;</p>
+<p>9 = Keine Antwort</p></td>
+<td></td>
+</tr>
+<tr class="even">
+<td><strong>trstprl</strong></td>
+<td colspan="3">Den meisten Menschen kann man vertrauen oder man kann nicht vorsichtig genug sein | 0 (Man kann nicht vorsichtig genug sein) – 10 (Den meisten Menschen kann man vertrauen);
+| |
+| 77 = Verweigerung; |
+| |
+| 88 = Weiß nicht; |
+| |
+| 99 = Keine Antwort |</td>
+</tr>
+<tr class="odd">
+<td><strong>lrscale</strong></td>
+<td>Links-Rechts-Einstufung</td>
+<td><p>0 (Links) – 10 (Rechts);</p>
+<p>77 = Verweigerung;</p>
+<p>88 = Weiß nicht;</p>
+<p>99 = Keine Antwort</p></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<ol style="list-style-type: lower-alpha">
+<li>Bereinige die Daten und weise sie einem Objekt namens <strong>ess</strong> zu.</li>
+<li>Wähle die benötigten Variablen aus.</li>
+<li>Filtere nach Österreich, Belgien, Dänemark, Georgien, Island und der Russischen Förderation.</li>
+<li>Schau dir das Codebuch an und kodiere alle irrelevanten Werte als fehlend. Bei binären Variablen rekodiere von 1, 2 zu 0 und 1.</li>
+<li>Erstelle eine Extremismus-Variable: Subtrahiere 5 von der Variable und quadriere das Ergebnis. Nenne sie <code>extremism</code>.</li>
+<li>Benenne die Variablen intuitiver um. Vergiss nicht, binäre Variablen nach der Kategorie zu benennen, die mit 1 kodiert ist.</li>
+<li>Entferne alle fehlenden Werte.</li>
+<li>Schau dir deinen neuen Datensatz an.</li>
+</ol>
+<div class="sourceCode" id="cb531"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb531-1"><a href="lösungen-zu-den-übungsaufgaben.html#cb531-1" tabindex="-1"></a>ess <span class="ot">&lt;-</span> d1 <span class="sc">%&gt;%</span> </span>
+<span id="cb531-2"><a href="lösungen-zu-den-übungsaufgaben.html#cb531-2" tabindex="-1"></a>  <span class="fu">select</span>(cntry, dscrgrp, cttresa, agea, gndr, eisced, lrscale) <span class="sc">%&gt;%</span> <span class="co"># a</span></span>
+<span id="cb531-3"><a href="lösungen-zu-den-übungsaufgaben.html#cb531-3" tabindex="-1"></a>  <span class="fu">filter</span>(cntry <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">&quot;AT&quot;</span>, <span class="st">&quot;BE&quot;</span>, <span class="st">&quot;DK&quot;</span>, <span class="st">&quot;GE&quot;</span>, <span class="st">&quot;IS&quot;</span>, <span class="st">&quot;RU&quot;</span>)) <span class="sc">%&gt;%</span> <span class="co"># b</span></span>
+<span id="cb531-4"><a href="lösungen-zu-den-übungsaufgaben.html#cb531-4" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">dscrgrp =</span> <span class="fu">case_when</span>( <span class="co"># c</span></span>
+<span id="cb531-5"><a href="lösungen-zu-den-übungsaufgaben.html#cb531-5" tabindex="-1"></a>    dscrgrp <span class="sc">==</span> <span class="dv">1</span> <span class="sc">~</span> <span class="dv">0</span>, </span>
+<span id="cb531-6"><a href="lösungen-zu-den-übungsaufgaben.html#cb531-6" tabindex="-1"></a>    dscrgrp <span class="sc">==</span> <span class="dv">2</span> <span class="sc">~</span> <span class="dv">1</span>,</span>
+<span id="cb531-7"><a href="lösungen-zu-den-übungsaufgaben.html#cb531-7" tabindex="-1"></a>    dscrgrp <span class="sc">%in%</span> <span class="fu">c</span>(<span class="dv">7</span>, <span class="dv">8</span>, <span class="dv">9</span>) <span class="sc">~</span> <span class="cn">NA_real_</span>, </span>
+<span id="cb531-8"><a href="lösungen-zu-den-übungsaufgaben.html#cb531-8" tabindex="-1"></a>    <span class="cn">TRUE</span> <span class="sc">~</span> dscrgrp),</span>
+<span id="cb531-9"><a href="lösungen-zu-den-übungsaufgaben.html#cb531-9" tabindex="-1"></a>    <span class="at">cttresa =</span> <span class="fu">case_when</span>( </span>
+<span id="cb531-10"><a href="lösungen-zu-den-übungsaufgaben.html#cb531-10" tabindex="-1"></a>    cttresa <span class="sc">%in%</span> <span class="fu">c</span>(<span class="dv">77</span>, <span class="dv">88</span>, <span class="dv">99</span>) <span class="sc">~</span> <span class="cn">NA_real_</span>, </span>
+<span id="cb531-11"><a href="lösungen-zu-den-übungsaufgaben.html#cb531-11" tabindex="-1"></a>    <span class="cn">TRUE</span> <span class="sc">~</span> cttresa),</span>
+<span id="cb531-12"><a href="lösungen-zu-den-übungsaufgaben.html#cb531-12" tabindex="-1"></a>    <span class="at">agea =</span> <span class="fu">case_when</span>(</span>
+<span id="cb531-13"><a href="lösungen-zu-den-übungsaufgaben.html#cb531-13" tabindex="-1"></a>    agea <span class="sc">==</span> <span class="dv">999</span> <span class="sc">~</span> <span class="cn">NA_real_</span>, </span>
+<span id="cb531-14"><a href="lösungen-zu-den-übungsaufgaben.html#cb531-14" tabindex="-1"></a>    <span class="cn">TRUE</span> <span class="sc">~</span> agea),</span>
+<span id="cb531-15"><a href="lösungen-zu-den-übungsaufgaben.html#cb531-15" tabindex="-1"></a>    <span class="at">gndr =</span> <span class="fu">case_when</span>(</span>
+<span id="cb531-16"><a href="lösungen-zu-den-übungsaufgaben.html#cb531-16" tabindex="-1"></a>      gndr <span class="sc">==</span> <span class="dv">1</span> <span class="sc">~</span> <span class="dv">0</span>, </span>
+<span id="cb531-17"><a href="lösungen-zu-den-übungsaufgaben.html#cb531-17" tabindex="-1"></a>      gndr <span class="sc">==</span> <span class="dv">2</span> <span class="sc">~</span> <span class="dv">1</span>,</span>
+<span id="cb531-18"><a href="lösungen-zu-den-übungsaufgaben.html#cb531-18" tabindex="-1"></a>      gndr <span class="sc">==</span> <span class="dv">9</span> <span class="sc">~</span> <span class="cn">NA_real_</span></span>
+<span id="cb531-19"><a href="lösungen-zu-den-übungsaufgaben.html#cb531-19" tabindex="-1"></a>    ),</span>
+<span id="cb531-20"><a href="lösungen-zu-den-übungsaufgaben.html#cb531-20" tabindex="-1"></a>    <span class="at">eisced =</span> <span class="fu">case_when</span>( </span>
+<span id="cb531-21"><a href="lösungen-zu-den-übungsaufgaben.html#cb531-21" tabindex="-1"></a>      eisced <span class="sc">%in%</span> <span class="fu">c</span>(<span class="dv">55</span>, <span class="dv">77</span>, <span class="dv">88</span>, <span class="dv">99</span>) <span class="sc">~</span> <span class="cn">NA_real_</span>,</span>
+<span id="cb531-22"><a href="lösungen-zu-den-übungsaufgaben.html#cb531-22" tabindex="-1"></a>      <span class="cn">TRUE</span> <span class="sc">~</span> eisced),</span>
+<span id="cb531-23"><a href="lösungen-zu-den-übungsaufgaben.html#cb531-23" tabindex="-1"></a>    <span class="at">lrscale =</span> <span class="fu">case_when</span>(</span>
+<span id="cb531-24"><a href="lösungen-zu-den-übungsaufgaben.html#cb531-24" tabindex="-1"></a>      lrscale <span class="sc">%in%</span> <span class="fu">c</span>(<span class="dv">77</span>, <span class="dv">88</span>, <span class="dv">99</span>) <span class="sc">~</span> <span class="cn">NA_real_</span>,</span>
+<span id="cb531-25"><a href="lösungen-zu-den-übungsaufgaben.html#cb531-25" tabindex="-1"></a>      <span class="cn">TRUE</span> <span class="sc">~</span> lrscale) <span class="co"># d: dieser Schritt kann auch in einer separaten mutate()-Funktion erfolgen</span></span>
+<span id="cb531-26"><a href="lösungen-zu-den-übungsaufgaben.html#cb531-26" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span> </span>
+<span id="cb531-27"><a href="lösungen-zu-den-übungsaufgaben.html#cb531-27" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">extremism =</span> (lrscale <span class="sc">-</span> <span class="dv">5</span>)<span class="sc">^</span><span class="dv">2</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb531-28"><a href="lösungen-zu-den-übungsaufgaben.html#cb531-28" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="at">discriminated =</span> dscrgrp,  </span>
+<span id="cb531-29"><a href="lösungen-zu-den-übungsaufgaben.html#cb531-29" tabindex="-1"></a>         <span class="at">court      =</span> cttresa,</span>
+<span id="cb531-30"><a href="lösungen-zu-den-übungsaufgaben.html#cb531-30" tabindex="-1"></a>         <span class="at">age        =</span> agea, </span>
+<span id="cb531-31"><a href="lösungen-zu-den-übungsaufgaben.html#cb531-31" tabindex="-1"></a>         <span class="at">female     =</span> gndr, </span>
+<span id="cb531-32"><a href="lösungen-zu-den-übungsaufgaben.html#cb531-32" tabindex="-1"></a>         <span class="at">education  =</span> eisced, </span>
+<span id="cb531-33"><a href="lösungen-zu-den-übungsaufgaben.html#cb531-33" tabindex="-1"></a>         <span class="at">lrscale    =</span> lrscale, </span>
+<span id="cb531-34"><a href="lösungen-zu-den-übungsaufgaben.html#cb531-34" tabindex="-1"></a>         <span class="at">extremism  =</span> extremism</span>
+<span id="cb531-35"><a href="lösungen-zu-den-übungsaufgaben.html#cb531-35" tabindex="-1"></a>         ) <span class="sc">%&gt;%</span> </span>
+<span id="cb531-36"><a href="lösungen-zu-den-übungsaufgaben.html#cb531-36" tabindex="-1"></a>  <span class="fu">drop_na</span>()</span>
+<span id="cb531-37"><a href="lösungen-zu-den-übungsaufgaben.html#cb531-37" tabindex="-1"></a></span>
+<span id="cb531-38"><a href="lösungen-zu-den-übungsaufgaben.html#cb531-38" tabindex="-1"></a><span class="co"># Datensatz prüfen</span></span>
+<span id="cb531-39"><a href="lösungen-zu-den-übungsaufgaben.html#cb531-39" tabindex="-1"></a><span class="fu">head</span>(ess)</span></code></pre></div>
+</div>
+</div>
+<div id="kapitel-3-datenvisualisierung" class="section level2 hasAnchor" number="13.3">
+<h2><span class="header-section-number">13.3</span> Kapitel 3: Datenvisualisierung<a href="lösungen-zu-den-übungsaufgaben.html#kapitel-3-datenvisualisierung" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>In diesem Übungsabschnitt arbeiten wir mit den Paketen <code>babynames</code> und <code>iris</code>. Das <code>iris</code>-Paket ist ein klassisches eingebautes Paket in R, das Daten aus Ronald Fishers Studie von 1936 <em>„The use of multiple measurements in taxonomic problems”</em> enthält. Es beinhaltet drei Pflanzenarten und vier gemessene Merkmale für jede Art. Verschaffen wir uns einen Überblick:</p>
+<div class="sourceCode" id="cb532"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb532-1"><a href="lösungen-zu-den-übungsaufgaben.html#cb532-1" tabindex="-1"></a><span class="fu">summary</span>(iris)</span></code></pre></div>
+<pre><code>##   Sepal.Length    Sepal.Width     Petal.Length  
+##  Min.   :4.300   Min.   :2.000   Min.   :1.000  
+##  1st Qu.:5.100   1st Qu.:2.800   1st Qu.:1.600  
+##  Median :5.800   Median :3.000   Median :4.350  
+##  Mean   :5.843   Mean   :3.057   Mean   :3.758  
+##  3rd Qu.:6.400   3rd Qu.:3.300   3rd Qu.:5.100  
+##  Max.   :7.900   Max.   :4.400   Max.   :6.900  
+##   Petal.Width          Species  
+##  Min.   :0.100   setosa    :50  
+##  1st Qu.:0.300   versicolor:50  
+##  Median :1.300   virginica :50  
+##  Mean   :1.199                  
+##  3rd Qu.:1.800                  
+##  Max.   :2.500</code></pre>
+<div id="übung-1-verteilungen-1" class="section level3 hasAnchor" number="13.3.1">
+<h3><span class="header-section-number">13.3.1</span> Übung 1: Verteilungen<a href="#%C3%BCbung-1-verteilungen-1" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>a. Erstelle einen Graphen, der die Verteilung von <code>Sepal.Length</code> für die Art <code>setosa</code> zeigt. Den Typ des Verteilungsgraphen kannst du selbst wählen. <strong>Hinweis:</strong> Bereite die Daten zunächst auf und erstelle dann den Plot.</p>
+<div class="sourceCode" id="cb534"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb534-1"><a href="lösungen-zu-den-übungsaufgaben.html#cb534-1" tabindex="-1"></a><span class="co"># Filtern nach setosa</span></span>
+<span id="cb534-2"><a href="lösungen-zu-den-übungsaufgaben.html#cb534-2" tabindex="-1"></a>d1 <span class="ot">&lt;-</span> iris <span class="sc">%&gt;%</span></span>
+<span id="cb534-3"><a href="lösungen-zu-den-übungsaufgaben.html#cb534-3" tabindex="-1"></a>  <span class="fu">filter</span>(Species <span class="sc">==</span> <span class="st">&quot;setosa&quot;</span>)</span>
+<span id="cb534-4"><a href="lösungen-zu-den-übungsaufgaben.html#cb534-4" tabindex="-1"></a></span>
+<span id="cb534-5"><a href="lösungen-zu-den-übungsaufgaben.html#cb534-5" tabindex="-1"></a><span class="co"># Histogramm</span></span>
+<span id="cb534-6"><a href="lösungen-zu-den-übungsaufgaben.html#cb534-6" tabindex="-1"></a><span class="fu">ggplot</span>(iris, <span class="fu">aes</span>(<span class="at">x =</span> Sepal.Length)) <span class="sc">+</span></span>
+<span id="cb534-7"><a href="lösungen-zu-den-übungsaufgaben.html#cb534-7" tabindex="-1"></a>  <span class="fu">geom_histogram</span>()</span></code></pre></div>
+<pre><code>## `stat_bin()` using `bins = 30`. Pick better value with
+## `binwidth`.</code></pre>
+<p><img src="bookdownproj_files/figure-html/kap3%20uebung%201a-1.png" width="672" /></p>
+<div class="sourceCode" id="cb536"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb536-1"><a href="lösungen-zu-den-übungsaufgaben.html#cb536-1" tabindex="-1"></a><span class="co"># Dichtekurve</span></span>
+<span id="cb536-2"><a href="lösungen-zu-den-übungsaufgaben.html#cb536-2" tabindex="-1"></a><span class="fu">ggplot</span>(iris, <span class="fu">aes</span>(<span class="at">x =</span> Sepal.Length)) <span class="sc">+</span></span>
+<span id="cb536-3"><a href="lösungen-zu-den-übungsaufgaben.html#cb536-3" tabindex="-1"></a>  <span class="fu">geom_density</span>()</span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/kap3%20uebung%201a-2.png" width="672" /></p>
+<div class="sourceCode" id="cb537"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb537-1"><a href="lösungen-zu-den-übungsaufgaben.html#cb537-1" tabindex="-1"></a><span class="co"># Boxplot</span></span>
+<span id="cb537-2"><a href="lösungen-zu-den-übungsaufgaben.html#cb537-2" tabindex="-1"></a><span class="fu">ggplot</span>(iris, <span class="fu">aes</span>(<span class="at">x =</span> Sepal.Length)) <span class="sc">+</span></span>
+<span id="cb537-3"><a href="lösungen-zu-den-übungsaufgaben.html#cb537-3" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>()</span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/kap3%20uebung%201a-3.png" width="672" /></p>
+<div class="sourceCode" id="cb538"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb538-1"><a href="lösungen-zu-den-übungsaufgaben.html#cb538-1" tabindex="-1"></a><span class="do">### EDIT: Man kann auch alles in einem Schritt erledigen, wie unten gezeigt</span></span>
+<span id="cb538-2"><a href="lösungen-zu-den-übungsaufgaben.html#cb538-2" tabindex="-1"></a></span>
+<span id="cb538-3"><a href="lösungen-zu-den-übungsaufgaben.html#cb538-3" tabindex="-1"></a><span class="co"># Histogramm</span></span>
+<span id="cb538-4"><a href="lösungen-zu-den-übungsaufgaben.html#cb538-4" tabindex="-1"></a><span class="co"># iris %&gt;%</span></span>
+<span id="cb538-5"><a href="lösungen-zu-den-übungsaufgaben.html#cb538-5" tabindex="-1"></a><span class="co">#   filter(Species == &quot;setosa&quot;) %&gt;%</span></span>
+<span id="cb538-6"><a href="lösungen-zu-den-übungsaufgaben.html#cb538-6" tabindex="-1"></a><span class="co">#   ggplot(aes(x = Sepal.Length)) +</span></span>
+<span id="cb538-7"><a href="lösungen-zu-den-übungsaufgaben.html#cb538-7" tabindex="-1"></a><span class="co">#   geom_histogram()</span></span>
+<span id="cb538-8"><a href="lösungen-zu-den-übungsaufgaben.html#cb538-8" tabindex="-1"></a></span>
+<span id="cb538-9"><a href="lösungen-zu-den-übungsaufgaben.html#cb538-9" tabindex="-1"></a><span class="co"># Dichtekurve</span></span>
+<span id="cb538-10"><a href="lösungen-zu-den-übungsaufgaben.html#cb538-10" tabindex="-1"></a><span class="co"># iris %&gt;%</span></span>
+<span id="cb538-11"><a href="lösungen-zu-den-übungsaufgaben.html#cb538-11" tabindex="-1"></a><span class="co">#   filter(Species == &quot;setosa&quot;) %&gt;%</span></span>
+<span id="cb538-12"><a href="lösungen-zu-den-übungsaufgaben.html#cb538-12" tabindex="-1"></a><span class="co">#   ggplot(aes(x = Sepal.Length)) +</span></span>
+<span id="cb538-13"><a href="lösungen-zu-den-übungsaufgaben.html#cb538-13" tabindex="-1"></a><span class="co">#   geom_density()</span></span>
+<span id="cb538-14"><a href="lösungen-zu-den-übungsaufgaben.html#cb538-14" tabindex="-1"></a></span>
+<span id="cb538-15"><a href="lösungen-zu-den-übungsaufgaben.html#cb538-15" tabindex="-1"></a><span class="co"># Boxplot</span></span>
+<span id="cb538-16"><a href="lösungen-zu-den-übungsaufgaben.html#cb538-16" tabindex="-1"></a><span class="co"># iris %&gt;%</span></span>
+<span id="cb538-17"><a href="lösungen-zu-den-übungsaufgaben.html#cb538-17" tabindex="-1"></a><span class="co">#   filter(Species == &quot;setosa&quot;) %&gt;%</span></span>
+<span id="cb538-18"><a href="lösungen-zu-den-übungsaufgaben.html#cb538-18" tabindex="-1"></a><span class="co">#   ggplot(aes(x = Sepal.Length)) +</span></span>
+<span id="cb538-19"><a href="lösungen-zu-den-übungsaufgaben.html#cb538-19" tabindex="-1"></a><span class="co">#   geom_boxplot()</span></span></code></pre></div>
+<p>b. Füge nun die beiden anderen Arten zum Plot hinzu. Stelle sicher, dass jede Art eine eindeutige Farbe hat.</p>
+<div class="sourceCode" id="cb539"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb539-1"><a href="lösungen-zu-den-übungsaufgaben.html#cb539-1" tabindex="-1"></a><span class="co"># Histogramm</span></span>
+<span id="cb539-2"><a href="lösungen-zu-den-übungsaufgaben.html#cb539-2" tabindex="-1"></a><span class="fu">ggplot</span>(iris, <span class="fu">aes</span>(<span class="at">x =</span> Sepal.Length, <span class="at">fill =</span> Species)) <span class="sc">+</span></span>
+<span id="cb539-3"><a href="lösungen-zu-den-übungsaufgaben.html#cb539-3" tabindex="-1"></a>  <span class="fu">geom_histogram</span>()</span></code></pre></div>
+<pre><code>## `stat_bin()` using `bins = 30`. Pick better value with
+## `binwidth`.</code></pre>
+<p><img src="bookdownproj_files/figure-html/kap3%20uebung%201b-1.png" width="672" /></p>
+<div class="sourceCode" id="cb541"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb541-1"><a href="lösungen-zu-den-übungsaufgaben.html#cb541-1" tabindex="-1"></a><span class="co"># Dichtekurve</span></span>
+<span id="cb541-2"><a href="lösungen-zu-den-übungsaufgaben.html#cb541-2" tabindex="-1"></a><span class="fu">ggplot</span>(iris, <span class="fu">aes</span>(<span class="at">x =</span> Sepal.Length, <span class="at">fill =</span> Species)) <span class="sc">+</span></span>
+<span id="cb541-3"><a href="lösungen-zu-den-übungsaufgaben.html#cb541-3" tabindex="-1"></a>  <span class="fu">geom_density</span>()</span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/kap3%20uebung%201b-2.png" width="672" /></p>
+<div class="sourceCode" id="cb542"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb542-1"><a href="lösungen-zu-den-übungsaufgaben.html#cb542-1" tabindex="-1"></a><span class="co"># Boxplot</span></span>
+<span id="cb542-2"><a href="lösungen-zu-den-übungsaufgaben.html#cb542-2" tabindex="-1"></a><span class="fu">ggplot</span>(iris, <span class="fu">aes</span>(<span class="at">x =</span> Sepal.Length, <span class="at">fill =</span> Species)) <span class="sc">+</span></span>
+<span id="cb542-3"><a href="lösungen-zu-den-übungsaufgaben.html#cb542-3" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>()</span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/kap3%20uebung%201b-3.png" width="672" /></p>
+<div class="sourceCode" id="cb543"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb543-1"><a href="lösungen-zu-den-übungsaufgaben.html#cb543-1" tabindex="-1"></a><span class="co"># Violin Plot</span></span>
+<span id="cb543-2"><a href="lösungen-zu-den-übungsaufgaben.html#cb543-2" tabindex="-1"></a><span class="fu">ggplot</span>(iris, <span class="fu">aes</span>(<span class="at">x =</span> Species, <span class="at">y =</span> Sepal.Length, <span class="at">fill =</span> Species)) <span class="sc">+</span></span>
+<span id="cb543-3"><a href="lösungen-zu-den-übungsaufgaben.html#cb543-3" tabindex="-1"></a>  <span class="fu">geom_violin</span>()</span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/kap3%20uebung%201b-4.png" width="672" /></p>
+<div class="sourceCode" id="cb544"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb544-1"><a href="lösungen-zu-den-übungsaufgaben.html#cb544-1" tabindex="-1"></a><span class="co"># Ridgeline Plot</span></span>
+<span id="cb544-2"><a href="lösungen-zu-den-übungsaufgaben.html#cb544-2" tabindex="-1"></a><span class="fu">ggplot</span>(iris, <span class="fu">aes</span>(<span class="at">x =</span> Sepal.Length, <span class="at">y =</span> Species, <span class="at">fill =</span> Species)) <span class="sc">+</span></span>
+<span id="cb544-3"><a href="lösungen-zu-den-übungsaufgaben.html#cb544-3" tabindex="-1"></a>  <span class="fu">geom_density_ridges</span>()</span></code></pre></div>
+<pre><code>## Picking joint bandwidth of 0.181</code></pre>
+<p><img src="bookdownproj_files/figure-html/kap3%20uebung%201b-5.png" width="672" /></p>
+<p>c. Erstelle einen ansprechenden Plot! Gib dem Plot einen aussagekräftigen Titel sowie aussagekräftige Beschriftungen für die x- und y-Achse und experimentiere mit den Farben.</p>
+<div class="sourceCode" id="cb546"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb546-1"><a href="lösungen-zu-den-übungsaufgaben.html#cb546-1" tabindex="-1"></a><span class="co"># Histogramm</span></span>
+<span id="cb546-2"><a href="lösungen-zu-den-übungsaufgaben.html#cb546-2" tabindex="-1"></a><span class="fu">ggplot</span>(iris, <span class="fu">aes</span>(<span class="at">x =</span> Sepal.Length, <span class="at">fill =</span> Species)) <span class="sc">+</span></span>
+<span id="cb546-3"><a href="lösungen-zu-den-übungsaufgaben.html#cb546-3" tabindex="-1"></a>  <span class="fu">geom_histogram</span>() <span class="sc">+</span></span>
+<span id="cb546-4"><a href="lösungen-zu-den-übungsaufgaben.html#cb546-4" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb546-5"><a href="lösungen-zu-den-übungsaufgaben.html#cb546-5" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">&quot;Art&quot;</span>,</span>
+<span id="cb546-6"><a href="lösungen-zu-den-übungsaufgaben.html#cb546-6" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">&quot;Kelchblattlänge&quot;</span>,</span>
+<span id="cb546-7"><a href="lösungen-zu-den-übungsaufgaben.html#cb546-7" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">&quot;Verteilung der Kelchblattlänge nach Art&quot;</span></span>
+<span id="cb546-8"><a href="lösungen-zu-den-übungsaufgaben.html#cb546-8" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb546-9"><a href="lösungen-zu-den-übungsaufgaben.html#cb546-9" tabindex="-1"></a>  <span class="fu">theme_bw</span>() <span class="sc">+</span></span>
+<span id="cb546-10"><a href="lösungen-zu-den-übungsaufgaben.html#cb546-10" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">&quot;none&quot;</span>) <span class="sc">+</span></span>
+<span id="cb546-11"><a href="lösungen-zu-den-übungsaufgaben.html#cb546-11" tabindex="-1"></a>  <span class="fu">scale_fill_brewer</span>(<span class="at">palette =</span> <span class="st">&quot;Dark2&quot;</span>)</span></code></pre></div>
+<pre><code>## `stat_bin()` using `bins = 30`. Pick better value with
+## `binwidth`.</code></pre>
+<p><img src="bookdownproj_files/figure-html/kap3%20uebung%201c-1.png" width="672" /></p>
+<div class="sourceCode" id="cb548"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb548-1"><a href="lösungen-zu-den-übungsaufgaben.html#cb548-1" tabindex="-1"></a><span class="co"># Dichtekurve</span></span>
+<span id="cb548-2"><a href="lösungen-zu-den-übungsaufgaben.html#cb548-2" tabindex="-1"></a><span class="fu">ggplot</span>(iris, <span class="fu">aes</span>(<span class="at">x =</span> Sepal.Length, <span class="at">fill =</span> Species)) <span class="sc">+</span></span>
+<span id="cb548-3"><a href="lösungen-zu-den-übungsaufgaben.html#cb548-3" tabindex="-1"></a>  <span class="fu">geom_density</span>() <span class="sc">+</span></span>
+<span id="cb548-4"><a href="lösungen-zu-den-übungsaufgaben.html#cb548-4" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb548-5"><a href="lösungen-zu-den-übungsaufgaben.html#cb548-5" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">&quot;Art&quot;</span>,</span>
+<span id="cb548-6"><a href="lösungen-zu-den-übungsaufgaben.html#cb548-6" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">&quot;Kelchblattlänge&quot;</span>,</span>
+<span id="cb548-7"><a href="lösungen-zu-den-übungsaufgaben.html#cb548-7" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">&quot;Verteilung der Kelchblattlänge nach Art&quot;</span></span>
+<span id="cb548-8"><a href="lösungen-zu-den-übungsaufgaben.html#cb548-8" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb548-9"><a href="lösungen-zu-den-übungsaufgaben.html#cb548-9" tabindex="-1"></a>  <span class="fu">theme_bw</span>() <span class="sc">+</span></span>
+<span id="cb548-10"><a href="lösungen-zu-den-übungsaufgaben.html#cb548-10" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">&quot;none&quot;</span>) <span class="sc">+</span></span>
+<span id="cb548-11"><a href="lösungen-zu-den-übungsaufgaben.html#cb548-11" tabindex="-1"></a>  <span class="fu">scale_fill_brewer</span>(<span class="at">palette =</span> <span class="st">&quot;Dark2&quot;</span>)</span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/kap3%20uebung%201c-2.png" width="672" /></p>
+<div class="sourceCode" id="cb549"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb549-1"><a href="lösungen-zu-den-übungsaufgaben.html#cb549-1" tabindex="-1"></a><span class="co"># Boxplot</span></span>
+<span id="cb549-2"><a href="lösungen-zu-den-übungsaufgaben.html#cb549-2" tabindex="-1"></a><span class="fu">ggplot</span>(iris, <span class="fu">aes</span>(<span class="at">x =</span> Sepal.Length, <span class="at">fill =</span> Species)) <span class="sc">+</span></span>
+<span id="cb549-3"><a href="lösungen-zu-den-übungsaufgaben.html#cb549-3" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>() <span class="sc">+</span></span>
+<span id="cb549-4"><a href="lösungen-zu-den-übungsaufgaben.html#cb549-4" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb549-5"><a href="lösungen-zu-den-übungsaufgaben.html#cb549-5" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">&quot;Art&quot;</span>,</span>
+<span id="cb549-6"><a href="lösungen-zu-den-übungsaufgaben.html#cb549-6" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">&quot;Kelchblattlänge&quot;</span>,</span>
+<span id="cb549-7"><a href="lösungen-zu-den-übungsaufgaben.html#cb549-7" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">&quot;Verteilung der Kelchblattlänge nach Art&quot;</span></span>
+<span id="cb549-8"><a href="lösungen-zu-den-übungsaufgaben.html#cb549-8" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb549-9"><a href="lösungen-zu-den-übungsaufgaben.html#cb549-9" tabindex="-1"></a>  <span class="fu">theme_bw</span>() <span class="sc">+</span></span>
+<span id="cb549-10"><a href="lösungen-zu-den-übungsaufgaben.html#cb549-10" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">&quot;none&quot;</span>) <span class="sc">+</span></span>
+<span id="cb549-11"><a href="lösungen-zu-den-übungsaufgaben.html#cb549-11" tabindex="-1"></a>  <span class="fu">scale_fill_brewer</span>(<span class="at">palette =</span> <span class="st">&quot;Dark2&quot;</span>)</span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/kap3%20uebung%201c-3.png" width="672" /></p>
+<div class="sourceCode" id="cb550"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb550-1"><a href="lösungen-zu-den-übungsaufgaben.html#cb550-1" tabindex="-1"></a><span class="co"># Violin Plot</span></span>
+<span id="cb550-2"><a href="lösungen-zu-den-übungsaufgaben.html#cb550-2" tabindex="-1"></a><span class="fu">ggplot</span>(iris, <span class="fu">aes</span>(<span class="at">x =</span> Species, <span class="at">y =</span> Sepal.Length, <span class="at">fill =</span> Species)) <span class="sc">+</span></span>
+<span id="cb550-3"><a href="lösungen-zu-den-übungsaufgaben.html#cb550-3" tabindex="-1"></a>  <span class="fu">geom_violin</span>() <span class="sc">+</span></span>
+<span id="cb550-4"><a href="lösungen-zu-den-übungsaufgaben.html#cb550-4" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb550-5"><a href="lösungen-zu-den-übungsaufgaben.html#cb550-5" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">&quot;Art&quot;</span>,</span>
+<span id="cb550-6"><a href="lösungen-zu-den-übungsaufgaben.html#cb550-6" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">&quot;Kelchblattlänge&quot;</span>,</span>
+<span id="cb550-7"><a href="lösungen-zu-den-übungsaufgaben.html#cb550-7" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">&quot;Verteilung der Kelchblattlänge nach Art&quot;</span></span>
+<span id="cb550-8"><a href="lösungen-zu-den-übungsaufgaben.html#cb550-8" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb550-9"><a href="lösungen-zu-den-übungsaufgaben.html#cb550-9" tabindex="-1"></a>  <span class="fu">theme_bw</span>() <span class="sc">+</span></span>
+<span id="cb550-10"><a href="lösungen-zu-den-übungsaufgaben.html#cb550-10" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">&quot;none&quot;</span>) <span class="sc">+</span></span>
+<span id="cb550-11"><a href="lösungen-zu-den-übungsaufgaben.html#cb550-11" tabindex="-1"></a>  <span class="fu">scale_fill_brewer</span>(<span class="at">palette =</span> <span class="st">&quot;Dark2&quot;</span>)</span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/kap3%20uebung%201c-4.png" width="672" /></p>
+<div class="sourceCode" id="cb551"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb551-1"><a href="lösungen-zu-den-übungsaufgaben.html#cb551-1" tabindex="-1"></a><span class="co"># Ridgeline Plot</span></span>
+<span id="cb551-2"><a href="lösungen-zu-den-übungsaufgaben.html#cb551-2" tabindex="-1"></a><span class="fu">ggplot</span>(iris, <span class="fu">aes</span>(<span class="at">x =</span> Sepal.Length, <span class="at">y =</span> Species, <span class="at">fill =</span> Species)) <span class="sc">+</span></span>
+<span id="cb551-3"><a href="lösungen-zu-den-übungsaufgaben.html#cb551-3" tabindex="-1"></a>  <span class="fu">geom_density_ridges</span>() <span class="sc">+</span></span>
+<span id="cb551-4"><a href="lösungen-zu-den-übungsaufgaben.html#cb551-4" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb551-5"><a href="lösungen-zu-den-übungsaufgaben.html#cb551-5" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">&quot;Kelchblattlänge&quot;</span>,</span>
+<span id="cb551-6"><a href="lösungen-zu-den-übungsaufgaben.html#cb551-6" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">&quot;Art&quot;</span>,</span>
+<span id="cb551-7"><a href="lösungen-zu-den-übungsaufgaben.html#cb551-7" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">&quot;Verteilung der Kelchblattlänge nach Art&quot;</span></span>
+<span id="cb551-8"><a href="lösungen-zu-den-übungsaufgaben.html#cb551-8" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb551-9"><a href="lösungen-zu-den-übungsaufgaben.html#cb551-9" tabindex="-1"></a>  <span class="fu">theme_bw</span>() <span class="sc">+</span></span>
+<span id="cb551-10"><a href="lösungen-zu-den-übungsaufgaben.html#cb551-10" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">&quot;none&quot;</span>) <span class="sc">+</span></span>
+<span id="cb551-11"><a href="lösungen-zu-den-übungsaufgaben.html#cb551-11" tabindex="-1"></a>  <span class="fu">scale_fill_brewer</span>(<span class="at">palette =</span> <span class="st">&quot;Dark2&quot;</span>)</span></code></pre></div>
+<pre><code>## Picking joint bandwidth of 0.181</code></pre>
+<p><img src="bookdownproj_files/figure-html/kap3%20uebung%201c-5.png" width="672" /></p>
+<p>d. Interpretiere den Plot!</p>
+</div>
+<div id="übung-2-rangfolgen-1" class="section level3 hasAnchor" number="13.3.2">
+<h3><span class="header-section-number">13.3.2</span> Übung 2: Rangfolgen<a href="#%C3%BCbung-2-rangfolgen-1" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>a. Berechne die durchschnittliche <code>Petal.Length</code> und stelle sie für jede Art in einem ansprechenden Barplot dar. <strong>Hinweis:</strong> Die Daten müssen wieder zuerst aufbereitet werden. Entscheide selbst, ob du den Plot vertikal oder horizontal gestalten möchtest.</p>
+<div class="sourceCode" id="cb553"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb553-1"><a href="lösungen-zu-den-übungsaufgaben.html#cb553-1" tabindex="-1"></a><span class="co"># Daten aufbereiten</span></span>
+<span id="cb553-2"><a href="lösungen-zu-den-übungsaufgaben.html#cb553-2" tabindex="-1"></a>d1 <span class="ot">&lt;-</span> iris <span class="sc">%&gt;%</span></span>
+<span id="cb553-3"><a href="lösungen-zu-den-übungsaufgaben.html#cb553-3" tabindex="-1"></a>  <span class="fu">group_by</span>(Species) <span class="sc">%&gt;%</span></span>
+<span id="cb553-4"><a href="lösungen-zu-den-übungsaufgaben.html#cb553-4" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">summarize</span>(<span class="at">PL_average =</span> <span class="fu">mean</span>(Petal.Length))</span>
+<span id="cb553-5"><a href="lösungen-zu-den-übungsaufgaben.html#cb553-5" tabindex="-1"></a></span>
+<span id="cb553-6"><a href="lösungen-zu-den-übungsaufgaben.html#cb553-6" tabindex="-1"></a><span class="co"># Überprüfen</span></span>
+<span id="cb553-7"><a href="lösungen-zu-den-übungsaufgaben.html#cb553-7" tabindex="-1"></a><span class="fu">head</span>(d1)  </span></code></pre></div>
+<pre><code>## # A tibble: 3 × 2
+##   Species    PL_average
+##   &lt;fct&gt;           &lt;dbl&gt;
+## 1 setosa           1.46
+## 2 versicolor       4.26
+## 3 virginica        5.55</code></pre>
+<div class="sourceCode" id="cb555"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb555-1"><a href="lösungen-zu-den-übungsaufgaben.html#cb555-1" tabindex="-1"></a><span class="co"># Horizontaler Barplot</span></span>
+<span id="cb555-2"><a href="lösungen-zu-den-übungsaufgaben.html#cb555-2" tabindex="-1"></a><span class="fu">ggplot</span>(d1, <span class="fu">aes</span>(<span class="at">x =</span> Species, <span class="at">y =</span> PL_average, <span class="at">fill =</span> Species)) <span class="sc">+</span></span>
+<span id="cb555-3"><a href="lösungen-zu-den-übungsaufgaben.html#cb555-3" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">stat =</span> <span class="st">&quot;identity&quot;</span>)</span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/kap3%20uebung%202a-1.png" width="672" /></p>
+<div class="sourceCode" id="cb556"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb556-1"><a href="lösungen-zu-den-übungsaufgaben.html#cb556-1" tabindex="-1"></a><span class="co"># Vertikaler Barplot</span></span>
+<span id="cb556-2"><a href="lösungen-zu-den-übungsaufgaben.html#cb556-2" tabindex="-1"></a><span class="fu">ggplot</span>(d1, <span class="fu">aes</span>(<span class="at">x =</span> PL_average, <span class="at">y =</span> Species, <span class="at">fill =</span> Species)) <span class="sc">+</span></span>
+<span id="cb556-3"><a href="lösungen-zu-den-übungsaufgaben.html#cb556-3" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">stat =</span> <span class="st">&quot;identity&quot;</span>) </span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/kap3%20uebung%202a-2.png" width="672" /></p>
+<p>b. Erstelle einen ansprechenden Plot! Gib dem Plot einen aussagekräftigen Titel sowie aussagekräftige Beschriftungen für die x- und y-Achse und experimentiere mit den Farben.</p>
+<div class="sourceCode" id="cb557"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb557-1"><a href="lösungen-zu-den-übungsaufgaben.html#cb557-1" tabindex="-1"></a><span class="co"># Horizontaler Barplot</span></span>
+<span id="cb557-2"><a href="lösungen-zu-den-übungsaufgaben.html#cb557-2" tabindex="-1"></a><span class="fu">ggplot</span>(d1, <span class="fu">aes</span>(<span class="at">x =</span> Species, <span class="at">y =</span> PL_average, <span class="at">fill =</span> Species)) <span class="sc">+</span></span>
+<span id="cb557-3"><a href="lösungen-zu-den-übungsaufgaben.html#cb557-3" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">stat =</span> <span class="st">&quot;identity&quot;</span>) <span class="sc">+</span></span>
+<span id="cb557-4"><a href="lösungen-zu-den-übungsaufgaben.html#cb557-4" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb557-5"><a href="lösungen-zu-den-übungsaufgaben.html#cb557-5" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">&quot;Art&quot;</span>,</span>
+<span id="cb557-6"><a href="lösungen-zu-den-übungsaufgaben.html#cb557-6" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">&quot;Durchschnittliche Blütenblattlänge&quot;</span>,</span>
+<span id="cb557-7"><a href="lösungen-zu-den-übungsaufgaben.html#cb557-7" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">&quot;Durchschnittliche Blütenblattlänge nach Art&quot;</span></span>
+<span id="cb557-8"><a href="lösungen-zu-den-übungsaufgaben.html#cb557-8" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb557-9"><a href="lösungen-zu-den-übungsaufgaben.html#cb557-9" tabindex="-1"></a>  <span class="fu">theme_bw</span>() <span class="sc">+</span></span>
+<span id="cb557-10"><a href="lösungen-zu-den-übungsaufgaben.html#cb557-10" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">&quot;none&quot;</span>) <span class="sc">+</span></span>
+<span id="cb557-11"><a href="lösungen-zu-den-übungsaufgaben.html#cb557-11" tabindex="-1"></a>  <span class="fu">scale_fill_brewer</span>(<span class="at">palette =</span> <span class="st">&quot;Set1&quot;</span>)</span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/kap3%20uebung%202b-1.png" width="672" /></p>
+<div class="sourceCode" id="cb558"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb558-1"><a href="lösungen-zu-den-übungsaufgaben.html#cb558-1" tabindex="-1"></a><span class="co"># Vertikaler Barplot</span></span>
+<span id="cb558-2"><a href="lösungen-zu-den-übungsaufgaben.html#cb558-2" tabindex="-1"></a><span class="fu">ggplot</span>(d1, <span class="fu">aes</span>(<span class="at">x =</span> PL_average, <span class="at">y =</span> Species, <span class="at">fill =</span> Species)) <span class="sc">+</span></span>
+<span id="cb558-3"><a href="lösungen-zu-den-übungsaufgaben.html#cb558-3" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">stat =</span> <span class="st">&quot;identity&quot;</span>) <span class="sc">+</span></span>
+<span id="cb558-4"><a href="lösungen-zu-den-übungsaufgaben.html#cb558-4" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb558-5"><a href="lösungen-zu-den-übungsaufgaben.html#cb558-5" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">&quot;Durchschnittliche Blütenblattlänge&quot;</span>,</span>
+<span id="cb558-6"><a href="lösungen-zu-den-übungsaufgaben.html#cb558-6" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">&quot;Art&quot;</span>,</span>
+<span id="cb558-7"><a href="lösungen-zu-den-übungsaufgaben.html#cb558-7" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">&quot;Durchschnittliche Blütenblattlänge nach Art&quot;</span></span>
+<span id="cb558-8"><a href="lösungen-zu-den-übungsaufgaben.html#cb558-8" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb558-9"><a href="lösungen-zu-den-übungsaufgaben.html#cb558-9" tabindex="-1"></a>  <span class="fu">theme_bw</span>() <span class="sc">+</span></span>
+<span id="cb558-10"><a href="lösungen-zu-den-übungsaufgaben.html#cb558-10" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">&quot;none&quot;</span>) <span class="sc">+</span></span>
+<span id="cb558-11"><a href="lösungen-zu-den-übungsaufgaben.html#cb558-11" tabindex="-1"></a>  <span class="fu">scale_fill_brewer</span>(<span class="at">palette =</span> <span class="st">&quot;Accent&quot;</span>)</span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/kap3%20uebung%202b-2.png" width="672" /></p>
+</div>
+<div id="übung-3-korrelation-1" class="section level3 hasAnchor" number="13.3.3">
+<h3><span class="header-section-number">13.3.3</span> Übung 3: Korrelation<a href="#%C3%BCbung-3-korrelation-1" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>a. Erstelle ein Streudiagramm mit <code>Sepal.Length</code> auf der x-Achse und <code>Sepal.Width</code> auf der y-Achse – für die Art <code>virginica</code>.</p>
+<div class="sourceCode" id="cb559"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb559-1"><a href="lösungen-zu-den-übungsaufgaben.html#cb559-1" tabindex="-1"></a><span class="co"># Daten aufbereiten</span></span>
+<span id="cb559-2"><a href="lösungen-zu-den-übungsaufgaben.html#cb559-2" tabindex="-1"></a>d1 <span class="ot">&lt;-</span> iris <span class="sc">%&gt;%</span></span>
+<span id="cb559-3"><a href="lösungen-zu-den-übungsaufgaben.html#cb559-3" tabindex="-1"></a>  <span class="fu">filter</span>(Species <span class="sc">==</span> <span class="st">&quot;virginica&quot;</span>)</span>
+<span id="cb559-4"><a href="lösungen-zu-den-übungsaufgaben.html#cb559-4" tabindex="-1"></a></span>
+<span id="cb559-5"><a href="lösungen-zu-den-übungsaufgaben.html#cb559-5" tabindex="-1"></a><span class="co"># Plot erstellen</span></span>
+<span id="cb559-6"><a href="lösungen-zu-den-übungsaufgaben.html#cb559-6" tabindex="-1"></a><span class="fu">ggplot</span>(d1, <span class="fu">aes</span>(<span class="at">x =</span> Sepal.Length, <span class="at">y =</span> Sepal.Width)) <span class="sc">+</span></span>
+<span id="cb559-7"><a href="lösungen-zu-den-übungsaufgaben.html#cb559-7" tabindex="-1"></a>  <span class="fu">geom_point</span>()</span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/kap3%20uebung%203a-1.png" width="672" /></p>
+<p>b. Füge nun die Art <code>versicolor</code> zum Plot hinzu. Die Punkte dieser Art sollen eine andere Farbe UND eine andere Form haben.</p>
+<div class="sourceCode" id="cb560"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb560-1"><a href="lösungen-zu-den-übungsaufgaben.html#cb560-1" tabindex="-1"></a><span class="co"># Daten aufbereiten</span></span>
+<span id="cb560-2"><a href="lösungen-zu-den-übungsaufgaben.html#cb560-2" tabindex="-1"></a>d1 <span class="ot">&lt;-</span> iris <span class="sc">%&gt;%</span></span>
+<span id="cb560-3"><a href="lösungen-zu-den-übungsaufgaben.html#cb560-3" tabindex="-1"></a>  <span class="fu">filter</span>(Species <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">&quot;virginica&quot;</span>, <span class="st">&quot;versicolor&quot;</span>)) </span>
+<span id="cb560-4"><a href="lösungen-zu-den-übungsaufgaben.html#cb560-4" tabindex="-1"></a></span>
+<span id="cb560-5"><a href="lösungen-zu-den-übungsaufgaben.html#cb560-5" tabindex="-1"></a><span class="co"># Plot erstellen</span></span>
+<span id="cb560-6"><a href="lösungen-zu-den-übungsaufgaben.html#cb560-6" tabindex="-1"></a><span class="fu">ggplot</span>(d1, <span class="fu">aes</span>(<span class="at">x =</span> Sepal.Length, <span class="at">y =</span> Sepal.Width, </span>
+<span id="cb560-7"><a href="lösungen-zu-den-übungsaufgaben.html#cb560-7" tabindex="-1"></a>               <span class="at">shape =</span> Species, <span class="at">color =</span> Species)) <span class="sc">+</span></span>
+<span id="cb560-8"><a href="lösungen-zu-den-übungsaufgaben.html#cb560-8" tabindex="-1"></a>  <span class="fu">geom_point</span>() </span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/kap3%20uebung%203b-1.png" width="672" /></p>
+<p>c. Erstelle einen ansprechenden Plot! Füge ein Theme, Beschriftungen und einen Titel hinzu, erhöhe die Größe der Formen und experimentiere mit den Farben.</p>
+<div class="sourceCode" id="cb561"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb561-1"><a href="lösungen-zu-den-übungsaufgaben.html#cb561-1" tabindex="-1"></a><span class="co"># Plot erstellen</span></span>
+<span id="cb561-2"><a href="lösungen-zu-den-übungsaufgaben.html#cb561-2" tabindex="-1"></a><span class="fu">ggplot</span>(d1, <span class="fu">aes</span>(<span class="at">x =</span> Sepal.Length, <span class="at">y =</span> Sepal.Width, </span>
+<span id="cb561-3"><a href="lösungen-zu-den-übungsaufgaben.html#cb561-3" tabindex="-1"></a>               <span class="at">shape =</span> Species, <span class="at">color =</span> Species)) <span class="sc">+</span></span>
+<span id="cb561-4"><a href="lösungen-zu-den-übungsaufgaben.html#cb561-4" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb561-5"><a href="lösungen-zu-den-übungsaufgaben.html#cb561-5" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb561-6"><a href="lösungen-zu-den-übungsaufgaben.html#cb561-6" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">&quot;Zusammenhang zwischen Kelchblattlänge und Kelchblattbreite&quot;</span>,</span>
+<span id="cb561-7"><a href="lösungen-zu-den-übungsaufgaben.html#cb561-7" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">&quot;Kelchblattlänge&quot;</span>, </span>
+<span id="cb561-8"><a href="lösungen-zu-den-übungsaufgaben.html#cb561-8" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">&quot;Kelchblattbreite&quot;</span></span>
+<span id="cb561-9"><a href="lösungen-zu-den-übungsaufgaben.html#cb561-9" tabindex="-1"></a>  ) <span class="sc">+</span> </span>
+<span id="cb561-10"><a href="lösungen-zu-den-übungsaufgaben.html#cb561-10" tabindex="-1"></a>  <span class="fu">scale_color_brewer</span>(<span class="at">palette =</span> <span class="st">&quot;Set1&quot;</span>) <span class="sc">+</span></span>
+<span id="cb561-11"><a href="lösungen-zu-den-übungsaufgaben.html#cb561-11" tabindex="-1"></a>  <span class="fu">theme_classic</span>()</span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/kap3%20uebung%203c-1.png" width="672" /></p>
+</div>
+</div>
+<div id="kapitel-4-explorative-datenanalyse" class="section level2 hasAnchor" number="13.4">
+<h2><span class="header-section-number">13.4</span> Kapitel 4: Explorative Datenanalyse<a href="lösungen-zu-den-übungsaufgaben.html#kapitel-4-explorative-datenanalyse" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="übung-1-deskriptivstatistik" class="section level3 hasAnchor" number="13.4.1">
+<h3><span class="header-section-number">13.4.1</span> Übung 1: Deskriptivstatistik<a href="#%C3%BCbung-1-deskriptivstatistik" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>In dieser Übung arbeiten wir mit dem eingebauten <code>iris</code>-Datensatz in R:</p>
+<p>a. Berechne den Modus, den Mittelwert und den Median für die Variable <code>iris$Sepal.Length</code>.</p>
+<div class="sourceCode" id="cb562"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb562-1"><a href="lösungen-zu-den-übungsaufgaben.html#cb562-1" tabindex="-1"></a><span class="fu">mean</span>(iris<span class="sc">$</span>Sepal.Length)   <span class="co"># Mittelwert berechnen</span></span></code></pre></div>
+<pre><code>## [1] 5.843333</code></pre>
+<div class="sourceCode" id="cb564"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb564-1"><a href="lösungen-zu-den-übungsaufgaben.html#cb564-1" tabindex="-1"></a><span class="fu">median</span>(iris<span class="sc">$</span>Sepal.Length) <span class="co"># Median berechnen</span></span></code></pre></div>
+<pre><code>## [1] 5.8</code></pre>
+<div class="sourceCode" id="cb566"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb566-1"><a href="lösungen-zu-den-übungsaufgaben.html#cb566-1" tabindex="-1"></a><span class="co"># Modus berechnen</span></span>
+<span id="cb566-2"><a href="lösungen-zu-den-übungsaufgaben.html#cb566-2" tabindex="-1"></a>uniq_vals <span class="ot">&lt;-</span> <span class="fu">unique</span>(iris<span class="sc">$</span>Sepal.Length)</span>
+<span id="cb566-3"><a href="lösungen-zu-den-übungsaufgaben.html#cb566-3" tabindex="-1"></a>freqs <span class="ot">&lt;-</span> <span class="fu">tabulate</span>(iris<span class="sc">$</span>Sepal.Length)</span>
+<span id="cb566-4"><a href="lösungen-zu-den-übungsaufgaben.html#cb566-4" tabindex="-1"></a>uniq_vals[<span class="fu">which.max</span>(freqs)]</span></code></pre></div>
+<pre><code>## [1] 5</code></pre>
+<div class="sourceCode" id="cb568"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb568-1"><a href="lösungen-zu-den-übungsaufgaben.html#cb568-1" tabindex="-1"></a><span class="co"># Man könnte auch eine Funktion für den Modus definieren:</span></span>
+<span id="cb568-2"><a href="lösungen-zu-den-übungsaufgaben.html#cb568-2" tabindex="-1"></a><span class="co"># mode &lt;- function(x) {</span></span>
+<span id="cb568-3"><a href="lösungen-zu-den-übungsaufgaben.html#cb568-3" tabindex="-1"></a><span class="co">#   uniq_vals &lt;- unique(x, na.rm = TRUE)</span></span>
+<span id="cb568-4"><a href="lösungen-zu-den-übungsaufgaben.html#cb568-4" tabindex="-1"></a><span class="co">#   freqs &lt;- tabulate(match(x, uniq_vals))</span></span>
+<span id="cb568-5"><a href="lösungen-zu-den-übungsaufgaben.html#cb568-5" tabindex="-1"></a><span class="co">#   uniq_vals[which.max(freqs)]</span></span>
+<span id="cb568-6"><a href="lösungen-zu-den-übungsaufgaben.html#cb568-6" tabindex="-1"></a><span class="co"># }</span></span>
+<span id="cb568-7"><a href="lösungen-zu-den-übungsaufgaben.html#cb568-7" tabindex="-1"></a><span class="co"># mode(iris$Sepal.Length)</span></span></code></pre></div>
+<p>b. Berechne den Interquartilsabstand, die Varianz und die Standardabweichung für <code>iris$Sepal.Length</code>.</p>
+<div class="sourceCode" id="cb569"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb569-1"><a href="lösungen-zu-den-übungsaufgaben.html#cb569-1" tabindex="-1"></a><span class="fu">IQR</span>(iris<span class="sc">$</span>Sepal.Length)</span></code></pre></div>
+<pre><code>## [1] 1.3</code></pre>
+<div class="sourceCode" id="cb571"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb571-1"><a href="lösungen-zu-den-übungsaufgaben.html#cb571-1" tabindex="-1"></a><span class="fu">var</span>(iris<span class="sc">$</span>Sepal.Length) <span class="co"># Varianz</span></span></code></pre></div>
+<pre><code>## [1] 0.6856935</code></pre>
+<div class="sourceCode" id="cb573"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb573-1"><a href="lösungen-zu-den-übungsaufgaben.html#cb573-1" tabindex="-1"></a><span class="fu">sd</span>(iris<span class="sc">$</span>Sepal.Length)  <span class="co"># Standardabweichung</span></span></code></pre></div>
+<pre><code>## [1] 0.8280661</code></pre>
+<div class="sourceCode" id="cb575"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb575-1"><a href="lösungen-zu-den-übungsaufgaben.html#cb575-1" tabindex="-1"></a><span class="co"># Oder: Wurzel aus der Varianz für die Standardabweichung</span></span>
+<span id="cb575-2"><a href="lösungen-zu-den-übungsaufgaben.html#cb575-2" tabindex="-1"></a><span class="co"># var(iris$Sepal.Length) %&gt;%</span></span>
+<span id="cb575-3"><a href="lösungen-zu-den-übungsaufgaben.html#cb575-3" tabindex="-1"></a><span class="co">#   sqrt()</span></span></code></pre></div>
+<p>c. Berechne alle fünf Maße auf einmal mit einer geeigneten Funktion (wähle selbst, welche du verwenden möchtest).</p>
+<div class="sourceCode" id="cb576"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb576-1"><a href="lösungen-zu-den-übungsaufgaben.html#cb576-1" tabindex="-1"></a>psych<span class="sc">::</span><span class="fu">describe</span>(iris<span class="sc">$</span>Sepal.Length)       <span class="co"># psych-Paket</span></span></code></pre></div>
+<pre><code>##    vars   n mean   sd median trimmed  mad min max range
+## X1    1 150 5.84 0.83    5.8    5.81 1.04 4.3 7.9   3.6
+##    skew kurtosis   se
+## X1 0.31    -0.61 0.07</code></pre>
+<div class="sourceCode" id="cb578"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb578-1"><a href="lösungen-zu-den-übungsaufgaben.html#cb578-1" tabindex="-1"></a>skimr<span class="sc">::</span><span class="fu">skim</span>(iris<span class="sc">$</span>Sepal.Length)           <span class="co"># skimr-Paket</span></span></code></pre></div>
+<table>
+<caption>(#tab:kap4 uebung 1c)Data summary</caption>
+<tbody>
+<tr class="odd">
+<td align="left">Name</td>
+<td align="left">iris$Sepal.Length</td>
+</tr>
+<tr class="even">
+<td align="left">Number of rows</td>
+<td align="left">150</td>
+</tr>
+<tr class="odd">
+<td align="left">Number of columns</td>
+<td align="left">1</td>
+</tr>
+<tr class="even">
+<td align="left">_______________________</td>
+<td align="left"></td>
+</tr>
+<tr class="odd">
+<td align="left">Column type frequency:</td>
+<td align="left"></td>
+</tr>
+<tr class="even">
+<td align="left">numeric</td>
+<td align="left">1</td>
+</tr>
+<tr class="odd">
+<td align="left">________________________</td>
+<td align="left"></td>
+</tr>
+<tr class="even">
+<td align="left">Group variables</td>
+<td align="left">None</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Variable type: numeric</strong></p>
+<table>
+<colgroup>
+<col width="18%" />
+<col width="13%" />
+<col width="18%" />
+<col width="6%" />
+<col width="6%" />
+<col width="5%" />
+<col width="5%" />
+<col width="5%" />
+<col width="5%" />
+<col width="6%" />
+<col width="8%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="left">skim_variable</th>
+<th align="right">n_missing</th>
+<th align="right">complete_rate</th>
+<th align="right">mean</th>
+<th align="right">sd</th>
+<th align="right">p0</th>
+<th align="right">p25</th>
+<th align="right">p50</th>
+<th align="right">p75</th>
+<th align="right">p100</th>
+<th align="left">hist</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">data</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">5.84</td>
+<td align="right">0.83</td>
+<td align="right">4.3</td>
+<td align="right">5.1</td>
+<td align="right">5.8</td>
+<td align="right">6.4</td>
+<td align="right">7.9</td>
+<td align="left">▆▇▇▅▂</td>
+</tr>
+</tbody>
+</table>
+<div class="sourceCode" id="cb579"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb579-1"><a href="lösungen-zu-den-übungsaufgaben.html#cb579-1" tabindex="-1"></a>summarytools<span class="sc">::</span><span class="fu">descr</span>(iris<span class="sc">$</span>Sepal.Length)   <span class="co"># summarytools-Paket</span></span></code></pre></div>
+<pre><code>## Descriptive Statistics  
+## iris$Sepal.Length  
+## N: 150  
+## 
+##                     Sepal.Length
+## ----------------- --------------
+##              Mean           5.84
+##           Std.Dev           0.83
+##               Min           4.30
+##                Q1           5.10
+##            Median           5.80
+##                Q3           6.40
+##               Max           7.90
+##               MAD           1.04
+##               IQR           1.30
+##                CV           0.14
+##          Skewness           0.31
+##       SE.Skewness           0.20
+##          Kurtosis          -0.61
+##           N.Valid         150.00
+##                 N         150.00
+##         Pct.Valid         100.00</code></pre>
+</div>
+<div id="übung-2-kreuztabellen-und-korrelationen" class="section level3 hasAnchor" number="13.4.2">
+<h3><span class="header-section-number">13.4.2</span> Übung 2: Kreuztabellen und Korrelationen<a href="#%C3%BCbung-2-kreuztabellen-und-korrelationen" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>a. Erstelle eine Kreuztabelle für <code>esoph$agegp</code> und <code>esoph$alcgp</code>.</p>
+<div class="sourceCode" id="cb581"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb581-1"><a href="lösungen-zu-den-übungsaufgaben.html#cb581-1" tabindex="-1"></a><span class="fu">table</span>(esoph<span class="sc">$</span>agegp, esoph<span class="sc">$</span>alcgp)                    <span class="co"># mit Base R</span></span></code></pre></div>
+<pre><code>##        
+##         0-39g/day 40-79 80-119 120+
+##   25-34         4     4      3    4
+##   35-44         4     4      4    3
+##   45-54         4     4      4    4
+##   55-64         4     4      4    4
+##   65-74         4     3      4    4
+##   75+           3     4      2    2</code></pre>
+<div class="sourceCode" id="cb583"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb583-1"><a href="lösungen-zu-den-übungsaufgaben.html#cb583-1" tabindex="-1"></a>summarytools<span class="sc">::</span><span class="fu">ctable</span>(esoph<span class="sc">$</span>agegp, esoph<span class="sc">$</span>alcgp)     <span class="co"># mit summarytools</span></span></code></pre></div>
+<pre><code>## Cross-Tabulation, Row Proportions  
+## agegp * alcgp  
+## Data Frame: esoph  
+## 
+## ------- ------- ------------ ------------ ------------ ------------ -------------
+##           alcgp    0-39g/day        40-79       80-119         120+         Total
+##   agegp                                                                          
+##   25-34            4 (26.7%)    4 (26.7%)    3 (20.0%)    4 (26.7%)   15 (100.0%)
+##   35-44            4 (26.7%)    4 (26.7%)    4 (26.7%)    3 (20.0%)   15 (100.0%)
+##   45-54            4 (25.0%)    4 (25.0%)    4 (25.0%)    4 (25.0%)   16 (100.0%)
+##   55-64            4 (25.0%)    4 (25.0%)    4 (25.0%)    4 (25.0%)   16 (100.0%)
+##   65-74            4 (26.7%)    3 (20.0%)    4 (26.7%)    4 (26.7%)   15 (100.0%)
+##     75+            3 (27.3%)    4 (36.4%)    2 (18.2%)    2 (18.2%)   11 (100.0%)
+##   Total           23 (26.1%)   23 (26.1%)   21 (23.9%)   21 (23.9%)   88 (100.0%)
+## ------- ------- ------------ ------------ ------------ ------------ -------------</code></pre>
+<div class="sourceCode" id="cb585"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb585-1"><a href="lösungen-zu-den-übungsaufgaben.html#cb585-1" tabindex="-1"></a>gtsummary<span class="sc">::</span><span class="fu">tbl_cross</span>(<span class="at">data =</span> esoph,</span>
+<span id="cb585-2"><a href="lösungen-zu-den-übungsaufgaben.html#cb585-2" tabindex="-1"></a>                     <span class="at">row =</span> agegp, </span>
+<span id="cb585-3"><a href="lösungen-zu-den-übungsaufgaben.html#cb585-3" tabindex="-1"></a>                     <span class="at">col =</span> alcgp)                  <span class="co"># mit gtsummary</span></span></code></pre></div>
+<div id="sybfixkfen" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#sybfixkfen table {
+  font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+#sybfixkfen thead, #sybfixkfen tbody, #sybfixkfen tfoot, #sybfixkfen tr, #sybfixkfen td, #sybfixkfen th {
+  border-style: none;
+}
+
+#sybfixkfen p {
+  margin: 0;
+  padding: 0;
+}
+
+#sybfixkfen .gt_table {
+  display: table;
+  border-collapse: collapse;
+  line-height: normal;
+  margin-left: auto;
+  margin-right: auto;
+  color: #333333;
+  font-size: 16px;
+  font-weight: normal;
+  font-style: normal;
+  background-color: #FFFFFF;
+  width: auto;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #A8A8A8;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #A8A8A8;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+}
+
+#sybfixkfen .gt_caption {
+  padding-top: 4px;
+  padding-bottom: 4px;
+}
+
+#sybfixkfen .gt_title {
+  color: #333333;
+  font-size: 125%;
+  font-weight: initial;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-color: #FFFFFF;
+  border-bottom-width: 0;
+}
+
+#sybfixkfen .gt_subtitle {
+  color: #333333;
+  font-size: 85%;
+  font-weight: initial;
+  padding-top: 3px;
+  padding-bottom: 5px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-color: #FFFFFF;
+  border-top-width: 0;
+}
+
+#sybfixkfen .gt_heading {
+  background-color: #FFFFFF;
+  text-align: center;
+  border-bottom-color: #FFFFFF;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#sybfixkfen .gt_bottom_border {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#sybfixkfen .gt_col_headings {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#sybfixkfen .gt_col_heading {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 6px;
+  padding-left: 5px;
+  padding-right: 5px;
+  overflow-x: hidden;
+}
+
+#sybfixkfen .gt_column_spanner_outer {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  padding-top: 0;
+  padding-bottom: 0;
+  padding-left: 4px;
+  padding-right: 4px;
+}
+
+#sybfixkfen .gt_column_spanner_outer:first-child {
+  padding-left: 0;
+}
+
+#sybfixkfen .gt_column_spanner_outer:last-child {
+  padding-right: 0;
+}
+
+#sybfixkfen .gt_column_spanner {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  overflow-x: hidden;
+  display: inline-block;
+  width: 100%;
+}
+
+#sybfixkfen .gt_spanner_row {
+  border-bottom-style: hidden;
+}
+
+#sybfixkfen .gt_group_heading {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  text-align: left;
+}
+
+#sybfixkfen .gt_empty_group_heading {
+  padding: 0.5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: middle;
+}
+
+#sybfixkfen .gt_from_md > :first-child {
+  margin-top: 0;
+}
+
+#sybfixkfen .gt_from_md > :last-child {
+  margin-bottom: 0;
+}
+
+#sybfixkfen .gt_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  margin: 10px;
+  border-top-style: solid;
+  border-top-width: 1px;
+  border-top-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  overflow-x: hidden;
+}
+
+#sybfixkfen .gt_stub {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#sybfixkfen .gt_stub_row_group {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+  vertical-align: top;
+}
+
+#sybfixkfen .gt_row_group_first td {
+  border-top-width: 2px;
+}
+
+#sybfixkfen .gt_row_group_first th {
+  border-top-width: 2px;
+}
+
+#sybfixkfen .gt_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#sybfixkfen .gt_first_summary_row {
+  border-top-style: solid;
+  border-top-color: #D3D3D3;
+}
+
+#sybfixkfen .gt_first_summary_row.thick {
+  border-top-width: 2px;
+}
+
+#sybfixkfen .gt_last_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#sybfixkfen .gt_grand_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#sybfixkfen .gt_first_grand_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-style: double;
+  border-top-width: 6px;
+  border-top-color: #D3D3D3;
+}
+
+#sybfixkfen .gt_last_grand_summary_row_top {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: double;
+  border-bottom-width: 6px;
+  border-bottom-color: #D3D3D3;
+}
+
+#sybfixkfen .gt_striped {
+  background-color: rgba(128, 128, 128, 0.05);
+}
+
+#sybfixkfen .gt_table_body {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#sybfixkfen .gt_footnotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#sybfixkfen .gt_footnote {
+  margin: 0px;
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#sybfixkfen .gt_sourcenotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#sybfixkfen .gt_sourcenote {
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#sybfixkfen .gt_left {
+  text-align: left;
+}
+
+#sybfixkfen .gt_center {
+  text-align: center;
+}
+
+#sybfixkfen .gt_right {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+#sybfixkfen .gt_font_normal {
+  font-weight: normal;
+}
+
+#sybfixkfen .gt_font_bold {
+  font-weight: bold;
+}
+
+#sybfixkfen .gt_font_italic {
+  font-style: italic;
+}
+
+#sybfixkfen .gt_super {
+  font-size: 65%;
+}
+
+#sybfixkfen .gt_footnote_marks {
+  font-size: 75%;
+  vertical-align: 0.4em;
+  position: initial;
+}
+
+#sybfixkfen .gt_asterisk {
+  font-size: 100%;
+  vertical-align: 0;
+}
+
+#sybfixkfen .gt_indent_1 {
+  text-indent: 5px;
+}
+
+#sybfixkfen .gt_indent_2 {
+  text-indent: 10px;
+}
+
+#sybfixkfen .gt_indent_3 {
+  text-indent: 15px;
+}
+
+#sybfixkfen .gt_indent_4 {
+  text-indent: 20px;
+}
+
+#sybfixkfen .gt_indent_5 {
+  text-indent: 25px;
+}
+
+#sybfixkfen .katex-display {
+  display: inline-flex !important;
+  margin-bottom: 0.75em !important;
+}
+
+#sybfixkfen div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+  height: 0px !important;
+}
+</style>
+<table class="gt_table" data-quarto-disable-processing="false" data-quarto-bootstrap="false">
+  <thead>
+    <tr class="gt_col_headings gt_spanner_row">
+      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="2" colspan="1" scope="col" id="label"></th>
+      <th class="gt_center gt_columns_top_border gt_column_spanner_outer" rowspan="1" colspan="4" scope="colgroup" id="alcgp">
+        <div class="gt_column_spanner"><span class='gt_from_md'>alcgp</span></div>
+      </th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="2" colspan="1" scope="col" id="stat_0"><span class='gt_from_md'>Total</span></th>
+    </tr>
+    <tr class="gt_col_headings">
+      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1" scope="col" id="stat_1"><span class='gt_from_md'>0-39g/day</span></th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1" scope="col" id="stat_2"><span class='gt_from_md'>40-79</span></th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1" scope="col" id="stat_3"><span class='gt_from_md'>80-119</span></th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1" scope="col" id="stat_4"><span class='gt_from_md'>120+</span></th>
+    </tr>
+  </thead>
+  <tbody class="gt_table_body">
+    <tr><td headers="label" class="gt_row gt_left">agegp</td>
+<td headers="stat_1" class="gt_row gt_center"><br /></td>
+<td headers="stat_2" class="gt_row gt_center"><br /></td>
+<td headers="stat_3" class="gt_row gt_center"><br /></td>
+<td headers="stat_4" class="gt_row gt_center"><br /></td>
+<td headers="stat_0" class="gt_row gt_center"><br /></td></tr>
+    <tr><td headers="label" class="gt_row gt_left">    25-34</td>
+<td headers="stat_1" class="gt_row gt_center">4</td>
+<td headers="stat_2" class="gt_row gt_center">4</td>
+<td headers="stat_3" class="gt_row gt_center">3</td>
+<td headers="stat_4" class="gt_row gt_center">4</td>
+<td headers="stat_0" class="gt_row gt_center">15</td></tr>
+    <tr><td headers="label" class="gt_row gt_left">    35-44</td>
+<td headers="stat_1" class="gt_row gt_center">4</td>
+<td headers="stat_2" class="gt_row gt_center">4</td>
+<td headers="stat_3" class="gt_row gt_center">4</td>
+<td headers="stat_4" class="gt_row gt_center">3</td>
+<td headers="stat_0" class="gt_row gt_center">15</td></tr>
+    <tr><td headers="label" class="gt_row gt_left">    45-54</td>
+<td headers="stat_1" class="gt_row gt_center">4</td>
+<td headers="stat_2" class="gt_row gt_center">4</td>
+<td headers="stat_3" class="gt_row gt_center">4</td>
+<td headers="stat_4" class="gt_row gt_center">4</td>
+<td headers="stat_0" class="gt_row gt_center">16</td></tr>
+    <tr><td headers="label" class="gt_row gt_left">    55-64</td>
+<td headers="stat_1" class="gt_row gt_center">4</td>
+<td headers="stat_2" class="gt_row gt_center">4</td>
+<td headers="stat_3" class="gt_row gt_center">4</td>
+<td headers="stat_4" class="gt_row gt_center">4</td>
+<td headers="stat_0" class="gt_row gt_center">16</td></tr>
+    <tr><td headers="label" class="gt_row gt_left">    65-74</td>
+<td headers="stat_1" class="gt_row gt_center">4</td>
+<td headers="stat_2" class="gt_row gt_center">3</td>
+<td headers="stat_3" class="gt_row gt_center">4</td>
+<td headers="stat_4" class="gt_row gt_center">4</td>
+<td headers="stat_0" class="gt_row gt_center">15</td></tr>
+    <tr><td headers="label" class="gt_row gt_left">    75+</td>
+<td headers="stat_1" class="gt_row gt_center">3</td>
+<td headers="stat_2" class="gt_row gt_center">4</td>
+<td headers="stat_3" class="gt_row gt_center">2</td>
+<td headers="stat_4" class="gt_row gt_center">2</td>
+<td headers="stat_0" class="gt_row gt_center">11</td></tr>
+    <tr><td headers="label" class="gt_row gt_left">Total</td>
+<td headers="stat_1" class="gt_row gt_center">23</td>
+<td headers="stat_2" class="gt_row gt_center">23</td>
+<td headers="stat_3" class="gt_row gt_center">21</td>
+<td headers="stat_4" class="gt_row gt_center">21</td>
+<td headers="stat_0" class="gt_row gt_center">88</td></tr>
+  </tbody>
+  
+  
+</table>
+</div>
+<p>b. Reduziere den <code>iris</code>-Datensatz auf <code>Sepal.Length</code>, <code>Sepal.Width</code>, <code>Petal.Length</code> und <code>Petal.Width</code> und speichere ihn in einem Objekt namens <code>iris_numeric</code>.</p>
+<div class="sourceCode" id="cb586"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb586-1"><a href="lösungen-zu-den-übungsaufgaben.html#cb586-1" tabindex="-1"></a>iris_numeric <span class="ot">&lt;-</span> iris <span class="sc">%&gt;%</span> </span>
+<span id="cb586-2"><a href="lösungen-zu-den-übungsaufgaben.html#cb586-2" tabindex="-1"></a>  <span class="fu">select</span>(Sepal.Length, Sepal.Width, Petal.Length, Petal.Width)</span></code></pre></div>
+<p>c. Erstelle eine Korrelationsmatrix mit <code>iris_numeric</code>.</p>
+<div class="sourceCode" id="cb587"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb587-1"><a href="lösungen-zu-den-übungsaufgaben.html#cb587-1" tabindex="-1"></a><span class="co"># Mit dem corrplot-Paket</span></span>
+<span id="cb587-2"><a href="lösungen-zu-den-übungsaufgaben.html#cb587-2" tabindex="-1"></a>cor_iris <span class="ot">&lt;-</span> <span class="fu">cor</span>(iris_numeric)</span>
+<span id="cb587-3"><a href="lösungen-zu-den-übungsaufgaben.html#cb587-3" tabindex="-1"></a>corrplot<span class="sc">::</span><span class="fu">corrplot</span>(cor_iris, <span class="at">method =</span> <span class="st">&quot;color&quot;</span>)</span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/kap4%20uebung%202c-1.png" width="672" /></p>
+<div class="sourceCode" id="cb588"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb588-1"><a href="lösungen-zu-den-übungsaufgaben.html#cb588-1" tabindex="-1"></a><span class="co"># Mit DataExplorer</span></span>
+<span id="cb588-2"><a href="lösungen-zu-den-übungsaufgaben.html#cb588-2" tabindex="-1"></a>DataExplorer<span class="sc">::</span><span class="fu">plot_correlation</span>(iris_numeric)</span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/kap4%20uebung%202c-2.png" width="672" /></p>
+<p>d. Verschönere die Korrelationsmatrix.</p>
+<div class="sourceCode" id="cb589"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb589-1"><a href="lösungen-zu-den-übungsaufgaben.html#cb589-1" tabindex="-1"></a><span class="co"># Mit corrplot</span></span>
+<span id="cb589-2"><a href="lösungen-zu-den-übungsaufgaben.html#cb589-2" tabindex="-1"></a>corrplot<span class="sc">::</span><span class="fu">corrplot</span>(cor_iris, <span class="at">method =</span> <span class="st">&quot;circle&quot;</span>, <span class="at">type =</span> <span class="st">&quot;upper&quot;</span>, </span>
+<span id="cb589-3"><a href="lösungen-zu-den-übungsaufgaben.html#cb589-3" tabindex="-1"></a>         <span class="at">tl.col =</span> <span class="st">&quot;black&quot;</span>, <span class="at">tl.srt =</span> <span class="dv">45</span>)</span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/kap4%20uebung%202d-1.png" width="672" /></p>
+<div class="sourceCode" id="cb590"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb590-1"><a href="lösungen-zu-den-übungsaufgaben.html#cb590-1" tabindex="-1"></a><span class="co"># Mit DataExplorer</span></span>
+<span id="cb590-2"><a href="lösungen-zu-den-übungsaufgaben.html#cb590-2" tabindex="-1"></a>DataExplorer<span class="sc">::</span><span class="fu">plot_correlation</span>(</span>
+<span id="cb590-3"><a href="lösungen-zu-den-übungsaufgaben.html#cb590-3" tabindex="-1"></a>  iris_numeric,</span>
+<span id="cb590-4"><a href="lösungen-zu-den-übungsaufgaben.html#cb590-4" tabindex="-1"></a>  <span class="at">ggtheme =</span> <span class="fu">theme_minimal</span>(<span class="at">base_size =</span> <span class="dv">14</span>),</span>
+<span id="cb590-5"><a href="lösungen-zu-den-übungsaufgaben.html#cb590-5" tabindex="-1"></a>  <span class="at">title =</span> <span class="st">&quot;Korrelationsmatrix der numerischen Iris-Variablen&quot;</span></span>
+<span id="cb590-6"><a href="lösungen-zu-den-übungsaufgaben.html#cb590-6" tabindex="-1"></a>)</span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/kap4%20uebung%202d-2.png" width="672" /></p>
+</div>
+<div id="übung-3-arbeiten-mit-paketen-1" class="section level3 hasAnchor" number="13.4.3">
+<h3><span class="header-section-number">13.4.3</span> Übung 3: Arbeiten mit Paketen<a href="#%C3%BCbung-3-arbeiten-mit-paketen-1" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>a. Verwende eine Funktion, um einen Überblick über den Datensatz <code>mtcars</code> zu erhalten.</p>
+<div class="sourceCode" id="cb591"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb591-1"><a href="lösungen-zu-den-übungsaufgaben.html#cb591-1" tabindex="-1"></a>skimr<span class="sc">::</span><span class="fu">skim</span>(mtcars)</span></code></pre></div>
+<table>
+<caption>(#tab:kap4 uebung 3a)Data summary</caption>
+<tbody>
+<tr class="odd">
+<td align="left">Name</td>
+<td align="left">mtcars</td>
+</tr>
+<tr class="even">
+<td align="left">Number of rows</td>
+<td align="left">32</td>
+</tr>
+<tr class="odd">
+<td align="left">Number of columns</td>
+<td align="left">11</td>
+</tr>
+<tr class="even">
+<td align="left">_______________________</td>
+<td align="left"></td>
+</tr>
+<tr class="odd">
+<td align="left">Column type frequency:</td>
+<td align="left"></td>
+</tr>
+<tr class="even">
+<td align="left">numeric</td>
+<td align="left">11</td>
+</tr>
+<tr class="odd">
+<td align="left">________________________</td>
+<td align="left"></td>
+</tr>
+<tr class="even">
+<td align="left">Group variables</td>
+<td align="left">None</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Variable type: numeric</strong></p>
+<table>
+<colgroup>
+<col width="15%" />
+<col width="10%" />
+<col width="15%" />
+<col width="7%" />
+<col width="7%" />
+<col width="6%" />
+<col width="7%" />
+<col width="7%" />
+<col width="7%" />
+<col width="7%" />
+<col width="6%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="left">skim_variable</th>
+<th align="right">n_missing</th>
+<th align="right">complete_rate</th>
+<th align="right">mean</th>
+<th align="right">sd</th>
+<th align="right">p0</th>
+<th align="right">p25</th>
+<th align="right">p50</th>
+<th align="right">p75</th>
+<th align="right">p100</th>
+<th align="left">hist</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">mpg</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">20.09</td>
+<td align="right">6.03</td>
+<td align="right">10.40</td>
+<td align="right">15.43</td>
+<td align="right">19.20</td>
+<td align="right">22.80</td>
+<td align="right">33.90</td>
+<td align="left">▃▇▅▁▂</td>
+</tr>
+<tr class="even">
+<td align="left">cyl</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">6.19</td>
+<td align="right">1.79</td>
+<td align="right">4.00</td>
+<td align="right">4.00</td>
+<td align="right">6.00</td>
+<td align="right">8.00</td>
+<td align="right">8.00</td>
+<td align="left">▆▁▃▁▇</td>
+</tr>
+<tr class="odd">
+<td align="left">disp</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">230.72</td>
+<td align="right">123.94</td>
+<td align="right">71.10</td>
+<td align="right">120.83</td>
+<td align="right">196.30</td>
+<td align="right">326.00</td>
+<td align="right">472.00</td>
+<td align="left">▇▃▃▃▂</td>
+</tr>
+<tr class="even">
+<td align="left">hp</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">146.69</td>
+<td align="right">68.56</td>
+<td align="right">52.00</td>
+<td align="right">96.50</td>
+<td align="right">123.00</td>
+<td align="right">180.00</td>
+<td align="right">335.00</td>
+<td align="left">▇▇▆▃▁</td>
+</tr>
+<tr class="odd">
+<td align="left">drat</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">3.60</td>
+<td align="right">0.53</td>
+<td align="right">2.76</td>
+<td align="right">3.08</td>
+<td align="right">3.70</td>
+<td align="right">3.92</td>
+<td align="right">4.93</td>
+<td align="left">▇▃▇▅▁</td>
+</tr>
+<tr class="even">
+<td align="left">wt</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">3.22</td>
+<td align="right">0.98</td>
+<td align="right">1.51</td>
+<td align="right">2.58</td>
+<td align="right">3.33</td>
+<td align="right">3.61</td>
+<td align="right">5.42</td>
+<td align="left">▃▃▇▁▂</td>
+</tr>
+<tr class="odd">
+<td align="left">qsec</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">17.85</td>
+<td align="right">1.79</td>
+<td align="right">14.50</td>
+<td align="right">16.89</td>
+<td align="right">17.71</td>
+<td align="right">18.90</td>
+<td align="right">22.90</td>
+<td align="left">▃▇▇▂▁</td>
+</tr>
+<tr class="even">
+<td align="left">vs</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">0.44</td>
+<td align="right">0.50</td>
+<td align="right">0.00</td>
+<td align="right">0.00</td>
+<td align="right">0.00</td>
+<td align="right">1.00</td>
+<td align="right">1.00</td>
+<td align="left">▇▁▁▁▆</td>
+</tr>
+<tr class="odd">
+<td align="left">am</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">0.41</td>
+<td align="right">0.50</td>
+<td align="right">0.00</td>
+<td align="right">0.00</td>
+<td align="right">0.00</td>
+<td align="right">1.00</td>
+<td align="right">1.00</td>
+<td align="left">▇▁▁▁▆</td>
+</tr>
+<tr class="even">
+<td align="left">gear</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">3.69</td>
+<td align="right">0.74</td>
+<td align="right">3.00</td>
+<td align="right">3.00</td>
+<td align="right">4.00</td>
+<td align="right">4.00</td>
+<td align="right">5.00</td>
+<td align="left">▇▁▆▁▂</td>
+</tr>
+<tr class="odd">
+<td align="left">carb</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">2.81</td>
+<td align="right">1.62</td>
+<td align="right">1.00</td>
+<td align="right">2.00</td>
+<td align="right">2.00</td>
+<td align="right">4.00</td>
+<td align="right">8.00</td>
+<td align="left">▇▂▅▁▁</td>
+</tr>
+</tbody>
+</table>
+<div class="sourceCode" id="cb592"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb592-1"><a href="lösungen-zu-den-übungsaufgaben.html#cb592-1" tabindex="-1"></a>summarytools<span class="sc">::</span><span class="fu">dfSummary</span>(mtcars)</span></code></pre></div>
+<pre><code>## Data Frame Summary  
+## mtcars  
+## Dimensions: 32 x 11  
+## Duplicates: 0  
+## 
+## ----------------------------------------------------------------------------------------------------------
+## No   Variable    Stats / Values              Freqs (% of Valid)   Graph               Valid      Missing  
+## ---- ----------- --------------------------- -------------------- ------------------- ---------- ---------
+## 1    mpg         Mean (sd) : 20.1 (6)        25 distinct values     :                 32         0        
+##      [numeric]   min &lt; med &lt; max:                                   : .               (100.0%)   (0.0%)   
+##                  10.4 &lt; 19.2 &lt; 33.9                               . : :                                   
+##                  IQR (CV) : 7.4 (0.3)                             : : :   .                               
+##                                                                   : : : : :                               
+## 
+## 2    cyl         Mean (sd) : 6.2 (1.8)       4 : 11 (34.4%)       IIIIII              32         0        
+##      [numeric]   min &lt; med &lt; max:            6 :  7 (21.9%)       IIII                (100.0%)   (0.0%)   
+##                  4 &lt; 6 &lt; 8                   8 : 14 (43.8%)       IIIIIIII                                
+##                  IQR (CV) : 4 (0.3)                                                                       
+## 
+## 3    disp        Mean (sd) : 230.7 (123.9)   27 distinct values     :                 32         0        
+##      [numeric]   min &lt; med &lt; max:                                 . :                 (100.0%)   (0.0%)   
+##                  71.1 &lt; 196.3 &lt; 472                               : : :   : : :                           
+##                  IQR (CV) : 205.2 (0.5)                           : : :   : : :   .                       
+##                                                                   : : : . : : : . :                       
+## 
+## 4    hp          Mean (sd) : 146.7 (68.6)    22 distinct values   . :                 32         0        
+##      [numeric]   min &lt; med &lt; max:                                 : :                 (100.0%)   (0.0%)   
+##                  52 &lt; 123 &lt; 335                                   : : : .                                 
+##                  IQR (CV) : 83.5 (0.5)                            : : : :                                 
+##                                                                   : : : : . .                             
+## 
+## 5    drat        Mean (sd) : 3.6 (0.5)       22 distinct values       :               32         0        
+##      [numeric]   min &lt; med &lt; max:                                   : :               (100.0%)   (0.0%)   
+##                  2.8 &lt; 3.7 &lt; 4.9                                    : : .                                 
+##                  IQR (CV) : 0.8 (0.1)                             . : : :                                 
+##                                                                   : : : : .                               
+## 
+## 6    wt          Mean (sd) : 3.2 (1)         29 distinct values         :             32         0        
+##      [numeric]   min &lt; med &lt; max:                                       : :           (100.0%)   (0.0%)   
+##                  1.5 &lt; 3.3 &lt; 5.4                                        : :                               
+##                  IQR (CV) : 1 (0.3)                               : : : : :     .                         
+##                                                                   : : : : : .   :                         
+## 
+## 7    qsec        Mean (sd) : 17.8 (1.8)      30 distinct values         :             32         0        
+##      [numeric]   min &lt; med &lt; max:                                       :             (100.0%)   (0.0%)   
+##                  14.5 &lt; 17.7 &lt; 22.9                                     : :                               
+##                  IQR (CV) : 2 (0.1)                                 . : : : :                             
+##                                                                   : : : : : : :   .                       
+## 
+## 8    vs          Min  : 0                    0 : 18 (56.2%)       IIIIIIIIIII         32         0        
+##      [numeric]   Mean : 0.4                  1 : 14 (43.8%)       IIIIIIII            (100.0%)   (0.0%)   
+##                  Max  : 1                                                                                 
+## 
+## 9    am          Min  : 0                    0 : 19 (59.4%)       IIIIIIIIIII         32         0        
+##      [numeric]   Mean : 0.4                  1 : 13 (40.6%)       IIIIIIII            (100.0%)   (0.0%)   
+##                  Max  : 1                                                                                 
+## 
+## 10   gear        Mean (sd) : 3.7 (0.7)       3 : 15 (46.9%)       IIIIIIIII           32         0        
+##      [numeric]   min &lt; med &lt; max:            4 : 12 (37.5%)       IIIIIII             (100.0%)   (0.0%)   
+##                  3 &lt; 4 &lt; 5                   5 :  5 (15.6%)       III                                     
+##                  IQR (CV) : 1 (0.2)                                                                       
+## 
+## 11   carb        Mean (sd) : 2.8 (1.6)       1 :  7 (21.9%)       IIII                32         0        
+##      [numeric]   min &lt; med &lt; max:            2 : 10 (31.2%)       IIIIII              (100.0%)   (0.0%)   
+##                  1 &lt; 2 &lt; 8                   3 :  3 ( 9.4%)       I                                       
+##                  IQR (CV) : 2 (0.6)          4 : 10 (31.2%)       IIIIII                                  
+##                                              6 :  1 ( 3.1%)                                               
+##                                              8 :  1 ( 3.1%)                                               
+## ----------------------------------------------------------------------------------------------------------</code></pre>
+<div class="sourceCode" id="cb594"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb594-1"><a href="lösungen-zu-den-übungsaufgaben.html#cb594-1" tabindex="-1"></a>gtsummary<span class="sc">::</span><span class="fu">tbl_summary</span>(mtcars)</span></code></pre></div>
+<div id="lctzyhtwna" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#lctzyhtwna table {
+  font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+#lctzyhtwna thead, #lctzyhtwna tbody, #lctzyhtwna tfoot, #lctzyhtwna tr, #lctzyhtwna td, #lctzyhtwna th {
+  border-style: none;
+}
+
+#lctzyhtwna p {
+  margin: 0;
+  padding: 0;
+}
+
+#lctzyhtwna .gt_table {
+  display: table;
+  border-collapse: collapse;
+  line-height: normal;
+  margin-left: auto;
+  margin-right: auto;
+  color: #333333;
+  font-size: 16px;
+  font-weight: normal;
+  font-style: normal;
+  background-color: #FFFFFF;
+  width: auto;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #A8A8A8;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #A8A8A8;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+}
+
+#lctzyhtwna .gt_caption {
+  padding-top: 4px;
+  padding-bottom: 4px;
+}
+
+#lctzyhtwna .gt_title {
+  color: #333333;
+  font-size: 125%;
+  font-weight: initial;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-color: #FFFFFF;
+  border-bottom-width: 0;
+}
+
+#lctzyhtwna .gt_subtitle {
+  color: #333333;
+  font-size: 85%;
+  font-weight: initial;
+  padding-top: 3px;
+  padding-bottom: 5px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-color: #FFFFFF;
+  border-top-width: 0;
+}
+
+#lctzyhtwna .gt_heading {
+  background-color: #FFFFFF;
+  text-align: center;
+  border-bottom-color: #FFFFFF;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#lctzyhtwna .gt_bottom_border {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#lctzyhtwna .gt_col_headings {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#lctzyhtwna .gt_col_heading {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 6px;
+  padding-left: 5px;
+  padding-right: 5px;
+  overflow-x: hidden;
+}
+
+#lctzyhtwna .gt_column_spanner_outer {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  padding-top: 0;
+  padding-bottom: 0;
+  padding-left: 4px;
+  padding-right: 4px;
+}
+
+#lctzyhtwna .gt_column_spanner_outer:first-child {
+  padding-left: 0;
+}
+
+#lctzyhtwna .gt_column_spanner_outer:last-child {
+  padding-right: 0;
+}
+
+#lctzyhtwna .gt_column_spanner {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  overflow-x: hidden;
+  display: inline-block;
+  width: 100%;
+}
+
+#lctzyhtwna .gt_spanner_row {
+  border-bottom-style: hidden;
+}
+
+#lctzyhtwna .gt_group_heading {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  text-align: left;
+}
+
+#lctzyhtwna .gt_empty_group_heading {
+  padding: 0.5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: middle;
+}
+
+#lctzyhtwna .gt_from_md > :first-child {
+  margin-top: 0;
+}
+
+#lctzyhtwna .gt_from_md > :last-child {
+  margin-bottom: 0;
+}
+
+#lctzyhtwna .gt_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  margin: 10px;
+  border-top-style: solid;
+  border-top-width: 1px;
+  border-top-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  overflow-x: hidden;
+}
+
+#lctzyhtwna .gt_stub {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#lctzyhtwna .gt_stub_row_group {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+  vertical-align: top;
+}
+
+#lctzyhtwna .gt_row_group_first td {
+  border-top-width: 2px;
+}
+
+#lctzyhtwna .gt_row_group_first th {
+  border-top-width: 2px;
+}
+
+#lctzyhtwna .gt_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#lctzyhtwna .gt_first_summary_row {
+  border-top-style: solid;
+  border-top-color: #D3D3D3;
+}
+
+#lctzyhtwna .gt_first_summary_row.thick {
+  border-top-width: 2px;
+}
+
+#lctzyhtwna .gt_last_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#lctzyhtwna .gt_grand_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#lctzyhtwna .gt_first_grand_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-style: double;
+  border-top-width: 6px;
+  border-top-color: #D3D3D3;
+}
+
+#lctzyhtwna .gt_last_grand_summary_row_top {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: double;
+  border-bottom-width: 6px;
+  border-bottom-color: #D3D3D3;
+}
+
+#lctzyhtwna .gt_striped {
+  background-color: rgba(128, 128, 128, 0.05);
+}
+
+#lctzyhtwna .gt_table_body {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#lctzyhtwna .gt_footnotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#lctzyhtwna .gt_footnote {
+  margin: 0px;
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#lctzyhtwna .gt_sourcenotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#lctzyhtwna .gt_sourcenote {
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#lctzyhtwna .gt_left {
+  text-align: left;
+}
+
+#lctzyhtwna .gt_center {
+  text-align: center;
+}
+
+#lctzyhtwna .gt_right {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+#lctzyhtwna .gt_font_normal {
+  font-weight: normal;
+}
+
+#lctzyhtwna .gt_font_bold {
+  font-weight: bold;
+}
+
+#lctzyhtwna .gt_font_italic {
+  font-style: italic;
+}
+
+#lctzyhtwna .gt_super {
+  font-size: 65%;
+}
+
+#lctzyhtwna .gt_footnote_marks {
+  font-size: 75%;
+  vertical-align: 0.4em;
+  position: initial;
+}
+
+#lctzyhtwna .gt_asterisk {
+  font-size: 100%;
+  vertical-align: 0;
+}
+
+#lctzyhtwna .gt_indent_1 {
+  text-indent: 5px;
+}
+
+#lctzyhtwna .gt_indent_2 {
+  text-indent: 10px;
+}
+
+#lctzyhtwna .gt_indent_3 {
+  text-indent: 15px;
+}
+
+#lctzyhtwna .gt_indent_4 {
+  text-indent: 20px;
+}
+
+#lctzyhtwna .gt_indent_5 {
+  text-indent: 25px;
+}
+
+#lctzyhtwna .katex-display {
+  display: inline-flex !important;
+  margin-bottom: 0.75em !important;
+}
+
+#lctzyhtwna div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+  height: 0px !important;
+}
+</style>
+<table class="gt_table" data-quarto-disable-processing="false" data-quarto-bootstrap="false">
+  <thead>
+    <tr class="gt_col_headings">
+      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" scope="col" id="label"><span class='gt_from_md'><strong>Characteristic</strong></span></th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1" scope="col" id="stat_0"><span class='gt_from_md'><strong>N = 32</strong></span><span class="gt_footnote_marks" style="white-space:nowrap;font-style:italic;font-weight:normal;line-height:0;"><sup>1</sup></span></th>
+    </tr>
+  </thead>
+  <tbody class="gt_table_body">
+    <tr><td headers="label" class="gt_row gt_left">mpg</td>
+<td headers="stat_0" class="gt_row gt_center">19.2 (15.4, 22.8)</td></tr>
+    <tr><td headers="label" class="gt_row gt_left">cyl</td>
+<td headers="stat_0" class="gt_row gt_center"><br /></td></tr>
+    <tr><td headers="label" class="gt_row gt_left">    4</td>
+<td headers="stat_0" class="gt_row gt_center">11 (34%)</td></tr>
+    <tr><td headers="label" class="gt_row gt_left">    6</td>
+<td headers="stat_0" class="gt_row gt_center">7 (22%)</td></tr>
+    <tr><td headers="label" class="gt_row gt_left">    8</td>
+<td headers="stat_0" class="gt_row gt_center">14 (44%)</td></tr>
+    <tr><td headers="label" class="gt_row gt_left">disp</td>
+<td headers="stat_0" class="gt_row gt_center">196 (121, 334)</td></tr>
+    <tr><td headers="label" class="gt_row gt_left">hp</td>
+<td headers="stat_0" class="gt_row gt_center">123 (96, 180)</td></tr>
+    <tr><td headers="label" class="gt_row gt_left">drat</td>
+<td headers="stat_0" class="gt_row gt_center">3.70 (3.08, 3.92)</td></tr>
+    <tr><td headers="label" class="gt_row gt_left">wt</td>
+<td headers="stat_0" class="gt_row gt_center">3.33 (2.54, 3.65)</td></tr>
+    <tr><td headers="label" class="gt_row gt_left">qsec</td>
+<td headers="stat_0" class="gt_row gt_center">17.71 (16.89, 18.90)</td></tr>
+    <tr><td headers="label" class="gt_row gt_left">vs</td>
+<td headers="stat_0" class="gt_row gt_center">14 (44%)</td></tr>
+    <tr><td headers="label" class="gt_row gt_left">am</td>
+<td headers="stat_0" class="gt_row gt_center">13 (41%)</td></tr>
+    <tr><td headers="label" class="gt_row gt_left">gear</td>
+<td headers="stat_0" class="gt_row gt_center"><br /></td></tr>
+    <tr><td headers="label" class="gt_row gt_left">    3</td>
+<td headers="stat_0" class="gt_row gt_center">15 (47%)</td></tr>
+    <tr><td headers="label" class="gt_row gt_left">    4</td>
+<td headers="stat_0" class="gt_row gt_center">12 (38%)</td></tr>
+    <tr><td headers="label" class="gt_row gt_left">    5</td>
+<td headers="stat_0" class="gt_row gt_center">5 (16%)</td></tr>
+    <tr><td headers="label" class="gt_row gt_left">carb</td>
+<td headers="stat_0" class="gt_row gt_center"><br /></td></tr>
+    <tr><td headers="label" class="gt_row gt_left">    1</td>
+<td headers="stat_0" class="gt_row gt_center">7 (22%)</td></tr>
+    <tr><td headers="label" class="gt_row gt_left">    2</td>
+<td headers="stat_0" class="gt_row gt_center">10 (31%)</td></tr>
+    <tr><td headers="label" class="gt_row gt_left">    3</td>
+<td headers="stat_0" class="gt_row gt_center">3 (9.4%)</td></tr>
+    <tr><td headers="label" class="gt_row gt_left">    4</td>
+<td headers="stat_0" class="gt_row gt_center">10 (31%)</td></tr>
+    <tr><td headers="label" class="gt_row gt_left">    6</td>
+<td headers="stat_0" class="gt_row gt_center">1 (3.1%)</td></tr>
+    <tr><td headers="label" class="gt_row gt_left">    8</td>
+<td headers="stat_0" class="gt_row gt_center">1 (3.1%)</td></tr>
+  </tbody>
+  
+  <tfoot class="gt_footnotes">
+    <tr>
+      <td class="gt_footnote" colspan="2"><span class="gt_footnote_marks" style="white-space:nowrap;font-style:italic;font-weight:normal;line-height:0;"><sup>1</sup></span> <span class='gt_from_md'>Median (Q1, Q3); n (%)</span></td>
+    </tr>
+  </tfoot>
+</table>
+</div>
+<p>b. Untersuche die Struktur der fehlenden Werte in <code>mtcars</code>.</p>
+<div class="sourceCode" id="cb595"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb595-1"><a href="lösungen-zu-den-übungsaufgaben.html#cb595-1" tabindex="-1"></a><span class="co"># Als Tabelle</span></span>
+<span id="cb595-2"><a href="lösungen-zu-den-übungsaufgaben.html#cb595-2" tabindex="-1"></a>naniar<span class="sc">::</span><span class="fu">miss_var_summary</span>(mtcars)</span></code></pre></div>
+<pre><code>## # A tibble: 11 × 3
+##    variable n_miss pct_miss
+##    &lt;chr&gt;     &lt;int&gt;    &lt;num&gt;
+##  1 mpg           0        0
+##  2 cyl           0        0
+##  3 disp          0        0
+##  4 hp            0        0
+##  5 drat          0        0
+##  6 wt            0        0
+##  7 qsec          0        0
+##  8 vs            0        0
+##  9 am            0        0
+## 10 gear          0        0
+## 11 carb          0        0</code></pre>
+<div class="sourceCode" id="cb597"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb597-1"><a href="lösungen-zu-den-übungsaufgaben.html#cb597-1" tabindex="-1"></a>DataExplorer<span class="sc">::</span><span class="fu">introduce</span>(mtcars)</span></code></pre></div>
+<pre><code>##   rows columns discrete_columns continuous_columns
+## 1   32      11                0                 11
+##   all_missing_columns total_missing_values
+## 1                   0                    0
+##   complete_rows total_observations memory_usage
+## 1            32                352         5928</code></pre>
+<div class="sourceCode" id="cb599"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb599-1"><a href="lösungen-zu-den-übungsaufgaben.html#cb599-1" tabindex="-1"></a>SmartEDA<span class="sc">::</span><span class="fu">ExpData</span>(mtcars, <span class="at">type =</span> <span class="dv">1</span>)</span></code></pre></div>
+<pre><code>##                                           Descriptions
+## 1                                   Sample size (nrow)
+## 2                              No. of variables (ncol)
+## 3                    No. of numeric/interger variables
+## 4                              No. of factor variables
+## 5                                No. of text variables
+## 6                             No. of logical variables
+## 7                          No. of identifier variables
+## 8                                No. of date variables
+## 9             No. of zero variance variables (uniform)
+## 10               %. of variables having complete cases
+## 11   %. of variables having &gt;0% and &lt;50% missing cases
+## 12 %. of variables having &gt;=50% and &lt;90% missing cases
+## 13          %. of variables having &gt;=90% missing cases
+##        Value
+## 1         32
+## 2         11
+## 3         11
+## 4          0
+## 5          0
+## 6          0
+## 7          0
+## 8          0
+## 9          0
+## 10 100% (11)
+## 11    0% (0)
+## 12    0% (0)
+## 13    0% (0)</code></pre>
+<div class="sourceCode" id="cb601"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb601-1"><a href="lösungen-zu-den-übungsaufgaben.html#cb601-1" tabindex="-1"></a><span class="co"># Grafisch</span></span>
+<span id="cb601-2"><a href="lösungen-zu-den-übungsaufgaben.html#cb601-2" tabindex="-1"></a>naniar<span class="sc">::</span><span class="fu">vis_miss</span>(mtcars)</span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/kap4%20uebung%203b-1.png" width="672" /></p>
+<div class="sourceCode" id="cb602"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb602-1"><a href="lösungen-zu-den-übungsaufgaben.html#cb602-1" tabindex="-1"></a>DataExplorer<span class="sc">::</span><span class="fu">plot_missing</span>(mtcars)</span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/kap4%20uebung%203b-2.png" width="672" /></p>
+<p>c. Erstelle einen automatisierten EDA-Report für <code>mtcars</code>!</p>
+<p><code>dlookr::describe(mtcars)</code></p>
+<p><code>DataExplorer::create_report(mtcars)</code></p>
+</div>
+</div>
+<div id="kapitel-5-datenanalyse" class="section level2 hasAnchor" number="13.5">
+<h2><span class="header-section-number">13.5</span> Kapitel 5: Datenanalyse<a href="lösungen-zu-den-übungsaufgaben.html#kapitel-5-datenanalyse" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Um die lineare Regression zu verstehen, müssen wir keine komplizierten Daten laden. Nehmen wir an, du bist Marktanalyst und dein Kunde ist die Produktionsfirma einer Serie namens „Breaking Thrones”. Die Produktionsfirma möchte wissen, wie die Zuschauer der Serie die letzte Folge beurteilen. Du führst eine Umfrage durch und fragst die Teilnehmenden, wie zufrieden sie mit dem Staffelfinale waren, sowie nach einigen soziodemografischen Merkmalen. Hier ist dein Codebuch:</p>
+<table>
+<colgroup>
+<col width="50%" />
+<col width="50%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Variable</th>
+<th>Beschreibung</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>id</td>
+<td>Die ID der befragten Person</td>
+</tr>
+<tr class="even">
+<td>satisfaction</td>
+<td>Die Antwort auf die Frage „Wie zufrieden waren Sie mit der letzten Folge von Breaking Thrones?“, wobei 0 = vollständig unzufrieden und 10 = vollständig zufrieden</td>
+</tr>
+<tr class="odd">
+<td>age</td>
+<td>Das Alter der befragten Person</td>
+</tr>
+<tr class="even">
+<td>female</td>
+<td>Das Geschlecht der befragten Person, wobei 0 = Männlich, 1 = Weiblich</td>
+</tr>
+</tbody>
+</table>
+<p>Generieren wir die Daten:</p>
+<div class="sourceCode" id="cb603"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb603-1"><a href="lösungen-zu-den-übungsaufgaben.html#cb603-1" tabindex="-1"></a><span class="co"># Seed für Reproduzierbarkeit setzen</span></span>
+<span id="cb603-2"><a href="lösungen-zu-den-übungsaufgaben.html#cb603-2" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123</span>)  </span>
+<span id="cb603-3"><a href="lösungen-zu-den-übungsaufgaben.html#cb603-3" tabindex="-1"></a></span>
+<span id="cb603-4"><a href="lösungen-zu-den-übungsaufgaben.html#cb603-4" tabindex="-1"></a><span class="co"># Daten generieren</span></span>
+<span id="cb603-5"><a href="lösungen-zu-den-übungsaufgaben.html#cb603-5" tabindex="-1"></a>final_BT <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb603-6"><a href="lösungen-zu-den-übungsaufgaben.html#cb603-6" tabindex="-1"></a>  <span class="at">id           =</span> <span class="fu">c</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>),    </span>
+<span id="cb603-7"><a href="lösungen-zu-den-übungsaufgaben.html#cb603-7" tabindex="-1"></a>  <span class="at">satisfaction =</span> <span class="fu">round</span>(<span class="fu">rnorm</span>(<span class="dv">10</span>, <span class="at">mean =</span> <span class="dv">6</span>, <span class="at">sd =</span> <span class="fl">2.5</span>)),    </span>
+<span id="cb603-8"><a href="lösungen-zu-den-übungsaufgaben.html#cb603-8" tabindex="-1"></a>  <span class="at">age          =</span> <span class="fu">round</span>(<span class="fu">rnorm</span>(<span class="dv">10</span>, <span class="at">mean =</span> <span class="dv">25</span>, <span class="at">sd =</span> <span class="dv">5</span>)),    </span>
+<span id="cb603-9"><a href="lösungen-zu-den-übungsaufgaben.html#cb603-9" tabindex="-1"></a>  <span class="at">female       =</span> <span class="fu">rbinom</span>(<span class="dv">10</span>, <span class="dv">1</span>, <span class="fl">0.5</span>)</span>
+<span id="cb603-10"><a href="lösungen-zu-den-übungsaufgaben.html#cb603-10" tabindex="-1"></a>  )  </span>
+<span id="cb603-11"><a href="lösungen-zu-den-übungsaufgaben.html#cb603-11" tabindex="-1"></a></span>
+<span id="cb603-12"><a href="lösungen-zu-den-übungsaufgaben.html#cb603-12" tabindex="-1"></a><span class="co"># Dataframe ausgeben</span></span>
+<span id="cb603-13"><a href="lösungen-zu-den-übungsaufgaben.html#cb603-13" tabindex="-1"></a><span class="fu">print</span>(final_BT)</span></code></pre></div>
+<pre><code>##    id satisfaction age female
+## 1   1            5  31      0
+## 2   2            5  27      0
+## 3   3           10  27      0
+## 4   4            6  26      0
+## 5   5            6  22      0
+## 6   6           10  34      0
+## 7   7            7  27      0
+## 8   8            3  15      0
+## 9   9            4  29      0
+## 10 10            5  23      1</code></pre>
+<div id="übung-1-lineare-regression-mit-zwei-variablen-1" class="section level3 hasAnchor" number="13.5.1">
+<h3><span class="header-section-number">13.5.1</span> Übung 1: Lineare Regression mit zwei Variablen<a href="#%C3%BCbung-1-lineare-regression-mit-zwei-variablen-1" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Du möchtest wissen, ob das Alter einen Einfluss auf die Zufriedenheit mit der letzten Folge hat. Du führst eine lineare Regression durch.</p>
+<p>a. Berechne <span class="math inline">\(\beta_0\)</span> und <span class="math inline">\(\beta_1\)</span> von Hand.</p>
+<div class="sourceCode" id="cb605"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb605-1"><a href="lösungen-zu-den-übungsaufgaben.html#cb605-1" tabindex="-1"></a><span class="co"># Kovarianz berechnen</span></span>
+<span id="cb605-2"><a href="lösungen-zu-den-übungsaufgaben.html#cb605-2" tabindex="-1"></a>cov <span class="ot">&lt;-</span> <span class="fu">sum</span>((final_BT<span class="sc">$</span>age <span class="sc">-</span> <span class="fu">mean</span>(final_BT<span class="sc">$</span>age)) <span class="sc">*</span> </span>
+<span id="cb605-3"><a href="lösungen-zu-den-übungsaufgaben.html#cb605-3" tabindex="-1"></a>           (final_BT<span class="sc">$</span>satisfaction <span class="sc">-</span> <span class="fu">mean</span>(final_BT<span class="sc">$</span>satisfaction)))</span>
+<span id="cb605-4"><a href="lösungen-zu-den-übungsaufgaben.html#cb605-4" tabindex="-1"></a>  </span>
+<span id="cb605-5"><a href="lösungen-zu-den-übungsaufgaben.html#cb605-5" tabindex="-1"></a><span class="co"># Varianz berechnen</span></span>
+<span id="cb605-6"><a href="lösungen-zu-den-übungsaufgaben.html#cb605-6" tabindex="-1"></a>var <span class="ot">&lt;-</span> <span class="fu">sum</span>((final_BT<span class="sc">$</span>age <span class="sc">-</span> <span class="fu">mean</span>(final_BT<span class="sc">$</span>age))<span class="sc">^</span><span class="dv">2</span>)</span>
+<span id="cb605-7"><a href="lösungen-zu-den-übungsaufgaben.html#cb605-7" tabindex="-1"></a></span>
+<span id="cb605-8"><a href="lösungen-zu-den-übungsaufgaben.html#cb605-8" tabindex="-1"></a><span class="co"># beta_1 berechnen</span></span>
+<span id="cb605-9"><a href="lösungen-zu-den-übungsaufgaben.html#cb605-9" tabindex="-1"></a>beta_1 <span class="ot">&lt;-</span> cov<span class="sc">/</span>var</span>
+<span id="cb605-10"><a href="lösungen-zu-den-übungsaufgaben.html#cb605-10" tabindex="-1"></a></span>
+<span id="cb605-11"><a href="lösungen-zu-den-übungsaufgaben.html#cb605-11" tabindex="-1"></a><span class="co"># beta_1 ausgeben</span></span>
+<span id="cb605-12"><a href="lösungen-zu-den-übungsaufgaben.html#cb605-12" tabindex="-1"></a><span class="fu">print</span>(beta_1)</span></code></pre></div>
+<pre><code>## [1] 0.2466586</code></pre>
+<div class="sourceCode" id="cb607"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb607-1"><a href="lösungen-zu-den-übungsaufgaben.html#cb607-1" tabindex="-1"></a><span class="co"># beta_0 berechnen</span></span>
+<span id="cb607-2"><a href="lösungen-zu-den-übungsaufgaben.html#cb607-2" tabindex="-1"></a>beta_0 <span class="ot">&lt;-</span> <span class="fu">mean</span>(final_BT<span class="sc">$</span>satisfaction) <span class="sc">-</span> (beta_1 <span class="sc">*</span> <span class="fu">mean</span>(final_BT<span class="sc">$</span>age))</span>
+<span id="cb607-3"><a href="lösungen-zu-den-übungsaufgaben.html#cb607-3" tabindex="-1"></a></span>
+<span id="cb607-4"><a href="lösungen-zu-den-übungsaufgaben.html#cb607-4" tabindex="-1"></a><span class="co"># Beide ausgeben</span></span>
+<span id="cb607-5"><a href="lösungen-zu-den-übungsaufgaben.html#cb607-5" tabindex="-1"></a><span class="fu">print</span>(beta_0)</span></code></pre></div>
+<pre><code>## [1] -0.3377886</code></pre>
+<div class="sourceCode" id="cb609"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb609-1"><a href="lösungen-zu-den-übungsaufgaben.html#cb609-1" tabindex="-1"></a><span class="fu">print</span>(beta_1)</span></code></pre></div>
+<pre><code>## [1] 0.2466586</code></pre>
+<p>b. Berechne <span class="math inline">\(\beta_0\)</span> und <span class="math inline">\(\beta_1\)</span> automatisch mit R.</p>
+<div class="sourceCode" id="cb611"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb611-1"><a href="lösungen-zu-den-übungsaufgaben.html#cb611-1" tabindex="-1"></a><span class="co"># Automatisch berechnen</span></span>
+<span id="cb611-2"><a href="lösungen-zu-den-übungsaufgaben.html#cb611-2" tabindex="-1"></a><span class="fu">summary</span>(m1 <span class="ot">&lt;-</span> <span class="fu">lm</span>(satisfaction <span class="sc">~</span> age, </span>
+<span id="cb611-3"><a href="lösungen-zu-den-übungsaufgaben.html#cb611-3" tabindex="-1"></a>                 <span class="at">data =</span> final_BT))</span></code></pre></div>
+<pre><code>## 
+## Call:
+## lm(formula = satisfaction ~ age, data = final_BT)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -2.8153 -1.0820 -0.2053  0.8530  3.6780 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(&gt;|t|)  
+## (Intercept)  -0.3378     3.4796  -0.097   0.9251  
+## age           0.2467     0.1310   1.883   0.0964 .
+## ---
+## Signif. codes:  
+## 0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 2.058 on 8 degrees of freedom
+## Multiple R-squared:  0.3072, Adjusted R-squared:  0.2206 
+## F-statistic: 3.547 on 1 and 8 DF,  p-value: 0.0964</code></pre>
+<p>c. Interpretiere alle Größen deines Ergebnisses: Standardfehler, t-Statistik, p-Wert, Konfidenzintervalle und das <span class="math inline">\(R^2\)</span>.</p>
+<p>d. Prüfe auf einflussreiche Ausreißer.</p>
+<div class="sourceCode" id="cb613"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb613-1"><a href="lösungen-zu-den-übungsaufgaben.html#cb613-1" tabindex="-1"></a><span class="co"># Cook&#39;s Distance mit einer eingebauten Funktion berechnen</span></span>
+<span id="cb613-2"><a href="lösungen-zu-den-übungsaufgaben.html#cb613-2" tabindex="-1"></a>final_BT<span class="sc">$</span>cooks_distance <span class="ot">&lt;-</span> <span class="fu">cooks.distance</span>(m1) </span>
+<span id="cb613-3"><a href="lösungen-zu-den-übungsaufgaben.html#cb613-3" tabindex="-1"></a></span>
+<span id="cb613-4"><a href="lösungen-zu-den-übungsaufgaben.html#cb613-4" tabindex="-1"></a><span class="co"># Plotten</span></span>
+<span id="cb613-5"><a href="lösungen-zu-den-übungsaufgaben.html#cb613-5" tabindex="-1"></a><span class="fu">ggplot</span>(final_BT, <span class="fu">aes</span>(<span class="at">x =</span> age, <span class="at">y =</span> cooks_distance)) <span class="sc">+</span> </span>
+<span id="cb613-6"><a href="lösungen-zu-den-übungsaufgaben.html#cb613-6" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">colour =</span> <span class="st">&quot;darkgreen&quot;</span>, <span class="at">size =</span> <span class="dv">3</span>, <span class="at">alpha =</span> <span class="fl">0.5</span>) <span class="sc">+</span> </span>
+<span id="cb613-7"><a href="lösungen-zu-den-übungsaufgaben.html#cb613-7" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">y =</span> <span class="st">&quot;Cook&#39;s Distance&quot;</span>, <span class="at">x =</span> <span class="st">&quot;Unabhängige Variable&quot;</span>) <span class="sc">+</span> </span>
+<span id="cb613-8"><a href="lösungen-zu-den-übungsaufgaben.html#cb613-8" tabindex="-1"></a>  <span class="fu">geom_hline</span>(<span class="at">yintercept =</span> <span class="dv">1</span>, <span class="at">linetype =</span> <span class="st">&quot;dashed&quot;</span>) <span class="sc">+</span> </span>
+<span id="cb613-9"><a href="lösungen-zu-den-übungsaufgaben.html#cb613-9" tabindex="-1"></a>  <span class="fu">theme_bw</span>()</span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/kap5%20uebung%201d-1.png" width="672" /></p>
+</div>
+<div id="übung-2-multivariate-regression-1" class="section level3 hasAnchor" number="13.5.2">
+<h3><span class="header-section-number">13.5.2</span> Übung 2: Multivariate Regression<a href="#%C3%BCbung-2-multivariate-regression-1" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>a. Füge die Variable <code>female</code> zu deiner Regression hinzu.</p>
+<div class="sourceCode" id="cb614"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb614-1"><a href="lösungen-zu-den-übungsaufgaben.html#cb614-1" tabindex="-1"></a><span class="fu">summary</span>(m1 <span class="ot">&lt;-</span> <span class="fu">lm</span>(satisfaction <span class="sc">~</span> age <span class="sc">+</span> female, </span>
+<span id="cb614-2"><a href="lösungen-zu-den-übungsaufgaben.html#cb614-2" tabindex="-1"></a>                 <span class="at">data =</span> final_BT))</span></code></pre></div>
+<pre><code>## 
+## Call:
+## lm(formula = satisfaction ~ age + female, data = final_BT)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -2.8401 -1.1312 -0.0574  0.8001  3.6435 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(&gt;|t|)
+## (Intercept)  -0.1712     3.8481  -0.044    0.966
+## age           0.2418     0.1429   1.692    0.134
+## female       -0.3895     2.3662  -0.165    0.874
+## 
+## Residual standard error: 2.196 on 7 degrees of freedom
+## Multiple R-squared:  0.3099, Adjusted R-squared:  0.1127 
+## F-statistic: 1.571 on 2 and 7 DF,  p-value: 0.2731</code></pre>
+<p>b. Interpretiere die Ausgabe. Was hat sich verändert? Was ist gleich geblieben?</p>
+<p>c. Erstelle einen Interaktionseffekt zwischen <code>age</code> und <code>female</code> und interpretiere ihn!</p>
+<div class="sourceCode" id="cb616"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb616-1"><a href="lösungen-zu-den-übungsaufgaben.html#cb616-1" tabindex="-1"></a><span class="fu">summary</span>(m2 <span class="ot">&lt;-</span> <span class="fu">lm</span>(satisfaction <span class="sc">~</span> age <span class="sc">+</span> female <span class="sc">+</span> age<span class="sc">:</span>female, </span>
+<span id="cb616-2"><a href="lösungen-zu-den-übungsaufgaben.html#cb616-2" tabindex="-1"></a>                 <span class="at">data =</span> final_BT))</span></code></pre></div>
+<pre><code>## 
+## Call:
+## lm(formula = satisfaction ~ age + female + age:female, data = final_BT)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -2.8401 -1.1312 -0.0574  0.8001  3.6435 
+## 
+## Coefficients: (1 not defined because of singularities)
+##             Estimate Std. Error t value Pr(&gt;|t|)
+## (Intercept)  -0.1712     3.8481  -0.044    0.966
+## age           0.2418     0.1429   1.692    0.134
+## female       -0.3895     2.3662  -0.165    0.874
+## age:female        NA         NA      NA       NA
+## 
+## Residual standard error: 2.196 on 7 degrees of freedom
+## Multiple R-squared:  0.3099, Adjusted R-squared:  0.1127 
+## F-statistic: 1.571 on 2 and 7 DF,  p-value: 0.2731</code></pre>
+<p>d. Plotte die Interaktion und gestalte den Plot ansprechend.</p>
+<div class="sourceCode" id="cb618"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb618-1"><a href="lösungen-zu-den-übungsaufgaben.html#cb618-1" tabindex="-1"></a><span class="fu">plot_model</span>(m2, <span class="at">type =</span> <span class="st">&quot;int&quot;</span>) <span class="sc">+</span></span>
+<span id="cb618-2"><a href="lösungen-zu-den-übungsaufgaben.html#cb618-2" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">breaks =</span> <span class="fu">seq</span>(<span class="dv">0</span>, <span class="dv">60</span>, <span class="dv">1</span>)) <span class="sc">+</span> </span>
+<span id="cb618-3"><a href="lösungen-zu-den-übungsaufgaben.html#cb618-3" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;Zusammenhang von Alter und Geschlecht auf die Zufriedenheit mit BT.&quot;</span>,</span>
+<span id="cb618-4"><a href="lösungen-zu-den-übungsaufgaben.html#cb618-4" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">&quot;Alter&quot;</span>, </span>
+<span id="cb618-5"><a href="lösungen-zu-den-übungsaufgaben.html#cb618-5" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">&quot;Zufriedenheit&quot;</span>) <span class="sc">+</span></span>
+<span id="cb618-6"><a href="lösungen-zu-den-übungsaufgaben.html#cb618-6" tabindex="-1"></a>  <span class="fu">scale_color_manual</span>(</span>
+<span id="cb618-7"><a href="lösungen-zu-den-übungsaufgaben.html#cb618-7" tabindex="-1"></a>    <span class="at">values =</span> <span class="fu">c</span>(<span class="st">&quot;red&quot;</span>, <span class="st">&quot;blue&quot;</span>),</span>
+<span id="cb618-8"><a href="lösungen-zu-den-übungsaufgaben.html#cb618-8" tabindex="-1"></a>    <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">&quot;Weiblich&quot;</span>, <span class="st">&quot;Männlich&quot;</span>)</span>
+<span id="cb618-9"><a href="lösungen-zu-den-übungsaufgaben.html#cb618-9" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb618-10"><a href="lösungen-zu-den-übungsaufgaben.html#cb618-10" tabindex="-1"></a>  <span class="fu">theme_sjplot</span>() <span class="sc">+</span></span>
+<span id="cb618-11"><a href="lösungen-zu-den-übungsaufgaben.html#cb618-11" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">&quot;bottom&quot;</span>, </span>
+<span id="cb618-12"><a href="lösungen-zu-den-übungsaufgaben.html#cb618-12" tabindex="-1"></a>        <span class="at">legend.title =</span> <span class="fu">element_blank</span>())</span></code></pre></div>
+<pre><code>## Warning in predict.lm(model, newdata = data_grid, type
+## = &quot;response&quot;, se.fit = se, : prediction from
+## rank-deficient fit; attr(*, &quot;non-estim&quot;) has doubtful
+## cases</code></pre>
+<pre><code>## Scale for colour is already present.
+## Adding another scale for colour, which will replace the
+## existing scale.</code></pre>
+<p><img src="bookdownproj_files/figure-html/kap5%20uebung%202d-1.png" width="672" /></p>
+</div>
+</div>
+<div id="kapitel-6-schleifen-und-funktionen" class="section level2 hasAnchor" number="13.6">
+<h2><span class="header-section-number">13.6</span> Kapitel 6: Schleifen und Funktionen<a href="lösungen-zu-den-übungsaufgaben.html#kapitel-6-schleifen-und-funktionen" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="übung-1-eine-schleife-schreiben-1" class="section level3 hasAnchor" number="13.6.1">
+<h3><span class="header-section-number">13.6.1</span> Übung 1: Eine Schleife schreiben<a href="#%C3%BCbung-1-eine-schleife-schreiben-1" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Schreibe eine <code>for</code>-Schleife, die das Quadrat jeder Zahl von 1 bis 10 ausgibt.</p>
+<div class="sourceCode" id="cb621"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb621-1"><a href="lösungen-zu-den-übungsaufgaben.html#cb621-1" tabindex="-1"></a><span class="co"># Objekt für einen besseren Arbeitsablauf zuweisen</span></span>
+<span id="cb621-2"><a href="lösungen-zu-den-übungsaufgaben.html#cb621-2" tabindex="-1"></a>number <span class="ot">&lt;-</span> <span class="dv">10</span></span>
+<span id="cb621-3"><a href="lösungen-zu-den-übungsaufgaben.html#cb621-3" tabindex="-1"></a></span>
+<span id="cb621-4"><a href="lösungen-zu-den-übungsaufgaben.html#cb621-4" tabindex="-1"></a><span class="co"># Die Schleife</span></span>
+<span id="cb621-5"><a href="lösungen-zu-den-übungsaufgaben.html#cb621-5" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>number) {</span>
+<span id="cb621-6"><a href="lösungen-zu-den-übungsaufgaben.html#cb621-6" tabindex="-1"></a>  <span class="fu">print</span>(i<span class="sc">^</span><span class="dv">2</span>)</span>
+<span id="cb621-7"><a href="lösungen-zu-den-übungsaufgaben.html#cb621-7" tabindex="-1"></a>}</span></code></pre></div>
+<pre><code>## [1] 1
+## [1] 4
+## [1] 9
+## [1] 16
+## [1] 25
+## [1] 36
+## [1] 49
+## [1] 64
+## [1] 81
+## [1] 100</code></pre>
+</div>
+<div id="übung-2-eine-funktion-schreiben-1" class="section level3 hasAnchor" number="13.6.2">
+<h3><span class="header-section-number">13.6.2</span> Übung 2: Eine Funktion schreiben<a href="#%C3%BCbung-2-eine-funktion-schreiben-1" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Schreibe eine Funktion, die den Input x nimmt und ihn quadriert:</p>
+<div class="sourceCode" id="cb623"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb623-1"><a href="lösungen-zu-den-übungsaufgaben.html#cb623-1" tabindex="-1"></a><span class="co"># Eine Funktion zum Quadrieren definieren</span></span>
+<span id="cb623-2"><a href="lösungen-zu-den-übungsaufgaben.html#cb623-2" tabindex="-1"></a>sq <span class="ot">&lt;-</span> <span class="cf">function</span>(x) {          </span>
+<span id="cb623-3"><a href="lösungen-zu-den-übungsaufgaben.html#cb623-3" tabindex="-1"></a>  x_squared <span class="ot">&lt;-</span> x<span class="sc">^</span><span class="dv">2</span></span>
+<span id="cb623-4"><a href="lösungen-zu-den-übungsaufgaben.html#cb623-4" tabindex="-1"></a>  <span class="fu">return</span>(x_squared)</span>
+<span id="cb623-5"><a href="lösungen-zu-den-übungsaufgaben.html#cb623-5" tabindex="-1"></a>}  </span>
+<span id="cb623-6"><a href="lösungen-zu-den-übungsaufgaben.html#cb623-6" tabindex="-1"></a></span>
+<span id="cb623-7"><a href="lösungen-zu-den-übungsaufgaben.html#cb623-7" tabindex="-1"></a><span class="co"># Einen Vektor von 1 bis 10 definieren</span></span>
+<span id="cb623-8"><a href="lösungen-zu-den-übungsaufgaben.html#cb623-8" tabindex="-1"></a>numbers <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>)   </span>
+<span id="cb623-9"><a href="lösungen-zu-den-übungsaufgaben.html#cb623-9" tabindex="-1"></a></span>
+<span id="cb623-10"><a href="lösungen-zu-den-übungsaufgaben.html#cb623-10" tabindex="-1"></a><span class="co"># Die Funktion anwenden</span></span>
+<span id="cb623-11"><a href="lösungen-zu-den-übungsaufgaben.html#cb623-11" tabindex="-1"></a><span class="fu">sq</span>(numbers)</span></code></pre></div>
+</div>
+<div id="übung-3-die-mitternachtsformel-1" class="section level3 hasAnchor" number="13.6.3">
+<h3><span class="header-section-number">13.6.3</span> Übung 3: Die Mitternachtsformel<a href="#%C3%BCbung-3-die-mitternachtsformel-1" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Das ist die Mitternachtsformel, aufgeteilt in zwei Gleichungen:</p>
+<p><span class="math inline">\(x_{1,2} = \frac{-b \pm \sqrt{b^2 - 4ac}}{2a}\)</span></p>
+<p>Schreibe <strong>eine Funktion</strong> für die Mitternachtsformel, sodass die Ausgabe <span class="math inline">\(x_1\)</span> und <span class="math inline">\(x_2\)</span> sind. Teste sie mit a = 2, b = -6, c = -8.</p>
+<p><strong>Hinweis:</strong> Du musst die Formel in zwei Gleichungen mit zwei Ausgaben aufteilen.</p>
+<div class="sourceCode" id="cb624"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb624-1"><a href="lösungen-zu-den-übungsaufgaben.html#cb624-1" tabindex="-1"></a>mnf <span class="ot">&lt;-</span> <span class="cf">function</span>(a, b, c) {</span>
+<span id="cb624-2"><a href="lösungen-zu-den-übungsaufgaben.html#cb624-2" tabindex="-1"></a>  </span>
+<span id="cb624-3"><a href="lösungen-zu-den-übungsaufgaben.html#cb624-3" tabindex="-1"></a>  x_1 <span class="ot">&lt;-</span> (<span class="sc">-</span>b <span class="sc">+</span> <span class="fu">sqrt</span>(b<span class="sc">^</span><span class="dv">2</span> <span class="sc">-</span> <span class="dv">4</span><span class="sc">*</span>a<span class="sc">*</span>c)) <span class="sc">/</span> (<span class="dv">2</span><span class="sc">*</span>a)</span>
+<span id="cb624-4"><a href="lösungen-zu-den-übungsaufgaben.html#cb624-4" tabindex="-1"></a>  <span class="fu">print</span>(x_1)</span>
+<span id="cb624-5"><a href="lösungen-zu-den-übungsaufgaben.html#cb624-5" tabindex="-1"></a>  </span>
+<span id="cb624-6"><a href="lösungen-zu-den-übungsaufgaben.html#cb624-6" tabindex="-1"></a>  x_2 <span class="ot">&lt;-</span> (<span class="sc">-</span>b <span class="sc">-</span> <span class="fu">sqrt</span>(b<span class="sc">^</span><span class="dv">2</span> <span class="sc">-</span> <span class="dv">4</span><span class="sc">*</span>a<span class="sc">*</span>c)) <span class="sc">/</span> (<span class="dv">2</span><span class="sc">*</span>a)</span>
+<span id="cb624-7"><a href="lösungen-zu-den-übungsaufgaben.html#cb624-7" tabindex="-1"></a>  <span class="fu">print</span>(x_2)</span>
+<span id="cb624-8"><a href="lösungen-zu-den-übungsaufgaben.html#cb624-8" tabindex="-1"></a>  </span>
+<span id="cb624-9"><a href="lösungen-zu-den-übungsaufgaben.html#cb624-9" tabindex="-1"></a>}   </span>
+<span id="cb624-10"><a href="lösungen-zu-den-übungsaufgaben.html#cb624-10" tabindex="-1"></a>  </span>
+<span id="cb624-11"><a href="lösungen-zu-den-übungsaufgaben.html#cb624-11" tabindex="-1"></a><span class="co"># Teste mit diesen Zahlen (andere Zahlen könnten einen Fehler werfen,</span></span>
+<span id="cb624-12"><a href="lösungen-zu-den-übungsaufgaben.html#cb624-12" tabindex="-1"></a><span class="co"># wenn die Zahl unter der Wurzel negativ ist)</span></span>
+<span id="cb624-13"><a href="lösungen-zu-den-übungsaufgaben.html#cb624-13" tabindex="-1"></a><span class="fu">mnf</span>(<span class="dv">2</span>, <span class="dv">20</span>, <span class="dv">8</span>)</span></code></pre></div>
+
+</div>
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="weitere-erläuterungen.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": false,
+"twitter": false,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": {}
+},
+"fontsettings": null,
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": null,
+"search": null,
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

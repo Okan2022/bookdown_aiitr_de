@@ -1,208 +1,230 @@
-# Further Explanations
+# Weitere Erläuterungen
 
-In this Chapter we start into the main strength of R: Data Analysis. After cleaning our data we are ready to analyze it, but it is always recommend to get an overview of our data with exploratory data analysis. This yields the advantage that we can detect first trends and potential problems with our data. Furthermore, we will get a better understand of the Data Generating Process and how data is generated.
+In diesem Kapitel steigen wir in die Kernstärke von R ein: die Datenanalyse. Nachdem wir unsere Daten bereinigt haben, sind wir bereit zur Analyse – aber es wird immer empfohlen, zunächst mit einer explorativen Datenanalyse einen Überblick über die Daten zu gewinnen. Das hat den Vorteil, dass wir erste Trends und potenzielle Probleme in den Daten erkennen können. Außerdem bekommen wir ein besseres Verständnis des datengenerierenden Prozesses.
 
-Let us tart with loading packages and you will see, that we are loading a lot of packages due to the fact, that R is a statistical analysis software and therefore it is only natural that Statisticians and Data Scientists, who use R, are also writing packages to (1) make their own life easier, but also (2) further developing R.
-
-```{r loading packages eda}
+Beginnen wir mit dem Laden der Pakete. Ihr werdet feststellen, dass wir viele Pakete laden – das liegt daran, dass R eine statistische Analysesoftware ist und es daher nur natürlich ist, dass Statistiker und Data Scientists, die R verwenden, auch Pakete schreiben, um (1) ihre eigene Arbeit zu erleichtern und (2) R weiterzuentwickeln.
+```{r pakete laden eda}
 pacman::p_load("dplyr", "tidyr", "ggpubr", "gapminder",
                "kableExtra", "car")
 ```
 
-## Probability Theory
+## Funktion definieren (für später)
+```{r}
+#Creating Function for Kable Table 
+table_ovb <- function(model1, model2) {
+  # Determine the maximum number of coefficients between the two models
+  max_coef <- max(length(model1$coefficients), length(model2$coefficients))
+  
+  # Initialize placeholders for coefficients
+  place_holder1 <- rep(NA, max_coef)
+  place_holder2 <- rep(NA, max_coef)
+  
+  # Replace the placeholders with coefficients from the models
+  place_holder1[1:length(model1$coefficients)] <- model1$coefficients
+  place_holder2[1:length(model2$coefficients)] <- model2$coefficients
+  
+  # Create a data frame with coefficients from both models
+  dt <- data.frame(place_holder1,place_holder2) 
+  
+  # Set row and column names
+  colnames(dt) <- c("Model without Temperature", "Model with Temperature")
+  rownames(dt) <- c("Intercept", "Ice Cream Sales", "Temperature")
+  
+  # Display the table
+  
+  dt %>%
+    kbl() %>%
+    kable_styling()
+  
+}
+```
 
-**Before diving into Exploratory Data Analysis and Linear Regression, it's worth taking a moment to look at Probability Theory.** This is crucial because probability forms the foundation of statistics: it allows us to make statements that include uncertainty. Instead of saying something definite like *"It will rain tomorrow,"* probability allows us to say, *"There is a 70% chance of rain tomorrow."* That means you might want to take an umbrella — but there’s still a 30% chance you won’t need it.
+## Wahrscheinlichkeitstheorie
 
-### Random Variable
+**Bevor wir in die explorative Datenanalyse und lineare Regression eintauchen, lohnt es sich, einen Moment bei der Wahrscheinlichkeitstheorie zu verweilen.** Diese ist von entscheidender Bedeutung, da Wahrscheinlichkeit die Grundlage der Statistik bildet: Sie ermöglicht es uns, Aussagen zu treffen, die Unsicherheit einschließen. Anstatt etwas Definitives wie *„Es wird morgen regnen"* zu sagen, erlaubt uns die Wahrscheinlichkeitstheorie zu sagen: *„Es gibt eine 70-prozentige Chance auf Regen morgen."* Das bedeutet, ihr möchtet vielleicht einen Regenschirm mitnehmen – aber es besteht immer noch eine 30-prozentige Chance, dass ihr ihn nicht braucht.
 
-We are interested in Data! And Data is nothing more than a bunch of **Random Variables.** Technically speaking, a Random Variable is a numerical outcome of a random process or experiment. Informally, let us say you want to collect Data about your family, just image all of them and now randomly pick some information about them, their height, their age, gender, glasses or not, cooking abilities, anything, and now you just need to find a system of assigning a number (e.g. height in cm, age in years,...) and et violà you collected a random variable. Note that a random variable is the mutually exclusive outcome of a random process.
+### Zufallsvariable
 
-Rolling a dice and getting the result of the dice could be a random variable, let us role the dice and say we got a 3:
+Wir interessieren uns für Daten! Und Daten sind nichts anderes als eine Menge von **Zufallsvariablen.** Technisch gesehen ist eine Zufallsvariable ein numerisches Ergebnis eines Zufallsprozesses oder Experiments. Informell ausgedrückt: Stellt euch vor, ihr möchtet Daten über eure Familie sammeln. Denkt an alle Familienmitglieder und wählt zufällig einige Informationen über sie aus – ihre Körpergröße, ihr Alter, ihr Geschlecht, ob sie eine Brille tragen, ihre Kochkünste, irgendetwas. Nun müsst ihr nur noch ein System finden, um jedem Merkmal eine Zahl zuzuweisen (z. B. Körpergröße in cm, Alter in Jahren...) – und schon habt ihr eine Zufallsvariable erfasst. Beachtet, dass eine Zufallsvariable das sich gegenseitig ausschließende Ergebnis eines Zufallsprozesses ist.
 
-```{r rolling one dice}
-#rolling one dice
+Einen Würfel werfen und das Ergebnis erhalten könnte eine Zufallsvariable sein. Werfen wir den Würfel und nehmen an, wir bekommen eine 3:
+```{r einen wuerfel werfen}
+# Einen Würfel werfen
 dice_role <- 3
 print(dice_role)
 ```
 
-We now collected our first random variable. On its own, a random variable is not really insightful, but what if we do not collect one random variable, but two? Or three? Or thousand?
+Wir haben nun unsere erste Zufallsvariable erfasst. Eine einzelne Zufallsvariable ist für sich genommen nicht sehr aufschlussreich – aber was, wenn wir nicht eine Zufallsvariable erfassen, sondern zwei? Oder drei? Oder tausend?
 
-#### Discrete and Continuous Variables
+#### Diskrete und stetige Variablen
 
-Before answering the question above, there is an important distinction to make between the types of random variables we can collect. There are **discrete** and **continuous variables**:
+Bevor wir die obige Frage beantworten, müssen wir eine wichtige Unterscheidung zwischen den Typen von Zufallsvariablen treffen:
 
--   A **discrete variable** can take on a **finite or countably infinite** set of distinct values, usually integers. These values are **separated** and cannot take on values in between. For example: Number of children, coin flips, number of goals.
+-   Eine **diskrete Variable** kann eine **endliche oder abzählbar unendliche** Menge von verschiedenen Werten annehmen – in der Regel ganze Zahlen. Diese Werte sind **getrennt** und können keine Werte dazwischen annehmen. Beispiele: Anzahl der Kinder, Münzwürfe, Anzahl der Tore.
 
--   A **continuous variable** can take on **any value** within a given range, including **fractions and decimals**. Between any two values, there are **infinitely many** possible values. For example: Height, weight, temperature, time.
+-   Eine **stetige Variable** kann **jeden Wert** innerhalb eines bestimmten Bereichs annehmen, einschließlich **Brüche und Dezimalzahlen**. Zwischen zwei beliebigen Werten gibt es **unendlich viele** mögliche Werte. Beispiele: Körpergröße, Gewicht, Temperatur, Zeit.
 
-#### Population vs Sample Distribution
+#### Populations- vs. Stichprobenverteilung
 
-Another thing to clarify before going on with Probability Distributions, is the difference between Populations and Samples.
+Eine weitere wichtige Unterscheidung, bevor wir mit den Wahrscheinlichkeitsverteilungen fortfahren, ist der Unterschied zwischen Populationen und Stichproben.
 
--   **Population**: The population is the entire group we are theoretically interested in studying, based on our research question. For example, if we want to know the **average height of German women**, then the **population** consists of **all German women**. The **population mean** is the true average height of all German women.
+-   **Population**: Die Population ist die gesamte Gruppe, die wir basierend auf unserer Forschungsfrage theoretisch untersuchen möchten. Wenn wir zum Beispiel die **durchschnittliche Körpergröße deutscher Frauen** ermitteln wollen, besteht die **Population** aus **allen deutschen Frauen**. Der **Populationsmittelwert** ist die wahre durchschnittliche Körpergröße aller deutschen Frauen.
 
--   **Sample:** Asking every **German woman** (42.3 million, according to the Federal Office of Statistics, 2023) would indeed be impractical. Instead, we use **statistical sampling** to gather data from a smaller, more manageable subset of the population. **Probability theory** helps ensure that this sample is representative of the entire population.
+-   **Stichprobe:** Jede **deutsche Frau** zu befragen (42,3 Millionen laut Statistischem Bundesamt, 2023) wäre natürlich unpraktisch. Stattdessen verwenden wir **statistische Stichprobenverfahren**, um Daten von einer kleineren, handhabbareren Teilmenge der Population zu erheben. Die **Wahrscheinlichkeitstheorie** hilft sicherzustellen, dass diese Stichprobe repräsentativ für die gesamte Population ist.
 
-    For the sample to be representative of the population, it needs to meet two key criteria:
+    Damit die Stichprobe repräsentativ ist, muss sie zwei wichtige Kriterien erfüllen:
 
-    1.  **Sample Size:** The sample must be large enough to accurately reflect the population's characteristics.
+    1.  **Stichprobengröße:** Die Stichprobe muss groß genug sein, um die Merkmale der Population genau widerzuspiegeln.
 
-    2.  **Randomness:** Every individual in the population must have an equal chance of being selected for the sample. This ensures that the sample is **random** and not biased in any way.
+    2.  **Zufälligkeit:** Jede Person in der Population muss die gleiche Chance haben, für die Stichprobe ausgewählt zu werden. Dies stellt sicher, dass die Stichprobe **zufällig** und nicht verzerrt ist.
 
-    When these conditions are met, we can confidently generalize the findings from the sample to the larger population. For example, we calculate the **sample mean** (the average of the sample). This is the true value for the sample itself, but we use it to make an inference about the **population mean**.
+    Wenn diese Bedingungen erfüllt sind, können wir die Erkenntnisse aus der Stichprobe auf die größere Population verallgemeinern. Wir berechnen beispielsweise den **Stichprobenmittelwert** (den Durchschnitt der Stichprobe). Das ist der wahre Wert für die Stichprobe selbst, aber wir verwenden ihn, um einen Rückschluss auf den **Populationsmittelwert** zu ziehen.
 
-    However, the sample mean will not always be exactly equal to the population mean. This is because of **sampling variability** — there's always some random variation in the sample that can cause deviations from the population mean.
+    Der Stichprobenmittelwert wird jedoch nicht immer exakt gleich dem Populationsmittelwert sein. Das liegt an der **Stichprobenvariabilität** – es gibt immer eine gewisse zufällige Variation in der Stichprobe, die zu Abweichungen vom Populationsmittelwert führen kann.
 
-    Despite this, **if the sample is large enough** and **chosen randomly**, the sample mean will tend to be **close** to the population mean on average, and the difference between them decreases as the sample size increases.
+    Dennoch: **Wenn die Stichprobe groß genug** ist und **zufällig ausgewählt** wurde, wird der Stichprobenmittelwert im Durchschnitt **nahe** am Populationsmittelwert liegen. Die Differenz zwischen beiden nimmt mit zunehmender Stichprobengröße ab.
 
-The difference of population and sample is crucial and will be important in the later section of this chapter!
+Der Unterschied zwischen Population und Stichprobe ist entscheidend und wird im späteren Verlauf dieses Kapitels wichtig sein!
 
-### Probability Distributions
+### Wahrscheinlichkeitsverteilungen
 
-#### Probability Mass Functions (PMF)
+#### Wahrscheinlichkeitsmassenfunktionen (PMF)
 
-##### Uniform Distributions
+##### Gleichverteilungen
 
-We can let **R roll the dice for us** using the `sample()` function. This function takes in the range of possible outcomes, the number of observations to draw, and some additional options (which we won’t worry about for now):
-
-```{r sampling the dice}
+Wir können **R den Würfel für uns werfen lassen**, indem wir die Funktion `sample()` verwenden. Diese Funktion nimmt den Bereich der möglichen Ergebnisse, die Anzahl der zu ziehenden Beobachtungen und einige zusätzliche Optionen entgegen (um die wir uns hier nicht kümmern müssen):
+```{r wuerfel simulieren}
 dice_rolls <- data.frame(
   roll = sample(c(1:6), 1000, replace = TRUE)
 )
 ```
 
-This simulates rolling a fair six-sided die 1,000 times.
+Dies simuliert das Werfen eines fairen sechsseitigen Würfels 1.000-mal.
 
-Let us plot it:
-
-```{r simple dice rolls}
-# Plot with ggplot
+Stellen wir das grafisch dar:
+```{r einfache wuerfelwuerfe}
+# Plot mit ggplot
 ggplot(dice_rolls, aes(x = factor(roll))) +
   geom_bar(fill = "#89CFF0", color = "gray") +
   labs(
-    title = "Distribution of 1,000 Dice Rolls",
-    x = "Dice Face",
-    y = "Frequency"
+    title = "Verteilung von 1.000 Würfelwürfen",
+    x = "Würfelseite",
+    y = "Häufigkeit"
   ) +
   theme_minimal()
 ```
 
-What we’ve created here is called a **distribution of a discrete variable**. A **discrete variable** has a countable number of distinct outcomes. In this case, our die can only land on one of six values: 1 through 6 — nothing in between.
+Was wir hier erstellt haben, nennt sich **Verteilung einer diskreten Variable**. Eine **diskrete Variable** hat eine abzählbare Anzahl von verschiedenen Ergebnissen. In unserem Fall kann der Würfel nur auf einem von sechs Werten landen: 1 bis 6 – nichts dazwischen.
 
-This explicit type of distribution is called uniform distribution. A **uniform distribution** is one in which **all outcomes are equally likely** — in our case, each face of the die (1 through 6) has the same probability of occurring. Thus, the probability of one outcome is just 1/n, thus 1/6 for each outcome. Let us plot that as well:
-
-```{r generating probabilities}
-# Define the outcomes and their corresponding probabilities
+Dieser spezifische Verteilungstyp heißt Gleichverteilung. Eine **Gleichverteilung** ist eine Verteilung, bei der **alle Ergebnisse gleich wahrscheinlich** sind. In unserem Fall hat jede Seite des Würfels (1 bis 6) die gleiche Wahrscheinlichkeit. Die Wahrscheinlichkeit eines Ergebnisses beträgt also 1/n, also 1/6 für jedes Ergebnis. Stellen wir auch das grafisch dar:
+```{r wahrscheinlichkeiten berechnen}
+# Ergebnisse und die entsprechenden Wahrscheinlichkeiten definieren
 uniform_dis <- data.frame(
   Outcome = factor(1:6),
   Probability = rep(1/6, 6)
 )
 
-# Plot it
+# Plotten
 ggplot(uniform_dis, aes(x = Outcome, y = Probability)) +
   geom_point() +
   labs(
-    title = "Uniform Probability Distribution of a Fair Die",
-    x = "Die Face",
-    y = "Probability"
+    title = "Gleichmäßige Wahrscheinlichkeitsverteilung eines fairen Würfels",
+    x = "Würfelseite",
+    y = "Wahrscheinlichkeit"
   ) +
   theme_minimal()
 ```
 
-This a so-called Probability Mass Function (PMF). This is the term for probability distributions of discrete variables. It is useful since we can determine the probability of an event with it, for example the probability of getting 3:
+Dies ist eine sogenannte Wahrscheinlichkeitsmassenfunktion (PMF). Das ist der Begriff für Wahrscheinlichkeitsverteilungen diskreter Variablen. Sie ist nützlich, da wir damit die Wahrscheinlichkeit eines Ereignisses bestimmen können, zum Beispiel die Wahrscheinlichkeit, eine 3 zu würfeln:
 
 $$
 P(X = 3) = \frac{1}{6}
 $$
 
-What if we start to cumulate the probabilities, like in the following table:
+Was passiert, wenn wir die Wahrscheinlichkeiten kumulieren, wie in der folgenden Tabelle:
 
-| Outcome                    | 1   | 2   | 3   | 4   | 5   | 6   |
-|----------------------------|-----|-----|-----|-----|-----|-----|
-| **Probability**            | 1/6 | 1/6 | 1/6 | 1/6 | 1/6 | 1/6 |
-| **Cumulative Probability** | 1/6 | 2/6 | 3/6 | 4/6 | 5/6 | 1   |
+| Ergebnis                       | 1   | 2   | 3   | 4   | 5   | 6   |
+|--------------------------------|-----|-----|-----|-----|-----|-----|
+| **Wahrscheinlichkeit**         | 1/6 | 1/6 | 1/6 | 1/6 | 1/6 | 1/6 |
+| **Kumulierte Wahrscheinlichkeit** | 1/6 | 2/6 | 3/6 | 4/6 | 5/6 | 1   |
 
-We can plot the cumulative Probability by calculating it with the `cumsum()` function:
-
-```{r cumsum}
-# Calculating the cumsum
+Wir können die kumulierte Wahrscheinlichkeit mit der Funktion `cumsum()` berechnen und plotten:
+```{r kumulative summe}
+# Kumulative Summe berechnen
 uniform_dis$cumsum <- cumsum(uniform_dis$Probability)
 
-# Plot it
+# Plotten
 ggplot(uniform_dis, aes(x = Outcome, y = cumsum)) +
   geom_point() +
   labs(
-    title = "Cumulative Distribution of a Fair Die",
-    x = "Die Face",
-    y = "Probability"
+    title = "Kumulative Verteilung eines fairen Würfels",
+    x = "Würfelseite",
+    y = "Wahrscheinlichkeit"
   ) +
   ylim(0,1) +
   theme_minimal()
 ```
 
-With this graph we can directly see the cumulative distribution for several outcomes, for example the cumulative probability for the outcome 3 is 0.5, thus 50%, so with a 50% probability I will get either 1, 2 or 3.
+Mit diesem Graphen können wir direkt die kumulierte Verteilung für mehrere Ergebnisse ablesen: Die kumulierte Wahrscheinlichkeit für das Ergebnis 3 beträgt 0,5 – also 50 %. Das bedeutet: Mit einer Wahrscheinlichkeit von 50 % erhalte ich entweder 1, 2 oder 3.
 
-##### Bernoulli Distributions
+##### Bernoulli-Verteilungen
 
-In this part I want to introduce you a new type of distribution: The bernoulli distribution. It is super easy it takes on the value 1 with probability $p$ and the value 0 with the probability $q = 1 -p$. In more simple terms, it displays the outcomes for any experiment that has yes/no answers. The classical example is head and tails, you throw a coin and it either shows head or tails. Let us simulate data and plot it:
-
-```{r bernoulli fair coin}
-# Simulate 1000 tosses of a fair coin (1 = Head, 0 = Tail)
-set.seed(101)  # for reproducibility
+In diesem Abschnitt möchte ich euch einen neuen Verteilungstyp vorstellen: die Bernoulli-Verteilung. Sie ist sehr einfach: Sie nimmt den Wert 1 mit der Wahrscheinlichkeit $p$ und den Wert 0 mit der Wahrscheinlichkeit $q = 1 - p$ an. Einfacher ausgedrückt beschreibt sie die Ergebnisse eines Experiments, das nur Ja/Nein-Antworten liefert. Das klassische Beispiel ist Kopf oder Zahl – man wirft eine Münze, und sie zeigt entweder Kopf oder Zahl. Simulieren wir Daten und stellen sie grafisch dar:
+```{r bernoulli faire muenze}
+# 1000 Würfe einer fairen Münze simulieren (1 = Kopf, 0 = Zahl)
+set.seed(101)  # Reproduzierbarkeit
 fair_coin <- data.frame(
   outcome = factor(rbinom(10, 1, 0.5), levels = c(0, 1), 
-                   labels = c("Tail", "Head"))
+                   labels = c("Zahl", "Kopf"))
 )
 
-# Plot the results
+# Ergebnisse plotten
 ggplot(fair_coin, aes(x = outcome)) +
   geom_bar(fill = "#89CFF0", width = 0.35) +
   labs(
-    title = "Simulation of 10 Tosses of a Fair Coin",
-    x = "Outcome",
-    y = "Count"
+    title = "Simulation von 10 Würfen einer fairen Münze",
+    x = "Ergebnis",
+    y = "Häufigkeit"
   ) +
   theme_minimal()
 ```
 
-As we probably expected, if we throw a fair coin ten times we will get approximately 5 Tails and 5 Heads. Furthermore, we plotted our first Bernoulli Distribution.
+Wie wahrscheinlich erwartet, erhalten wir bei zehn Würfen einer fairen Münze ungefähr 5 Mal Zahl und 5 Mal Kopf. Außerdem haben wir unsere erste Bernoulli-Verteilung geplottet.
 
-This is an example for a fair coin, what if our coin was "not fair" or "unfair", thus a "biased" coin, we could plot that as well:
-
-```{r bernoulli biased coin}
-# Simulate 1000 tosses of an unfair coin (1 = Head, 0 = Tail)
-set.seed(102)  # for reproducibility
+Das ist ein Beispiel für eine faire Münze – was wäre, wenn unsere Münze „nicht fair" oder „verzerrt" wäre? Auch das können wir darstellen:
+```{r bernoulli verzerrte muenze}
+# 10 Würfe einer unfairen Münze simulieren (1 = Kopf, 0 = Zahl)
+set.seed(102)  # Reproduzierbarkeit
 unfair_coin <- data.frame(
   outcome = factor(rbinom(10, 1, 0.28), levels = c(0, 1), 
-                   labels = c("Tail", "Head"))
+                   labels = c("Zahl", "Kopf"))
 )
 
-# Plot the results
+# Ergebnisse plotten
 ggplot(unfair_coin, aes(x = outcome)) +
   geom_bar(fill = "#89CFF0", width = 0.35) +
   labs(
-    title = "Simulation of 1000 Tosses of an unfair Coin",
-    x = "Outcome",
-    y = "Count"
+    title = "Simulation von 10 Würfen einer unfairen Münze",
+    x = "Ergebnis",
+    y = "Häufigkeit"
   ) +
   theme_minimal()
 ```
 
-We can see that the bins are not equal the coin has a tendency for Tail. The Probability for getting Tail is higher than getting Head with this Unfair Coin.
+Wir sehen, dass die Balken nicht gleich hoch sind – die Münze hat eine Tendenz zu Zahl. Die Wahrscheinlichkeit, Zahl zu erhalten, ist bei dieser unfairen Münze höher als die Wahrscheinlichkeit, Kopf zu erhalten.
 
-How does the Probability Distribution of a Bernoulli Distribution looks like? Before answering this question, we have to calculate the probability of getting exact 7 Tails and 3 Heads as we got. I leave the maths out, thankfully R can do that with the `dbinom()` function, it takes in "x" which is the number of outcomes we got, thus our Tail = 7. Then we have to put in the size, which is the number of trials, thus 10 and lastly the probability, if it is a fair coin 0.5. I computed the biased coin with a probability of 0.28.
+Wie sieht die Wahrscheinlichkeitsverteilung einer Bernoulli-Verteilung aus? Bevor wir diese Frage beantworten, müssen wir die Wahrscheinlichkeit berechnen, genau 7 Mal Zahl und 3 Mal Kopf zu erhalten. Die Mathematik lassen wir weg – zum Glück kann R das mit der Funktion `dbinom()` erledigen. Sie nimmt den Parameter `x` (die Anzahl der erhaltenen Ergebnisse, also Zahl = 7), die Größe (`size`, die Anzahl der Versuche, also 10) und die Wahrscheinlichkeit (`prob`, also 0,5 für eine faire Münze) entgegen. Die verzerrte Münze habe ich mit einer Wahrscheinlichkeit von 0,28 simuliert.
 
-Let us calculate for the fair and the biased coin, the probability of our results:
-
+Berechnen wir für die faire und die verzerrte Münze die Wahrscheinlichkeit unserer Ergebnisse:
 ```{r dbinom}
-# fair coin
+# Faire Münze
 dbinom(
   x = 5,
   size = 10,
   prob = 0.5
 )
 
-# biased coin
+# Verzerrte Münze
 dbinom(
   x = 3,
   size = 10,
@@ -210,18 +232,17 @@ dbinom(
 )
 ```
 
-What you can see here is the probability of getting exact 5 heads for the fair coin and 3 heads for the unfair coin. So to get exact 5 heads with the fair coin has a probability of 24.6% and the probability of getting exact 3 heads has a probability of 26.4%.
+Was ihr hier seht, ist die Wahrscheinlichkeit, genau 5 Mal Kopf bei der fairen Münze und 3 Mal Kopf bei der unfairen Münze zu erhalten. Die Wahrscheinlichkeit, genau 5 Mal Kopf mit der fairen Münze zu erhalten, beträgt 24,6 %, und die Wahrscheinlichkeit, genau 3 Mal Kopf mit der verzerrten Münze zu erhalten, beträgt 26,4 %.
 
-##### Binomial Distribution
+##### Binomialverteilung
 
-How does it come, that although we have compute a probability of 50% of a success in each trial, that we only get a probability of 5 heads with 24.6% probability and 26.4% of getting 3 heads with a biased coin?
+Wie kommt es, dass wir trotz einer berechneten Wahrscheinlichkeit von 50 % für einen Erfolg in jedem Versuch nur eine Wahrscheinlichkeit von 24,6 % für 5 Köpfe bei der fairen Münze und 26,4 % für 3 Köpfe bei der verzerrten Münze erhalten?
 
-We can solve this problem by plotting a so-called Binomial Distribution. It displays the number of **successes** in a fixed number of independent **yes/no, thus head and tails (Bernoulli)** trials.
+Dieses Problem können wir lösen, indem wir eine sogenannte Binomialverteilung plotten. Sie zeigt die Anzahl der **Erfolge** in einer festen Anzahl von unabhängigen **Ja/Nein- bzw. Kopf/Zahl-Versuchen (Bernoulli-Versuche)**.
 
-It gets clear, when we plot all Probabilities for both coins for each possible outcome for head, thus 10, since we have 10 trials:
-
-```{r binomial distributions}
-# Create theoretical distributions
+Das wird klar, wenn wir alle Wahrscheinlichkeiten für beide Münzen für jedes mögliche Kopf-Ergebnis plotten – also 10, da wir 10 Versuche haben:
+```{r binomialverteilungen}
+# Theoretische Verteilungen erstellen
 theoretical_probs <- data.frame(
   heads = rep(0:10, 2),
   coin_type = rep(c("unbiased", "biased"), each = 11),
@@ -229,198 +250,193 @@ theoretical_probs <- data.frame(
            dbinom(0:10, size = 10, prob = 0.28))
 )
 
-# Plot
+# Plotten
 ggplot(theoretical_probs, aes(x = heads, y = prob)) +
   geom_point(size = 1.5, color = "black") +
   facet_wrap(~ coin_type, 
              labeller = as_labeller(c(
-               biased = "Biased Coin (p = 0.28)", 
-               unbiased = "Unbiased Coin (p = 0.5)"))) +
-  labs(title = "Theoretical Binomial Distribution of Number of Heads in 10 Flips",
-       x = "Number of Heads",
-       y = "Probability") +
+               biased = "Verzerrte Münze (p = 0.28)", 
+               unbiased = "Faire Münze (p = 0.5)"))) +
+  labs(title = "Theoretische Binomialverteilung der Anzahl von Kopf in 10 Würfen",
+       x = "Anzahl Kopf",
+       y = "Wahrscheinlichkeit") +
   scale_x_continuous(breaks = 0:10) +
   theme_bw()
 ```
 
-Now, the reason behind the probabilities for the outcome for heads becomes clear, the computed probability deviates from the outcome probability because in some cases the trials follow the computed probability but in some cases it deviates and head becomes 2 or 4 for the biased coin and 4 or 6 for the unbiased coin.
+Nun wird der Grund für die Wahrscheinlichkeiten der Kopf-Ergebnisse klar: Die berechnete Wahrscheinlichkeit weicht vom tatsächlichen Ergebnis ab, weil die Versuche in einigen Fällen der berechneten Wahrscheinlichkeit folgen, in anderen jedoch davon abweichen – und Kopf beispielsweise 2 oder 4 Mal bei der verzerrten Münze und 4 oder 6 Mal bei der fairen Münze auftritt.
 
-At this point, one thing becomes clear: the **computed probability** represents the *expected likelihood* of obtaining a specific number of heads **on average** over a large number of repeated experiments. Why "on average"? Because probability theory accounts for randomness — meaning that in any single simulation (say, flipping a coin 10 times), we might observe different outcomes: sometimes 5 heads, sometimes 2, or even 9.
+An diesem Punkt wird eines klar: Die **berechnete Wahrscheinlichkeit** stellt die *erwartete Häufigkeit* dar, mit der ein bestimmte Anzahl von Köpfen **im Durchschnitt** über eine große Anzahl von wiederholten Experimenten auftritt. Warum „im Durchschnitt"? Weil die Wahrscheinlichkeitstheorie die Zufälligkeit berücksichtigt – in jeder einzelnen Simulation (z. B. 10 Münzwürfe) können wir unterschiedliche Ergebnisse beobachten: manchmal 5 Köpfe, manchmal 2, manchmal sogar 9.
 
-For a fair coin, the theoretical expectation is 5 heads in 10 flips. However, this doesn’t mean we will always get exactly 5. The actual results vary due to chance. In the case of a biased coin with a 0.28 probability of heads, we might expect around 2.8 heads on average — but again, we will only ever see whole numbers like 2 or 3 in practice.
+Bei einer fairen Münze ist die theoretische Erwartung 5 Köpfe bei 10 Würfen. Das bedeutet jedoch nicht, dass wir immer genau 5 erhalten. Die tatsächlichen Ergebnisse variieren aufgrund des Zufalls. Bei einer verzerrten Münze mit einer Kopf-Wahrscheinlichkeit von 0,28 würden wir im Durchschnitt etwa 2,8 Köpfe erwarten – aber in der Praxis sehen wir nur ganze Zahlen wie 2 oder 3.
 
-In short, these deviations from the expected value arise from randomness. While the true probability (e.g., 0.5 or 0.28) describes the long-term pattern, it does not guarantee specific outcomes in short runs. Instead, it tells us what to expect **most frequently** over a large number of repetitions.
+Kurz gesagt entstehen diese Abweichungen vom Erwartungswert durch Zufälligkeit. Während die wahre Wahrscheinlichkeit (z. B. 0,5 oder 0,28) das langfristige Muster beschreibt, garantiert sie keine spezifischen Ergebnisse bei kurzen Versuchsreihen. Stattdessen sagt sie uns, was wir **am häufigsten** bei einer großen Anzahl von Wiederholungen erwarten können.
 
-This concept will become important later again, but before that let us have a look at the cumulated distribution function (CDF) of the probability distribution function (PDF):
-
-```{r cumulative probabilities}
-# Fix cumulative sum: compute it within each coin_type group
+Dieses Konzept wird später noch einmal wichtig. Aber zunächst schauen wir uns die kumulative Verteilungsfunktion (CDF) der Wahrscheinlichkeitsverteilungsfunktion (PDF) an:
+```{r kumulative wahrscheinlichkeiten}
+# Kumulative Summe korrekt berechnen: innerhalb jeder Münzgruppe
 theoretical_probs <- theoretical_probs %>%
   group_by(coin_type) %>%
   arrange(heads, .by_group = TRUE) %>%
   mutate(cumsum_prob = cumsum(prob)) %>%
   ungroup()
 
-# Plot cumulative probabilities
+# Kumulative Wahrscheinlichkeiten plotten
 ggplot(theoretical_probs, aes(x = heads, y = cumsum_prob)) +
   geom_point(size = 1.5, color = "black") +
   facet_wrap(~ coin_type,
              labeller = as_labeller(c(
-               biased = "Biased Coin (p = 0.28)",
-               unbiased = "Unbiased Coin (p = 0.5)")),
+               biased = "Verzerrte Münze (p = 0.28)",
+               unbiased = "Faire Münze (p = 0.5)")),
              nrow = 2) +
   labs(
-    title = "Cumulative Distribution of Number of Heads in 10 Flips",
-       x = "Number of Heads",
-       y = "Cumulative Probability") +
+    title = "Kumulative Verteilung der Anzahl von Kopf in 10 Würfen",
+    x = "Anzahl Kopf",
+    y = "Kumulative Wahrscheinlichkeit") +
   scale_x_continuous(breaks = 0:10) +
   theme_bw()
 ```
 
-The CDF is quite interesting, we see that in round about 70% of all experiments of the biased coin will result in 3 or less heads and on the other side the unbiased coin will result in round about 80% in 6 or less heads.
+Die CDF ist recht interessant: Wir sehen, dass bei der verzerrten Münze etwa 70 % aller Experimente in 3 oder weniger Köpfen resultieren. Bei der fairen Münze hingegen enden etwa 80 % der Experimente mit 6 oder weniger Köpfen.
 
-#### Probability Density Functions (PDF)
+#### Wahrscheinlichkeitsdichtefunktionen (PDF)
 
-##### **Normal Distributions**
+##### **Normalverteilungen**
 
-Thus far we looked at the two typical distributions for **discrete variables**. In the following, we will look at distributions for **continuous variables**.
+Bisher haben wir uns zwei typische Verteilungen für **diskrete Variablen** angeschaut. Im Folgenden betrachten wir Verteilungen für **stetige Variablen**.
 
-The probability distributions of the Bernoulli trials we saw in the part follow the form of the arguably most important distribution: The normal distribution. This distribution is also called a Gaussian distribution after its inventor Carl-Friedrich Gauss, or Bell Curve due to its shape. Let us have a look at it at the Probability Distribution Function (PDF):
-
+Die Wahrscheinlichkeitsverteilungen der Bernoulli-Versuche, die wir zuvor gesehen haben, folgen der Form der wohl wichtigsten Verteilung: der Normalverteilung. Sie wird auch als Gaußsche Verteilung nach ihrem Entdecker Carl-Friedrich Gauss oder aufgrund ihrer Form als Glockenkurve bezeichnet. Schauen wir uns die Wahrscheinlichkeitsdichtefunktion (PDF) an:
 ```{r pdf, error=FALSE}
-# simulating the data
+# Daten simulieren
 set.seed(123)
 snd <- data.frame(
   sample = rnorm(1000000, mean = 0, sd = 1)
   )
 
-# Plot it
+# Plotten
 ggplot(snd, aes(x = sample)) +
   geom_density() +
-  labs(title = "Normal Distribution",
-       x = "Value of Random Variable",
-       y = "Density") +
+  labs(title = "Normalverteilung",
+       x = "Wert der Zufallsvariable",
+       y = "Dichte") +
   scale_x_continuous(breaks = -5:5,
                      limits = c(-5,5)) +
   theme_minimal()
 ```
 
-The normal distribution has a lot of properties:
+Die Normalverteilung hat viele Eigenschaften:
 
--   The distribution is perfectly symmetrical around the mean
+-   Die Verteilung ist perfekt symmetrisch um den Mittelwert.
 
--   The mean equals the median equals the mode
+-   Mittelwert, Median und Modus sind gleich.
 
--   The shape is bell-like, with most values clustered around the mean and tails tapering off in both directions.
+-   Die Form ist glockenförmig, mit den meisten Werten um den Mittelwert konzentriert und Ausläufern, die in beide Richtungen abfallen.
 
--   About 68% of the data fall within 1 standard deviation of the mean, about 95% fall within 2 standard deviations and around 99.7% fall within 3 standard deviations.
+-   Etwa 68 % der Daten liegen innerhalb einer Standardabweichung vom Mittelwert, etwa 95 % innerhalb von zwei Standardabweichungen und etwa 99,7 % innerhalb von drei Standardabweichungen.
 
--   The distribution is defined by its mean ($\mu$) and its standard deviation ($\sigma$).
+-   Die Verteilung wird durch ihren Mittelwert ($\mu$) und ihre Standardabweichung ($\sigma$) definiert.
 
--   The tails extend infinitely in both directions but never touch the x-axis (approach zero asymptotically).
+-   Die Ausläufer erstrecken sich in beide Richtungen unendlich weit, berühren jedoch nie die x-Achse (sie nähern sich asymptotisch null an).
 
--   The area under the density curve represents probability, and it sums up to exactly 1. That is the reason the reason why we talk about Probability Density Functions, because we can determine the probability for each data point by calculating the density of the curve.
+-   Die Fläche unter der Dichtefunktion stellt die Wahrscheinlichkeit dar und summiert sich auf genau 1. Deshalb sprechen wir von Wahrscheinlichkeitsdichtefunktionen – wir können die Wahrscheinlichkeit für jeden Datenpunkt bestimmen, indem wir die Dichte der Kurve berechnen.
 
--   It is unimodal, thus has only one peak.
+-   Sie ist unimodal, hat also nur einen Gipfel.
 
--   As Standard Normal Distributions is a special case where the mean, $\mu$ = 0 and the standard deviation, $\sigma$ = 1
+-   Die Standardnormalverteilung ist ein Sonderfall, bei dem Mittelwert $\mu$ = 0 und Standardabweichung $\sigma$ = 1.
 
-We already saw the Cumulative Density Function in the Bernoulli Trials, but let us have a look again:
-
+Wir haben die kumulative Dichtefunktion bereits bei den Bernoulli-Versuchen gesehen, schauen wir sie uns nochmals an:
 ```{r cdf}
-# Plot empirical CDF
+# Empirische CDF plotten
 ggplot(snd, aes(x = sample)) +
   stat_ecdf(geom = "step", color = "black") +
-  labs(title = "Cumulative Distribution Function (CDF)",
-       x = "Value of Random Variable",
-       y = "Cumulative Probability") +
+  labs(title = "Kumulative Verteilungsfunktion (CDF)",
+       x = "Wert der Zufallsvariable",
+       y = "Kumulative Wahrscheinlichkeit") +
   theme_minimal()
 ```
 
-We can use the cumulative distribution function (CDF) to determine the probability that a random variable takes on a value **less than or equal to** a specific value. For example, with a standard normal distribution, the CDF tells us there's a 50% chance that the random variable will take on a value **less than or equal to 0**.
+Mithilfe der kumulativen Verteilungsfunktion (CDF) können wir die Wahrscheinlichkeit bestimmen, dass eine Zufallsvariable einen Wert **kleiner oder gleich** einem bestimmten Wert annimmt. Bei einer Standardnormalverteilung sagt uns die CDF beispielsweise, dass es eine 50-prozentige Chance gibt, dass die Zufallsvariable einen Wert **kleiner oder gleich 0** annimmt.
 
-##### Central Limit Theorem (CTL)
+##### Zentraler Grenzwertsatz (ZGS)
 
-In the examples of the Chapter \@ref(working-with-distributions) we will use normal distributions due to its significance for natural and social sciences, here is why:
+In den Beispielen des Kapitels \@ref(working-with-distributions) verwenden wir Normalverteilungen aufgrund ihrer Bedeutung für Natur- und Sozialwissenschaften. Hier ist der Grund:
 
--   When we collect random variables such as height, IQ, sizes of snowflakes, milk production of cows follows a normal distribution.
+-   Wenn wir Zufallsvariablen wie Körpergröße, IQ, Schneeflockengrößen oder Milchproduktion von Kühen erheben, folgen diese einer Normalverteilung.
 
--   Due to its elegant mathematical properties like the symmetry around the mean, the 68-95-99.7 rule, and it is defined by only two parameters, the mean and the standard deviation.
+-   Aufgrund ihrer eleganten mathematischen Eigenschaften – wie der Symmetrie um den Mittelwert, der 68-95-99,7-Regel und der Tatsache, dass sie durch nur zwei Parameter (Mittelwert und Standardabweichung) definiert wird.
 
--   Statistical Analysis assumes in many models a normal distributions, because its simplicity, for example the it is the building block for machine learning, finance, etc., and for statistical models such as regression analysis assumes also normality.
+-   Viele statistische Modelle setzen eine Normalverteilung voraus, wegen ihrer Einfachheit. Sie ist zum Beispiel der Grundbaustein für maschinelles Lernen, Finanzen und statistische Modelle wie die Regressionsanalyse.
 
-But besides these, let's say "convenient reasons", there is also one mathematical reason why it is so frequently used in statistics, **the central limit theorem**. I will not dive into its maths, but it is quite easy to understand:
+Aber neben diesen, sagen wir „pragmatischen Gründen", gibt es auch einen mathematischen Grund für ihre häufige Verwendung in der Statistik: den **Zentralen Grenzwertsatz**. Ich werde nicht auf die Mathematik eingehen, aber er ist recht leicht zu verstehen:
 
-The Central Limit Theorem states that, under certain conditions, the distribution of the **sample means** of a large number of independent and identically distributed random variables will approximate a normal distribution—**regardless of the shape of the original population distribution**. In other words, as the sample size increases, the distribution of the **means of these samples** becomes increasingly normal.
+Der Zentrale Grenzwertsatz besagt, dass unter bestimmten Bedingungen die Verteilung der **Stichprobenmittelwerte** einer großen Anzahl unabhängiger und identisch verteilter Zufallsvariablen eine Normalverteilung approximiert – **unabhängig von der Form der ursprünglichen Populationsverteilung**. Mit anderen Worten: Mit zunehmender Stichprobengröße nähert sich die Verteilung der **Mittelwerte dieser Stichproben** immer mehr einer Normalverteilung an.
 
-Let us visualize that! Remember the sample of our dice? What if we draw many, many samples and collect their sample means, and then plot the sample means? We would expect a uniform distribution, right? Because every outcome has the same probability to happen, exactly 1/6?
+Visualisieren wir das! Erinnert ihr euch an die Stichprobe unseres Würfels? Was würde passieren, wenn wir sehr viele Stichproben ziehen und ihre Stichprobenmittelwerte erfassen und dann die Stichprobenmittelwerte plotten? Wir würden eine Gleichverteilung erwarten, richtig? Weil jedes Ergebnis die gleiche Wahrscheinlichkeit hat aufzutreten, nämlich genau 1/6.
 
-Let us draw samples and look what happens. In the following I first define a function that rolls the dice 1000 times. In the next step, I use the function to draw a sample. I first take one sample, thus role the dice 1000 times and save the result, and plot it, I do the same for 2, 3, and 4 samples:
+Ziehen wir Stichproben und schauen, was passiert. Im Folgenden definiere ich zunächst eine Funktion, die den Würfel 1000-mal wirft. Im nächsten Schritt verwende ich die Funktion, um eine Stichprobe zu ziehen. Ich nehme zunächst eine Stichprobe – also 1000 Würfe – und speichere das Ergebnis. Dasselbe mache ich für 2, 3 und 4 Stichproben:
+```{r zentraler grenzwertsatz}
+set.seed(123)  # Reproduzierbarkeit
 
-```{r central limit theorem}
-set.seed(123)  # For reproducibility
-
-# Function to simulate rolling a die n_rolls times, repeated n_sim times
+# Funktion zur Simulation der Würfelmittelwerte: n_rolls-mal würfeln, n_sim-mal wiederholen
 simulate_dice_means <- function(n_rolls, n_sim = 1000) {
   replicate(n_sim, mean(sample(1:6, n_rolls, replace = TRUE)))
 }
 
-# Simulate sample means for different numbers of rolls
+# Stichprobenmittelwerte für verschiedene Anzahlen von Würfen simulieren
 means_1 <- simulate_dice_means(1)
 means_2 <- simulate_dice_means(2)
 means_3 <- simulate_dice_means(3)
 means_4 <- simulate_dice_means(4)
 
 df <- bind_rows(
-  data.frame(mean = means_1, rolls = "1000 Rolls"),
-  data.frame(mean = means_2, rolls = "2000 Rolls"),
-  data.frame(mean = means_3, rolls = "3000 Rolls"),
-  data.frame(mean = means_4, rolls = "4000 Rolls")
+  data.frame(mean = means_1, rolls = "1000 Würfe"),
+  data.frame(mean = means_2, rolls = "2000 Würfe"),
+  data.frame(mean = means_3, rolls = "3000 Würfe"),
+  data.frame(mean = means_4, rolls = "4000 Würfe")
 )
 
-# Plotting
+# Plotten
 ggplot(df, aes(x = mean)) +
   geom_density(fill = "skyblue", alpha = 0.6) +
   facet_wrap(~ rolls, scales = "free", ncol = 2) +
-  labs(title = "Central Limit Theorem Demonstration with Dice Rolls",
-       x = "Sample Mean",
-       y = "Density") +
+  labs(title = "Demonstration des Zentralen Grenzwertsatzes mit Würfelwürfen",
+       x = "Stichprobenmittelwert",
+       y = "Dichte") +
   scale_x_continuous(breaks = 1:6,
                      limits = c(1,6)) +
   theme_minimal()
 ```
 
-Here we can clearly see how the distribution of the sample means converge to the form of a normal distribution. That leaves only one question, why does the mean of the sample means converge to 3.5?
+Hier können wir deutlich sehen, wie die Verteilung der Stichprobenmittelwerte gegen die Form einer Normalverteilung konvergiert. Das wirft nur noch eine Frage auf: Warum konvergiert der Mittelwert der Stichprobenmittelwerte gegen 3,5?
 
-##### **Law of Large Numbers**
+##### **Gesetz der großen Zahlen**
 
-The phenomenon that the sample converges to 3.5 is due to the Law of large numbers. It is a mathematical law that states that if the sample size increases, the sample mean gets closer population mean. The true population mean for our dice example is 3.5 (1+2+3+4+5+6/6 = 3.5), thus our expected value is our true population mean. According to the Law of large numbers, the more the dice is rolled the more the sample mean converges to 3.5 and that is what we see in the density plot in the bottom, right corner. When the dice is rolled 4000 times in total the curve gets closer to the sample mean.
+Das Phänomen, dass der Stichprobenmittelwert gegen 3,5 konvergiert, beruht auf dem Gesetz der großen Zahlen. Es ist ein mathematisches Gesetz, das besagt, dass sich der Stichprobenmittelwert mit zunehmender Stichprobengröße dem Populationsmittelwert annähert. Der wahre Populationsmittelwert für unser Würfelbeispiel ist 3,5 (1+2+3+4+5+6 / 6 = 3,5), also ist unser Erwartungswert gleich dem wahren Populationsmittelwert. Gemäß dem Gesetz der großen Zahlen konvergiert der Stichprobenmittelwert umso mehr gegen 3,5, je öfter der Würfel geworfen wird – und genau das sehen wir im Dichtegraphen rechts unten: Wenn der Würfel insgesamt 4000-mal geworfen wird, nähert sich die Kurve immer mehr dem Stichprobenmittelwert an.
 
-#### Different Types of Distributions
+#### Verschiedene Verteilungstypen
 
-Alright, that was a lot of theory, but it is crucial to understand, because probability distributions are the basic ground for the statistical models to analyse our data. And here is the deal, knowing the distributions of our data leads to configuration possibilities later in the models, so that our models can better fit our data! In the next chapter, I hope that will become clear!
+Gut, das war viel Theorie – aber sie ist entscheidend, da Wahrscheinlichkeitsverteilungen die Grundlage für die statistischen Modelle zur Datenanalyse bilden. Und das ist der entscheidende Punkt: Die Kenntnis der Verteilungen unserer Daten ermöglicht es uns, die Modelle später entsprechend zu konfigurieren, damit sie besser zu unseren Daten passen! Im nächsten Kapitel wird das hoffentlich klarer werden!
 
-To conclude this chapter, I will briefly introduce you in different types of distributions and their interpretations:
-
+Zum Abschluss dieses Kapitels stelle ich euch kurz verschiedene Verteilungstypen und ihre Interpretationen vor:
 ```{r, message=FALSE, warning=FALSE}
-# Create a data frame with different distributions
+# Dataframe mit verschiedenen Verteilungen erstellen
 x_vals <- seq(0, 10, by = 0.1)
 
 dist_df <- data.frame(
-  x = rep(x_vals, 4),  # only 4 now, Poisson removed from here
+  x = rep(x_vals, 4),
   distribution = rep(c("Exponential (λ=1)", 
                        "Gamma (shape=2, rate=1)", 
-                       "Chi-Square (df=3)", 
-                       "t-Distribution (df=10)"), each = length(x_vals)),
+                       "Chi-Quadrat (df=3)", 
+                       "t-Verteilung (df=10)"), each = length(x_vals)),
   y = c(
     dexp(x_vals, rate = 1),
     dgamma(x_vals, shape = 2, rate = 1),
     dchisq(x_vals, df = 3),
-    dt(x_vals - 5, df = 10)  # shift t-distribution for better display
+    dt(x_vals - 5, df = 10)  # t-Verteilung für bessere Darstellung verschieben
   )
 )
 
-# Add Poisson and F-distribution
+# Poisson- und F-Verteilung hinzufügen
 poisson_vals <- data.frame(
   x = 0:10,
   y = dpois(0:10, lambda = 3),
@@ -430,197 +446,192 @@ poisson_vals <- data.frame(
 f_vals <- data.frame(
   x = x_vals,
   y = df(x_vals, df1 = 5, df2 = 10),
-  distribution = "F-Distribution (df1=5, df2=10)"
+  distribution = "F-Verteilung (df1=5, df2=10)"
 )
 
-# Combine all distributions
+# Alle Verteilungen zusammenführen
 plot_df <- bind_rows(dist_df, poisson_vals, f_vals)
 
-# Plot using facet_wrap
+# Mit facet_wrap plotten
 ggplot(plot_df, aes(x = x, y = y)) +
   geom_line(data = filter(plot_df, !distribution %in% c("Poisson (λ=3)")),
             color = "steelblue", linewidth = 1) +
   geom_point(data = filter(plot_df, distribution == "Poisson (λ=3)"),
              color = "steelblue", size = 1) +
   facet_wrap(~ distribution, scales = "free", ncol = 3) +
-  labs(title = "Overview of Common Statistical Distributions",
-       x = "x", y = "Density / Probability") +
+  labs(title = "Überblick über gängige statistische Verteilungen",
+       x = "x", y = "Dichte / Wahrscheinlichkeit") +
   theme_minimal(base_size = 14)
 ```
 
-Let us go shortly through these distributions and their meanings:
+Gehen wir kurz durch diese Verteilungen und ihre Bedeutungen:
 
--   Chi-Square: This distribution arises when squaring standard normal values. It’s fundamental in hypothesis testing (e.g., the Chi-Square Test for independence) and constructing confidence intervals for population variances.
+-   **Chi-Quadrat:** Diese Verteilung entsteht durch das Quadrieren von Standardnormalwerten. Sie ist grundlegend für Hypothesentests (z. B. den Chi-Quadrat-Test auf Unabhängigkeit) und die Konstruktion von Konfidenzintervallen für Populationsvarianzen.
 
--   Exponential: It describes the time between two independent events in a Poisson process. Essential for survival analysis and modeling waiting times.
+-   **Exponential:** Sie beschreibt die Zeit zwischen zwei unabhängigen Ereignissen in einem Poisson-Prozess. Wesentlich für die Überlebensanalyse und die Modellierung von Wartezeiten.
 
--   F-Distribution: It describes the ratio of two sample variances, each from normally distributed populations. Used in comparing model fits.
+-   **F-Verteilung:** Sie beschreibt das Verhältnis zweier Stichprobenvarianzen aus normalverteilten Populationen. Wird zum Vergleich von Modellanpassungen verwendet.
 
--   Gamma: A flexible distribution that models the waiting time until multiple independent events occur. It generalizes the exponential distribution and is widely used in Bayesian statistics, reliability engineering, and insurance modeling.
+-   **Gamma:** Eine flexible Verteilung, die die Wartezeit bis zum Eintreten mehrerer unabhängiger Ereignisse modelliert. Sie verallgemeinert die Exponentialverteilung und wird häufig in der Bayes'schen Statistik, der Zuverlässigkeitstechnik und der Versicherungsmodellierung verwendet.
 
--   Poisson: Models the number of events occurring in a fixed time or space interval when events happen independently at a constant average rate—like the number of emails per hour. Commonly used for count data and in event-based modeling.
+-   **Poisson:** Modelliert die Anzahl der Ereignisse, die in einem festen Zeit- oder Raumintervall auftreten, wenn Ereignisse unabhängig mit einer konstanten Durchschnittsrate eintreten – zum Beispiel die Anzahl der E-Mails pro Stunde. Wird häufig für Zähldaten und ereignisbasierte Modellierung verwendet.
 
--   t-Distribution: Used when estimating the mean of a normally distributed population in small samples. It accounts for the added uncertainty from estimating the standard deviation. Essential in hypothesis testing and regression analysis.
+-   **t-Verteilung:** Wird verwendet, wenn der Mittelwert einer normalverteilten Population bei kleinen Stichproben geschätzt wird. Sie berücksichtigt die erhöhte Unsicherheit durch die Schätzung der Standardabweichung. Wesentlich für Hypothesentests und Regressionsanalysen.
 
-### Working with Distributions
+### Arbeiten mit Verteilungen
 
-After the fairly theoretical part before, let us work with distributions hands-on in `R`: For this purpose let us simulate data. For the following part, I will simulate a normal distribution and introduce you to the first central function `rnorm()`. This functions takes in three arguments, the number of observations **n**, the **mean** and the standard deviation, **sd**. And again, the beauty of the normal distribution becomes clear, we do not need to tell R more than that, since normal distributions can be generated with only the mean and the standard deviation and on top we can define the number of observations.
+Nach dem eher theoretischen Teil davor arbeiten wir nun praktisch mit Verteilungen in R. Dazu simulieren wir Daten. Für den folgenden Teil simuliere ich eine Normalverteilung und stelle euch die erste zentrale Funktion `rnorm()` vor. Diese Funktion nimmt drei Argumente entgegen: die Anzahl der Beobachtungen **n**, den **Mittelwert** (mean) und die Standardabweichung (**sd**). Und wieder zeigt sich die Eleganz der Normalverteilung: Wir müssen R nicht mehr mitteilen als das, da Normalverteilungen allein durch Mittelwert und Standardabweichung erzeugt werden können – zusätzlich können wir die Anzahl der Beobachtungen festlegen.
 
-We will simulate the normal distribution for IQ. Let the mean be 100 and the standard deviation 15. These are not randomly selected, most samples of the IQ result in this mean and sd:
-
-```{r simulating sample}
-#Setting seed for reproduciability
+Wir simulieren die Normalverteilung für den IQ. Der Mittelwert sei 100 und die Standardabweichung 15. Diese Werte sind nicht zufällig gewählt – die meisten IQ-Stichproben ergeben diesen Mittelwert und diese Standardabweichung:
+```{r stichprobe simulieren}
+# Seed für Reproduzierbarkeit setzen
 set.seed(123)
 
-#Simulating sample
+# Stichprobe simulieren
 sample_iq <- data.frame(
   height = rnorm(10000, mean = 100, sd = 15))
 
-#Plotting it
+# Plotten
 ggplot(sample_iq, aes(x=height)) +
   geom_density(linewidth = 1, color = "#E35335") +
   labs(
     x = "IQ", 
-    y = "Frequency"
+    y = "Häufigkeit"
   ) +
   scale_x_continuous(breaks = seq(40, 160, 20),
                      limits = c(40, 160)) +
   theme_minimal()
 ```
 
-#### The 68-95-99.7 Rule
+#### Die 68-95-99,7-Regel
 
-Remember this Rule? Without any complex mathematics, we can determine, where the most values are located, just by by subtracting the standard deviation from the mean:
+Erinnert ihr euch an diese Regel? Ohne komplizierte Mathematik können wir bestimmen, wo die meisten Werte liegen – einfach indem wir die Standardabweichung vom Mittelwert subtrahieren:
 
--   68% of all values falls within one standard deviation of the mean:
-
-    $$
-    \mu + \sigma² = 100 + 15 = 115
-    $$
+-   68 % aller Werte liegen innerhalb einer Standardabweichung vom Mittelwert:
 
     $$
-    \mu - \sigma² = 100 + 15 = 85
-    $$
-
-    We can interpret these values as follows, when your IQ falls between 115 and 115 you share the fate of 68% of our sample.
-
--   95% of all values falls within two standard deviations of the mean:
-
-    $$
-    \mu + 2\sigma² = 100 + 2 \cdot 15 = 130
+    \mu + \sigma = 100 + 15 = 115
     $$
 
     $$
-    \mu - 2\sigma² = 100 - 2 \cdot 15 = 70
+    \mu - \sigma = 100 - 15 = 85
     $$
 
-    If an IQ is not within 70 and 130 then it is either in the 2.5 % lowest or 2.5 highest values. An IQ smaller than 70 means being among the 2.5% lowest IQs and on the other side, if the IQ is above 130 than your IQ is higher than 97.5% !
+    Wir können diese Werte wie folgt interpretieren: Wenn euer IQ zwischen 85 und 115 liegt, teilt ihr das Schicksal von 68 % unserer Stichprobe.
 
--   99.7% of all values falls within three standard deviations of the mean:
-
-    $$
-    \mu + 3\sigma² = 100 + 3 \cdot 15 = 145
-    $$
+-   95 % aller Werte liegen innerhalb von zwei Standardabweichungen vom Mittelwert:
 
     $$
-    \mu + 3\sigma² = 100 - 3 = 55
+    \mu + 2\sigma = 100 + 2 \cdot 15 = 130
     $$
 
-If the IQ value is outside of 145 or 55, the value is either at the top 0.15 or if it is below 55 it is at the bottom 0.15.
+    $$
+    \mu - 2\sigma = 100 - 2 \cdot 15 = 70
+    $$
 
-#### Determining the probability of single values?
+    Wenn ein IQ nicht zwischen 70 und 130 liegt, gehört er entweder zu den 2,5 % niedrigsten oder den 2,5 % höchsten Werten. Ein IQ unter 70 bedeutet, zu den 2,5 % mit den niedrigsten IQ-Werten zu gehören. Ein IQ über 130 hingegen bedeutet, einen höheren IQ als 97,5 % aller Menschen zu haben!
 
-The 68-95-99.7 rule is a helpful rule of thumb for understanding normal distributions. However, it's not very precise. If we want to determine the **exact probability** of a value in our distribution, we need to use the **Probability Density Function (PDF)** of the normal distribution.
+-   99,7 % aller Werte liegen innerhalb von drei Standardabweichungen vom Mittelwert:
 
-Now, because a continuous distribution has **infinitely many possible values**, the probability of observing **any exact value** (like exactly 100) is actually **zero**. That's why we work with **probability densities**, not exact probabilities at a single point.
+    $$
+    \mu + 3\sigma = 100 + 3 \cdot 15 = 145
+    $$
 
-Instead of asking "What is the probability of exactly 100?", we ask "What is the **density** at 100?" — which reflects how likely it is to observe values **around** 100.
+    $$
+    \mu - 3\sigma = 100 - 3 \cdot 15 = 55
+    $$
 
-In R, we can use the `dnorm()` function to compute this **density**. It takes three arguments:
+Wenn ein IQ-Wert außerhalb von 145 oder 55 liegt, gehört er entweder zu den obersten 0,15 % oder, wenn er unter 55 liegt, zu den untersten 0,15 %.
 
--   **x**: the value we're interested in
+#### Die Wahrscheinlichkeit einzelner Werte bestimmen
 
--   **mean**: the mean of the distribution
+Die 68-95-99,7-Regel ist eine hilfreiche Faustregel zum Verständnis von Normalverteilungen. Sie ist jedoch nicht sehr präzise. Wenn wir die **genaue Wahrscheinlichkeit** eines Werts in unserer Verteilung bestimmen möchten, müssen wir die **Wahrscheinlichkeitsdichtefunktion (PDF)** der Normalverteilung verwenden.
 
--   **sd**: the standard deviation
+Da eine stetige Verteilung **unendlich viele mögliche Werte** hat, ist die Wahrscheinlichkeit, **irgendeinen exakten Wert** zu beobachten (wie genau 100), tatsächlich **null**. Deshalb arbeiten wir mit **Wahrscheinlichkeitsdichten** statt mit exakten Wahrscheinlichkeiten an einem einzelnen Punkt.
 
-Let us calculate the probability of having an IQ of exactly 100, 87 and 140:
+Statt zu fragen „Was ist die Wahrscheinlichkeit von genau 100?" fragen wir: „Wie hoch ist die **Dichte** bei 100?" – die widerspiegelt, wie wahrscheinlich es ist, Werte **um** 100 herum zu beobachten.
 
+In R können wir die Funktion `dnorm()` verwenden, um diese **Dichte** zu berechnen. Sie nimmt drei Argumente entgegen:
+
+-   **x**: der interessierende Wert
+
+-   **mean**: der Mittelwert der Verteilung
+
+-   **sd**: die Standardabweichung
+
+Berechnen wir die Wahrscheinlichkeit, einen IQ von genau 100, 87 und 140 zu haben:
 ```{r dnorm}
-dnorm(x = 100, mean = 100, sd = 15) #Probability of 100 IQ
-dnorm(x = 87, mean = 100, sd = 15) #Probability of 65 IQ
-dnorm(x = 140, mean = 100, sd = 15) #Probability of 135 IQ
+dnorm(x = 100, mean = 100, sd = 15) # Wahrscheinlichkeit für IQ 100
+dnorm(x = 87,  mean = 100, sd = 15) # Wahrscheinlichkeit für IQ 87
+dnorm(x = 140, mean = 100, sd = 15) # Wahrscheinlichkeit für IQ 140
 ```
 
-So the probability of having an IQ of 100 is 2.6%, getting an IQ of 87 is 1.8% and lastly the probability of having an IQ of 140 is 0.07%.
+Die Wahrscheinlichkeit, einen IQ von 100 zu haben, beträgt 2,6 %, einen IQ von 87 zu haben 1,8 % und einen IQ von 140 zu haben 0,07 %.
 
-#### Getting the probabilities until a certain value
+#### Wahrscheinlichkeiten bis zu einem bestimmten Wert ermitteln
 
-The function `pnorm()` in R gives the **cumulative probability** up to a certain value under the normal distribution. In simpler terms, it tells you **how likely it is that a value drawn from a normal distribution is less than or equal to a given number**.
+Die Funktion `pnorm()` in R gibt die **kumulative Wahrscheinlichkeit** bis zu einem bestimmten Wert unter der Normalverteilung zurück. Einfacher ausgedrückt: Sie sagt uns, **wie wahrscheinlich es ist, dass ein aus einer Normalverteilung gezogener Wert kleiner oder gleich einer bestimmten Zahl ist**.
 
-It takes the following arguments:
+Sie nimmt folgende Argumente entgegen:
 
--   `q`: the value you are interested in (the quantile)
+-   `q`: der interessierende Wert (das Quantil)
 
--   `mean`: the mean (μ) of the distribution
+-   `mean`: der Mittelwert (μ) der Verteilung
 
--   `sd`: the standard deviation (σ) of the distribution
-
+-   `sd`: die Standardabweichung (σ) der Verteilung
 ```{r pnorm}
-pnorm(q = 100, mean = 100, sd = 15) #Probability of 100 IQ
-pnorm(q = 87, mean = 100, sd = 15) #Probability of 65 IQ
-pnorm(q = 140, mean = 100, sd = 15) #Probability of 135 IQ
+pnorm(q = 100, mean = 100, sd = 15) # Kumulative Wahrscheinlichkeit für IQ 100
+pnorm(q = 87,  mean = 100, sd = 15) # Kumulative Wahrscheinlichkeit für IQ 87
+pnorm(q = 140, mean = 100, sd = 15) # Kumulative Wahrscheinlichkeit für IQ 140
 ```
 
-Now what do those values mean? The interpretation is quite easy, 0.5 means that an IQ of 100 is higher than 0.5, thus 50% of our distribution has lower values than 100. In simpler terms. If a person has an IQ of 100, the person has an IQ smarter than 50% of all other people. If a person has an IQ of 87, the person has an IQ higher than 19.3% of the sample/population. For an IQ of 140 we can say that the person has a higher IQ than 99.6% of all other persons in the sample. In other ways, with an IQ of 140, a person is part of the top 1%.
+Was bedeuten diese Werte? Die Interpretation ist recht einfach: 0,5 bedeutet, dass ein IQ von 100 höher ist als 50 % unserer Verteilung. Mit anderen Worten: Eine Person mit einem IQ von 100 hat einen höheren IQ als 50 % aller anderen Menschen. Eine Person mit einem IQ von 87 hat einen IQ, der höher ist als 19,3 % der Stichprobe/Population. Bei einem IQ von 140 hat die Person einen höheren IQ als 99,6 % aller anderen Personen in der Stichprobe. Anders ausgedrückt: Mit einem IQ von 140 gehört eine Person zur obersten 1 %.
 
-What if we want to know which value we need, to be in a certain percentile? Well, for this case R has the `qnorm()` function.
+Was, wenn wir wissen möchten, welchen Wert wir benötigen, um in einem bestimmten Perzentil zu sein? Dafür bietet R die Funktion `qnorm()`.
 
--   It takes in the argument **p**, which takes probability, we want the corresponding value and of course our two parameters mean and standard deviation
-
+-   Sie nimmt das Argument **p** entgegen, das die gewünschte Wahrscheinlichkeit enthält, sowie unsere beiden Parameter Mittelwert und Standardabweichung.
 ```{r qnorm}
-qnorm(p = 0.5, mean = 100, sd = 15) #Probability of 100 IQ
-qnorm(p = 0.1930623, mean = 100, sd = 15) #Probability of 65 IQ
-qnorm(p = 0.9961696, mean = 100, sd = 15) #Probability of 135 IQ
+qnorm(p = 0.5,       mean = 100, sd = 15) # Wert für das 50. Perzentil
+qnorm(p = 0.1930623, mean = 100, sd = 15) # Wert für das 19. Perzentil
+qnorm(p = 0.9961696, mean = 100, sd = 15) # Wert für das 99. Perzentil
 ```
 
-We see that we get our estimated values before. This function is especially useful when setting thresholds (e.g., what IQ is needed to qualify as a "genius") or determining cutoffs in standardized testing.
+Wir sehen, dass wir unsere zuvor geschätzten Werte zurückbekommen. Diese Funktion ist besonders nützlich, wenn Schwellenwerte festgelegt werden sollen (z. B. welcher IQ benötigt wird, um als „Genie" zu gelten) oder Grenzwerte bei standardisierten Tests bestimmt werden müssen.
 
-#### Conclusion
+#### Fazit
 
-This concludes our chapter on probability theory. We explored different types of variables, learned about **Probability Mass Functions (PMFs)** and **Probability Density Functions (PDFs)**, and finally saw how to work with probability distributions in R.
+Damit schließen wir unser Kapitel zur Wahrscheinlichkeitstheorie ab. Wir haben verschiedene Variablentypen untersucht, **Wahrscheinlichkeitsmassenfunktionen (PMFs)** und **Wahrscheinlichkeitsdichtefunktionen (PDFs)** kennengelernt und schließlich gesehen, wie man mit Wahrscheinlichkeitsverteilungen in R arbeitet.
 
-At first glance, this might seem like basic theory. However, a solid understanding of distributions is essential: it allows us to **detect and correct mistakes** when building statistical models, which often **rely on distributional assumptions**.
+Auf den ersten Blick mag das wie reine Theorie wirken. Ein solides Verständnis von Verteilungen ist jedoch unerlässlich: Es ermöglicht uns, **Fehler bei der Erstellung statistischer Modelle zu erkennen und zu korrigieren**, die häufig **auf Verteilungsannahmen basieren**.
 
-Moreover, understanding distributions shows us **why** statistical analysis works in the first place—even in the presence of uncertainty. It allows us to assign **probabilities to predictions**, interpret results meaningfully, and quantify how likely certain outcomes are.
+Darüber hinaus zeigt uns das Verständnis von Verteilungen, **warum** statistische Analyse überhaupt funktioniert – auch angesichts von Unsicherheit. Es ermöglicht uns, **Wahrscheinlichkeiten für Vorhersagen** zuzuweisen, Ergebnisse sinnvoll zu interpretieren und zu quantifizieren, wie wahrscheinlich bestimmte Ergebnisse sind.
 
-## Regression Diagnostics
+## Regressionsdiagnostik
 
-### Model Fit: Bivariate Regression
+### Modellgüte: Bivariate Regression
 
-Now the linear regression has a lot of assumptions, it is not like we can run the model every time how we want. Since it is a model, it makes assumptions and instead of just assuming them to be right, we can test them. To techniques to test them are called **Measures of Fit**. Because they test how much our data fits the data. Let us have a look at the assumptions and how we can test them:
+Die lineare Regression hat viele Annahmen – wir können das Modell nicht einfach immer so anwenden, wie wir möchten. Da es sich um ein Modell handelt, trifft es Annahmen, und anstatt diese einfach als gegeben vorauszusetzen, können wir sie testen. Die Techniken zum Testen dieser Annahmen werden als **Maße der Modellgüte** bezeichnet, da sie testen, wie gut unsere Daten zum Modell passen. Schauen wir uns die Annahmen und die Möglichkeiten zu ihrer Überprüfung an:
 
-#### Measures of Fit
+#### Maße der Modellgüte
 
-##### Residuals
+##### Residuen
 
-1.) Calculating Residuals:
+1.) Residuen berechnen:
 
 $$
-Residuals = y_i - \hat{y_i} = y_i - (\hat{\beta_0} - \hat{\beta_1}x_i) 
+\text{Residuen} = y_i - \hat{y_i} = y_i - (\hat{\beta_0} + \hat{\beta_1}x_i) 
 $$
 
-where
+dabei gilt:
 
--   $y_i$ = our actual observed values of our dependent variable (`df$y`)
+-   $y_i$ = unsere tatsächlich beobachteten Werte der abhängigen Variable (`df$y`)
 
--   $\hat{y_i}$ = are our predicted values based on our OLS estimator
+-   $\hat{y_i}$ = unsere vorhergesagten Werte basierend auf unserem OLS-Schätzer
 
-Reconsider the graph at 2.2.1, the residuals are basically the red lines, thus the distance from the line to the point. We can calculate the residuals for our graph:
-
-```{r sumulating data}
-#Getting the data
-set.seed(123) # For reproducibility
+Erinnert euch an den Graphen in Abschnitt 2.2.1 – die Residuen sind im Grunde die roten Linien, also der Abstand von der Geraden zum Punkt. Wir können die Residuen für unsere Daten berechnen:
+```{r daten simulieren}
+# Daten abrufen
+set.seed(123) # Reproduzierbarkeit
 
 n <- 30 
 
@@ -630,464 +641,436 @@ categorical_variable <- factor(sample(c(0, 1), n, replace = TRUE))
 
 y <- 0.8 + 1.6 * x + rnorm(n, 0, 3)
 
-df <- data.frame(x,y, categorical_variable)
+df <- data.frame(x, y, categorical_variable)
 
-# And or Model
-#running a linear regression
+# Unser Modell
 model1 <- lm(y ~ x, 
              data = df) 
 ```
-
-```{r calculating residuals}
-#First, we calculate the predictions for y
+```{r residuen berechnen}
+# Zunächst berechnen wir die Vorhersagen für y
 df$y_hat <- 1.6821 + 1.5394*df$x 
 
-#We get the Residuals by subtracting our actual y from y_hat
+# Residuen durch Subtraktion von y_hat von y berechnen
 df$residuals <- df$y - df$y_hat 
 
-#cheking it
+# Überprüfung
 head(df) 
 
-#We could have done that automatically with R as well !  
+# Das hätten wir auch automatisch mit R machen können!
 df$residuals_auto <- residuals(model1)
 
-#Checking it
+# Überprüfung
 head(df)
 ```
 
-Let us have a look at a so-called **Residual Plot**: On the x-axis you plot the **fitted values**, thus our `y_hat`. On the y-axis you plot the residuals, thus $y-\hat{y}$. Then you plot a horizontal line at y = 0. All dots on those lines show us the values correctly predicted by our model.
-
-```{r residual plot}
+Schauen wir uns einen sogenannten **Residualplot** an: Auf der x-Achse werden die **gefitteten Werte** geplottet, also unser `y_hat`. Auf der y-Achse werden die Residuen dargestellt, also $y - \hat{y}$. Dann wird eine horizontale Linie bei y = 0 eingezeichnet. Alle Punkte auf dieser Linie zeigen uns die vom Modell korrekt vorhergesagten Werte.
+```{r residualplot}
 ggplot(df, aes(x, residuals_auto)) + 
   geom_point() + 
   geom_hline(yintercept = 0) +
-  scale_y_continuous("Residuals", seq(-6, 6, 1), 
+  scale_y_continuous("Residuen", seq(-6, 6, 1), 
                      limits = c(-6, 6)) +
-  scale_x_continuous("Fitted Values", seq(0, 10, 1), 
+  scale_x_continuous("Gefittete Werte", seq(0, 10, 1), 
                      limits = c(0, 10)) +
   theme_bw()
 ```
 
-##### Homoskedasticity and Heteroskedasticity
+##### Homoskedastizität und Heteroskedastizität
 
-One assumption of linear regression is that the variance of the error term is not correlated with our independent variable. Well, that is quite technocratic and means basically, that the residuals are distributed equally over the independent variables. Let us plot it to get a visual intuition:
-
-```{r homo and hetero plot, message=FALSE, warning=FALSE}
-#setting seed for reproduciability
+Eine Annahme der linearen Regression ist, dass die Varianz des Fehlerterms nicht mit unserer unabhängigen Variable korreliert. Das klingt technisch und bedeutet im Grunde, dass die Residuen gleichmäßig über die unabhängigen Variablen verteilt sein sollten. Stellen wir das grafisch dar, um ein visuelles Verständnis zu bekommen:
+```{r homo und hetero plot, message=FALSE, warning=FALSE}
+# Seed für Reproduzierbarkeit setzen
 set.seed(123)
 
-# Generate some data
+# Daten generieren
 x <- runif(150, 0.05, 1)
 e <- rnorm(150, 0, 0.5)
 
-#homoskedastic data 
+# Homoskedastische Daten
 y_homo <- 2 * x + e 
-#heteroskedastic data 
+# Heteroskedastische Daten
 y_hetero <- 2 * x + e*x^2 
-#making a data frame with both data
+# Dataframe mit beiden Datensätzen erstellen
 df_homo_hetero <- data.frame(x, y_homo, y_hetero)
 
-# Scatterplot with homoscedasticity
+# Streudiagramm mit Homoskedastizität
 homoskedastic_plot <- ggplot(df_homo_hetero, aes(x = x, y = y_homo)) +
   geom_point() +
-  geom_smooth(method = "lm", se = FALSE) +# Add linear regression line
+  geom_smooth(method = "lm", se = FALSE) + # Regressionsgerade hinzufügen
   scale_y_continuous("Y", seq(-0.5, 3.5, 0.5), limits = c(-0.5, 3.5)) +
-  labs(title = "Homoskedastic Plot") +
+  labs(title = "Homoskedastischer Plot") +
   theme_minimal()
 
-# Scatterplot with heteroscedasticity
+# Streudiagramm mit Heteroskedastizität
 heteroskedastic_plot <- ggplot(df_homo_hetero, 
                                aes(x = x, y = y_hetero)) +
   geom_point() +
-  geom_smooth(method = "lm", se = FALSE) +#Add linear regression line
-  labs(title = "Heteroskedastic Plot") +
+  geom_smooth(method = "lm", se = FALSE) + # Regressionsgerade hinzufügen
+  labs(title = "Heteroskedastischer Plot") +
   scale_y_continuous("Y", seq(-0.5, 3.5, 0.5), limits = c(-0.5, 3.5)) +
   theme_minimal()
 
-# Combine plots using facet_wrap
+# Plots kombinieren
 facet_plots <- ggarrange(homoskedastic_plot, heteroskedastic_plot, nrow = 1)
 
-# Print the combined plots
+# Kombinierte Plots ausgeben
 print(facet_plots)
 ```
 
-In the left plot, you see the homoskedastic data. The dots are equally and constantly distributed around the fitted line. However, the right plot shows that the more the independent variable **x** increases, the more the observations are increasing. The dots are not constantly distributed over the line. In the case, that the data is heteroskedastic, then this is a problem. You could try to transform the independent variable by taking the logarithm (We will look into that later). You could also use so-called heteroskedastic regression, but this an advanced model.
+Im linken Plot sehen wir die homoskedastischen Daten. Die Punkte sind gleichmäßig und konstant um die Regressionsgerade verteilt. Im rechten Plot hingegen sehen wir, dass je mehr die unabhängige Variable **x** zunimmt, desto mehr streuen die Beobachtungen. Die Punkte sind nicht konstant um die Gerade verteilt. Wenn die Daten heteroskedastisch sind, ist das ein Problem. Man könnte versuchen, die unabhängige Variable durch Logarithmierung zu transformieren (dazu kommen wir später). Alternativ gibt es sogenannte heteroskedastische Regression – das ist jedoch ein fortgeschrittenes Modell.
 
-#### TSS, ESS and $R^2$
+#### TSS, ESS und $R^2$
 
-Now that we have the Residuals, we can calculate the Total Sum of Square (TSS), the Explained Sum of Squared ESS, and $R^2$:
+Nun, da wir die Residuen haben, können wir die Gesamtquadratsumme (TSS), die erklärte Quadratsumme (ESS) und das $R^2$ berechnen:
 
--   TSS (Variation in the DV): $TSS =\sum(y_i - \bar{y})^2$ , we just subtract our actual values (`df$y`) from its mean and square it to avoid negative numbers. This gives us the total variation of our dependent variable.
+-   TSS (Variation in der AV): $TSS = \sum(y_i - \bar{y})^2$ – Wir subtrahieren unsere tatsächlichen Werte (`df$y`) von ihrem Mittelwert und quadrieren das Ergebnis, um negative Zahlen zu vermeiden. Das ergibt die Gesamtvariation unserer abhängigen Variablen.
 
--   ESS (Variation we explain in the DV): $ESS = \sum(\hat{y_i} - \bar{y})^2$ , now we use our predicted values (`df$y_hat`) instead of our actual values. That gives us the variation in the dependent variable, we can explain with our model.
+-   ESS (Variation der AV, die wir erklären): $ESS = \sum(\hat{y_i} - \bar{y})^2$ – Hier verwenden wir unsere vorhergesagten Werte (`df$y_hat`) statt der tatsächlichen Werte. Das ergibt die Variation in der abhängigen Variablen, die wir mit unserem Modell erklären können.
 
--   $R^2$ (The Variation we can predict from our model): $R^2 = \frac{ESS}{TSS}$ , well to get the proportion we just divide the variation we can explain from our DV from the actual variation through the total variation in the DV. If these two values are the same, thus our model predicts all the variation in our dependent variable and this $R^2$ is 1. If our model could not explain anything the variation would be 0, since the values of both cannot be negative. Let us calculate them:
-
-```{r calculating r2 by hand}
-#total sum of squares
+-   $R^2$ (Der Anteil der Variation, den unser Modell vorhersagen kann): $R^2 = \frac{ESS}{TSS}$ – Um den Anteil zu erhalten, dividieren wir einfach die erklärte Variation durch die Gesamtvariation der AV. Wenn beide Werte gleich sind – unser Modell also die gesamte Variation der abhängigen Variablen vorhersagt – beträgt $R^2$ = 1. Wenn unser Modell nichts erklären kann, beträgt die erklärte Variation 0. Berechnen wir die Werte:
+```{r r2 von hand berechnen}
+# Gesamtquadratsumme
 tss <- sum((df$y - mean(df$y))^2)
-#explained sum of squares
+# Erklärte Quadratsumme
 ess <- sum((df$y_hat - mean(df$y))^2)
-#caculating r squared
+# R-Quadrat berechnen
 r_squared <- ess/tss
 
-#Printing it
+# Ausgabe
 r_squared
 
-#Summarizing it
+# Zusammenfassung ausgeben
 summary(model1)$r.squared
 ```
 
-#### Influential Outliers
+#### Einflussreiche Ausreißer
 
-Outliers are extremely deviating values, which can impact our analysis and bias it. Therefore, we have to check, if our data contains such values. But first let us see how they can impact our data:
-
-```{r plotting bias through outliers}
-#set seed 
+Ausreißer sind extrem abweichende Werte, die unsere Analyse beeinflussen und verzerren können. Daher müssen wir prüfen, ob unsere Daten solche Werte enthalten. Schauen wir zunächst, wie sie unsere Daten beeinflussen können:
+```{r verzerrung durch ausreisser plotten}
+# Seed setzen
 set.seed(069)
 
-#generate fake data with outlier 
+# Fake-Daten mit Ausreißer generieren
 x1 <- sort(runif(10, min = 30, max = 70))
-y1 <- rnorm(10 , mean = 200, sd = 50)
+y1 <- rnorm(10, mean = 200, sd = 50)
 y1[9] <- 2000
 data_outlier <- data.frame(x1, y1)
 
-#Model with Outlier 
+# Modell mit Ausreißer
 model_outlier <- lm(y1 ~ x1) 
 
-#Model without Outlier
+# Modell ohne Ausreißer
 model_without_outlier <- lm(y1[-9] ~ x1[-9]) 
 
-#Plotting the Data 
-
-# Scatter plot with points
+# Daten plotten
 ggplot(data_outlier, aes(x = x1, y = y1)) +
   geom_point(shape = 20, size = 3) +
-  # Regression line for the model with outlier
+  # Regressionsgerade mit Ausreißer
   geom_abline(aes(slope = model_outlier$coefficients[2], intercept =
               model_outlier$coefficients[1], 
-              color = "Model with Outlier"), linewidth = 0.75, show.legend = TRUE) +
-  # Regression line for the model without outlier
+              color = "Modell mit Ausreißer"), linewidth = 0.75, show.legend = TRUE) +
+  # Regressionsgerade ohne Ausreißer
   geom_abline(aes(slope = model_without_outlier$coefficients[2], 
               intercept = model_without_outlier$coefficients[1], 
-              color = "Model without Outlier"), linewidth = 0.75, 
+              color = "Modell ohne Ausreißer"), linewidth = 0.75, 
               show.legend = TRUE) +
-  xlab("Independent Variable") +
-  # Adding legend
+  xlab("Unabhängige Variable") +
   theme_classic() + 
   theme(legend.position = c(0.15,0.9), 
         legend.title = element_blank()) 
-
 ```
 
-We see that this one observation completely biases our sample. But how do we find out, which observation is an influential outlier? There is a metric called **Cook's Distance**, we can use. Let us do it and plot it in R.
-
-```{r plotting cooks distance}
-#Cooks Distance can be calculated with a built-in function
+Wir sehen, dass diese eine Beobachtung unsere Stichprobe vollständig verzerrt. Aber wie finden wir heraus, welche Beobachtung ein einflussreicher Ausreißer ist? Dafür können wir die **Cook's Distance** verwenden. Berechnen und plotten wir sie in R:
+```{r cooks distance plotten}
+# Cook's Distance kann mit einer eingebauten Funktion berechnet werden
 data_outlier$cooks_distance <- cooks.distance(model_outlier) 
 
-#Plotting it
+# Plotten
 ggplot(data_outlier, aes(x = x1, y = cooks_distance)) + 
   geom_point(colour = "darkgreen", size = 3, alpha = 0.5) + 
-  labs(y = "Cook's Distance", x = "Independent Variables") + 
+  labs(y = "Cook's Distance", x = "Unabhängige Variable") + 
   geom_hline(yintercept = 1, linetype = "dashed") + 
   theme_bw()
 ```
 
-We can clearly see that **Cook's Distance** detected the outlier. The rule is that values with a cooks distance bigger than 1 have to be eliminated. You can do that with the `filter()` function and run the model afterward again without the outliers.
+Wir können deutlich sehen, dass die **Cook's Distance** den Ausreißer erkannt hat. Die Regel lautet: Werte mit einer Cook's Distance größer als 1 müssen eliminiert werden. Das kann mit der Funktion `filter()` erfolgen, woraufhin das Modell ohne die Ausreißer erneut berechnet wird.
 
-#### Functional Form
+#### Funktionsform
 
-First let us get our data:
-
+Zunächst laden wir unsere Daten:
 ```{r}
-#Simulate further data
+# Weitere Daten simulieren
 X_quadratic <- X <- runif(50, min = -5, max = 5)
 u <- rnorm(50, sd = 1)  
 
-#True relation
+# Wahre Beziehung
 Y_quadratic <- X^2 + 2 * X + u
 
-#Making a data frame out of it
+# Dataframe erstellen
 df2 <- data.frame(X_quadratic, Y_quadratic)
 ```
 
-Linear regression is a mathematical model. Therefore it is based on assumptions. But we should not just assume them, we should test them! One assumption is that linearity is assumed between X and Y. But that can be problematic consider following example:
-
-```{r plotting linear fit through quadratic form}
-# estimate a simple regression model 
+Lineare Regression ist ein mathematisches Modell und basiert daher auf Annahmen. Wir sollten diese Annahmen nicht einfach voraussetzen, sondern testen! Eine Annahme ist, dass eine lineare Beziehung zwischen X und Y vorliegt. Das kann jedoch problematisch sein – betrachten wir folgendes Beispiel:
+```{r linearen fit durch quadratische form plotten}
+# Einfaches Regressionsmodell schätzen
 model_simple <- lm(Y_quadratic ~ X_quadratic, data = df2)
 
-# Summarize it
+# Zusammenfassung ausgeben
 summary(model_simple)
 
-#Plot it
+# Plotten
 ggplot(df2, aes(x = X_quadratic, y = Y_quadratic)) + 
   geom_point(shape = 20, size = 3) + 
   geom_smooth(method = "lm", se = FALSE) + 
   theme_bw()
 ```
 
-As you can see something look wrong. There seems to be a correlation between the two variables, but it does not seem linear. In such a case it does make sense to square the independent variable and run the regression again:
-
-```{r plotting quadratic fit with quadratic form}
-# estimate a simple regression model 
+Wie man sieht, stimmt hier etwas nicht. Es scheint eine Korrelation zwischen den beiden Variablen zu geben, aber sie sieht nicht linear aus. In einem solchen Fall ist es sinnvoll, die unabhängige Variable zu quadrieren und die Regression erneut durchzuführen:
+```{r quadratischen fit mit quadratischer form plotten}
+# Quadratisches Regressionsmodell schätzen
 model_quadratic <- lm(Y_quadratic ~ X_quadratic^2, data = df2)
 
-#Summarize it 
+# Zusammenfassung ausgeben
 summary(model_quadratic)
 
-#Plot it
+# Plotten
 ggplot(df2, aes(x = X_quadratic, y = Y_quadratic)) + 
   geom_point(shape = 20, size = 3) + 
   geom_smooth(method = "lm", formula = y ~ poly(x, 2), 
               color = "red", 
-              se = FALSE,) + 
+              se = FALSE) + 
   scale_x_continuous("X", breaks = seq(-5,5,1), limits = c(-5,5)) +
   ylab("Y") +
   theme_bw()
 ```
 
-Well that looks better and is the proper way to deal with quadratic relationships in linear regression. Well, data can take on not only a quadratic form, it could also take on a form of a square-root function. I will show the most classical example of such a functional form. The `gapminder` data is loaded. It contains data about the average life expectancy (`lifeExp`)and the GDP per capita (`gdpPercap`) of countries in different years. Let us look if the GDP per Capita is correlated with Life Expectancy:
-
-```{r unlogged fit, warning=FALSE}
-#checking the data
+Das sieht besser aus und ist die richtige Methode, um quadratische Beziehungen in der linearen Regression zu behandeln. Daten können jedoch nicht nur eine quadratische Form annehmen – sie könnten auch die Form einer Wurzelfunktion haben. Ich zeige das am klassischsten Beispiel einer solchen Funktionsform. Der `gapminder`-Datensatz wird geladen. Er enthält Daten zur durchschnittlichen Lebenserwartung (`lifeExp`) und zum BIP pro Kopf (`gdpPercap`) verschiedener Länder in verschiedenen Jahren. Untersuchen wir, ob das BIP pro Kopf mit der Lebenserwartung korreliert:
+```{r unlogarithmierter fit, warning=FALSE}
+# Daten prüfen
 head(gapminder)
 
-#Plotting it
+# Plotten
 ggplot(gapminder, aes(gdpPercap, lifeExp)) + 
   geom_point() + 
   geom_smooth(method = "loess", se = FALSE) + 
-  scale_y_continuous("Life Expectancy", seq(30, 80, 10), 
+  scale_y_continuous("Lebenserwartung", seq(30, 80, 10), 
                      limits = c(30, 80)) + 
   theme_bw()
 ```
 
-Well, that looks terrible. What can we do? I already mentioned that the fitted line looks like a square-root function ($y = \beta{\sqrt{x}}$ ). When you take the logarithm of square root, you neutralize the square root and only x remains $\log{(\sqrt{x})} = x$. When you do that the functional form changes to $y = \beta{x}$. Well, that is exactly the systematic component we are after:
-
-```{r logged fit, warning=FALSE}
+Das sieht nicht gut aus. Was können wir tun? Ich habe bereits erwähnt, dass die gefittete Linie wie eine Wurzelfunktion ($y = \beta\sqrt{x}$) aussieht. Wenn man den Logarithmus der Wurzel nimmt, hebt sich die Wurzel auf und nur x bleibt übrig: $\log{(\sqrt{x})} = x$. Die Funktionsform ändert sich dann zu $y = \beta x$ – und das ist genau die systematische Komponente, die wir anstreben:
+```{r logarithmierter fit, warning=FALSE}
 ggplot(gapminder, aes(log(gdpPercap), lifeExp)) + 
   geom_point() + 
   geom_smooth(method = "lm", se = FALSE) + 
-  scale_y_continuous("Life Expectancy", seq(30, 80, 10), 
+  scale_y_continuous("Lebenserwartung", seq(30, 80, 10), 
                      limits = c(30, 80)) + 
-  xlab("GDP per Capita") +
+  xlab("BIP pro Kopf") +
   theme_bw()
 ```
 
-This looks more like what we want to achieve. What can we see in that plot? When we run a model we want to take the logarithm of the independent variable, when we expect the following: If the most observations of a variable are low, but some observations are extremely high such functional forms can occur. In our example, most of the countries have a low GDP per Capita, but some countries such as the Western European countries or the USA have such a a high level of GDP per Capita, they change the functional form of the fitted line. These are influential outliers, but too much to delete them. It could bias the representativeness of the sample, therefore we can deal with them by taking the logarithm.
+Das sieht schon eher nach dem aus, was wir anstreben. Was können wir in diesem Plot erkennen? Wenn wir ein Modell berechnen, sollten wir den Logarithmus der unabhängigen Variable nehmen, wenn wir Folgendes erwarten: Die meisten Beobachtungen einer Variable sind niedrig, aber einige Beobachtungen sind extrem hoch. In unserem Beispiel haben die meisten Länder ein niedriges BIP pro Kopf, aber einige Länder – wie westeuropäische Länder oder die USA – haben ein so hohes BIP pro Kopf, dass sie die Funktionsform der gefitteten Linie verändern. Das sind einflussreiche Ausreißer, aber es sind zu viele, um sie zu löschen. Das würde die Repräsentativität der Stichprobe verzerren. Daher können wir mit ihnen umgehen, indem wir den Logarithmus nehmen.
 
-#### Independent Observation
+#### Unabhängige Beobachtungen
 
-Another assumption of the linear regression model is the independent, identically distributed (i.i.d) assumption. That sounds complicated but it really is not. Consider following plot:
-
-```{r time trend}
-# Getting the Data
-# set seed
+Eine weitere Annahme des linearen Regressionsmodells ist die Annahme unabhängiger, identisch verteilter Beobachtungen (i.i.d.). Das klingt kompliziert, ist es aber nicht. Betrachten wir folgenden Plot:
+```{r zeittrend}
+# Daten abrufen
 set.seed(123)
 
-# generate a date vector
+# Datumsvektor generieren
 date <- seq(as.Date("1960/1/1"), as.Date("2020/1/1"), "years")
 
-# initialize the employment vector
+# Beschäftigungsvektor initialisieren
 y_time <- c(5000, rep(NA, length(date)-1))
 
-# generate time series observations with random influences
+# Zeitreihenbeobachtungen mit zufälligen Einflüssen generieren
 for (i in 2:length(date)) {
-  
     y_time[i] <- -50 + 0.98 * y_time[i-1] + rnorm(n = 1, sd = 200)
 }
 
-# Plot it
+# Plotten
 df_time_series <- data.frame(y_time, date)
 ggplot(df_time_series, aes(date, y_time)) + 
   geom_line() +
   ylab("Y") +
-  xlab("Year") +
+  xlab("Jahr") +
   theme_bw()  
 ```
 
-If you look at the plot, can we assume that the observation Year = 2000 is independent from the Years before? No, the observation in the years are correlated to each other, thus the assumption is violated. This is basically the huge problem of working with longitudinal data (time-series cross-sectional or panel). If you face such problems there are plenty of other methods to use: Interrupted time series, Difference-in-Difference Designs, Panel-Matching, Fixed-Effects Models etc.
+Wenn wir den Plot betrachten: Können wir davon ausgehen, dass die Beobachtung für das Jahr 2000 unabhängig von den Vorjahren ist? Nein – die Beobachtungen der Jahre sind miteinander korreliert, wodurch die Annahme verletzt wird. Das ist im Grunde das große Problem bei der Arbeit mit Längsschnittdaten (Zeitreihen-Querschnittsdaten oder Paneldaten). Wenn solche Probleme auftreten, gibt es viele andere Methoden: unterbrochene Zeitreihenanalyse, Differenz-in-Differenzen-Design, Panel-Matching, Fixed-Effects-Modelle usw.
 
-### Model Fit: Multivariate Regression
+### Modellgüte: Multivariate Regression
 
-#### Model Fit: Adjusted R-squared
+#### Modellgüte: Adjustiertes R-Quadrat
 
-The last important aspect of Multivariate Regression is the Adjusted R-squared measure. Reconsider, the calculation of the classical R-squared:
+Der letzte wichtige Aspekt der multivariaten Regression ist das adjustierte R-Quadrat. Erinnert euch an die Berechnung des klassischen R-Quadrats:
 
--   TSS (Variation in the DV): $TSS =\sum(y_i - \bar{y})^2$ , we just subtract our actual values (`df$y`) from its mean and square it to avoid negative numbers. This gives us the total variation of our dependent variable.
+-   TSS (Variation in der AV): $TSS = \sum(y_i - \bar{y})^2$ – Wir subtrahieren unsere tatsächlichen Werte (`df$y`) von ihrem Mittelwert und quadrieren das Ergebnis. Das ergibt die Gesamtvariation unserer abhängigen Variablen.
 
--   ESS (Variation we explain in the DV): $ESS = \sum(\hat{y_i} - \bar{y})^2$ , now we use our predicted values (`df$y_hat`) instead of our actual values. That gives us the variation in the dependent variable, we can explain with our model.
+-   ESS (Variation der AV, die wir erklären): $ESS = \sum(\hat{y_i} - \bar{y})^2$ – Hier verwenden wir unsere vorhergesagten Werte (`df$y_hat`) statt der tatsächlichen Werte. Das ergibt die Variation in der abhängigen Variablen, die wir mit unserem Modell erklären können.
 
--   $R^2$ (The Variation we can predict from our model): $R^2 = \frac{ESS}{TSS}$ , well to get the proportion we just divide the variation we can explain from our DV from the actual variation through the total variation in the DV. If these two values are the same, thus our model predicts all the variation in our dependent variable and this $R^2$ is 1.
+-   $R^2$ (Der Anteil der Variation, den unser Modell vorhersagen kann): $R^2 = \frac{ESS}{TSS}$ – Wenn beide Werte gleich sind, beträgt $R^2$ = 1.
 
-The problem with the classical R-squared is, that if you would add useless independent variables to it, the classical R-squared would decrease, although your model did not increase in explanatory power. This is called **overfitting**. However, adjusted R-squared will account for that problem by introducing a "penalty" for every additional variable. Mathematically, it looks like this:
+Das Problem mit dem klassischen R-Quadrat ist, dass es ansteigt, wenn nutzlose unabhängige Variablen hinzugefügt werden – obwohl das Modell keine höhere Erklärungskraft gewonnen hat. Das nennt man **Overfitting**. Das adjustierte R-Quadrat löst dieses Problem, indem es eine „Strafe" für jede zusätzliche Variable einführt. Mathematisch sieht das so aus:
 
-$$ Adj.R^2 = 1 - \frac{(1 - R^2)*(N - 1)}{N - k - 1} $$
+$$ \text{Adj.}R^2 = 1 - \frac{(1 - R^2)(N - 1)}{N - k - 1} $$
 
-where
+dabei gilt:
 
--   $R^2$ is our classical R-squared calculated ($\frac{TSS}{ESS}$)
+-   $R^2$ ist unser klassisches R-Quadrat ($\frac{ESS}{TSS}$)
 
--   $N$ is the number of observations in our sample
+-   $N$ ist die Anzahl der Beobachtungen in unserer Stichprobe
 
--   $k$ is the number of independent variables
+-   $k$ ist die Anzahl der unabhängigen Variablen
 
-In `R`, we can extract the adjusted R-squared simply from our model in chunk, multivariate regression:
-
-```{r calculating adj r2}
-#running multivariate model
+In R können wir das adjustierte R-Quadrat direkt aus unserem Modell extrahieren:
+```{r adj r2 berechnen}
+# Multivariates Modell berechnen
 multivariate_model <- lm(y ~ x + categorical_variable, data = df)
 
-#Getting summary
+# Zusammenfassung ausgeben
 summary(multivariate_model)
 
-#Extract Adjusted R-squared
+# Adjustiertes R-Quadrat extrahieren
 summary(multivariate_model)$adj.r.squared
 
-#Calculating by hand
+# Von Hand berechnen
 adj_r_squared <- 1 - (((1-summary(multivariate_model)$r.squared) * (nrow(df) - 1))/(nrow(df) - 2 - 1))
 
-#printing it
+# Ausgabe
 print(adj_r_squared)
 ```
 
-#### Omitted Variable Bias
+#### Omitted Variable Bias (Auslassungsvariablenfehler)
 
-I already mentioned one (abstract) reason why we should include other variables in our model. But there is more to it: You could find effects between two variables X and Y, but it could be that in Reality there is not an association. For example, let us say you collect data about ice cream and shark attacks. Ice cream sales is your independent variable and you want to explain the number of shark attacks, here is your data:
-
-```{r omitted variable bias}
-# Set seed for reproducibility 
+Ich habe bereits einen (abstrakten) Grund erwähnt, warum wir weitere Variablen in unser Modell aufnehmen sollten. Aber es gibt mehr: Wir könnten Effekte zwischen zwei Variablen X und Y finden, obwohl in der Realität gar kein Zusammenhang besteht. Nehmen wir zum Beispiel an, wir erheben Daten über Eiscremeverkäufe und Haiangriffe. Eiscremeverkäufe sind unsere unabhängige Variable, und wir möchten die Anzahl der Haiangriffe erklären. Hier sind die Daten:
+```{r auslassungsvariablenfehler}
+# Seed für Reproduzierbarkeit setzen
 set.seed(0)  
 
-# Number of data points 
+# Anzahl der Datenpunkte
 n <- 100
 
-# Simulate diet data (assuming a normal distribution) 
+# Temperaturdaten simulieren (Normalverteilung)
 temperature <- rnorm(n, mean = 1500, sd = 200)  
 
-# Simulate exercise data (assuming a normal distribution) 
+# Eiscremeverkaufsdaten simulieren (Normalverteilung)
 ice_cream_sales <- rnorm(n, mean = 3, sd = 1)  
 
-# Simulate weight loss data 
+# Gewaltkriminalitätsdaten simulieren
 violence_crime_true <- 0.2 * temperature - 
   0.5 * ice_cream_sales + 
   rnorm(n, mean = 0, sd = 5) 
 
-# Create a data frame 
+# Dataframe erstellen
 data <- data.frame(temperature = temperature,
                    ice_cream_sales = ice_cream_sales,       
                    violence_crime_true = violence_crime_true)  
 
-# Fit a model without including the diet variable 
+# Modell ohne die Temperaturvariable
 model_without_temperature <- lm(violence_crime_true ~ ice_cream_sales, data = data)
 
-#Fit a model with only the temperature variable
+# Modell nur mit der Temperaturvariable
+model_with_only_temperature <- lm(violence_crime_true ~ temperature, data = data)
 
-model_with_only_temperature <- lm(violence_crime_true ~temperature,                        data = data)
+# Modell mit beiden Variablen
+model_with_temperature <- lm(violence_crime_true ~ ice_cream_sales + temperature, data = data)  
 
-# Fit a model including both diet and exercise variables 
-model_with_temperature <- lm(violence_crime_true ~ ice_cream_sales + temperature,                        data = data)  
-
-# Output the summary of both models 
+# Zusammenfassungen beider Modelle ausgeben
 summary(model_without_temperature) 
 summary(model_with_only_temperature)
 summary(model_with_temperature)  
 
-#Let us display both models next to each other
-#EDIT: I created this function specifically, the code for the function is at the top.   
+# Beide Modelle nebeneinander anzeigen
 table_ovb(model_without_temperature, model_with_temperature)
 ```
 
-We can see that the coefficient changes dramatically. What happened? Well, one important assumption of linear regression is that the error term captures all variance not explained by our model and is **not correlated** with the independent variable(s) nor the dependent variable. But if there is unexplained variation in our model that is correlated with our independent variable, then this assumption is violated. In our example, we can see that ice cream sales coefficient in the first model is biased, because ice cream sales and is correlated to temperature. The warmer it gets, the more ice cream is sold. But, the warmer it gets, the more violent people get, therefore we have an omitted variable and that is temperature. When we include temperature in the model, we see the problem of omitted variable bias: It biases our coefficients, by either overestimating (like in our example) or by underestimating it. What we should do in such a case, is to delete the omitted variable, which is the drastically changing variable (ice cream sales in our case). This is also the reason, why people talk about additional variables as control variables in a multiple linear model. This way you can control if an association between two variables is due to omitted variable bias or other variables, which can explain the variation better.
+Wir sehen, dass sich der Koeffizient drastisch verändert. Was ist passiert? Eine wichtige Annahme der linearen Regression ist, dass der Fehlerterm die gesamte nicht durch das Modell erklärte Varianz erfasst und **nicht korreliert** ist mit den unabhängigen Variablen oder der abhängigen Variablen. Wenn jedoch unerklärte Variation im Modell vorhanden ist, die mit unserer unabhängigen Variable korreliert, ist diese Annahme verletzt. In unserem Beispiel ist der Koeffizient der Eiscremeverkäufe im ersten Modell verzerrt, weil Eiscremeverkäufe mit der Temperatur korreliert sind – je wärmer es wird, desto mehr Eis wird verkauft. Aber je wärmer es wird, desto aggressiver werden Menschen, weshalb die Temperatur eine ausgelassene Variable ist. Wenn wir die Temperatur in das Modell aufnehmen, sehen wir das Problem des Auslassungsvariablenfehlers: Er verzerrt unsere Koeffizienten, entweder durch Über- (wie in unserem Beispiel) oder Unterschätzung. In einem solchen Fall sollte die verzerrende Variable (in unserem Fall die Eiscremeverkäufe) aus dem Modell entfernt werden. Das ist auch der Grund, warum in einem multiplen linearen Modell von Kontrollvariablen gesprochen wird: So lässt sich prüfen, ob ein Zusammenhang zwischen zwei Variablen auf einen Auslassungsvariablenfehler oder auf andere Variablen zurückzuführen ist, die die Variation besser erklären.
 
-#### Multicollinearity
+#### Multikollinearität
 
-Another, and I promise, the last OLS assumption, which has to tested is that **there is no Multicollinearity**. The concept is simple: The independent variables should not be correlated. In our previous example, ice cream sales and temperature were correlated. This would have hurt these assumption. In strong cases, multicollinearity can bias our estimates, so that they gain statistical significance and lead us to wrong conclusions. Let us look at an obvious example. You want to find out how the grades of children is affected by different factors. You choose 2 factors: The time they spent on doing their homework (*learning time*) and the time they spent on playing video games (*gaming time*). The systematic component looks like this:
+Eine weitere – und ich verspreche, die letzte – OLS-Annahme, die getestet werden muss, ist, dass **keine Multikollinearität** vorliegt. Das Konzept ist einfach: Die unabhängigen Variablen sollten nicht miteinander korreliert sein. In unserem vorherigen Beispiel waren Eiscremeverkäufe und Temperatur korreliert – das hätte diese Annahme verletzt. In ausgeprägten Fällen kann Multikollinearität unsere Schätzer verzerren, sodass sie statistische Signifikanz erlangen und zu falschen Schlussfolgerungen führen. Schauen wir uns ein offensichtliches Beispiel an. Wir möchten herausfinden, wie die Noten von Kindern von verschiedenen Faktoren beeinflusst werden. Wir wählen 2 Faktoren: die Zeit, die sie mit Hausaufgaben verbringen (*Lernzeit*), und die Zeit, die sie mit Videospielen verbringen (*Spielzeit*). Die systematische Komponente lautet:
 
 $$
-Grades_i = \beta_0 + \beta_1*\text{learning time}_i + \beta_2 *\text{gaming time}_i + \epsilon_i
+\text{Noten}_i = \beta_0 + \beta_1 \cdot \text{Lernzeit}_i + \beta_2 \cdot \text{Spielzeit}_i + \epsilon_i
 $$
 
-Let us compute them:
-
-```{r Multicollinearity}
-# Set seed for reproducibility
+Berechnen wir das Modell:
+```{r multikollinearitaet}
+# Seed für Reproduzierbarkeit setzen
 set.seed(42)
 
-# Number of samples
+# Anzahl der Stichproben
 n <- 100
 
-# True coefficients
+# Wahre Koeffizienten
 beta_0 <- 80
 beta_1 <- 1.5
 beta_2 <- 1.5
 
-# Generate independent variables
+# Unabhängige Variablen generieren
 learning_time <- runif(n, 1, 10)
 gaming_time <- 0.7 * learning_time + 
   sqrt(1 - 0.7^2) * rnorm(n, sd = 1) 
 
-#generate error term
+# Fehlerterm generieren
 epsilon <- rnorm(n, 0, 3)
 
-# Generate grades
+# Noten generieren
 grades <- beta_0 + beta_1 * learning_time + beta_2 * gaming_time + epsilon
 
-# Create a data frame
+# Dataframe erstellen
 df_grades <- data.frame(learning_time,
                    gaming_time,
                    grades)
 
-# Display first few rows of the data frame
+# Regressionsmodell berechnen
 grades_model <- lm(grades ~ learning_time + gaming_time, 
                    data = df_grades)
 
-#Getting the summary
+# Zusammenfassung ausgeben
 summary(grades_model)
 ```
 
-By looking at the model, we could conclude that the more a student learns, the better its grades on average, holding all else constant. So far, so clear, but the same goes for gaming time. Why is that the case? Because if we think that a student has per day 3 hours, which the student can assign to either learning or gaming, than both are correlated, because assigning 2 hours to learning means 1 hour for gaming, 0.5 hours for learning means 2.5 hours for gaming and so forth. This means both coefficients are explaining each other and bias each other. How to detect them?
+Wenn wir das Modell betrachten, könnten wir schlussfolgern, dass mehr Lernen im Durchschnitt zu besseren Noten führt – unter sonst gleichen Bedingungen. Soweit klar, aber dasselbe gilt für die Spielzeit. Warum? Wenn wir davon ausgehen, dass ein Schüler pro Tag 3 Stunden hat, die er entweder auf Lernen oder Spielen verteilen kann, dann sind beide miteinander korreliert: 2 Stunden Lernen bedeuten 1 Stunde Spielen, 0,5 Stunden Lernen bedeuten 2,5 Stunden Spielen usw. Das bedeutet, dass beide Koeffizienten einander erklären und sich gegenseitig verzerren. Wie können wir das erkennen?
 
-##### Testing Correlations to each other
+##### Korrelationen prüfen
 
-The first technique is to check the correlations of the variables to each other beforehand. You can do that two-ways: Just print out a correlation table:
-
-```{r testing correlations}
-#First store the variables you need in a seperate data frame 
+Die erste Technik besteht darin, die Korrelationen der Variablen im Vorfeld zu überprüfen. Das kann auf zwei Arten erfolgen – zunächst durch Ausgabe einer Korrelationstabelle:
+```{r korrelationen testen}
+# Zunächst die benötigten Variablen in einen separaten Dataframe speichern
 cormatrix_data <- df_grades %>% 
   select(learning_time, gaming_time)
 
+# Korrelationstabelle berechnen
+cormatrix <- cor(cormatrix_data) # Korrelationen berechnen
+round(cormatrix, 2)              # Auf zwei Nachkommastellen runden und anzeigen
 
-#Second, calculate the table, the 2 at the end are the dimensions
-cormatrix <- cor(cormatrix_data) #Calculate the correlations
-round(cormatrix, 2) #round it to the second digit and display it 
-
-#We could have also done this code in one step 
-
-#df_grades %>% 
-#  select(learning_time, gaming_time) %>% 
-#  cor() %>% 
-#  round(2) 
+# Das hätten wir auch in einem Schritt tun können:
+# df_grades %>% 
+#   select(learning_time, gaming_time) %>% 
+#   cor() %>% 
+#   round(2) 
 ```
 
-We can see that the correlation between both variables is way to high. Now, with only two variables the table works fine, but what if we have, let us say, 20 variables? It could get messy, therefore you could also use the correlation matrix, which I introduced in the chapter before. In this case, it does not make sense, since it would just print out one block. But keep it nevertheless in mind for the future.
+Wir sehen, dass die Korrelation zwischen beiden Variablen viel zu hoch ist. Bei nur zwei Variablen funktioniert die Tabelle gut. Aber wenn wir beispielsweise 20 Variablen haben, kann es unübersichtlich werden. In diesem Fall könnte man die Korrelationsmatrix aus dem vorherigen Kapitel verwenden. Für dieses Beispiel macht das keinen Sinn, da es nur einen einzigen Block ausgeben würde – aber behaltet es dennoch für die Zukunft im Hinterkopf.
 
-##### Variance of Inflation (VIF)
+##### Varianzinflationsfaktor (VIF)
 
-Another measure for multicolinearity and probably the most famous one, is the Variance-of-Inflation (VIF) factor. Intuitively spoken, this measure fits models with multiple variables, by calculating the variance of each variable. Then it fits a model with only one independent variable and calculates the variance of it. The result is a measure that displays high values if the variance of a variable increases, when other variables are added. That is exactly what this measure does.. The formula of it is really simple:
+Ein weiteres Maß für Multikollinearität – und wahrscheinlich das bekannteste – ist der Varianzinflationsfaktor (VIF). Intuitiv ausgedrückt: Dieses Maß passt Modelle mit mehreren Variablen an, indem es die Varianz jeder Variable berechnet. Dann passt es ein Modell mit nur einer unabhängigen Variable an und berechnet deren Varianz. Das Ergebnis ist ein Maß, das hohe Werte anzeigt, wenn die Varianz einer Variable zunimmt, sobald andere Variablen hinzugefügt werden – und genau das tut dieses Maß. Die Formel ist sehr einfach:
 
 $$
 VIF_i = \frac{1}{1 - R^2_i} 
 $$
 
-where, the Variance of inflation (VIF) of variable *i* is calculated by 1 divided by 1 - the R-squared ($R^2_i$) of the regression with only that variable.
+dabei ist der Varianzinflationsfaktor (VIF) der Variable *i* gleich 1 dividiert durch 1 minus dem R-Quadrat ($R^2_i$) der Regression mit nur dieser Variable.
 
-In `R`, we can use the `VIF()` function from the `car` - package to do it.
-
+In R können wir die Funktion `vif()` aus dem `car`-Paket verwenden:
 ```{r vif}
-#We only have to use the function VIF() on our model 
+# Wir müssen nur die Funktion vif() auf unser Modell anwenden
 vif(grades_model)
 ```
 
-The rule is that if a value exceeds 10, it is considered critical. We should always test for multicolinearity, and if we detect it, run the regression separately without the correlated variables.
+Die Regel lautet: Wenn ein Wert 10 überschreitet, gilt er als kritisch. Wir sollten immer auf Multikollinearität testen, und wenn wir sie entdecken, die Regression separat ohne die korrelierten Variablen durchführen.

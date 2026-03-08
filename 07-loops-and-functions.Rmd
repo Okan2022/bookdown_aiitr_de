@@ -1,202 +1,186 @@
-# Loops and Functions
+# Schleifen und Funktionen
 
-In this chapter I want to introduce to a way to work more efficient. R is a programming language for statistical analysis, but it also includes classical elements of programming. Two main operations are loops and functions. We can automate tasks and the earlier you learn about it the faster you can advance and understand the logic of R. The goal of this chapter is to make you familiar with functions and loops so you know them when you see them.
+In diesem Kapitel möchte ich euch eine Möglichkeit vorstellen, effizienter zu arbeiten. R ist eine Programmiersprache für statistische Analysen, enthält aber auch klassische Elemente der Programmierung. Zwei grundlegende Operationen sind Schleifen und Funktionen. Wir können damit Aufgaben automatisieren – und je früher ihr das lernt, desto schneller versteht ihr die Logik von R. Das Ziel dieses Kapitels ist, euch mit Funktionen und Schleifen vertraut zu machen, damit ihr sie erkennt, wenn ihr auf sie trefft.
 
-## Loops
+## Schleifen
 
-For example, you can use a loop to iterate through a list of numbers and perform calculations on each number, or to go through the rows of a dataset and apply certain operations to each row. Loops provide a way to streamline your code and avoid writing repetitive instructions manually.
+Zum Beispiel könnt ihr eine Schleife verwenden, um eine Liste von Zahlen zu durchlaufen und für jede Zahl Berechnungen durchzuführen, oder um die Zeilen eines Datensatzes zu durchlaufen und auf jede Zeile bestimmte Operationen anzuwenden. Schleifen bieten eine Möglichkeit, den Code zu vereinfachen und das manuelle Schreiben von sich wiederholenden Anweisungen zu vermeiden.
 
-There are different type of Loops, but for this course we focus just on the `for` loops, since you will see them also in the QM Tutorial.
+Es gibt verschiedene Arten von Schleifen, aber in diesem Kurs konzentrieren wir uns ausschließlich auf `for`-Schleifen, da ihr diesen Typ auch im QM-Tutorium begegnen werdet.
 
-### `For` loops
+### `For`-Schleifen
 
-Do you remember my grade example from the first chapter?
-
-```{r ifelse example}
-
+Erinnert ihr euch an mein Notenbeispiel aus dem ersten Kapitel?
+```{r ifelse beispiel}
 grade <- 4.0
 
 if (grade == 1.0) {
-  print("Amazing") 
+  print("Hervorragend") 
 } else if (grade > 1.0 & grade <= 2.0) {
-  print("Good Job")
+  print("Gut gemacht")
 } else if (grade > 2.0 & grade <= 3.0) {
   print("OK")
 } else if (grade > 3.0 & grade <= 4.0) {
-  print("Life goes on") 
+  print("Das Leben geht weiter") 
 }
 
 grade <- 3.3
 
 if (grade == 1.0) {
-  print("Amazing") 
+  print("Hervorragend") 
 } else if (grade > 1.0 & grade <= 2.0) {
-  print("Good Job")
+  print("Gut gemacht")
 } else if (grade > 2.0 & grade <= 3.0) {
   print("OK")
 } else if (grade > 3.0 & grade <= 4.0) {
-  print("Life goes on") 
+  print("Das Leben geht weiter") 
 }
 
 grade <- 4.0
 
 if (grade == 1.0) {
-  print("Amazing") 
+  print("Hervorragend") 
 } else if (grade > 1.0 & grade <= 2.0) {
-  print("Good Job")
+  print("Gut gemacht")
 } else if (grade > 2.0 & grade <= 3.0) {
   print("OK")
 } else if (grade > 3.0 & grade <= 4.0) {
-  print("Life goes on") 
+  print("Das Leben geht weiter") 
 }
 
 grade <- 2.3
 
 if (grade == 1.0) {
-  print("Amazing") 
+  print("Hervorragend") 
 } else if (grade > 1.0 & grade <= 2.0) {
-  print("Good Job")
+  print("Gut gemacht")
 } else if (grade > 2.0 & grade <= 3.0) {
   print("OK")
 } else if (grade > 3.0 & grade <= 4.0) {
-  print("Life goes on") 
+  print("Das Leben geht weiter") 
 }
 
 grade <- 1.7
 
 if (grade == 1.0) {
-  print("Amazing") 
+  print("Hervorragend") 
 } else if (grade > 1.0 & grade <= 2.0) {
-  print("Good Job")
+  print("Gut gemacht")
 } else if (grade > 2.0 & grade <= 3.0) {
   print("OK")
 } else if (grade > 3.0 & grade <= 4.0) {
-  print("Life goes on") 
+  print("Das Leben geht weiter") 
 }
-
 ```
 
-I could now write down all my grades and assign them as I did in the first chapter, but there is a way to automatize this process. For that I will use the `For` loop.
+Ich könnte nun alle meine Noten aufschreiben und sie einzeln zuweisen, wie im ersten Kapitel – aber es gibt eine Möglichkeit, diesen Prozess zu automatisieren. Dazu verwende ich die `for`-Schleife.
 
-First, let us make a vector with grades:
-
-```{r grades vector}
+Zunächst erstellen wir einen Vektor mit Noten:
+```{r notenvektor}
 grades <- c(1.7, 3.3, 4.0, 2.3, 1.0)
 ```
 
-Now, we can directly dive into the loop.
+Jetzt können wir direkt in die Schleife einsteigen.
 
--   Write down `for` and in brackets you define the **loop iterator**, this is the **i** in the loop. Then you define in which object of interest you want to iterate. In our case, the operation should be iterated in the grades vector. I could also write down the number 5, but it is convention to define an object. Why?
+-   Schreibe `for` und definiere in den Klammern den **Schleifeniterator** – das ist das **i** in der Schleife. Dann legst du fest, durch welches Objekt du iterieren möchtest. In unserem Fall soll die Operation durch den Notenvektor iterieren. Ich könnte auch die Zahl 5 schreiben, aber es ist konventionell, ein Objekt zu definieren. Warum?
 
--   After closing the brackets you open fancy brackets and write down your function, as you would normally, but this time you need to define how the iterator is used. Since I use the numbers in grades, my iterator needs to be put in brackets, after the name of the grades. Why?
+-   Nach dem Schließen der Klammern öffnest du geschweifte Klammern und schreibst deine Funktion, wie du es normalerweise tätest – aber diesmal musst du festlegen, wie der Iterator verwendet wird. Da ich die Zahlen in `grades` verwende, muss mein Iterator in eckigen Klammern nach dem Namen `grades` stehen. Warum?
 
--   And that's it basically
-
-```{r basic loop}
-
+-   Und das war es im Grunde.
+```{r einfache schleife}
 for (i in 1:length(grades)) {
   if (grades[i] == 1.0) {
-  print("Amazing") 
+  print("Hervorragend") 
 } else if (grades[i] > 1.0 & grades[i] <= 2.0) {
-  print("Good Job")
+  print("Gut gemacht")
 } else if (grades[i] > 2.0 & grades[i] <= 3.0) {
   print("OK")
 } else if (grades[i] > 3.0 & grades[i] <= 4.0) {
-  print("Life goes on") 
+  print("Das Leben geht weiter") 
 }
-  
 }
 ```
 
-Loops can look differently:
+Schleifen können unterschiedlich aussehen:
 
-In this example I have a number vector and my let the console print a sentence, where I vary the number and therefore the sentence changes over every loop
-
-```{r loop num}
-# creating num vector
+In diesem Beispiel habe ich einen Zahlenvektor und lasse die Konsole einen Satz ausgeben, bei dem sich die Zahl und damit der Satz bei jedem Schleifendurchlauf ändert:
+```{r schleife zahlen}
+# Zahlenvektor erstellen
 num <- c(1, 2, 3, 4, 5, 249)
 
-# looping through vector
+# Durch den Vektor iterieren
 for (i in num) { 
-  print(stringr::str_c("This is the ", i, "th Iteration")) 
+  print(stringr::str_c("Das ist die ", i, ". Iteration")) 
 }
 ```
 
-### Nested Loops
+### Verschachtelte Schleifen
 
-Because you will eventually encounter them, I will show you shortly nested loops:
+Da ihr ihnen früher oder später begegnen werdet, zeige ich euch kurz verschachtelte Schleifen:
 
-First, let us play a game of tic tac toe:
-
+Spielen wir zunächst eine Runde Tic-Tac-Toe:
 ```{r ttt matrix}
-#Defining a matrix 
+# Matrix definieren
 ttt <- matrix(c("X", "O", "X",
                 "O", "X", "O",
                 "O", "X", "O"), nrow = 3, ncol = 3, byrow = TRUE)
 ```
 
-We define a loop with an iterator **i** for the rows of the matrix, and we define another one for the columns with the iterator **j**.
+Wir definieren eine Schleife mit dem Iterator **i** für die Zeilen der Matrix und eine weitere mit dem Iterator **j** für die Spalten.
 
-Afterwords, we built up the body, in which aim to get information about the matrix and its content. The sentence shows, which rows and columns contain which values.
-
-```{r nested loops}
+Anschließend bauen wir den Schleifenkörper auf, der Informationen über die Matrix und ihren Inhalt liefert. Der ausgegebene Satz zeigt, welche Zeilen und Spalten welche Werte enthalten.
+```{r verschachtelte schleifen}
 for (i in 1:nrow(ttt)) {
   for (j in 1:ncol(ttt)) {
-    print(paste("On row", i, "and column", 
-                j, "the board contains", ttt[i,j]))
+    print(paste("In Zeile", i, "und Spalte", 
+                j, "enthält das Spielfeld", ttt[i,j]))
   }
 }
 ```
 
-## `apply()` Function Family
+## Die `apply()`-Funktionsfamilie
 
 ### `apply()`
 
-`apply()` takes a data frame or matrix as an input and gives output in vector, list or array. Apply function in R is primarily used to avoid explicit uses of loop constructs. The idea is to apply a function repeatedly to a matrix or data frame: apply(X, MARGIN, FUNCTION)
-
-```{r example matrix}
-#Let us create a matrix with random numbers 
+`apply()` nimmt einen Dataframe oder eine Matrix als Eingabe und gibt das Ergebnis als Vektor, Liste oder Array zurück. Die `apply()`-Funktion in R wird hauptsächlich verwendet, um explizite Schleifenkonstrukte zu vermeiden. Die Idee ist, eine Funktion wiederholt auf eine Matrix oder einen Dataframe anzuwenden: `apply(X, MARGIN, FUNCTION)`.
+```{r beispielmatrix}
+# Eine Matrix mit zufälligen Zahlen erstellen
 mat <- matrix(1:10, nrow = 5, ncol = 6)
 
-#Checking it
+# Überprüfung
 head(mat)
 ```
 
-Assume you now want to calculate the mean of every column:
+Nehmen wir an, ihr möchtet den Mittelwert jeder Spalte berechnen:
+```{r einfache apply funktion}
+apply(mat, 2, mean) # Mittelwert berechnen
+apply(mat, 2, sum)  # Summe berechnen
+apply(mat, 2, sd)   # Standardabweichung berechnen
 
-```{r basic apply function}
-
-apply(mat, 2, mean) #calculating mean 
-apply(mat, 2, sum) #calculating sum
-apply(mat, 2, sd) #calculating sd
-
-
-#The corresponding Loop would look like this: 
+# Die entsprechende Schleife würde so aussehen:
 for (i in 1:ncol(mat)) {
   mean_col <- mean(mat[, i])
   print(mean_col)
 }
 ```
 
-The `apply()` function is useful especially if you are working with dimensional bodies and want to calculate anything. However, they can not keep up with the flexibility of loops, you should be aware of that.
+Die Funktion `apply()` ist besonders nützlich, wenn man mit mehrdimensionalen Strukturen arbeitet und Berechnungen durchführen möchte. Sie kann jedoch mit der Flexibilität von Schleifen nicht mithalten – das sollte man im Hinterkopf behalten.
 
-### Notes
+### Hinweise
 
-Loops and the apply function are widely used in programming. However, this is no programming course, it is an introduction, so now you have an idea what is happening, if you are seeing those two things in the scripts. But if you are interested in this topic, please read into `while` loops and `repeat` loops. The `apply()` function is part of a family: `sapply()`, `lapply()`, `tapply()` are also in that family.
+Schleifen und die `apply()`-Funktion werden in der Programmierung häufig eingesetzt. Dies ist jedoch kein Programmierkurs, sondern eine Einführung – jetzt habt ihr eine Vorstellung davon, was passiert, wenn ihr diese beiden Konstrukte in Skripten seht. Wenn ihr euch für das Thema interessiert, empfehle ich euch, euch in `while`-Schleifen und `repeat`-Schleifen einzulesen. Die `apply()`-Funktion ist Teil einer Familie: `sapply()`, `lapply()` und `tapply()` gehören ebenfalls dazu.
 
-## Writing your own functions
+## Eigene Funktionen schreiben
 
-We can again safe a lot of time and be more efficient by writing our own function.
+Wir können erneut viel Zeit sparen und effizienter arbeiten, indem wir eigene Funktionen schreiben.
 
--   First, you need to define a name for your function#
--   Afterwards, you write down the command with the `function()` command. In to your brackets you put your variables. Later your input follows those variables.
--   After the fancy brackets, you define your operation with your predefined variables.
--   Lastly, you want the function to return your quantity of interest and close the fancy brackets
--   Afterwards you have a function saved and can operate with it
-
-```{r own function}
-
-#My function is just a sum
+-   Zunächst muss man der Funktion einen Namen geben.
+-   Dann schreibt man den Befehl mit dem `function()`-Befehl. In die Klammern kommen die Variablen – später folgt der eigentliche Input.
+-   Nach den geschweiften Klammern definiert man die Operation mit den zuvor festgelegten Variablen.
+-   Abschließend lässt man die Funktion die gewünschte Größe zurückgeben (`return()`) und schließt die geschweiften Klammern.
+-   Danach ist die Funktion gespeichert und kann verwendet werden.
+```{r eigene funktion}
+# Meine Funktion berechnet einfach eine Summe
 
 add <- function(x, y) { 
   
@@ -204,14 +188,11 @@ add <- function(x, y) {
   return(result)
 }
 
-add(2,7) #Now I can use my function
-
+add(2, 7) # Jetzt kann ich meine Funktion verwenden
 ```
 
-Let us calculate the area of a circle
-
-```{r area of circle}
-
+Berechnen wir den Flächeninhalt eines Kreises:
+```{r flaeche kreis}
 aoc <- function(radius) {
   pi <- 3.14159
   
@@ -223,15 +204,14 @@ aoc <- function(radius) {
 aoc(5)
 ```
 
-Let us combine what we have learned in this chapter with a meeting of animals. You do not have to understand the code, and I also do not want to explain it, but just to make clear what loops and functions are able to do. And all packages are written based on functions and loops, so it is useful to get an overview how it could look like.
+Verknüpfen wir nun, was wir in diesem Kapitel gelernt haben, mit einem Beispiel aus dem Klassenzimmer. Den folgenden Code müsst ihr nicht vollständig verstehen – ich möchte ihn auch nicht im Detail erklären. Es geht darum zu zeigen, was Schleifen und Funktionen leisten können. Alle Pakete basieren schließlich auf Funktionen und Schleifen, daher ist es hilfreich, einen Überblick zu bekommen, wie das aussehen kann.
 
-In this loop, we let R print out what persons in a classroom are doing. Before that we identify where the individuals are sitting. And the seating order in a class, is nothing more that a matrix right? We have rows and columns. This loops identifies in which row (i) and in which column (j) an individual sits. Moreover, the values in the matrix are student ids and the loop knows the id of students and prints out where which student sits. So this is an unnecessary loop, but I think a good example. Imagine the class are 1000 of people, then this loop would be necessary. As I said you do not need to completely understand it. Its purpose is to illustrate what you can do in R.
-
-```{r student sitting order}
-# The function
+In dieser Schleife lassen wir R ausgeben, wo Personen in einem Klassenzimmer sitzen. Die Sitzordnung ist dabei nichts anderes als eine Matrix – mit Zeilen und Spalten. Die Schleife identifiziert, in welcher Zeile (i) und in welcher Spalte (j) eine Person sitzt. Die Werte in der Matrix sind Studierenden-IDs, und die Schleife kennt diese IDs und gibt aus, welche Person wo sitzt. Das ist eine unnötige Schleife für diesen kleinen Datensatz – aber ein gutes Beispiel. Stellt euch vor, die Klasse hätte 1000 Personen: Dann wäre diese Schleife notwendig. Wie gesagt: Ihr müsst das nicht vollständig verstehen. Es soll illustrieren, was in R möglich ist.
+```{r sitzordnung im klassenzimmer}
+# Die Funktion
 print_classroom <- function(x) {
-  for (i in 1:length(x)) {  # Outer loop iterates over rows
-    for (j in 1:length(x[[i]])) {  # Inner loop iterates over columns
+  for (i in 1:length(x)) {        # Äußere Schleife iteriert über Zeilen
+    for (j in 1:length(x[[i]])) { # Innere Schleife iteriert über Spalten
       student <- x[[i]][j]
       if (student == 1) {
         comment <- "Alice"
@@ -244,81 +224,70 @@ print_classroom <- function(x) {
       } else if (student == 5) {
         comment <- "Eva"
       } else {
-        comment <- paste("Unknown student", student, "is doing something interesting.")
+        comment <- paste("Unbekannter Student", student, "macht etwas Interessantes.")
       }
-      cat("At row", i, "column", j, ":", comment, "\n")
+      cat("In Zeile", i, "Spalte", j, ":", comment, "\n")
     }
   }
 }
 
-# Example usage
+# Beispielverwendung
 seating_order <- list(
   c(1, 5, 2),
   c(4, 3, 7)
 )
 
-#Checking it
+# Ausgabe
 print_classroom(seating_order)
 ```
 
-## Outlook
+## Ausblick
 
-This course was a short introduction to automatize work and write efficient code: Loops and Functions. Since both concepts can get really complicated really fast, and in the beginning of your R-journey you will be less likely to use loops and functions. At some point however will you be confronted with loops and functions. And the earlier you see them, the better.
+Dieser Abschnitt war eine kurze Einführung in die Automatisierung von Arbeit und das Schreiben von effizientem Code: Schleifen und Funktionen. Da beide Konzepte sehr schnell komplex werden können, werdet ihr am Anfang eurer R-Reise seltener auf Schleifen und Funktionen zurückgreifen. Irgendwann werdet ihr jedoch auf sie treffen – und je früher ihr sie kennt, desto besser.
 
--   For further information on programming in R, I recommend ["Hands-On Programming with R"](https://rstudio-education.github.io/hopr/index.html) by Garret Grolemund. In this book, the authors shows projects where he uses functions and loops, so it is a nice illustration of the usage of loops and functions.
+-   Für weitere Informationen zur Programmierung in R empfehle ich [„Hands-On Programming with R"](https://rstudio-education.github.io/hopr/index.html) von Garret Grolemund. In diesem Buch zeigt der Autor Projekte, in denen er Funktionen und Schleifen einsetzt – eine schöne Veranschaulichung ihrer Verwendung.
 
-## Exercise Section
+## Übungsaufgaben
 
-### Exercise 1: Writing a loop
+### Übung 1: Eine Schleife schreiben
 
-Write a `for` loop that prints the square of each number from 1 to 10
-
-```{r ch5 exercise 1}
-
-#Assigning an object for a better workflow
+Schreibe eine `for`-Schleife, die das Quadrat jeder Zahl von 1 bis 10 ausgibt.
+```{r kap5 uebung 1}
+# Objekt für einen besseren Arbeitsablauf zuweisen
 number <- 10
 
-#The Loop 
-
-
-
-
+# Die Schleife
 ```
 
-### Exercise 2: Writing a function
+### Übung 2: Eine Funktion schreiben
 
-Write a function that takes the input x and squares it:
+Schreibe eine Funktion, die den Input x nimmt und ihn quadriert:
+```{r kap5 uebung 2, eval=FALSE}
+# Eine Funktion zum Quadrieren definieren
 
-```{r ch5 exercise 2, eval=FALSE}
-
-#Defining a function for squaring
-
-sq <- function (x) {
+sq <- function(x) {
   
   
   
 }
 
-#Defining a vector containing a vector from 1 to 10 
+# Einen Vektor von 1 bis 10 definieren
 numbers <- c(1:10) 
 
-#Applying the number 
+# Die Funktion anwenden
 sq(numbers)
-
 ```
 
-### Exercise 3: The midnight Formula
+### Übung 3: Die Mitternachtsformel
 
-This is the midnight formula separated in two equations:
+Das ist die Mitternachtsformel, aufgeteilt in zwei Gleichungen:
 
 $x_{1,2} = \frac{-b \pm \sqrt{b^2 - 4ac}}{2a}$
 
-Make **one function** for the midnight formula, so the output are $x_1$ and $x_2$. Test it with a = 2, b = -6, c = -8
+Schreibe **eine Funktion** für die Mitternachtsformel, sodass die Ausgabe $x_1$ und $x_2$ sind. Teste sie mit a = 2, b = -6, c = -8.
 
-**Hint**: You need two split up the formula into two equations with two outputs.
-
-```{r ch5 exercise 3, eval=FALSE}
-
+**Hinweis:** Du musst die Formel in zwei Gleichungen mit zwei Ausgaben aufteilen.
+```{r kap5 uebung 3, eval=FALSE}
 mnf <- 
 
 

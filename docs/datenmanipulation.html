@@ -1,0 +1,1555 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 2 Datenmanipulation | An intuitive Introduction to R</title>
+  <meta name="description" content="Chapter 2 Datenmanipulation | An intuitive Introduction to R" />
+  <meta name="generator" content="bookdown 0.42 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapter 2 Datenmanipulation | An intuitive Introduction to R" />
+  <meta property="og:type" content="book" />
+  
+  
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 2 Datenmanipulation | An intuitive Introduction to R" />
+  
+  
+  
+
+<meta name="author" content="Okan Sarioglu" />
+
+
+<meta name="date" content="2026-03-08" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="grundlagen.html"/>
+<link rel="next" href="datenvisualisierung.html"/>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+<link href="libs/htmltools-fill-0.5.8.1/fill.css" rel="stylesheet" />
+<script src="libs/htmlwidgets-1.6.4/htmlwidgets.js"></script>
+<link href="libs/leaflet-1.3.1/leaflet.css" rel="stylesheet" />
+<script src="libs/leaflet-1.3.1/leaflet.js"></script>
+<link href="libs/leafletfix-1.0.0/leafletfix.css" rel="stylesheet" />
+<script src="libs/proj4-2.6.2/proj4.min.js"></script>
+<script src="libs/Proj4Leaflet-1.0.1/proj4leaflet.js"></script>
+<link href="libs/rstudio_leaflet-1.3.1/rstudio_leaflet.css" rel="stylesheet" />
+<script src="libs/leaflet-binding-2.2.2/leaflet.js"></script>
+<script src="libs/leaflet-providers-2.0.0/leaflet-providers_2.0.0.js"></script>
+<script src="libs/leaflet-providers-plugin-2.2.2/leaflet-providers-plugin.js"></script>
+<script src="libs/plotly-binding-4.10.4/plotly.js"></script>
+<script src="libs/typedarray-0.1/typedarray.min.js"></script>
+<link href="libs/crosstalk-1.2.1/css/crosstalk.min.css" rel="stylesheet" />
+<script src="libs/crosstalk-1.2.1/js/crosstalk.min.js"></script>
+<link href="libs/plotly-htmlwidgets-css-2.11.1/plotly-htmlwidgets.css" rel="stylesheet" />
+<script src="libs/plotly-main-2.11.1/plotly-latest.min.js"></script>
+<script src="libs/kePrint-0.0.1/kePrint.js"></script>
+<link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
+
+
+<style type="text/css">
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<div style="text-align: center;">
+  <img src="images/AIITR.svg" alt="AIITR Logo" style="vertical-align: middle; margin-left: 5px; width: 125px; height: auto;">
+</div>
+<div style="text-align: center;">
+<li style="list-style: none;"><a href="./">by Okan Sarioglu</a></li>
+</div>
+<div style="text-align: center; margin-top: 10px;">
+  <a href="https://github.com/Okan2022" target="_blank">
+    <img src="images/github-mark.svg" alt="GitHub" style="vertical-align: middle; width: 25px; height: auto;">
+  </a>
+  <a href="https://www.linkedin.com/in/osarioglu" target="_blank" style="margin-left: 10px;">
+    <img src="images/LinkedIn_icon.svg" alt="LinkedIn" style="vertical-align: middle; width: 25px; height: auto;">
+  </a>
+</div> 
+<div style="text-align: center; margin-top: 10px; margin-bottom: 10px;">
+  <a href="script/aiitr_script.R" download="aiitr_script.R" style="display: inline-block; padding: 10px 20px; font-size: 16px; color: #fff; background-color: #4169e1; text-decoration: none; border-radius: 8px;">Download R Script</a>
+</div>
+<div style="text-align: center; margin-top: 10px; margin-bottom: 10px;">
+  <a href="https://www.paypal.com/donate?hosted_button_id=ZBMC2WD84P75S"
+     style="display: inline-block; padding: 10px 20px; font-size: 16px; color: #fff; background-color: #FCBB32; text-decoration: none; border-radius: 8px;">
+     <img src="images/pp_logo.png" alt="PayPal" style="height: 24px; vertical-align: middle; margin-right: 8px;">
+     Support me here!
+  </a>
+</div>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Willkommen!</a>
+<ul>
+<li class="chapter" data-level="" data-path=""><a href="#%C3%BCber-diesen-kurs"><i class="fa fa-check"></i>Über diesen Kurs</a></li>
+<li class="chapter" data-level="" data-path=""><a href="#%C3%BCber-mich"><i class="fa fa-check"></i>Über mich</a></li>
+</ul></li>
+<li class="chapter" data-level="1" data-path="grundlagen.html"><a href="grundlagen.html"><i class="fa fa-check"></i><b>1</b> Grundlagen</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="grundlagen.html"><a href="grundlagen.html#rstudio-kennenlernen-und-einen-workflow-etablieren"><i class="fa fa-check"></i><b>1.1</b> RStudio kennenlernen und einen Workflow etablieren</a></li>
+<li class="chapter" data-level="1.2" data-path="03-data-manipulation.html"><a href="#los-gehts-r-als-leistungsf%C3%A4higer-taschenrechner"><i class="fa fa-check"></i><b>1.2</b> Los geht’s: R als leistungsfähiger Taschenrechner</a></li>
+<li class="chapter" data-level="1.3" data-path="grundlagen.html"><a href="grundlagen.html#ifelse-statements-und-die-ifelse-funktion"><i class="fa fa-check"></i><b>1.3</b> <code>ifelse</code> statements und die <code>ifelse()</code> funktion</a></li>
+<li class="chapter" data-level="1.4" data-path="grundlagen.html"><a href="grundlagen.html#ausblick"><i class="fa fa-check"></i><b>1.4</b> Ausblick</a></li>
+<li class="chapter" data-level="1.5" data-path="03-data-manipulation.html"><a href="#%C3%BCbungsabschnitt"><i class="fa fa-check"></i><b>1.5</b> Übungsabschnitt</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="datenmanipulation.html"><a href="datenmanipulation.html"><i class="fa fa-check"></i><b>2</b> Datenmanipulation</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="datenmanipulation.html"><a href="datenmanipulation.html#pakete"><i class="fa fa-check"></i><b>2.1</b> Pakete</a></li>
+<li class="chapter" data-level="2.2" data-path="datenmanipulation.html"><a href="datenmanipulation.html#mit-paketen-arbeiten"><i class="fa fa-check"></i><b>2.2</b> Mit Paketen arbeiten</a></li>
+<li class="chapter" data-level="2.3" data-path="datenmanipulation.html"><a href="datenmanipulation.html#die-daten-mit-denen-wir-arbeiten-der-european-social-survey-ess"><i class="fa fa-check"></i><b>2.3</b> Die Daten, mit denen wir arbeiten: Der European Social Survey (ESS)</a></li>
+<li class="chapter" data-level="2.4" data-path="datenmanipulation.html"><a href="datenmanipulation.html#ran-an-die-daten-das-dplyr-paket"><i class="fa fa-check"></i><b>2.4</b> Ran an die Daten: Das <code>dplyr</code>-Paket</a></li>
+<li class="chapter" data-level="2.5" data-path="03-data-manipulation.html"><a href="#datens%C3%A4tze-zusammenf%C3%BChren"><i class="fa fa-check"></i><b>2.5</b> Datensätze zusammenführen</a></li>
+<li class="chapter" data-level="2.6" data-path="datenmanipulation.html"><a href="datenmanipulation.html#ausblick-1"><i class="fa fa-check"></i><b>2.6</b> Ausblick</a></li>
+<li class="chapter" data-level="2.7" data-path="03-data-manipulation.html"><a href="#%C3%BCbungsaufgaben"><i class="fa fa-check"></i><b>2.7</b> Übungsaufgaben</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="datenvisualisierung.html"><a href="datenvisualisierung.html"><i class="fa fa-check"></i><b>3</b> Datenvisualisierung</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="03-data-manipulation.html"><a href="#einf%C3%BChrung-in-ggplot2"><i class="fa fa-check"></i><b>3.1</b> Einführung in <code>ggplot2</code></a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="verteilungen-histogramme-dichteplots-und-boxplots.html"><a href="verteilungen-histogramme-dichteplots-und-boxplots.html"><i class="fa fa-check"></i><b>4</b> Verteilungen: Histogramme, Dichteplots und Boxplots</a></li>
+<li class="chapter" data-level="5" data-path="histogramme.html"><a href="histogramme.html"><i class="fa fa-check"></i><b>5</b> Histogramme</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="histogramme.html"><a href="histogramme.html#einfaches-histogramm"><i class="fa fa-check"></i><b>5.1</b> Einfaches Histogramm</a></li>
+<li class="chapter" data-level="5.2" data-path="histogramme.html"><a href="histogramme.html#binwidth"><i class="fa fa-check"></i><b>5.2</b> Binwidth</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="mehrere-histogramme.html"><a href="mehrere-histogramme.html"><i class="fa fa-check"></i><b>6</b> Mehrere Histogramme</a></li>
+<li class="chapter" data-level="7" data-path="dichteplots.html"><a href="dichteplots.html"><i class="fa fa-check"></i><b>7</b> Dichteplots</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="dichteplots.html"><a href="dichteplots.html#einfacher-dichteplot"><i class="fa fa-check"></i><b>7.1</b> Einfacher Dichteplot</a></li>
+<li class="chapter" data-level="7.2" data-path="dichteplots.html"><a href="dichteplots.html#mehrere-dichteplots"><i class="fa fa-check"></i><b>7.2</b> Mehrere Dichteplots</a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="boxplots.html"><a href="boxplots.html"><i class="fa fa-check"></i><b>8</b> Boxplots</a>
+<ul>
+<li class="chapter" data-level="8.1" data-path="boxplots.html"><a href="boxplots.html#einfache-boxplots"><i class="fa fa-check"></i><b>8.1</b> Einfache Boxplots</a></li>
+<li class="chapter" data-level="8.2" data-path="boxplots.html"><a href="boxplots.html#rangfolge-barplot"><i class="fa fa-check"></i><b>8.2</b> Rangfolge: Barplot</a></li>
+<li class="chapter" data-level="8.3" data-path="boxplots.html"><a href="boxplots.html#entwicklung-liniendiagramm"><i class="fa fa-check"></i><b>8.3</b> Entwicklung: Liniendiagramm</a></li>
+<li class="chapter" data-level="8.4" data-path="boxplots.html"><a href="boxplots.html#korrelation-streudiagramme"><i class="fa fa-check"></i><b>8.4</b> Korrelation: Streudiagramme</a></li>
+<li class="chapter" data-level="8.5" data-path="boxplots.html"><a href="boxplots.html#plots-mit-facet_wrap-und-facet_grid"><i class="fa fa-check"></i><b>8.5</b> Plots mit <code>facet_wrap()</code> und <code>facet_grid()</code></a></li>
+<li class="chapter" data-level="8.6" data-path="boxplots.html"><a href="boxplots.html#ausblick-2"><i class="fa fa-check"></i><b>8.6</b> Ausblick</a></li>
+<li class="chapter" data-level="8.7" data-path="boxplots.html"><a href="boxplots.html#ausblick-3"><i class="fa fa-check"></i><b>8.7</b> Ausblick</a></li>
+<li class="chapter" data-level="8.8" data-path="03-data-manipulation.html"><a href="#%C3%BCbungsaufgaben-1"><i class="fa fa-check"></i><b>8.8</b> Übungsaufgaben</a></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="explorative-datenanalyse-eda.html"><a href="explorative-datenanalyse-eda.html"><i class="fa fa-check"></i><b>9</b> Explorative Datenanalyse (EDA)</a>
+<ul>
+<li class="chapter" data-level="9.1" data-path="explorative-datenanalyse-eda.html"><a href="explorative-datenanalyse-eda.html#standard-deskriptivstatistik"><i class="fa fa-check"></i><b>9.1</b> Standard-Deskriptivstatistik</a></li>
+<li class="chapter" data-level="9.2" data-path="explorative-datenanalyse-eda.html"><a href="explorative-datenanalyse-eda.html#arbeiten-mit-eda-paketen"><i class="fa fa-check"></i><b>9.2</b> Arbeiten mit EDA-Paketen</a></li>
+<li class="chapter" data-level="9.3" data-path="explorative-datenanalyse-eda.html"><a href="explorative-datenanalyse-eda.html#fazit"><i class="fa fa-check"></i><b>9.3</b> Fazit</a></li>
+<li class="chapter" data-level="9.4" data-path="03-data-manipulation.html"><a href="#%C3%BCbungsaufgaben-2"><i class="fa fa-check"></i><b>9.4</b> Übungsaufgaben</a></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="datenanalyse.html"><a href="datenanalyse.html"><i class="fa fa-check"></i><b>10</b> Datenanalyse</a>
+<ul>
+<li class="chapter" data-level="10.1" data-path="datenanalyse.html"><a href="datenanalyse.html#lineare-regression"><i class="fa fa-check"></i><b>10.1</b> Lineare Regression</a></li>
+<li class="chapter" data-level="10.2" data-path="datenanalyse.html"><a href="datenanalyse.html#hypothesentesten-in-r"><i class="fa fa-check"></i><b>10.2</b> Hypothesentesten in R</a></li>
+<li class="chapter" data-level="10.3" data-path="datenanalyse.html"><a href="datenanalyse.html#multivariate-regression"><i class="fa fa-check"></i><b>10.3</b> Multivariate Regression</a></li>
+<li class="chapter" data-level="10.4" data-path="datenanalyse.html"><a href="datenanalyse.html#kategoriale-variablen"><i class="fa fa-check"></i><b>10.4</b> Kategoriale Variablen</a></li>
+<li class="chapter" data-level="10.5" data-path="datenanalyse.html"><a href="datenanalyse.html#ausblick-4"><i class="fa fa-check"></i><b>10.5</b> Ausblick</a></li>
+<li class="chapter" data-level="10.6" data-path="03-data-manipulation.html"><a href="#%C3%BCbungsaufgaben-3"><i class="fa fa-check"></i><b>10.6</b> Übungsaufgaben</a></li>
+</ul></li>
+<li class="chapter" data-level="11" data-path="schleifen-und-funktionen.html"><a href="schleifen-und-funktionen.html"><i class="fa fa-check"></i><b>11</b> Schleifen und Funktionen</a>
+<ul>
+<li class="chapter" data-level="11.1" data-path="schleifen-und-funktionen.html"><a href="schleifen-und-funktionen.html#schleifen"><i class="fa fa-check"></i><b>11.1</b> Schleifen</a></li>
+<li class="chapter" data-level="11.2" data-path="schleifen-und-funktionen.html"><a href="schleifen-und-funktionen.html#die-apply-funktionsfamilie"><i class="fa fa-check"></i><b>11.2</b> Die <code>apply()</code>-Funktionsfamilie</a></li>
+<li class="chapter" data-level="11.3" data-path="schleifen-und-funktionen.html"><a href="schleifen-und-funktionen.html#eigene-funktionen-schreiben"><i class="fa fa-check"></i><b>11.3</b> Eigene Funktionen schreiben</a></li>
+<li class="chapter" data-level="11.4" data-path="schleifen-und-funktionen.html"><a href="schleifen-und-funktionen.html#ausblick-5"><i class="fa fa-check"></i><b>11.4</b> Ausblick</a></li>
+<li class="chapter" data-level="11.5" data-path="03-data-manipulation.html"><a href="#%C3%BCbungsaufgaben-4"><i class="fa fa-check"></i><b>11.5</b> Übungsaufgaben</a></li>
+</ul></li>
+<li class="chapter" data-level="12" data-path="03-data-manipulation.html"><a href="#weitere-erl%C3%A4uterungen"><i class="fa fa-check"></i><b>12</b> Weitere Erläuterungen</a>
+<ul>
+<li class="chapter" data-level="12.1" data-path="03-data-manipulation.html"><a href="#funktion-definieren-f%C3%BCr-sp%C3%A4ter"><i class="fa fa-check"></i><b>12.1</b> Funktion definieren (für später)</a></li>
+<li class="chapter" data-level="12.2" data-path="weitere-erläuterungen.html"><a href="weitere-erläuterungen.html"><i class="fa fa-check"></i><b>12.2</b> Wahrscheinlichkeitstheorie</a></li>
+<li class="chapter" data-level="12.3" data-path="weitere-erläuterungen.html"><a href="weitere-erläuterungen.html#regressionsdiagnostik"><i class="fa fa-check"></i><b>12.3</b> Regressionsdiagnostik</a></li>
+</ul></li>
+<li class="chapter" data-level="13" data-path="03-data-manipulation.html"><a href="#l%C3%B6sungen-zu-den-%C3%BCbungsaufgaben"><i class="fa fa-check"></i><b>13</b> Lösungen zu den Übungsaufgaben</a>
+<ul>
+<li class="chapter" data-level="13.1" data-path="lösungen-zu-den-übungsaufgaben.html"><a href="lösungen-zu-den-übungsaufgaben.html"><i class="fa fa-check"></i><b>13.1</b> Kapitel 1: Grundlagen</a></li>
+<li class="chapter" data-level="13.2" data-path="lösungen-zu-den-übungsaufgaben.html"><a href="lösungen-zu-den-übungsaufgaben.html#kapitel-2-datenmanipulation"><i class="fa fa-check"></i><b>13.2</b> Kapitel 2: Datenmanipulation</a></li>
+<li class="chapter" data-level="13.3" data-path="lösungen-zu-den-übungsaufgaben.html"><a href="lösungen-zu-den-übungsaufgaben.html#kapitel-3-datenvisualisierung"><i class="fa fa-check"></i><b>13.3</b> Kapitel 3: Datenvisualisierung</a></li>
+<li class="chapter" data-level="13.4" data-path="lösungen-zu-den-übungsaufgaben.html"><a href="lösungen-zu-den-übungsaufgaben.html#kapitel-4-explorative-datenanalyse"><i class="fa fa-check"></i><b>13.4</b> Kapitel 4: Explorative Datenanalyse</a></li>
+<li class="chapter" data-level="13.5" data-path="lösungen-zu-den-übungsaufgaben.html"><a href="lösungen-zu-den-übungsaufgaben.html#kapitel-5-datenanalyse"><i class="fa fa-check"></i><b>13.5</b> Kapitel 5: Datenanalyse</a></li>
+<li class="chapter" data-level="13.6" data-path="lösungen-zu-den-übungsaufgaben.html"><a href="lösungen-zu-den-übungsaufgaben.html#kapitel-6-schleifen-und-funktionen"><i class="fa fa-check"></i><b>13.6</b> Kapitel 6: Schleifen und Funktionen</a></li>
+</ul></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">An intuitive Introduction to R</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="datenmanipulation" class="section level1 hasAnchor" number="2">
+<h1><span class="header-section-number">Chapter 2</span> Datenmanipulation<a href="datenmanipulation.html#datenmanipulation" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p>In diesem Kapitel laden und transformieren wir Daten. Das ist ein Standardschritt und wahrscheinlich der zeitaufwändigste Schritt bei der Datenanalyse. Die Datenvorbereitung ist notwendig, da die Datenanalyse Daten in einem bestimmten Format erfordert. Welches Format das ist, hängt vom Modell ab. Ich stelle euch <code>dplyr</code> vor, das Standardpaket zur Datenmanipulation. Am Anfang wirkt es etwas kompliziert, aber ich verspreche euch: Wenn ihr Datenanalysen in R durchführt, werdet ihr viel damit arbeiten und recht schnell sicher damit umgehen. Das Ziel dieses Kapitels ist es, euch zu zeigen, wie man Daten so manipuliert, dass wir sie in das Format bringen können, das wir für eine ordentliche Analyse benötigen. Viel Spaß!</p>
+<p><img src="images/meme2.jpg" fig-align="center" width="300" /></p>
+<div id="pakete" class="section level2 hasAnchor" number="2.1">
+<h2><span class="header-section-number">2.1</span> Pakete<a href="datenmanipulation.html#pakete" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Bisher haben wir ausschließlich sogenannte „Base-R-Funktionen” oder „eingebaute Funktionen” verwendet. R hat jedoch eine aktive Community, und manchmal werden weitere Operationen benötigt – dafür verwenden wir <strong>Pakete</strong>. Diese enthalten zusätzliche Funktionen, die wir im folgenden Abschnitt intensiv nutzen werden.</p>
+<div id="das-tidyverse-paket" class="section level3 hasAnchor" number="2.1.1">
+<h3><span class="header-section-number">2.1.1</span> Das <code>tidyverse</code>-Paket<a href="datenmanipulation.html#das-tidyverse-paket" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Eines der einflussreichsten und am weitesten verbreiteten Pakete in R ist das <code>tidyverse</code>-Paket. Es enthält mehrere andere Pakete, die für die Datenmanipulation unverzichtbar sind, z. B. <code>dplyr</code>, <code>ggplot2</code>, <code>stringr</code>, <code>readr</code> und <code>tidyr</code>.</p>
+</div>
+</div>
+<div id="mit-paketen-arbeiten" class="section level2 hasAnchor" number="2.2">
+<h2><span class="header-section-number">2.2</span> Mit Paketen arbeiten<a href="datenmanipulation.html#mit-paketen-arbeiten" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="pakete-installieren" class="section level3 hasAnchor" number="2.2.1">
+<h3><span class="header-section-number">2.2.1</span> Pakete installieren<a href="datenmanipulation.html#pakete-installieren" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Um Pakete zu installieren, verwendet man den treffend benannten <code>install.packages()</code>-Befehl in R. Beachtet, dass es notwendig ist, ein Paket direkt in R zu installieren. Dieser Schritt ist nur einmal erforderlich:</p>
+<ul>
+<li><p>Rufe den <code>install.packages()</code>-Befehl auf.</p></li>
+<li><p>Schreibe den Namen des Pakets in Anführungszeichen in die Funktion.</p></li>
+</ul>
+<p><code>install.packages("pacman")</code></p>
+</div>
+<div id="pakete-laden" class="section level3 hasAnchor" number="2.2.2">
+<h3><span class="header-section-number">2.2.2</span> Pakete laden<a href="datenmanipulation.html#pakete-laden" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Während ein Paket nur einmal installiert werden muss, muss es jedes Mal geladen werden, wenn das Skript geöffnet wird. Das geschieht mit der <code>library()</code>-Funktion in R:</p>
+<ul>
+<li><p>Rufe die <code>library()</code>-Funktion auf.</p></li>
+<li><p>Schreibe den Namen des Pakets hinein.</p></li>
+</ul>
+<p><code>library(pacman)</code></p>
+<p>Es ist immer wichtig, einen effizienten Arbeitsablauf in R zu haben. Traditionelle R-Nutzer laden alle benötigten Pakete am Anfang ihres Skripts. So müssen sie nur zum Anfang des Skripts zurückgehen und die Pakete jedes Mal laden, wenn sie das Skript öffnen. Es gibt jedoch elegantere und pragmatischere Möglichkeiten.</p>
+<p>Eine davon ist das <code>pacman</code>-Paket:</p>
+<ul>
+<li><p>Wenn man den Paketnamen mit <code>::</code> dahinter schreibt, weist man R an, in das Paket zu gehen und einen bestimmten Befehl daraus abzurufen – in unserem Fall den <code>p_load</code>-Befehl.</p></li>
+<li><p>Der <code>p_load</code>-Befehl lädt die in den Klammern angegebenen Pakete und prüft, ob sie installiert sind. Falls nicht, installiert und lädt er sie automatisch.</p></li>
+</ul>
+<div class="sourceCode" id="cb112"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb112-1"><a href="datenmanipulation.html#cb112-1" tabindex="-1"></a>pacman<span class="sc">::</span><span class="fu">p_load</span>(<span class="st">&quot;tidyverse&quot;</span>, <span class="st">&quot;psych&quot;</span>, <span class="st">&quot;gapminder&quot;</span>) <span class="co"># Pakete laden</span></span></code></pre></div>
+</div>
+</div>
+<div id="die-daten-mit-denen-wir-arbeiten-der-european-social-survey-ess" class="section level2 hasAnchor" number="2.3">
+<h2><span class="header-section-number">2.3</span> Die Daten, mit denen wir arbeiten: Der European Social Survey (ESS)<a href="datenmanipulation.html#die-daten-mit-denen-wir-arbeiten-der-european-social-survey-ess" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Für den folgenden Datenmanipulationsteil verwenden wir die 10. Runde des European Social Survey mit dem Thema „Demokratie, digitale soziale Kontakte”. Es handelt sich um eine hochwertige Umfrage, die in 31 europäischen Ländern durchgeführt wurde. Runde 10 wurde 2020 erhoben und ist die aktuellste ESS-Runde. Wir verwenden sie, da Umfragedaten unter Studierenden sehr beliebt sind und früher oder später jeder damit arbeiten muss. Aber keine Sorge, wenn ihr keine Umfragedaten mögt – wir werden auch andere bekannte Datensätze behandeln.</p>
+<p>Den Datensatz kann man frei über die <a href="https://www.europeansocialsurvey.org/">Website</a> des ESS herunterladen. Dort geht man zum Datenportal und kann die gewünschte Runde im gewünschten Format herunterladen. Wie bereits erwähnt, empfiehlt sich das <code>.dta</code>- oder <code>.csv</code>-Format.</p>
+<table style="width:99%;">
+<colgroup>
+<col width="7%" />
+<col width="34%" />
+<col width="54%" />
+<col width="2%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td rowspan="2"><strong>Variable</strong>
+:============:
+<strong>idnt</strong></td>
+<td rowspan="2"><strong>Beschreibung</strong>
+:================================================================:
+Identifikationsnummer der befragten Person</td>
+<td rowspan="2">Skalen
+:=====================================================================================================:
+eindeutige Nummer von 1–9000</td>
+<td></td>
+</tr>
+<tr class="even">
+<td></td>
+</tr>
+<tr class="odd">
+<td><strong>year</strong></td>
+<td>Jahr der Durchführung der Befragung</td>
+<td>nur 2020</td>
+<td></td>
+</tr>
+<tr class="even">
+<td><strong>cntry</strong></td>
+<td>Land</td>
+<td colspan="2">BE, BG, CH, CZ, EE, FI, FR, GB, GR, HR, HU, IE, IS, IT, LT, NL, NO, PT, SI, SK |</td>
+</tr>
+<tr class="odd">
+<td><strong>agea</strong></td>
+<td>Alter der befragten Person, berechnet</td>
+<td><p>Alter in Jahren = 15–90</p>
+<p>999 = Nicht verfügbar</p></td>
+<td></td>
+</tr>
+<tr class="even">
+<td><strong>gndr</strong></td>
+<td>Geschlecht</td>
+<td><p>1 = Männlich;</p>
+<p>2 = Weiblich;</p>
+<p>9 = Keine Antwort</p></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td><strong>happy</strong></td>
+<td>Wie glücklich bist du?</td>
+<td><p>0 (Extrem unglücklich) – 10 (Extrem glücklich);</p>
+<p>77 = Verweigerung;</p>
+<p>88 = Weiß nicht;</p>
+<p>99 = Keine Antwort</p></td>
+<td></td>
+</tr>
+<tr class="even">
+<td><strong>eisced</strong></td>
+<td>Höchster Bildungsabschluss, ES-ISCED</td>
+<td><p>0 = Nicht in ES-ISCED harmonisierbar;</p>
+<p>1 (ES-ISCED I, unter Sekundarstufe I) – 7 (ES-ISCED V2, höhere Tertiärbildung, &gt;= MA-Niveau);</p>
+<p>55 = Sonstiges;</p>
+<p>77 = Verweigerung;</p>
+<p>88 = Weiß nicht;</p>
+<p>99 = Keine Antwort</p></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td><strong>netusoft</strong></td>
+<td>Internetnutzung, wie oft</td>
+<td><p>1 (Nie) – 5 (Jeden Tag);</p>
+<p>7 = Verweigerung;</p>
+<p>8 = Weiß nicht;</p>
+<p>9 = Keine Antwort</p></td>
+<td></td>
+</tr>
+<tr class="even">
+<td><strong>trstprl</strong></td>
+<td colspan="3">Den meisten Menschen kann man vertrauen oder man kann nicht vorsichtig genug sein | 0 (Man kann nicht vorsichtig genug sein) – 10 (Den meisten Menschen kann man vertrauen);
+| |
+| 77 = Verweigerung; |
+| |
+| 88 = Weiß nicht; |
+| |
+| 99 = Keine Antwort |</td>
+</tr>
+<tr class="odd">
+<td><strong>lrscale</strong></td>
+<td>Links-Rechts-Einstufung</td>
+<td><p>0 (Links) – 10 (Rechts);</p>
+<p>77 = Verweigerung;</p>
+<p>88 = Weiß nicht;</p>
+<p>99 = Keine Antwort</p></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p><em>Hinweis: Im Folgenden werde ich den ESS mit denselben Variablennamen und denselben Wertebereichs simulieren. Das bedeutet: Wenn ihr den echten ESS einlest, solltet ihr den Code problemlos ausführen können!</em></p>
+<p><em>Ich tue dies aus Gründen der Reproduzierbarkeit. Wenn Nutzer das Skript herunterladen, sollten sie es mit einem Klick vollständig ausführen können. Das liegt daran, dass neue R-Nutzer oft Probleme mit dem Setzen von Arbeitsverzeichnissen haben – besonders am Anfang.</em></p>
+<div id="daten-laden" class="section level3 hasAnchor" number="2.3.1">
+<h3><span class="header-section-number">2.3.1</span> Daten laden<a href="datenmanipulation.html#daten-laden" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="wie-man-daten-lädt" class="section level4 hasAnchor" number="2.3.1.1">
+<h4><span class="header-section-number">2.3.1.1</span> Wie man Daten lädt<a href="#wie-man-daten-l%C3%A4dt" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>Das Erste, was man beim Bereinigen von Daten tun muss, ist sie in R zu laden. Zunächst muss sichergestellt werden, dass R weiß, wo es die Daten finden und in seine eigene Umgebung laden kann. Daten können vom lokalen Gerät oder remote über z. B. eine API geladen werden:</p>
+<ul>
+<li><p><strong>Remote:</strong> Das bedeutet, der Datensatz liegt auf einer externen Cloud oder einem Server, und man kann ihn direkt in R laden, ohne ihn lokal herunterzuladen. Je nach Datensatz gibt es unterschiedliche Wege – ich zeige später, wie man Daten von der Weltbank lädt.</p></li>
+<li><p><strong>Lokal:</strong> Um Daten vom eigenen Gerät zu laden, muss man R sagen, wo es sie findet – also den Pfad angeben. Navigiere zur Datei und klicke sie an. Der Pfad wird in der Adressleiste angezeigt – einfach kopieren und in R mit dem entsprechenden Befehl einfügen. Der Befehl hängt vom Dateityp ab, wie in der folgenden Tabelle zu sehen. Hier ein Beispiel für eine <code>.csv</code>-Datei:</p>
+<p><code>data &lt;- read.csv("C:/Users/DeinBenutzername/Dokumente/data.csv")</code></p></li>
+</ul>
+<p>Diese Tabelle zeigt einige der häufigsten Datenformate, die man herunterladen und in R laden kann. Es gibt natürlich noch weitere Datentypen. Um herauszufinden, ob ein bestimmter Typ in R eingelesen werden kann, reicht eine kurze Internetsuche nach dem Typ und dem Befehl. Meistens findet man ein Paket mit einem Befehl – und die meisten dieser Befehle beginnen mit „read”.</p>
+<table style="width:98%;">
+<caption>Beispiele verschiedener Datenformate und wie man sie in R lädt</caption>
+<colgroup>
+<col width="22%" />
+<col width="13%" />
+<col width="38%" />
+<col width="23%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Datei</th>
+<th>Dateiendung</th>
+<th>Paket</th>
+<th>Befehl</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Stata</strong></td>
+<td>.dta</td>
+<td>haven</td>
+<td><code>read_dta()</code></td>
+</tr>
+<tr class="even">
+<td><strong>CSV-Dateien</strong></td>
+<td>.csv</td>
+<td>readr (im tidyverse-Paket enthalten)</td>
+<td><code>read_csv()</code></td>
+</tr>
+<tr class="odd">
+<td><strong>Excel-Dateien</strong></td>
+<td>.xlsx; .xls</td>
+<td>readxl</td>
+<td><code>read_excel()</code></td>
+</tr>
+<tr class="even">
+<td><strong>RData (auch RDS-Daten)</strong></td>
+<td>.RData; .rds</td>
+<td>Base-R-Funktionen, kein Paket erforderlich</td>
+<td><code>load()</code>, <code>readRDS()</code></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="arbeitsverzeichnisse-und-r-projekte" class="section level4 hasAnchor" number="2.3.1.2">
+<h4><span class="header-section-number">2.3.1.2</span> Arbeitsverzeichnisse und R-Projekte<a href="datenmanipulation.html#arbeitsverzeichnisse-und-r-projekte" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>Wenn man mehrere Daten- und Dateien in R laden möchte, ist es nicht empfehlenswert, jedes Mal den Pfad jeder Datei zu kopieren. Stattdessen ist es üblich, mit Arbeitsverzeichnissen oder R-Projekten zu arbeiten.</p>
+<ul>
+<li><p>Es gibt immer ein aktives Arbeitsverzeichnis. Mit dem Befehl <code>getwd()</code> kann man herausfinden, in welchem Verzeichnis man sich gerade befindet – einfach in der Konsole ausführen, und R zeigt den aktuellen Pfad an. Angenommen, alle Daten wurden in einem Ordner namens „Intro_to_R_course” gespeichert, kann man das Arbeitsverzeichnis separat mit diesem Befehl setzen (nicht vergessen, die Pfade anzupassen):</p>
+<p><code>setwd("C:/Users/DeinBenutzername/Intro_to_R_course")</code></p></li>
+<li><p>Nachdem das Arbeitsverzeichnis gesetzt wurde, kann man <code>getwd()</code> erneut ausführen – der Pfad sollte nun dem Inhalt von <code>setwd()</code> entsprechen. Der Vorteil ist nun, dass Daten geladen werden können, ohne den vollständigen Pfad anzugeben. Wenn sich die Daten im Arbeitsverzeichnis befinden, genügt:</p>
+<p><code>data &lt;- read.csv("data.csv")</code></p></li>
+<li><p>Es ist auch möglich, ein R-Projekt zu erstellen. Über <code>Datei &gt; Neues Projekt &gt; Neues Verzeichnis &gt; Neues Projekt</code> kann man das Arbeitsverzeichnis festlegen und einen Ordner darin erstellen. In diesem Ordner befindet sich eine R-Projekt-Datei. Öffnet man diese Datei, erscheint eine leere R-Umgebung. Nun kann man Dateien in diesem Ordner erstellen. Und jedes Mal, wenn R über die R-Projekt-Datei geöffnet wird, muss kein Arbeitsverzeichnis manuell gesetzt werden – R setzt es automatisch auf den Ordner, in dem das Projekt erstellt wurde.</p></li>
+<li><p>Am Anfang empfehle ich nicht, mit R-Projekten zu arbeiten. Wenn ihr jedoch mit anderen zusammenarbeitet und euren Code reproduzierbar gestalten wollt, werdet ihr eines Tages mit R-Projekten arbeiten müssen. Das ist auch der Grund, warum ich alle Daten simuliere – so könnt ihr mit dem Code arbeiten, ohne euch um Arbeitsverzeichnisse sorgen zu müssen.</p></li>
+</ul>
+</div>
+</div>
+<div id="noch-eine-sache-pipelines" class="section level3 hasAnchor" number="2.3.2">
+<h3><span class="header-section-number">2.3.2</span> Noch eine Sache: Pipelines<a href="datenmanipulation.html#noch-eine-sache-pipelines" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Manchmal hat Code mehrere verschachtelte Ebenen, was ihn sehr unübersichtlich machen kann:</p>
+<p><code>leave_house(get_dressed(get_out_of_the_bed(wake_up(me))))</code></p>
+<p>Wie man sieht, gibt es zu viele Ebenen. Mit <code>tidyverse</code> kann man den Code in sogenannte <strong>Pipelines</strong> aufteilen, wofür man eine <strong>Pipe</strong> <code>%&gt;%</code> verwendet:</p>
+<p><code>me %&gt;%</code>
+<code>wake_up() %&gt;%</code>
+<code>get_out_of_the_bed() %&gt;%</code>
+<code>get_dressed() %&gt;%</code>
+<code>leave_house()</code></p>
+<p>Das ist derselbe Code – in R würde er dasselbe tun. Der Vorteil ist, dass er viel intuitiver ist und den Code übersichtlich macht. Hier ein Beispiel:</p>
+<ul>
+<li><p>Zunächst erstellen wir einen Vektor mit drei zufälligen Zahlen namens <code>q</code>.</p></li>
+<li><p>Dann berechnen wir den Mittelwert, dann die Exponentialfunktion und schließlich die Quadratwurzel. Man könnte die Funktionen einfach ineinander verschachteln: <code>sqrt(exp(mean(q)))</code>.</p></li>
+<li><p>Oder man verwendet Pipes, bei denen klar erkennbar ist, dass zuerst der Mittelwert, dann der Exponent und dann die Wurzel gezogen wird: <code>q %&gt;% mean() %&gt;% exp() %&gt;% sqrt()</code>. Führt beide Codes aus – sie liefern dasselbe Ergebnis.</p></li>
+</ul>
+<div class="sourceCode" id="cb113"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb113-1"><a href="datenmanipulation.html#cb113-1" tabindex="-1"></a><span class="co"># Vektor mit drei zufälligen Zahlen erstellen</span></span>
+<span id="cb113-2"><a href="datenmanipulation.html#cb113-2" tabindex="-1"></a>q <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">6</span>, <span class="dv">3</span>, <span class="dv">8</span>)</span>
+<span id="cb113-3"><a href="datenmanipulation.html#cb113-3" tabindex="-1"></a></span>
+<span id="cb113-4"><a href="datenmanipulation.html#cb113-4" tabindex="-1"></a><span class="co"># Erst Mittelwert, dann Exponent, dann Wurzel</span></span>
+<span id="cb113-5"><a href="datenmanipulation.html#cb113-5" tabindex="-1"></a><span class="fu">sqrt</span>(<span class="fu">exp</span>(<span class="fu">mean</span>(q)))</span></code></pre></div>
+<pre><code>## [1] 17.00204</code></pre>
+<div class="sourceCode" id="cb115"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb115-1"><a href="datenmanipulation.html#cb115-1" tabindex="-1"></a><span class="do">### Mit einer Pipe</span></span>
+<span id="cb115-2"><a href="datenmanipulation.html#cb115-2" tabindex="-1"></a>q <span class="sc">%&gt;%</span> </span>
+<span id="cb115-3"><a href="datenmanipulation.html#cb115-3" tabindex="-1"></a>  <span class="fu">mean</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb115-4"><a href="datenmanipulation.html#cb115-4" tabindex="-1"></a>  <span class="fu">exp</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb115-5"><a href="datenmanipulation.html#cb115-5" tabindex="-1"></a>  <span class="fu">sqrt</span>()</span></code></pre></div>
+<pre><code>## [1] 17.00204</code></pre>
+<p>Das war ein einfaches und kurzes Beispiel. Wie ihr am Ende dieses Kapitels sehen werdet, kann Code sehr schnell sehr unübersichtlich werden – und um sauberen Code zu schreiben, werden wir Pipes verwenden. Außerdem verwenden <code>tidyverse</code>-Nutzer ständig Pipes, sodass man sie zumindest verstehen muss, auch wenn man sie selbst nicht nutzt.</p>
+</div>
+</div>
+<div id="ran-an-die-daten-das-dplyr-paket" class="section level2 hasAnchor" number="2.4">
+<h2><span class="header-section-number">2.4</span> Ran an die Daten: Das <code>dplyr</code>-Paket<a href="datenmanipulation.html#ran-an-die-daten-das-dplyr-paket" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p><img src="images/meme3.jpg" fig-align="center" width="435" /></p>
+<p>Das <code>dplyr</code>-Paket ist DAS Standardpaket für die Datenmanipulation (neben Base R natürlich). Es verfügt über wesentliche und nützliche Funktionen. Wenn ihr die Flexibilität dieser Funktionen versteht, könnt ihr problemlos mit jedem Datensatz umgehen.</p>
+<div id="der-filter-befehl" class="section level3 hasAnchor" number="2.4.1">
+<h3><span class="header-section-number">2.4.1</span> Der <code>filter()</code>-Befehl<a href="datenmanipulation.html#der-filter-befehl" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Die erste Funktion, die ich vorstelle, ist <code>filter()</code>. Mit ihr können wir bestimmte Bedingungen festlegen, um unseren Datensatz entsprechend einzuschränken.</p>
+<ul>
+<li><p>Wir benötigen <code>filter()</code> und dann eine Variable, nach der wir filtern möchten. In meinem Beispiel möchte ich nur alle Beobachtungen behalten, die „HU” in der <code>cntry</code>-Variable haben. Inhaltlich bedeutet das, dass ich nur auf Beobachtungen aus Ungarn einschränke. Ich verwende den <code>==</code>-Operator, da ich alle Beobachtungen haben möchte, bei denen die Bedingung wahr ist.</p>
+<p>Hier eine kurze Erinnerung an logische Operatoren in R:</p>
+<table>
+<colgroup>
+<col width="28%" />
+<col width="71%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Logischer Operator</th>
+<th>Bedeutung</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>==</td>
+<td>gleich</td>
+</tr>
+<tr class="even">
+<td>&lt;</td>
+<td>kleiner als</td>
+</tr>
+<tr class="odd">
+<td>&gt;</td>
+<td>größer als</td>
+</tr>
+<tr class="even">
+<td>&lt;=</td>
+<td>kleiner oder gleich</td>
+</tr>
+<tr class="odd">
+<td>&gt;=</td>
+<td>größer oder gleich</td>
+</tr>
+<tr class="even">
+<td>! (z. B. !=; &gt;!; &lt;!…)</td>
+<td>ungleich, nicht größer als, nicht kleiner als</td>
+</tr>
+<tr class="odd">
+<td>&amp;</td>
+<td>elementweiser UND-Operator. Gibt TRUE zurück, wenn beide Elemente wahr sind</td>
+</tr>
+<tr class="even">
+<td>|</td>
+<td>elementweiser ODER-Operator. Gibt TRUE zurück, wenn eine Aussage wahr ist</td>
+</tr>
+</tbody>
+</table></li>
+</ul>
+<div id="filtern-nach-einer-einzigen-bedingung" class="section level4 hasAnchor" number="2.4.1.1">
+<h4><span class="header-section-number">2.4.1.1</span> Filtern nach einer einzigen Bedingung<a href="datenmanipulation.html#filtern-nach-einer-einzigen-bedingung" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<ul>
+<li><p>Zunächst definieren wir ein neues Objekt, nennen wir es <code>d1</code>.</p></li>
+<li><p>Dann nehmen wir die Daten, die wir filtern möchten – in unserem Fall <code>ess</code>.</p></li>
+<li><p>Wir definieren eine Pipe, schreiben <code>filter()</code> und legen eine Bedingung fest: Hier sollen nur Fälle behalten werden, bei denen <code>cntry</code> gleich dem ISO2C-Code für Ungarn, <code>"HU"</code>, ist.</p></li>
+<li><p>Im nächsten Code machen wir dasselbe und filtern für Fälle, die gleich oder kleiner als 40 sind – so erhalten wir einen Datensatz mit Beobachtungen, die 40 Jahre oder jünger sind.</p></li>
+</ul>
+<blockquote>
+<p><em>Hinweis: Da <code>cntry</code> eine Zeichenvariable ist, muss die Bedingung in Anführungszeichen gesetzt werden. Die Variable <code>agea</code> ist numerisch, daher genügt die Zahl.</em></p>
+</blockquote>
+<div class="sourceCode" id="cb117"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb117-1"><a href="datenmanipulation.html#cb117-1" tabindex="-1"></a><span class="co"># Nur Fälle aus Ungarn filtern</span></span>
+<span id="cb117-2"><a href="datenmanipulation.html#cb117-2" tabindex="-1"></a>d1 <span class="ot">&lt;-</span> ess <span class="sc">%&gt;%</span> </span>
+<span id="cb117-3"><a href="datenmanipulation.html#cb117-3" tabindex="-1"></a>  <span class="fu">filter</span>(cntry <span class="sc">==</span> <span class="st">&quot;HU&quot;</span>)</span>
+<span id="cb117-4"><a href="datenmanipulation.html#cb117-4" tabindex="-1"></a></span>
+<span id="cb117-5"><a href="datenmanipulation.html#cb117-5" tabindex="-1"></a><span class="co"># Überprüfen</span></span>
+<span id="cb117-6"><a href="datenmanipulation.html#cb117-6" tabindex="-1"></a><span class="fu">head</span>(d1) </span></code></pre></div>
+<pre><code>##   idnt year cntry agea gndr happy eisced netusoft
+## 1 4501 2020    HU   21    2     3      6        4
+## 2 4502 2020    HU   48    1     5      5        3
+## 3 4503 2020    HU   80    1     6      3        4
+## 4 4504 2020    HU   38    1     6      3        2
+## 5 4505 2020    HU   40    2    10      3        3
+## 6 4506 2020    HU   40    1     1      7        2
+##   trstprl lrscale
+## 1       3       2
+## 2       5       3
+## 3       4       1
+## 4       1       3
+## 5       9       7
+## 6       2       3</code></pre>
+<div class="sourceCode" id="cb119"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb119-1"><a href="datenmanipulation.html#cb119-1" tabindex="-1"></a><span class="co"># Nur Teilnehmende unter 40 behalten</span></span>
+<span id="cb119-2"><a href="datenmanipulation.html#cb119-2" tabindex="-1"></a>d2 <span class="ot">&lt;-</span> ess <span class="sc">%&gt;%</span>  </span>
+<span id="cb119-3"><a href="datenmanipulation.html#cb119-3" tabindex="-1"></a>  <span class="fu">filter</span>(agea <span class="sc">&lt;=</span> <span class="dv">40</span>)</span>
+<span id="cb119-4"><a href="datenmanipulation.html#cb119-4" tabindex="-1"></a></span>
+<span id="cb119-5"><a href="datenmanipulation.html#cb119-5" tabindex="-1"></a><span class="co"># Überprüfen</span></span>
+<span id="cb119-6"><a href="datenmanipulation.html#cb119-6" tabindex="-1"></a><span class="fu">head</span>(d2) </span></code></pre></div>
+<pre><code>##   idnt year cntry agea gndr happy eisced netusoft
+## 1    3 2020    BE   28    2     3      4        5
+## 2    8 2020    BE   28    2     5      1        2
+## 3    9 2020    BE   39    2     8      3        1
+## 4   12 2020    BE   23    1    77      1        4
+## 5   14 2020    BE   40    2     3      5        2
+## 6   15 2020    BE   21    1     1      4        1
+##   trstprl lrscale
+## 1       4       7
+## 2       1       1
+## 3       4       6
+## 4       4       7
+## 5       3       2
+## 6       8       5</code></pre>
+</div>
+<div id="filtern-nach-mehreren-bedingungen" class="section level4 hasAnchor" number="2.4.1.2">
+<h4><span class="header-section-number">2.4.1.2</span> Filtern nach mehreren Bedingungen<a href="datenmanipulation.html#filtern-nach-mehreren-bedingungen" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<div class="sourceCode" id="cb121"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb121-1"><a href="datenmanipulation.html#cb121-1" tabindex="-1"></a><span class="co"># Fälle aus Ungarn und Frankreich filtern</span></span>
+<span id="cb121-2"><a href="datenmanipulation.html#cb121-2" tabindex="-1"></a>d1 <span class="ot">&lt;-</span> ess <span class="sc">%&gt;%</span> </span>
+<span id="cb121-3"><a href="datenmanipulation.html#cb121-3" tabindex="-1"></a>  <span class="fu">filter</span>(cntry <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">&quot;HU&quot;</span>, <span class="st">&quot;FR&quot;</span>))</span>
+<span id="cb121-4"><a href="datenmanipulation.html#cb121-4" tabindex="-1"></a></span>
+<span id="cb121-5"><a href="datenmanipulation.html#cb121-5" tabindex="-1"></a><span class="co"># Überprüfen</span></span>
+<span id="cb121-6"><a href="datenmanipulation.html#cb121-6" tabindex="-1"></a><span class="fu">head</span>(d1)  </span></code></pre></div>
+<pre><code>##   idnt year cntry agea gndr happy eisced netusoft
+## 1 2701 2020    FR   41    9     7      7        8
+## 2 2702 2020    FR   64    1     2      5        4
+## 3 2703 2020    FR   90    1     5      6        5
+## 4 2704 2020    FR   23    1     9      3        3
+## 5 2705 2020    FR   30    2     8      7        2
+## 6 2706 2020    FR   42    2    10     88        9
+##   trstprl lrscale
+## 1       8       6
+## 2       5       4
+## 3       1       8
+## 4       9       3
+## 5       7       9
+## 6       9       5</code></pre>
+<div class="sourceCode" id="cb123"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb123-1"><a href="datenmanipulation.html#cb123-1" tabindex="-1"></a><span class="co"># Fälle unter 40 aus Ungarn und Frankreich filtern</span></span>
+<span id="cb123-2"><a href="datenmanipulation.html#cb123-2" tabindex="-1"></a>d2 <span class="ot">&lt;-</span> ess <span class="sc">%&gt;%</span></span>
+<span id="cb123-3"><a href="datenmanipulation.html#cb123-3" tabindex="-1"></a>  <span class="fu">filter</span>(cntry <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">&quot;HU&quot;</span>, <span class="st">&quot;FR&quot;</span>) <span class="sc">&amp;</span></span>
+<span id="cb123-4"><a href="datenmanipulation.html#cb123-4" tabindex="-1"></a>           agea <span class="sc">&lt;=</span> <span class="dv">40</span>)</span>
+<span id="cb123-5"><a href="datenmanipulation.html#cb123-5" tabindex="-1"></a></span>
+<span id="cb123-6"><a href="datenmanipulation.html#cb123-6" tabindex="-1"></a><span class="co"># Überprüfen</span></span>
+<span id="cb123-7"><a href="datenmanipulation.html#cb123-7" tabindex="-1"></a><span class="fu">head</span>(d2)</span></code></pre></div>
+<pre><code>##   idnt year cntry agea gndr happy eisced netusoft
+## 1 2704 2020    FR   23    1     9      3        3
+## 2 2705 2020    FR   30    2     8      7        2
+## 3 2708 2020    FR   17    1     1      2        2
+## 4 2709 2020    FR   26    2    10      1        4
+## 5 2710 2020    FR   34    1     8      3        1
+## 6 2711 2020    FR   30    1     5      3        5
+##   trstprl lrscale
+## 1       9       3
+## 2       7       9
+## 3       8       3
+## 4       9       6
+## 5       3       8
+## 6       9      10</code></pre>
+<div class="sourceCode" id="cb125"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb125-1"><a href="datenmanipulation.html#cb125-1" tabindex="-1"></a><span class="co"># d2 &lt;- ess %&gt;%</span></span>
+<span id="cb125-2"><a href="datenmanipulation.html#cb125-2" tabindex="-1"></a><span class="co">#   filter(cntry %in% c(&quot;HU&quot;, &quot;FR&quot;), </span></span>
+<span id="cb125-3"><a href="datenmanipulation.html#cb125-3" tabindex="-1"></a><span class="co">#            agea &lt;= 40) # Filtern mit Komma statt &amp;</span></span>
+<span id="cb125-4"><a href="datenmanipulation.html#cb125-4" tabindex="-1"></a><span class="co"># head(d2)</span></span></code></pre></div>
+</div>
+</div>
+<div id="die-select-funktion" class="section level3 hasAnchor" number="2.4.2">
+<h3><span class="header-section-number">2.4.2</span> Die <code>select()</code>-Funktion<a href="datenmanipulation.html#die-select-funktion" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Wir interessieren uns natürlich nicht für alle Variablen, die ein Datensatz bietet (meistens). Um die benötigten Variablen auszuwählen, können wir die <code>select()</code>-Funktion verwenden. Das hängt natürlich von unserer Forschungsfrage ab. Nehmen wir an, wir möchten Jahr, Land, die <code>happy</code>-Variable, Alter, Geschlecht und Bildung auswählen.</p>
+<div id="variablen-auswählen-und-löschen" class="section level4 hasAnchor" number="2.4.2.1">
+<h4><span class="header-section-number">2.4.2.1</span> Variablen auswählen und löschen<a href="#variablen-ausw%C3%A4hlen-und-l%C3%B6schen" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<ul>
+<li>Wir müssen lediglich die Spaltennamen an <code>select()</code> übergeben. Das war’s.</li>
+</ul>
+<div class="sourceCode" id="cb126"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb126-1"><a href="datenmanipulation.html#cb126-1" tabindex="-1"></a><span class="co"># Relevante Variablen auswählen</span></span>
+<span id="cb126-2"><a href="datenmanipulation.html#cb126-2" tabindex="-1"></a>d1 <span class="ot">&lt;-</span> ess <span class="sc">%&gt;%</span></span>
+<span id="cb126-3"><a href="datenmanipulation.html#cb126-3" tabindex="-1"></a>   <span class="fu">select</span>(year, cntry, happy, agea, gndr, eisced) </span>
+<span id="cb126-4"><a href="datenmanipulation.html#cb126-4" tabindex="-1"></a></span>
+<span id="cb126-5"><a href="datenmanipulation.html#cb126-5" tabindex="-1"></a><span class="co"># Überprüfen</span></span>
+<span id="cb126-6"><a href="datenmanipulation.html#cb126-6" tabindex="-1"></a><span class="fu">head</span>(d1) </span></code></pre></div>
+<pre><code>##   year cntry happy agea gndr eisced
+## 1 2020    BE     1   45    1      6
+## 2 2020    BE     3   65    1      5
+## 3 2020    BE     3   28    2      4
+## 4 2020    BE     1   81    1      7
+## 5 2020    BE     4   56    2      7
+## 6 2020    BE     3   64    1      5</code></pre>
+</div>
+<div id="variablen-löschen" class="section level4 hasAnchor" number="2.4.2.2">
+<h4><span class="header-section-number">2.4.2.2</span> Variablen löschen<a href="#variablen-l%C3%B6schen" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<ul>
+<li>Um eine Spalte zu löschen, setzt man einfach ein Minuszeichen vor den Spaltennamen. Das war’s – der Rest bleibt gleich.</li>
+</ul>
+<div class="sourceCode" id="cb128"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb128-1"><a href="datenmanipulation.html#cb128-1" tabindex="-1"></a><span class="co"># Spalten durch ein vorangestelltes Minus löschen</span></span>
+<span id="cb128-2"><a href="datenmanipulation.html#cb128-2" tabindex="-1"></a>d2 <span class="ot">&lt;-</span> d1 <span class="sc">%&gt;%</span> </span>
+<span id="cb128-3"><a href="datenmanipulation.html#cb128-3" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">-</span>agea)</span>
+<span id="cb128-4"><a href="datenmanipulation.html#cb128-4" tabindex="-1"></a></span>
+<span id="cb128-5"><a href="datenmanipulation.html#cb128-5" tabindex="-1"></a><span class="co"># Überprüfen</span></span>
+<span id="cb128-6"><a href="datenmanipulation.html#cb128-6" tabindex="-1"></a><span class="fu">head</span>(d2)</span></code></pre></div>
+<pre><code>##   year cntry happy gndr eisced
+## 1 2020    BE     1    1      6
+## 2 2020    BE     3    1      5
+## 3 2020    BE     3    2      4
+## 4 2020    BE     1    1      7
+## 5 2020    BE     4    2      7
+## 6 2020    BE     3    1      5</code></pre>
+</div>
+<div id="select-mit-filter-kombinieren" class="section level4 hasAnchor" number="2.4.2.3">
+<h4><span class="header-section-number">2.4.2.3</span> <code>select()</code> mit <code>filter()</code> kombinieren<a href="datenmanipulation.html#select-mit-filter-kombinieren" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>Ein großer Vorteil des Pipings ist, dass wir Daten in einem oder wenigen Schritten bereinigen können. Dabei muss man lediglich beachten, was in welcher Reihenfolge steht – der letzte Befehl wird zuerst ausgeführt.</p>
+<ul>
+<li><p>In diesem Beispiel wählen wir 7 Variablen aus und filtern dann nach allen Beobachtungen unter 40.</p></li>
+<li><p>Die beiden Befehle sind durch eine Pipe getrennt.</p></li>
+</ul>
+<div class="sourceCode" id="cb130"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb130-1"><a href="datenmanipulation.html#cb130-1" tabindex="-1"></a><span class="co"># Befehle kombinieren</span></span>
+<span id="cb130-2"><a href="datenmanipulation.html#cb130-2" tabindex="-1"></a>d1 <span class="ot">&lt;-</span> ess <span class="sc">%&gt;%</span></span>
+<span id="cb130-3"><a href="datenmanipulation.html#cb130-3" tabindex="-1"></a>  <span class="fu">filter</span>(agea <span class="sc">&lt;</span> <span class="dv">40</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb130-4"><a href="datenmanipulation.html#cb130-4" tabindex="-1"></a>  <span class="fu">select</span>(year, cntry, happy, agea, gndr, eisced)</span>
+<span id="cb130-5"><a href="datenmanipulation.html#cb130-5" tabindex="-1"></a></span>
+<span id="cb130-6"><a href="datenmanipulation.html#cb130-6" tabindex="-1"></a><span class="co"># Überprüfen</span></span>
+<span id="cb130-7"><a href="datenmanipulation.html#cb130-7" tabindex="-1"></a><span class="fu">head</span>(d1)</span></code></pre></div>
+<pre><code>##   year cntry happy agea gndr eisced
+## 1 2020    BE     3   28    2      4
+## 2 2020    BE     5   28    2      1
+## 3 2020    BE     8   39    2      3
+## 4 2020    BE    77   23    1      1
+## 5 2020    BE     1   21    1      4
+## 6 2020    BE     5   23    2      6</code></pre>
+</div>
+</div>
+<div id="die-arrange-funktion" class="section level3 hasAnchor" number="2.4.3">
+<h3><span class="header-section-number">2.4.3</span> Die <code>arrange()</code>-Funktion<a href="datenmanipulation.html#die-arrange-funktion" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Wenn wir möchten, dass unsere Daten in einer bestimmten Reihenfolge vorliegen, können wir sie mit <code>arrange()</code> sortieren.</p>
+<div id="aufsteigend-sortieren" class="section level4 hasAnchor" number="2.4.3.1">
+<h4><span class="header-section-number">2.4.3.1</span> Aufsteigend sortieren<a href="datenmanipulation.html#aufsteigend-sortieren" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<ul>
+<li><code>arrange()</code> wird aufgerufen, danach die Variable, nach der sortiert werden soll. Standardmäßig sortiert <code>arrange()</code> immer aufsteigend.</li>
+</ul>
+<div class="sourceCode" id="cb132"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb132-1"><a href="datenmanipulation.html#cb132-1" tabindex="-1"></a><span class="co"># arrange() hinzufügen</span></span>
+<span id="cb132-2"><a href="datenmanipulation.html#cb132-2" tabindex="-1"></a>d1 <span class="ot">&lt;-</span> ess <span class="sc">%&gt;%</span></span>
+<span id="cb132-3"><a href="datenmanipulation.html#cb132-3" tabindex="-1"></a>  <span class="fu">filter</span>(agea <span class="sc">&lt;</span> <span class="dv">40</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb132-4"><a href="datenmanipulation.html#cb132-4" tabindex="-1"></a>  <span class="fu">select</span>(year, cntry, happy, agea, gndr, eisced) <span class="sc">%&gt;%</span> </span>
+<span id="cb132-5"><a href="datenmanipulation.html#cb132-5" tabindex="-1"></a>  <span class="fu">arrange</span>(agea) </span>
+<span id="cb132-6"><a href="datenmanipulation.html#cb132-6" tabindex="-1"></a></span>
+<span id="cb132-7"><a href="datenmanipulation.html#cb132-7" tabindex="-1"></a><span class="co"># Überprüfen</span></span>
+<span id="cb132-8"><a href="datenmanipulation.html#cb132-8" tabindex="-1"></a><span class="fu">head</span>(d1)</span></code></pre></div>
+<pre><code>##   year cntry happy agea gndr eisced
+## 1 2020    BE     6   15    2      4
+## 2 2020    BE     2   15    1      1
+## 3 2020    BG     3   15    9     99
+## 4 2020    BG     4   15    1      6
+## 5 2020    BG     2   15    2      2
+## 6 2020    BG     2   15    1      3</code></pre>
+</div>
+<div id="absteigend-sortieren" class="section level4 hasAnchor" number="2.4.3.2">
+<h4><span class="header-section-number">2.4.3.2</span> Absteigend sortieren<a href="datenmanipulation.html#absteigend-sortieren" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<ul>
+<li>Für eine absteigende Sortierung muss <code>desc()</code> innerhalb von <code>arrange()</code> aufgerufen werden, mit dem Variablennamen in <code>desc()</code>.</li>
+</ul>
+<div class="sourceCode" id="cb134"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb134-1"><a href="datenmanipulation.html#cb134-1" tabindex="-1"></a><span class="co"># Absteigend sortieren</span></span>
+<span id="cb134-2"><a href="datenmanipulation.html#cb134-2" tabindex="-1"></a>d1 <span class="ot">&lt;-</span> ess <span class="sc">%&gt;%</span></span>
+<span id="cb134-3"><a href="datenmanipulation.html#cb134-3" tabindex="-1"></a>  <span class="fu">filter</span>(agea <span class="sc">&lt;</span> <span class="dv">40</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb134-4"><a href="datenmanipulation.html#cb134-4" tabindex="-1"></a>  <span class="fu">select</span>(year, cntry, happy, agea, gndr, eisced) <span class="sc">%&gt;%</span> </span>
+<span id="cb134-5"><a href="datenmanipulation.html#cb134-5" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(agea))</span>
+<span id="cb134-6"><a href="datenmanipulation.html#cb134-6" tabindex="-1"></a></span>
+<span id="cb134-7"><a href="datenmanipulation.html#cb134-7" tabindex="-1"></a><span class="co"># Überprüfen</span></span>
+<span id="cb134-8"><a href="datenmanipulation.html#cb134-8" tabindex="-1"></a><span class="fu">head</span>(d1)</span></code></pre></div>
+<pre><code>##   year cntry happy agea gndr eisced
+## 1 2020    BE     8   39    2      3
+## 2 2020    BE     1   39    1      2
+## 3 2020    BE    10   39    2      5
+## 4 2020    BE     2   39    1      3
+## 5 2020    BE     6   39    2      7
+## 6 2020    BE     3   39    1      1</code></pre>
+</div>
+</div>
+<div id="die-funktionen-rename-und-relocate" class="section level3 hasAnchor" number="2.4.4">
+<h3><span class="header-section-number">2.4.4</span> Die Funktionen <code>rename()</code> und <code>relocate()</code><a href="datenmanipulation.html#die-funktionen-rename-und-relocate" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Zwei Funktionen, die unseren Datensatz strukturierter und übersichtlicher machen, sind <code>rename()</code> und <code>relocate()</code> – sie tun, was ihre Namen versprechen:</p>
+<div id="variablen-umbenennen-rename" class="section level4 hasAnchor" number="2.4.4.1">
+<h4><span class="header-section-number">2.4.4.1</span> Variablen umbenennen: <code>rename()</code><a href="datenmanipulation.html#variablen-umbenennen-rename" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<ul>
+<li><code>rename()</code> folgt einer einfachen Logik: Man ruft die Funktion auf, schreibt den neuen Namen (also den Namen, den man zuweisen möchte), setzt ein Gleichheitszeichen und gibt dann den alten Namen (also den aktuellen Spaltennamen) an.</li>
+</ul>
+<blockquote>
+<p>Hinweis: Wenn eine Variable binär ist, also zwei diskrete Kategorien hat, benennt man sie nach der Kategorie, die dem höheren Wert entspricht. Wenn männlich = 0 und weiblich = 1, benennt man die Variable nach der höheren Kategorie 1 – also <code>female</code>.</p>
+</blockquote>
+<div class="sourceCode" id="cb136"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb136-1"><a href="datenmanipulation.html#cb136-1" tabindex="-1"></a><span class="co"># Variablen umbenennen</span></span>
+<span id="cb136-2"><a href="datenmanipulation.html#cb136-2" tabindex="-1"></a>d1 <span class="ot">&lt;-</span> ess <span class="sc">%&gt;%</span></span>
+<span id="cb136-3"><a href="datenmanipulation.html#cb136-3" tabindex="-1"></a>  <span class="fu">filter</span>(agea <span class="sc">&lt;</span> <span class="dv">40</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb136-4"><a href="datenmanipulation.html#cb136-4" tabindex="-1"></a>  <span class="fu">select</span>(year, cntry, happy, agea, gndr, eisced) <span class="sc">%&gt;%</span> </span>
+<span id="cb136-5"><a href="datenmanipulation.html#cb136-5" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(agea)) <span class="sc">%&gt;%</span></span>
+<span id="cb136-6"><a href="datenmanipulation.html#cb136-6" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="at">country   =</span> cntry, </span>
+<span id="cb136-7"><a href="datenmanipulation.html#cb136-7" tabindex="-1"></a>         <span class="at">age       =</span> agea, </span>
+<span id="cb136-8"><a href="datenmanipulation.html#cb136-8" tabindex="-1"></a>         <span class="at">education =</span> eisced, </span>
+<span id="cb136-9"><a href="datenmanipulation.html#cb136-9" tabindex="-1"></a>         <span class="at">female    =</span> gndr) </span>
+<span id="cb136-10"><a href="datenmanipulation.html#cb136-10" tabindex="-1"></a></span>
+<span id="cb136-11"><a href="datenmanipulation.html#cb136-11" tabindex="-1"></a><span class="co"># Überprüfen</span></span>
+<span id="cb136-12"><a href="datenmanipulation.html#cb136-12" tabindex="-1"></a><span class="fu">head</span>(d1)</span></code></pre></div>
+<pre><code>##   year country happy age female education
+## 1 2020      BE     8  39      2         3
+## 2 2020      BE     1  39      1         2
+## 3 2020      BE    10  39      2         5
+## 4 2020      BE     2  39      1         3
+## 5 2020      BE     6  39      2         7
+## 6 2020      BE     3  39      1         1</code></pre>
+</div>
+<div id="variablen-verschieben-relocate" class="section level4 hasAnchor" number="2.4.4.2">
+<h4><span class="header-section-number">2.4.4.2</span> Variablen verschieben: <code>relocate()</code><a href="datenmanipulation.html#variablen-verschieben-relocate" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<ul>
+<li><p>Man ruft <code>relocate()</code> auf und legt die Reihenfolge der Spalten fest.</p></li>
+<li><p>Einzelne Spalten können auch gezielt verschoben werden: Man gibt den Namen der Spalte an, die verschoben werden soll, und dann entweder <code>.before</code> und eine Spalte oder <code>.after</code> und eine Spalte. Die Spalte wird dann vor oder nach der angegebenen Spalte platziert. Beide Argumente werden durch ein Komma getrennt.</p></li>
+</ul>
+<div class="sourceCode" id="cb138"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb138-1"><a href="datenmanipulation.html#cb138-1" tabindex="-1"></a><span class="co"># Variablen neu anordnen</span></span>
+<span id="cb138-2"><a href="datenmanipulation.html#cb138-2" tabindex="-1"></a>d1 <span class="ot">&lt;-</span> ess <span class="sc">%&gt;%</span></span>
+<span id="cb138-3"><a href="datenmanipulation.html#cb138-3" tabindex="-1"></a>  <span class="fu">filter</span>(agea <span class="sc">&lt;</span> <span class="dv">40</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb138-4"><a href="datenmanipulation.html#cb138-4" tabindex="-1"></a>  <span class="fu">select</span>(year, cntry, happy, agea, gndr, eisced) <span class="sc">%&gt;%</span> </span>
+<span id="cb138-5"><a href="datenmanipulation.html#cb138-5" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(agea)) <span class="sc">%&gt;%</span></span>
+<span id="cb138-6"><a href="datenmanipulation.html#cb138-6" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="at">country   =</span> cntry, </span>
+<span id="cb138-7"><a href="datenmanipulation.html#cb138-7" tabindex="-1"></a>         <span class="at">age       =</span> agea, </span>
+<span id="cb138-8"><a href="datenmanipulation.html#cb138-8" tabindex="-1"></a>         <span class="at">education =</span> eisced, </span>
+<span id="cb138-9"><a href="datenmanipulation.html#cb138-9" tabindex="-1"></a>         <span class="at">female    =</span> gndr) <span class="sc">%&gt;%</span> </span>
+<span id="cb138-10"><a href="datenmanipulation.html#cb138-10" tabindex="-1"></a>  <span class="fu">relocate</span>(education, age, female, country, happy, year) <span class="co"># Reihenfolge festlegen</span></span>
+<span id="cb138-11"><a href="datenmanipulation.html#cb138-11" tabindex="-1"></a></span>
+<span id="cb138-12"><a href="datenmanipulation.html#cb138-12" tabindex="-1"></a><span class="co"># Überprüfen</span></span>
+<span id="cb138-13"><a href="datenmanipulation.html#cb138-13" tabindex="-1"></a><span class="fu">head</span>(d1)</span></code></pre></div>
+<pre><code>##   education age female country happy year
+## 1         3  39      2      BE     8 2020
+## 2         2  39      1      BE     1 2020
+## 3         5  39      2      BE    10 2020
+## 4         3  39      1      BE     2 2020
+## 5         7  39      2      BE     6 2020
+## 6         1  39      1      BE     3 2020</code></pre>
+<div class="sourceCode" id="cb140"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb140-1"><a href="datenmanipulation.html#cb140-1" tabindex="-1"></a><span class="co"># Nach einer Spalte verschieben</span></span>
+<span id="cb140-2"><a href="datenmanipulation.html#cb140-2" tabindex="-1"></a>d2 <span class="ot">&lt;-</span> ess <span class="sc">%&gt;%</span></span>
+<span id="cb140-3"><a href="datenmanipulation.html#cb140-3" tabindex="-1"></a>  <span class="fu">filter</span>(agea <span class="sc">&lt;</span> <span class="dv">40</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb140-4"><a href="datenmanipulation.html#cb140-4" tabindex="-1"></a>  <span class="fu">select</span>(year, cntry, happy, agea, gndr, eisced) <span class="sc">%&gt;%</span> </span>
+<span id="cb140-5"><a href="datenmanipulation.html#cb140-5" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(agea)) <span class="sc">%&gt;%</span></span>
+<span id="cb140-6"><a href="datenmanipulation.html#cb140-6" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="at">country   =</span> cntry, </span>
+<span id="cb140-7"><a href="datenmanipulation.html#cb140-7" tabindex="-1"></a>         <span class="at">age       =</span> agea, </span>
+<span id="cb140-8"><a href="datenmanipulation.html#cb140-8" tabindex="-1"></a>         <span class="at">education =</span> eisced, </span>
+<span id="cb140-9"><a href="datenmanipulation.html#cb140-9" tabindex="-1"></a>         <span class="at">female    =</span> gndr) <span class="sc">%&gt;%</span></span>
+<span id="cb140-10"><a href="datenmanipulation.html#cb140-10" tabindex="-1"></a>  <span class="fu">relocate</span>(country, <span class="at">.after =</span> age) </span>
+<span id="cb140-11"><a href="datenmanipulation.html#cb140-11" tabindex="-1"></a></span>
+<span id="cb140-12"><a href="datenmanipulation.html#cb140-12" tabindex="-1"></a><span class="co"># Überprüfen</span></span>
+<span id="cb140-13"><a href="datenmanipulation.html#cb140-13" tabindex="-1"></a><span class="fu">head</span>(d2)</span></code></pre></div>
+<pre><code>##   year happy age country female education
+## 1 2020     8  39      BE      2         3
+## 2 2020     1  39      BE      1         2
+## 3 2020    10  39      BE      2         5
+## 4 2020     2  39      BE      1         3
+## 5 2020     6  39      BE      2         7
+## 6 2020     3  39      BE      1         1</code></pre>
+<div class="sourceCode" id="cb142"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb142-1"><a href="datenmanipulation.html#cb142-1" tabindex="-1"></a><span class="co"># Vor eine Spalte verschieben</span></span>
+<span id="cb142-2"><a href="datenmanipulation.html#cb142-2" tabindex="-1"></a>d3 <span class="ot">&lt;-</span> ess <span class="sc">%&gt;%</span></span>
+<span id="cb142-3"><a href="datenmanipulation.html#cb142-3" tabindex="-1"></a>  <span class="fu">filter</span>(agea <span class="sc">&lt;</span> <span class="dv">40</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb142-4"><a href="datenmanipulation.html#cb142-4" tabindex="-1"></a>  <span class="fu">select</span>(year, cntry, happy, agea, gndr, eisced) <span class="sc">%&gt;%</span> </span>
+<span id="cb142-5"><a href="datenmanipulation.html#cb142-5" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(agea)) <span class="sc">%&gt;%</span></span>
+<span id="cb142-6"><a href="datenmanipulation.html#cb142-6" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="at">country   =</span> cntry, </span>
+<span id="cb142-7"><a href="datenmanipulation.html#cb142-7" tabindex="-1"></a>         <span class="at">age       =</span> agea, </span>
+<span id="cb142-8"><a href="datenmanipulation.html#cb142-8" tabindex="-1"></a>         <span class="at">education =</span> eisced, </span>
+<span id="cb142-9"><a href="datenmanipulation.html#cb142-9" tabindex="-1"></a>         <span class="at">female    =</span> gndr) <span class="sc">%&gt;%</span></span>
+<span id="cb142-10"><a href="datenmanipulation.html#cb142-10" tabindex="-1"></a>  <span class="fu">relocate</span>(country, <span class="at">.before =</span> age) </span>
+<span id="cb142-11"><a href="datenmanipulation.html#cb142-11" tabindex="-1"></a></span>
+<span id="cb142-12"><a href="datenmanipulation.html#cb142-12" tabindex="-1"></a><span class="co"># Überprüfen</span></span>
+<span id="cb142-13"><a href="datenmanipulation.html#cb142-13" tabindex="-1"></a><span class="fu">head</span>(d3)</span></code></pre></div>
+<pre><code>##   year happy country age female education
+## 1 2020     8      BE  39      2         3
+## 2 2020     1      BE  39      1         2
+## 3 2020    10      BE  39      2         5
+## 4 2020     2      BE  39      1         3
+## 5 2020     6      BE  39      2         7
+## 6 2020     3      BE  39      1         1</code></pre>
+</div>
+</div>
+<div id="die-mutate-funktion" class="section level3 hasAnchor" number="2.4.5">
+<h3><span class="header-section-number">2.4.5</span> Die <code>mutate()</code>-Funktion<a href="datenmanipulation.html#die-mutate-funktion" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Der nächste Befehl ist das mächtige <code>mutate()</code>. Zunächst kann man sich <code>mutate()</code> einfach als eine Funktion vorstellen, mit der man Variablen nach Belieben transformieren oder verändern kann.</p>
+<ul>
+<li><p>Man ruft <code>mutate()</code> auf und definiert zunächst den Namen einer neuen Spalte – einen Namen, der noch nicht im Datensatz existiert. Man könnte auch den Namen einer vorhandenen Spalte verwenden, aber Vorsicht: Dann werden die alten Werte überschrieben, was nicht immer gewünscht ist. Daher empfehle ich, immer neue Spalten zu definieren.</p></li>
+<li><p>Nach dem neuen Namen setzt man ein Gleichheitszeichen und definiert die Berechnung. In unserem Fall multiplizieren wir <code>happy</code> – also alle Werte in der <code>happy</code>-Spalte – mit 10.</p></li>
+</ul>
+<div class="sourceCode" id="cb144"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb144-1"><a href="datenmanipulation.html#cb144-1" tabindex="-1"></a><span class="co"># Variablen mutieren</span></span>
+<span id="cb144-2"><a href="datenmanipulation.html#cb144-2" tabindex="-1"></a>d1 <span class="ot">&lt;-</span> ess <span class="sc">%&gt;%</span></span>
+<span id="cb144-3"><a href="datenmanipulation.html#cb144-3" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">happy_10 =</span> happy <span class="sc">*</span> <span class="dv">10</span>) </span>
+<span id="cb144-4"><a href="datenmanipulation.html#cb144-4" tabindex="-1"></a></span>
+<span id="cb144-5"><a href="datenmanipulation.html#cb144-5" tabindex="-1"></a><span class="co"># Überprüfen</span></span>
+<span id="cb144-6"><a href="datenmanipulation.html#cb144-6" tabindex="-1"></a><span class="fu">head</span>(d1)</span></code></pre></div>
+<pre><code>##   idnt year cntry agea gndr happy eisced netusoft
+## 1    1 2020    BE   45    1     1      6        2
+## 2    2 2020    BE   65    1     3      5        4
+## 3    3 2020    BE   28    2     3      4        5
+## 4    4 2020    BE   81    1     1      7        3
+## 5    5 2020    BE   56    2     4      7        5
+## 6    6 2020    BE   64    1     3      5        4
+##   trstprl lrscale happy_10
+## 1       2       3       10
+## 2       3       6       30
+## 3       4       7       30
+## 4       2       6       10
+## 5       6       4       40
+## 6       6      10       30</code></pre>
+<p><code>mutate()</code> kann jedoch mehr als nur Berechnungen durchführen. Wir können damit auch neue Spalten erstellen, indem wir vorhandene Spalten in andere Klassen umwandeln:</p>
+<ul>
+<li><p><code>new_variable</code> ist lediglich eine zufällige mathematische Operation mit zwei Variablen.</p></li>
+<li><p>Der zweite <code>mutate()</code>-Aufruf ändert die Klasse der <code>gndr</code>-Variable in einen Zeichenvektor und speichert sie entsprechend im Datensatz.</p></li>
+</ul>
+<div class="sourceCode" id="cb146"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb146-1"><a href="datenmanipulation.html#cb146-1" tabindex="-1"></a><span class="co"># Weiteres Mutieren</span></span>
+<span id="cb146-2"><a href="datenmanipulation.html#cb146-2" tabindex="-1"></a>d2 <span class="ot">&lt;-</span> ess <span class="sc">%&gt;%</span> </span>
+<span id="cb146-3"><a href="datenmanipulation.html#cb146-3" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">new_variable =</span> happy <span class="sc">*</span> <span class="dv">10</span> <span class="sc">/</span> eisced <span class="sc">+</span> <span class="dv">67</span>, </span>
+<span id="cb146-4"><a href="datenmanipulation.html#cb146-4" tabindex="-1"></a>         <span class="at">female_char  =</span> <span class="fu">as.character</span>(gndr)) <span class="sc">%&gt;%</span> </span>
+<span id="cb146-5"><a href="datenmanipulation.html#cb146-5" tabindex="-1"></a>  <span class="fu">select</span>(female_char, new_variable)</span>
+<span id="cb146-6"><a href="datenmanipulation.html#cb146-6" tabindex="-1"></a></span>
+<span id="cb146-7"><a href="datenmanipulation.html#cb146-7" tabindex="-1"></a><span class="co"># Überprüfen</span></span>
+<span id="cb146-8"><a href="datenmanipulation.html#cb146-8" tabindex="-1"></a><span class="fu">head</span>(d2)</span></code></pre></div>
+<pre><code>##   female_char new_variable
+## 1           1     68.66667
+## 2           1     73.00000
+## 3           2     74.50000
+## 4           1     68.42857
+## 5           2     72.71429
+## 6           1     73.00000</code></pre>
+<p>Was <code>mutate()</code> so mächtig macht, ist, dass man andere Funktionen darin verwenden kann, um Variablen nach Wunsch zu definieren. Stellt euch die <code>happy</code>-Variable vor. Zur Erinnerung: Diese Variable enthält die Antworten auf die Frage „Wie glücklich sind Sie?” im Fragebogen des European Social Survey. Sie ist auf einer Skala von 0 (überhaupt nicht glücklich) bis 10 (sehr glücklich) skaliert.</p>
+<p>Angenommen, wir möchten das ändern. Wir möchten eine Variable mit nur drei Kategorien erstellen (unglücklich, neutral, glücklich). Alle Werte von 0–4 sollen als „unglücklich”, 5 als „neutral” und alles über 5 als „glücklich” eingestuft werden. Wie geht das in R?</p>
+<p>Es gibt verschiedene Möglichkeiten – ich zeige euch einige davon:</p>
+<div id="rekodieren-mit-mutate-und-recode" class="section level4 hasAnchor" number="2.4.5.1">
+<h4><span class="header-section-number">2.4.5.1</span> Rekodieren mit <code>mutate()</code> und <code>recode()</code><a href="datenmanipulation.html#rekodieren-mit-mutate-und-recode" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>Man kann die <code>recode()</code>-Funktion verwenden:</p>
+<ul>
+<li><p>Zuerst definieren wir einen neuen Spaltennamen, in unserem Beispiel <code>happy_cat</code>.</p></li>
+<li><p>Dann rufen wir <code>recode()</code> auf und übergeben die zu transformierende Variable, in unserem Fall <code>happy</code>.</p></li>
+<li><p>Die Kategorie, die wir transformieren möchten, wird in <code>`</code> <code>`</code> gesetzt. Danach ein Gleichheitszeichen und der neue Wert, den wir der Kategorie zuweisen möchten.</p></li>
+</ul>
+<blockquote>
+<p><em>Hinweis: Wir können verschiedene Werte zuweisen. Über <code>NA_real_</code> kommen wir später noch.</em></p>
+</blockquote>
+<div class="sourceCode" id="cb148"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb148-1"><a href="datenmanipulation.html#cb148-1" tabindex="-1"></a><span class="co"># Überblick über die Variable</span></span>
+<span id="cb148-2"><a href="datenmanipulation.html#cb148-2" tabindex="-1"></a><span class="fu">table</span>(ess<span class="sc">$</span>happy)</span></code></pre></div>
+<pre><code>## 
+##   1   2   3   4   5   6   7   8   9  10  77  88  99 
+## 849 918 888 897 888 852 883 877 908 895  49  46  50</code></pre>
+<div class="sourceCode" id="cb150"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb150-1"><a href="datenmanipulation.html#cb150-1" tabindex="-1"></a><span class="co"># Variablen rekodieren</span></span>
+<span id="cb150-2"><a href="datenmanipulation.html#cb150-2" tabindex="-1"></a>d1 <span class="ot">&lt;-</span> ess <span class="sc">%&gt;%</span> </span>
+<span id="cb150-3"><a href="datenmanipulation.html#cb150-3" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb150-4"><a href="datenmanipulation.html#cb150-4" tabindex="-1"></a>    <span class="at">gndr_fac  =</span> <span class="fu">as.factor</span>(gndr),</span>
+<span id="cb150-5"><a href="datenmanipulation.html#cb150-5" tabindex="-1"></a>    <span class="at">happy_cat =</span> dplyr<span class="sc">::</span><span class="fu">recode</span>(happy,</span>
+<span id="cb150-6"><a href="datenmanipulation.html#cb150-6" tabindex="-1"></a>                    <span class="st">`</span><span class="at">1</span><span class="st">`</span>  <span class="ot">=</span> <span class="dv">0</span>,</span>
+<span id="cb150-7"><a href="datenmanipulation.html#cb150-7" tabindex="-1"></a>                    <span class="st">`</span><span class="at">2</span><span class="st">`</span>  <span class="ot">=</span> <span class="dv">0</span>,</span>
+<span id="cb150-8"><a href="datenmanipulation.html#cb150-8" tabindex="-1"></a>                    <span class="st">`</span><span class="at">3</span><span class="st">`</span>  <span class="ot">=</span> <span class="dv">0</span>,</span>
+<span id="cb150-9"><a href="datenmanipulation.html#cb150-9" tabindex="-1"></a>                    <span class="st">`</span><span class="at">4</span><span class="st">`</span>  <span class="ot">=</span> <span class="dv">0</span>,</span>
+<span id="cb150-10"><a href="datenmanipulation.html#cb150-10" tabindex="-1"></a>                    <span class="st">`</span><span class="at">5</span><span class="st">`</span>  <span class="ot">=</span> <span class="dv">1</span>,</span>
+<span id="cb150-11"><a href="datenmanipulation.html#cb150-11" tabindex="-1"></a>                    <span class="st">`</span><span class="at">6</span><span class="st">`</span>  <span class="ot">=</span> <span class="dv">2</span>,</span>
+<span id="cb150-12"><a href="datenmanipulation.html#cb150-12" tabindex="-1"></a>                    <span class="st">`</span><span class="at">7</span><span class="st">`</span>  <span class="ot">=</span> <span class="dv">2</span>,</span>
+<span id="cb150-13"><a href="datenmanipulation.html#cb150-13" tabindex="-1"></a>                    <span class="st">`</span><span class="at">8</span><span class="st">`</span>  <span class="ot">=</span> <span class="dv">2</span>,</span>
+<span id="cb150-14"><a href="datenmanipulation.html#cb150-14" tabindex="-1"></a>                    <span class="st">`</span><span class="at">9</span><span class="st">`</span>  <span class="ot">=</span> <span class="dv">2</span>,</span>
+<span id="cb150-15"><a href="datenmanipulation.html#cb150-15" tabindex="-1"></a>                   <span class="st">`</span><span class="at">10</span><span class="st">`</span>  <span class="ot">=</span> <span class="dv">2</span>,</span>
+<span id="cb150-16"><a href="datenmanipulation.html#cb150-16" tabindex="-1"></a>                   <span class="st">`</span><span class="at">77</span><span class="st">`</span>  <span class="ot">=</span> <span class="cn">NA_real_</span>, </span>
+<span id="cb150-17"><a href="datenmanipulation.html#cb150-17" tabindex="-1"></a>                   <span class="st">`</span><span class="at">88</span><span class="st">`</span>  <span class="ot">=</span> <span class="cn">NA_real_</span>,</span>
+<span id="cb150-18"><a href="datenmanipulation.html#cb150-18" tabindex="-1"></a>                   <span class="st">`</span><span class="at">99</span><span class="st">`</span>  <span class="ot">=</span> <span class="cn">NA_real_</span>),</span>
+<span id="cb150-19"><a href="datenmanipulation.html#cb150-19" tabindex="-1"></a>    <span class="at">female    =</span> dplyr<span class="sc">::</span><span class="fu">recode</span>(gndr_fac, </span>
+<span id="cb150-20"><a href="datenmanipulation.html#cb150-20" tabindex="-1"></a>                    <span class="st">`</span><span class="at">1</span><span class="st">`</span> <span class="ot">=</span> <span class="st">&quot;Männlich&quot;</span>, </span>
+<span id="cb150-21"><a href="datenmanipulation.html#cb150-21" tabindex="-1"></a>                    <span class="st">`</span><span class="at">2</span><span class="st">`</span> <span class="ot">=</span> <span class="st">&quot;Weiblich&quot;</span>,</span>
+<span id="cb150-22"><a href="datenmanipulation.html#cb150-22" tabindex="-1"></a>                    <span class="st">`</span><span class="at">9</span><span class="st">`</span> <span class="ot">=</span> <span class="cn">NA_character_</span>))</span>
+<span id="cb150-23"><a href="datenmanipulation.html#cb150-23" tabindex="-1"></a></span>
+<span id="cb150-24"><a href="datenmanipulation.html#cb150-24" tabindex="-1"></a><span class="co"># Ergebnis prüfen</span></span>
+<span id="cb150-25"><a href="datenmanipulation.html#cb150-25" tabindex="-1"></a><span class="fu">table</span>(d1<span class="sc">$</span>happy_cat)</span></code></pre></div>
+<pre><code>## 
+##    0    1    2 
+## 3552  888 4415</code></pre>
+<div class="sourceCode" id="cb152"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb152-1"><a href="datenmanipulation.html#cb152-1" tabindex="-1"></a><span class="fu">table</span>(d1<span class="sc">$</span>female)</span></code></pre></div>
+<pre><code>## 
+## Männlich Weiblich 
+##     4381     4404</code></pre>
+</div>
+<div id="rekodieren-mit-mutate-und-case_when" class="section level4 hasAnchor" number="2.4.5.2">
+<h4><span class="header-section-number">2.4.5.2</span> Rekodieren mit <code>mutate()</code> und <code>case_when()</code><a href="datenmanipulation.html#rekodieren-mit-mutate-und-case_when" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>Wie man sieht, ist der <code>recode()</code>-Befehl sehr ausführlich. <code>tidyverse</code> bietet einen viel intuitiveren Befehl: die <code>case_when()</code>-Funktion. Diese ist eine verallgemeinerte <code>ifelse()</code>-Funktion, d. h. wir können logische Operatoren verwenden. <code>recode()</code> gibt zwar vollständige Kontrolle über die Daten, aber so viel Kontrolle brauchen wir oft nicht:</p>
+<ul>
+<li><p>Wir definieren wieder <code>happy_cat</code>.</p></li>
+<li><p>Wir rufen <code>case_when()</code> auf und übergeben die zu transformierende Variable.</p></li>
+<li><p>Wir definieren eine logische Aussage: Hier soll <code>happy</code> kleiner als 5 sein, d. h. alle Werte unter 5 sollen transformiert werden.</p></li>
+<li><p>Wir schreiben die Tilde <code>~</code> und sagen R, welcher Wert alle Werte ersetzen soll, für die die logische Aussage WAHR ist.</p></li>
+</ul>
+<blockquote>
+<p><em>Hinweis: Was in <code>case_when()</code> nicht explizit angegeben wird, wird als NA kodiert.</em></p>
+</blockquote>
+<div class="sourceCode" id="cb154"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb154-1"><a href="datenmanipulation.html#cb154-1" tabindex="-1"></a><span class="co"># Rekodieren mit case_when</span></span>
+<span id="cb154-2"><a href="datenmanipulation.html#cb154-2" tabindex="-1"></a>d1 <span class="ot">&lt;-</span> ess <span class="sc">%&gt;%</span> </span>
+<span id="cb154-3"><a href="datenmanipulation.html#cb154-3" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">gndr_fac  =</span> <span class="fu">as.factor</span>(gndr),</span>
+<span id="cb154-4"><a href="datenmanipulation.html#cb154-4" tabindex="-1"></a>    <span class="at">happy_cat =</span> <span class="fu">case_when</span>(</span>
+<span id="cb154-5"><a href="datenmanipulation.html#cb154-5" tabindex="-1"></a>    happy <span class="sc">&lt;</span> <span class="dv">5</span>  <span class="sc">~</span> <span class="dv">0</span>,</span>
+<span id="cb154-6"><a href="datenmanipulation.html#cb154-6" tabindex="-1"></a>    happy <span class="sc">==</span> <span class="dv">5</span> <span class="sc">~</span> <span class="dv">1</span>,</span>
+<span id="cb154-7"><a href="datenmanipulation.html#cb154-7" tabindex="-1"></a>    happy <span class="sc">&gt;</span> <span class="dv">5</span>  <span class="sc">~</span> <span class="dv">2</span>),</span>
+<span id="cb154-8"><a href="datenmanipulation.html#cb154-8" tabindex="-1"></a>    <span class="at">female =</span> <span class="fu">case_when</span>(</span>
+<span id="cb154-9"><a href="datenmanipulation.html#cb154-9" tabindex="-1"></a>    gndr <span class="sc">==</span> <span class="dv">1</span> <span class="sc">~</span> <span class="st">&quot;Männlich&quot;</span>,</span>
+<span id="cb154-10"><a href="datenmanipulation.html#cb154-10" tabindex="-1"></a>    gndr <span class="sc">==</span> <span class="dv">2</span> <span class="sc">~</span> <span class="st">&quot;Weiblich&quot;</span></span>
+<span id="cb154-11"><a href="datenmanipulation.html#cb154-11" tabindex="-1"></a>    ))</span>
+<span id="cb154-12"><a href="datenmanipulation.html#cb154-12" tabindex="-1"></a></span>
+<span id="cb154-13"><a href="datenmanipulation.html#cb154-13" tabindex="-1"></a><span class="co"># Überprüfen</span></span>
+<span id="cb154-14"><a href="datenmanipulation.html#cb154-14" tabindex="-1"></a><span class="fu">table</span>(d1<span class="sc">$</span>female)</span></code></pre></div>
+<pre><code>## 
+## Männlich Weiblich 
+##     4381     4404</code></pre>
+<div class="sourceCode" id="cb156"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb156-1"><a href="datenmanipulation.html#cb156-1" tabindex="-1"></a><span class="fu">table</span>(d1<span class="sc">$</span>happy_cat)</span></code></pre></div>
+<pre><code>## 
+##    0    1    2 
+## 3552  888 4560</code></pre>
+</div>
+<div id="rekodieren-mit-mutate-und-ifelse" class="section level4 hasAnchor" number="2.4.5.3">
+<h4><span class="header-section-number">2.4.5.3</span> Rekodieren mit <code>mutate()</code> und <code>ifelse()</code><a href="datenmanipulation.html#rekodieren-mit-mutate-und-ifelse" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>Erinnert ihr euch an die <code>ifelse()</code>-Funktion? Wie bereits erwähnt, ist <code>case_when()</code> eine verallgemeinerte <code>ifelse()</code>-Funktion. Wer es klassisch mag, kann auch mit <code>ifelse()</code> rekodieren:</p>
+<div class="sourceCode" id="cb158"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb158-1"><a href="datenmanipulation.html#cb158-1" tabindex="-1"></a><span class="co"># Rekodieren mit der ifelse()-Funktion</span></span>
+<span id="cb158-2"><a href="datenmanipulation.html#cb158-2" tabindex="-1"></a>d1 <span class="ot">&lt;-</span> ess <span class="sc">%&gt;%</span> </span>
+<span id="cb158-3"><a href="datenmanipulation.html#cb158-3" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">gndr_fac  =</span> <span class="fu">as.factor</span>(gndr),</span>
+<span id="cb158-4"><a href="datenmanipulation.html#cb158-4" tabindex="-1"></a>         <span class="at">happy_cat =</span> <span class="fu">ifelse</span>(happy <span class="sc">&lt;</span> <span class="dv">5</span>, <span class="dv">0</span>, </span>
+<span id="cb158-5"><a href="datenmanipulation.html#cb158-5" tabindex="-1"></a>                            <span class="fu">ifelse</span>(happy <span class="sc">==</span> <span class="dv">5</span>, <span class="dv">1</span>, </span>
+<span id="cb158-6"><a href="datenmanipulation.html#cb158-6" tabindex="-1"></a>                                   <span class="fu">ifelse</span>(happy <span class="sc">&gt;</span> <span class="dv">5</span>, <span class="dv">2</span>, <span class="cn">NA</span>))),</span>
+<span id="cb158-7"><a href="datenmanipulation.html#cb158-7" tabindex="-1"></a>         <span class="at">female    =</span> <span class="fu">ifelse</span>(gndr_fac <span class="sc">==</span> <span class="dv">1</span>, <span class="st">&quot;Männlich&quot;</span>,</span>
+<span id="cb158-8"><a href="datenmanipulation.html#cb158-8" tabindex="-1"></a>                            <span class="fu">ifelse</span>(gndr_fac <span class="sc">==</span> <span class="dv">2</span>, <span class="st">&quot;Weiblich&quot;</span>, <span class="cn">NA</span>))</span>
+<span id="cb158-9"><a href="datenmanipulation.html#cb158-9" tabindex="-1"></a>  )</span>
+<span id="cb158-10"><a href="datenmanipulation.html#cb158-10" tabindex="-1"></a></span>
+<span id="cb158-11"><a href="datenmanipulation.html#cb158-11" tabindex="-1"></a><span class="co"># Überprüfen</span></span>
+<span id="cb158-12"><a href="datenmanipulation.html#cb158-12" tabindex="-1"></a><span class="fu">table</span>(d1<span class="sc">$</span>happy_cat)</span></code></pre></div>
+<pre><code>## 
+##    0    1    2 
+## 3552  888 4560</code></pre>
+<div class="sourceCode" id="cb160"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb160-1"><a href="datenmanipulation.html#cb160-1" tabindex="-1"></a><span class="fu">table</span>(d1<span class="sc">$</span>female)</span></code></pre></div>
+<pre><code>## 
+## Männlich Weiblich 
+##     4381     4404</code></pre>
+</div>
+</div>
+<div id="umgang-mit-fehlenden-werten-unvollständigen-daten" class="section level3 hasAnchor" number="2.4.6">
+<h3><span class="header-section-number">2.4.6</span> Umgang mit fehlenden Werten / unvollständigen Daten<a href="#umgang-mit-fehlenden-werten-unvollst%C3%A4ndigen-daten" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Wie gerade gesehen, sind nicht alle Daten in einem Datensatz vollständig. Natürlich nicht – es gibt verschiedene Ursachen für unvollständige oder fehlende Daten. Könnt ihr euch Gründe vorstellen, warum?</p>
+<p>In der Datenwissenschaft müssen wir fehlende Werte direkt behandeln. Im Codebuch deklariert der ESS verschiedene Typen von fehlenden Werten mit hohen Zahlen: 7(7) bedeutet „Verweigerung” (die befragte Person hat die Antwort verweigert), 8(8) bedeutet „Weiß nicht” und 9(9) „Keine Antwort”.</p>
+<blockquote>
+<p><em>Der ESS tut dies, da manche Forscher an fehlenden Werten und deren Ursachen interessiert sind und diese untersuchen möchten.</em></p>
+</blockquote>
+<p>Für uns ist das ein Problem, da wir keine Analysen mit fehlenden Werten durchführen können. Es gibt zwei Möglichkeiten:</p>
+<ol style="list-style-type: decimal">
+<li>Fehlende Werte mithilfe von Statistiken künstlich auffüllen – das nennt sich Multiple Imputation. Das erfordert jedoch fortgeschrittene Datenwissenschaftskenntnisse und ist für Anfänger nicht zu empfehlen.</li>
+<li>Unvollständige Beobachtungen löschen, um einen Datensatz ohne fehlende Werte zu erhalten.</li>
+</ol>
+<p>Der ESS weist fehlenden Werten Zahlenwerte zu. Zunächst müssen wir R mitteilen, dass diese Werte als fehlend behandelt werden sollen – andernfalls würden sie unsere Analysen verzerren. Im Folgenden müssen wir die Variablen rekodieren und R mitteilen, dass die fehlenden Werte entsprechend deklariert werden:</p>
+<ul>
+<li>Das haben wir bereits gezeigt. Im Folgenden verwende ich <code>case_when()</code>.</li>
+</ul>
+<p>Wir wählen die zweite Option. Das Rekodieren von nutzlosen Werten zu NAs sollte inzwischen vertraut sein. Zur Erinnerung: <code>ifelse()</code> und <code>recode()</code> benötigen explizite Eingaben, um Werte in NAs umzuwandeln.</p>
+<div class="sourceCode" id="cb162"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb162-1"><a href="datenmanipulation.html#cb162-1" tabindex="-1"></a><span class="co"># Fehlende Werte erstellen und einen Mutations-Workflow zeigen</span></span>
+<span id="cb162-2"><a href="datenmanipulation.html#cb162-2" tabindex="-1"></a>d1 <span class="ot">&lt;-</span> ess <span class="sc">%&gt;%</span></span>
+<span id="cb162-3"><a href="datenmanipulation.html#cb162-3" tabindex="-1"></a>  <span class="fu">filter</span>(agea <span class="sc">&gt;=</span> <span class="dv">40</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb162-4"><a href="datenmanipulation.html#cb162-4" tabindex="-1"></a>  <span class="fu">select</span>(year, cntry, netusoft, agea, eisced, gndr, happy) <span class="sc">%&gt;%</span> </span>
+<span id="cb162-5"><a href="datenmanipulation.html#cb162-5" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(agea)) <span class="sc">%&gt;%</span> </span>
+<span id="cb162-6"><a href="datenmanipulation.html#cb162-6" tabindex="-1"></a>  <span class="fu">rename</span>(</span>
+<span id="cb162-7"><a href="datenmanipulation.html#cb162-7" tabindex="-1"></a>    <span class="at">internet_use =</span> netusoft,</span>
+<span id="cb162-8"><a href="datenmanipulation.html#cb162-8" tabindex="-1"></a>    <span class="at">age          =</span> agea, </span>
+<span id="cb162-9"><a href="datenmanipulation.html#cb162-9" tabindex="-1"></a>    <span class="at">education    =</span> eisced, </span>
+<span id="cb162-10"><a href="datenmanipulation.html#cb162-10" tabindex="-1"></a>    <span class="at">female       =</span> gndr) <span class="sc">%&gt;%</span> </span>
+<span id="cb162-11"><a href="datenmanipulation.html#cb162-11" tabindex="-1"></a>  <span class="fu">mutate</span>( </span>
+<span id="cb162-12"><a href="datenmanipulation.html#cb162-12" tabindex="-1"></a>    <span class="at">internet_use =</span> <span class="fu">case_when</span>( </span>
+<span id="cb162-13"><a href="datenmanipulation.html#cb162-13" tabindex="-1"></a>      internet_use <span class="sc">&lt;</span> <span class="dv">5</span> <span class="sc">~</span> <span class="cn">NA_real_</span>, </span>
+<span id="cb162-14"><a href="datenmanipulation.html#cb162-14" tabindex="-1"></a>      <span class="cn">TRUE</span> <span class="sc">~</span> internet_use), </span>
+<span id="cb162-15"><a href="datenmanipulation.html#cb162-15" tabindex="-1"></a>    <span class="at">age =</span> <span class="fu">case_when</span>(</span>
+<span id="cb162-16"><a href="datenmanipulation.html#cb162-16" tabindex="-1"></a>      age <span class="sc">==</span> <span class="dv">999</span> <span class="sc">~</span> <span class="cn">NA_real_</span>,</span>
+<span id="cb162-17"><a href="datenmanipulation.html#cb162-17" tabindex="-1"></a>      <span class="cn">TRUE</span> <span class="sc">~</span> age), </span>
+<span id="cb162-18"><a href="datenmanipulation.html#cb162-18" tabindex="-1"></a>    <span class="at">education =</span> <span class="fu">case_when</span>(</span>
+<span id="cb162-19"><a href="datenmanipulation.html#cb162-19" tabindex="-1"></a>      education <span class="sc">%in%</span> <span class="fu">c</span>(<span class="dv">55</span>, <span class="dv">77</span>, <span class="dv">88</span>, <span class="dv">99</span>) <span class="sc">~</span> <span class="cn">NA_real_</span>,</span>
+<span id="cb162-20"><a href="datenmanipulation.html#cb162-20" tabindex="-1"></a>      <span class="cn">TRUE</span> <span class="sc">~</span> education), </span>
+<span id="cb162-21"><a href="datenmanipulation.html#cb162-21" tabindex="-1"></a>    <span class="at">female =</span> <span class="fu">case_when</span>(</span>
+<span id="cb162-22"><a href="datenmanipulation.html#cb162-22" tabindex="-1"></a>      female <span class="sc">==</span> <span class="dv">1</span> <span class="sc">~</span> <span class="dv">0</span>, </span>
+<span id="cb162-23"><a href="datenmanipulation.html#cb162-23" tabindex="-1"></a>      female <span class="sc">==</span> <span class="dv">2</span> <span class="sc">~</span> <span class="dv">1</span>, </span>
+<span id="cb162-24"><a href="datenmanipulation.html#cb162-24" tabindex="-1"></a>      female <span class="sc">==</span> <span class="dv">9</span> <span class="sc">~</span> <span class="cn">NA_real_</span>, </span>
+<span id="cb162-25"><a href="datenmanipulation.html#cb162-25" tabindex="-1"></a>      <span class="cn">TRUE</span> <span class="sc">~</span> female),</span>
+<span id="cb162-26"><a href="datenmanipulation.html#cb162-26" tabindex="-1"></a>    <span class="at">happy =</span> <span class="fu">case_when</span>(</span>
+<span id="cb162-27"><a href="datenmanipulation.html#cb162-27" tabindex="-1"></a>      happy <span class="sc">%in%</span> <span class="fu">c</span>(<span class="dv">77</span>, <span class="dv">88</span>, <span class="dv">99</span>) <span class="sc">~</span> <span class="cn">NA_real_</span>,</span>
+<span id="cb162-28"><a href="datenmanipulation.html#cb162-28" tabindex="-1"></a>      <span class="cn">TRUE</span> <span class="sc">~</span> happy)</span>
+<span id="cb162-29"><a href="datenmanipulation.html#cb162-29" tabindex="-1"></a>    ) <span class="sc">%&gt;%</span></span>
+<span id="cb162-30"><a href="datenmanipulation.html#cb162-30" tabindex="-1"></a>  <span class="fu">arrange</span>(age)</span>
+<span id="cb162-31"><a href="datenmanipulation.html#cb162-31" tabindex="-1"></a></span>
+<span id="cb162-32"><a href="datenmanipulation.html#cb162-32" tabindex="-1"></a><span class="co"># Überprüfen</span></span>
+<span id="cb162-33"><a href="datenmanipulation.html#cb162-33" tabindex="-1"></a><span class="fu">head</span>(d1) </span></code></pre></div>
+<pre><code>##   year cntry internet_use age education female happy
+## 1 2020    BE           NA  40         5      1     3
+## 2 2020    BE           NA  40         6      0    10
+## 3 2020    BE           NA  40         1      0     9
+## 4 2020    BE           NA  40         5      0     6
+## 5 2020    BE           NA  40         6      1     9
+## 6 2020    BE           NA  40         6      0     4</code></pre>
+<p>Wenn man den Datensatz ausgibt, sieht man, dass einige Werte nun „NA” heißen – das steht für „Not Available” (nicht verfügbar).</p>
+<ul>
+<li><p>Fehlende Werte lassen sich mit der <code>tidyverse</code>-Methode einfach durch Pipen zu <code>drop_na()</code> entfernen.</p></li>
+<li><p>Die Base-R-Methode wäre, den Datensatznamen in <code>na.omit()</code> zu übergeben.</p></li>
+</ul>
+<p>Wir weisen beide Ergebnisse einem neuen Dataframe zu. Das Ergebnis zeigt, dass alle Zeilen mit NAs entfernt wurden. Das ist auch ein Grund, warum es wichtig ist, nur die benötigten Variablen auszuwählen – so werden nur unvollständige Beobachtungen unserer relevanten Variablen gelöscht. Daher gilt immer: Erst transformieren, dann löschen.</p>
+<div class="sourceCode" id="cb164"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb164-1"><a href="datenmanipulation.html#cb164-1" tabindex="-1"></a><span class="co"># Überprüfen</span></span>
+<span id="cb164-2"><a href="datenmanipulation.html#cb164-2" tabindex="-1"></a><span class="fu">head</span>(d1) </span></code></pre></div>
+<pre><code>##   year cntry internet_use age education female happy
+## 1 2020    BE           NA  40         5      1     3
+## 2 2020    BE           NA  40         6      0    10
+## 3 2020    BE           NA  40         1      0     9
+## 4 2020    BE           NA  40         5      0     6
+## 5 2020    BE           NA  40         6      1     9
+## 6 2020    BE           NA  40         6      0     4</code></pre>
+<div class="sourceCode" id="cb166"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb166-1"><a href="datenmanipulation.html#cb166-1" tabindex="-1"></a><span class="co"># NAs entfernen (tidyverse)</span></span>
+<span id="cb166-2"><a href="datenmanipulation.html#cb166-2" tabindex="-1"></a>d2 <span class="ot">&lt;-</span> d1 <span class="sc">%&gt;%</span> </span>
+<span id="cb166-3"><a href="datenmanipulation.html#cb166-3" tabindex="-1"></a>  <span class="fu">drop_na</span>() </span>
+<span id="cb166-4"><a href="datenmanipulation.html#cb166-4" tabindex="-1"></a></span>
+<span id="cb166-5"><a href="datenmanipulation.html#cb166-5" tabindex="-1"></a><span class="co"># Prüfen, ob noch NAs vorhanden sind</span></span>
+<span id="cb166-6"><a href="datenmanipulation.html#cb166-6" tabindex="-1"></a><span class="fu">colSums</span>(<span class="fu">is.na</span>(d2))</span></code></pre></div>
+<pre><code>##         year        cntry internet_use          age 
+##            0            0            0            0 
+##    education       female        happy 
+##            0            0            0</code></pre>
+<div class="sourceCode" id="cb168"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb168-1"><a href="datenmanipulation.html#cb168-1" tabindex="-1"></a><span class="co"># NAs entfernen (Base R)</span></span>
+<span id="cb168-2"><a href="datenmanipulation.html#cb168-2" tabindex="-1"></a>d3 <span class="ot">&lt;-</span> <span class="fu">na.omit</span>(d1) </span>
+<span id="cb168-3"><a href="datenmanipulation.html#cb168-3" tabindex="-1"></a></span>
+<span id="cb168-4"><a href="datenmanipulation.html#cb168-4" tabindex="-1"></a><span class="co"># Prüfen, ob noch NAs vorhanden sind</span></span>
+<span id="cb168-5"><a href="datenmanipulation.html#cb168-5" tabindex="-1"></a><span class="fu">colSums</span>(<span class="fu">is.na</span>(d2))</span></code></pre></div>
+<pre><code>##         year        cntry internet_use          age 
+##            0            0            0            0 
+##    education       female        happy 
+##            0            0            0</code></pre>
+<p>Wir sehen, dass keine fehlenden Werte mehr im Datensatz vorhanden sind und die Anzahl der Beobachtungen reduziert wurde.</p>
+</div>
+<div id="die-funktionen-group_by-und-summarize" class="section level3 hasAnchor" number="2.4.7">
+<h3><span class="header-section-number">2.4.7</span> Die Funktionen <code>group_by()</code> und <code>summarize()</code><a href="datenmanipulation.html#die-funktionen-group_by-und-summarize" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Zwei der nützlichsten Befehle in R für zusammenfassende Statistiken sind <code>group_by()</code> und <code>summarize()</code>.</p>
+<p><code>group_by()</code> hilft uns, wenn wir kategoriale Variablen mit mehreren Beobachtungen haben und eine Kennzahl für diese Gruppe berechnen möchten. Der geladene ESS hat beispielsweise 9000 Befragte, die nach ihrem Glücksempfinden gefragt wurden. Stellt euch vor, ihr seid daran interessiert, das durchschnittliche Glücksempfinden von Männern und Frauen zu berechnen. Die <code>group_by()</code>-Funktion legt die Gruppen fest, über die aggregiert werden soll – z. B. Geschlecht.</p>
+<div id="mit-einer-gruppierungsvariablen-und-einer-kennzahl" class="section level4 hasAnchor" number="2.4.7.1">
+<h4><span class="header-section-number">2.4.7.1</span> Mit einer Gruppierungsvariablen und einer Kennzahl<a href="datenmanipulation.html#mit-einer-gruppierungsvariablen-und-einer-kennzahl" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p><code>summarize()</code> legt die Kennzahl fest, die wir berechnen möchten. Zum Beispiel wollen wir den Mittelwert des Glücksempfindens von Männern und Frauen berechnen. Oder den Median. Schauen wir uns das an:</p>
+<ul>
+<li><p>Zunächst rufen wir <code>group_by()</code> auf und definieren die Gruppe, über die aggregiert werden soll. In unserem Beispiel möchten wir nach Geschlecht aggregieren. Zuvor müssen wir fehlende Werte entfernen oder die Variable in die gewünschten Kategorien umwandeln – daher rufen wir zuerst <code>mutate()</code> auf und transformieren die Variable.</p></li>
+<li><p>Dann rufen wir <code>summarize()</code> auf und definieren den Namen der neuen Spalte – nennen wir sie <code>average_happiness</code>. Dann rufen wir die Kennzahl der gewünschten Variable auf. In unserem Beispiel interessiert uns der Durchschnitt, also <code>mean()</code> mit der <code>happy</code>-Variable:</p></li>
+</ul>
+<div class="sourceCode" id="cb170"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb170-1"><a href="datenmanipulation.html#cb170-1" tabindex="-1"></a><span class="co"># group_by und summarize</span></span>
+<span id="cb170-2"><a href="datenmanipulation.html#cb170-2" tabindex="-1"></a>d1 <span class="ot">&lt;-</span> ess <span class="sc">%&gt;%</span> </span>
+<span id="cb170-3"><a href="datenmanipulation.html#cb170-3" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb170-4"><a href="datenmanipulation.html#cb170-4" tabindex="-1"></a>    <span class="at">gndr_fac =</span> <span class="fu">as.factor</span>(gndr),</span>
+<span id="cb170-5"><a href="datenmanipulation.html#cb170-5" tabindex="-1"></a>    <span class="at">female =</span> <span class="fu">case_when</span>(</span>
+<span id="cb170-6"><a href="datenmanipulation.html#cb170-6" tabindex="-1"></a>    gndr_fac <span class="sc">==</span> <span class="dv">1</span> <span class="sc">~</span> <span class="st">&quot;Männlich&quot;</span>, </span>
+<span id="cb170-7"><a href="datenmanipulation.html#cb170-7" tabindex="-1"></a>    gndr_fac <span class="sc">==</span> <span class="dv">2</span> <span class="sc">~</span> <span class="st">&quot;Weiblich&quot;</span>,</span>
+<span id="cb170-8"><a href="datenmanipulation.html#cb170-8" tabindex="-1"></a>    gndr_fac <span class="sc">==</span> <span class="dv">9</span> <span class="sc">~</span> <span class="cn">NA_character_</span></span>
+<span id="cb170-9"><a href="datenmanipulation.html#cb170-9" tabindex="-1"></a>  )) <span class="sc">%&gt;%</span></span>
+<span id="cb170-10"><a href="datenmanipulation.html#cb170-10" tabindex="-1"></a>  <span class="fu">drop_na</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb170-11"><a href="datenmanipulation.html#cb170-11" tabindex="-1"></a>  <span class="fu">group_by</span>(female) <span class="sc">%&gt;%</span> </span>
+<span id="cb170-12"><a href="datenmanipulation.html#cb170-12" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">summarize</span>(<span class="at">average_happiness =</span> <span class="fu">mean</span>(happy))</span>
+<span id="cb170-13"><a href="datenmanipulation.html#cb170-13" tabindex="-1"></a></span>
+<span id="cb170-14"><a href="datenmanipulation.html#cb170-14" tabindex="-1"></a><span class="co"># Überprüfen</span></span>
+<span id="cb170-15"><a href="datenmanipulation.html#cb170-15" tabindex="-1"></a><span class="fu">head</span>(d1)</span></code></pre></div>
+<pre><code>## # A tibble: 2 × 2
+##   female   average_happiness
+##   &lt;chr&gt;                &lt;dbl&gt;
+## 1 Männlich              7.17
+## 2 Weiblich              6.54</code></pre>
+<p>Et voilà – wir erhalten einen Datensatz mit zwei Beobachtungen, da wir nur zwei Gruppen haben. Die zweite Spalte ist die <code>average_happiness</code>-Spalte, die wir in <code>summarize()</code> definiert haben.</p>
+</div>
+<div id="mit-mehreren-gruppierungsvariablen-und-kennzahlen" class="section level4 hasAnchor" number="2.4.7.2">
+<h4><span class="header-section-number">2.4.7.2</span> Mit mehreren Gruppierungsvariablen und Kennzahlen<a href="datenmanipulation.html#mit-mehreren-gruppierungsvariablen-und-kennzahlen" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p><code>group_by()</code> und <code>summarize()</code> sind natürlich viel flexibler. Zum Beispiel können wir mehrere Gruppen definieren. Was wäre, wenn wir das Glücksempfinden von Frauen und Männern in den verschiedenen ESS-Ländern untersuchen möchten? Einfach die Ländervariable und die Geschlechtsvariable in <code>group_by()</code> aufnehmen. Wenn uns außerdem mehrere Kennzahlen interessieren – kein Problem, einfach weitere Spalten in <code>summarize()</code> definieren. Auch hier müssen wir die Daten zunächst bereinigen.</p>
+<div class="sourceCode" id="cb172"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb172-1"><a href="datenmanipulation.html#cb172-1" tabindex="-1"></a><span class="co"># Gruppieren und zusammenfassen</span></span>
+<span id="cb172-2"><a href="datenmanipulation.html#cb172-2" tabindex="-1"></a>d1 <span class="ot">&lt;-</span> ess <span class="sc">%&gt;%</span> </span>
+<span id="cb172-3"><a href="datenmanipulation.html#cb172-3" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb172-4"><a href="datenmanipulation.html#cb172-4" tabindex="-1"></a>    <span class="at">country  =</span> cntry,</span>
+<span id="cb172-5"><a href="datenmanipulation.html#cb172-5" tabindex="-1"></a>    <span class="at">gndr_fac =</span> <span class="fu">as.factor</span>(gndr),</span>
+<span id="cb172-6"><a href="datenmanipulation.html#cb172-6" tabindex="-1"></a>    <span class="at">female =</span> <span class="fu">case_when</span>(</span>
+<span id="cb172-7"><a href="datenmanipulation.html#cb172-7" tabindex="-1"></a>    gndr_fac <span class="sc">==</span> <span class="dv">1</span> <span class="sc">~</span> <span class="st">&quot;Männlich&quot;</span>, </span>
+<span id="cb172-8"><a href="datenmanipulation.html#cb172-8" tabindex="-1"></a>    gndr_fac <span class="sc">==</span> <span class="dv">2</span> <span class="sc">~</span> <span class="st">&quot;Weiblich&quot;</span>,</span>
+<span id="cb172-9"><a href="datenmanipulation.html#cb172-9" tabindex="-1"></a>    gndr_fac <span class="sc">%in%</span> <span class="fu">c</span>(<span class="dv">77</span>, <span class="dv">88</span>, <span class="dv">99</span>) <span class="sc">~</span> <span class="cn">NA_character_</span>),</span>
+<span id="cb172-10"><a href="datenmanipulation.html#cb172-10" tabindex="-1"></a>    <span class="at">age =</span> <span class="fu">case_when</span>(</span>
+<span id="cb172-11"><a href="datenmanipulation.html#cb172-11" tabindex="-1"></a>      agea <span class="sc">==</span> <span class="dv">999</span> <span class="sc">~</span> <span class="cn">NA_real_</span>,</span>
+<span id="cb172-12"><a href="datenmanipulation.html#cb172-12" tabindex="-1"></a>      <span class="cn">TRUE</span> <span class="sc">~</span> agea)</span>
+<span id="cb172-13"><a href="datenmanipulation.html#cb172-13" tabindex="-1"></a>    ) <span class="sc">%&gt;%</span></span>
+<span id="cb172-14"><a href="datenmanipulation.html#cb172-14" tabindex="-1"></a>  <span class="fu">drop_na</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb172-15"><a href="datenmanipulation.html#cb172-15" tabindex="-1"></a>  <span class="fu">group_by</span>(country, female) <span class="sc">%&gt;%</span> </span>
+<span id="cb172-16"><a href="datenmanipulation.html#cb172-16" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">summarize</span>(<span class="at">average_happiness =</span> <span class="fu">mean</span>(happy), </span>
+<span id="cb172-17"><a href="datenmanipulation.html#cb172-17" tabindex="-1"></a>            <span class="at">median_happiness  =</span> <span class="fu">median</span>(happy), </span>
+<span id="cb172-18"><a href="datenmanipulation.html#cb172-18" tabindex="-1"></a>            <span class="at">average_age       =</span> <span class="fu">mean</span>(age), </span>
+<span id="cb172-19"><a href="datenmanipulation.html#cb172-19" tabindex="-1"></a>            <span class="at">median_age        =</span> <span class="fu">median</span>(age))</span></code></pre></div>
+<pre><code>## `summarise()` has grouped output by &#39;country&#39;. You can
+## override using the `.groups` argument.</code></pre>
+<div class="sourceCode" id="cb174"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb174-1"><a href="datenmanipulation.html#cb174-1" tabindex="-1"></a><span class="co"># Überprüfen</span></span>
+<span id="cb174-2"><a href="datenmanipulation.html#cb174-2" tabindex="-1"></a><span class="fu">head</span>(d1)</span></code></pre></div>
+<pre><code>## # A tibble: 6 × 6
+## # Groups:   country [3]
+##   country female   average_happiness median_happiness
+##   &lt;chr&gt;   &lt;chr&gt;                &lt;dbl&gt;            &lt;dbl&gt;
+## 1 BE      Männlich              7.79              6  
+## 2 BE      Weiblich              6.14              6  
+## 3 BG      Männlich              8.69              6  
+## 4 BG      Weiblich              6.26              6  
+## 5 CH      Männlich              5.72              5.5
+## 6 CH      Weiblich              7.17              5  
+## # ℹ 2 more variables: average_age &lt;dbl&gt;,
+## #   median_age &lt;dbl&gt;</code></pre>
+</div>
+</div>
+</div>
+<div id="datensätze-zusammenführen" class="section level2 hasAnchor" number="2.5">
+<h2><span class="header-section-number">2.5</span> Datensätze zusammenführen<a href="#datens%C3%A4tze-zusammenf%C3%BChren" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="einführung-ins-mergen-mit-dplyr-und-datenvorbereitung" class="section level3 hasAnchor" number="2.5.1">
+<h3><span class="header-section-number">2.5.1</span> Einführung ins Mergen mit <code>dplyr</code> und Datenvorbereitung<a href="#einf%C3%BChrung-ins-mergen-mit-dplyr-und-datenvorbereitung" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Manchmal kann es vorkommen, dass man Variablen benötigt, die nicht in einem einzigen Datensatz vorhanden sind, sondern in einem anderen. In diesem Fall lädt man beide Datensätze und <strong>verbindet</strong> sie miteinander. <strong>Das funktioniert nur, wenn eine ähnliche Datenstruktur vorhanden ist – also kennt eure Daten!</strong></p>
+<p>Als Beispiel zeige ich, wie das mit <strong>Weltbank-Daten</strong> funktioniert. Aus diesen Daten lassen sich nahezu alle wichtigen wirtschaftlichen Indikatoren für Länder seit den 1970er Jahren abrufen. Meistens müssen diese jedoch mit Datensätzen zusammengeführt werden, die uns interessieren. Wir werden die <strong>Weltbank-Daten</strong> mit den <strong>ESS</strong>-Daten zusammenführen, sodass wir Variablen analysieren können, die nicht im selben Datensatz erhoben wurden.</p>
+<p>Es gibt verschiedene Möglichkeiten, Weltbank-Daten zu beziehen. Ich zeige euch die effizienteste: das Paket <code>WDI</code>, mit dem Daten direkt über eine API (Application Programming Interface) abgerufen werden können. Kurz gesagt: Wir müssen nichts herunterladen und erhalten die Daten direkt per Code.</p>
+<p>Zunächst definieren wir, welche Länder einbezogen werden sollen:</p>
+<div class="sourceCode" id="cb176"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb176-1"><a href="datenmanipulation.html#cb176-1" tabindex="-1"></a>countries <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;BE&quot;</span>, <span class="st">&quot;BG&quot;</span>, <span class="st">&quot;CH&quot;</span>, <span class="st">&quot;EE&quot;</span>, <span class="st">&quot;FR&quot;</span>, <span class="st">&quot;GB&quot;</span>) </span></code></pre></div>
+<p>Dann legen wir fest, welche Variablen wir möchten. Das geschieht über den offiziellen Indikator – also den Variablennamen. Die Indikatoren sind auf der Website der <a href="https://data.worldbank.org/indicator">Weltbank</a> zu finden. Einfach auf die gewünschte Variable klicken, dann auf Details, und dort ist der Indikator angegeben. Ich verwende BIP pro Kopf, Kraftstoffexporte und CO2-Emissionen (kt).</p>
+<div class="sourceCode" id="cb177"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb177-1"><a href="datenmanipulation.html#cb177-1" tabindex="-1"></a>indicators <span class="ot">=</span> <span class="fu">c</span>(<span class="st">&quot;NY.GDP.PCAP.CD&quot;</span>, <span class="st">&quot;TX.VAL.FUEL.ZS.UN&quot;</span>, <span class="st">&quot;EN.ATM.CO2E.KT&quot;</span>)</span></code></pre></div>
+<p>Jetzt sind wir bereit, die API zu verwenden:</p>
+<ul>
+<li><p>Wir rufen die <code>WDI()</code>-Funktion auf.</p></li>
+<li><p>Mit dem Argument <code>country</code> legen wir fest, welche Länder einbezogen werden sollen.</p></li>
+<li><p>Wir definieren auch die Indikatoren.</p></li>
+<li><p>Mit dem Argument <code>start =</code> definieren wir das Startjahr, bis zu dem Daten zurückreichen sollen, und mit <code>end =</code> das Endjahr. Beide Argumente legen den Zeitraum fest.</p></li>
+</ul>
+<div class="sourceCode" id="cb178"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb178-1"><a href="datenmanipulation.html#cb178-1" tabindex="-1"></a><span class="co"># wb &lt;- WDI( </span></span>
+<span id="cb178-2"><a href="datenmanipulation.html#cb178-2" tabindex="-1"></a><span class="co">#   country = countries,</span></span>
+<span id="cb178-3"><a href="datenmanipulation.html#cb178-3" tabindex="-1"></a><span class="co">#   indicator = indicators,</span></span>
+<span id="cb178-4"><a href="datenmanipulation.html#cb178-4" tabindex="-1"></a><span class="co">#   start = 2020,</span></span>
+<span id="cb178-5"><a href="datenmanipulation.html#cb178-5" tabindex="-1"></a><span class="co">#   end = 2020)</span></span>
+<span id="cb178-6"><a href="datenmanipulation.html#cb178-6" tabindex="-1"></a></span>
+<span id="cb178-7"><a href="datenmanipulation.html#cb178-7" tabindex="-1"></a><span class="co"># Das kann eine Weile dauern, besonders bei mehr Ländern, mehr Indikatoren und längeren Zeiträumen.</span></span>
+<span id="cb178-8"><a href="datenmanipulation.html#cb178-8" tabindex="-1"></a></span>
+<span id="cb178-9"><a href="datenmanipulation.html#cb178-9" tabindex="-1"></a><span class="co"># Daten simulieren</span></span>
+<span id="cb178-10"><a href="datenmanipulation.html#cb178-10" tabindex="-1"></a>wb <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb178-11"><a href="datenmanipulation.html#cb178-11" tabindex="-1"></a>  <span class="at">iso2c =</span> <span class="fu">c</span>(<span class="st">&quot;BE&quot;</span>, <span class="st">&quot;BG&quot;</span>, <span class="st">&quot;CH&quot;</span>, <span class="st">&quot;EE&quot;</span>, <span class="st">&quot;FR&quot;</span>, <span class="st">&quot;GB&quot;</span>), </span>
+<span id="cb178-12"><a href="datenmanipulation.html#cb178-12" tabindex="-1"></a>  <span class="at">NY.GDP.PCAP.CD     =</span> <span class="fu">c</span>(<span class="fl">45587.97</span>, <span class="fl">10148.34</span>, <span class="fl">85897.78</span>, <span class="fl">23565.18</span>, <span class="fl">39179.74</span>, <span class="fl">40217.01</span>), </span>
+<span id="cb178-13"><a href="datenmanipulation.html#cb178-13" tabindex="-1"></a>  <span class="at">TX.VAL.FUEL.ZS.UN  =</span> <span class="fu">c</span>(<span class="fl">5.021</span>, <span class="fl">4.644</span>, <span class="fl">0.6111</span>, <span class="fl">4.863</span>, <span class="fl">1.886</span>, <span class="fl">7.062</span>), </span>
+<span id="cb178-14"><a href="datenmanipulation.html#cb178-14" tabindex="-1"></a>  <span class="at">EN.ATM.CO2E.KT     =</span> <span class="fu">c</span>(<span class="fl">85364.10</span>, <span class="fl">34138.10</span>, <span class="fl">34916.10</span>, <span class="fl">7097.52</span>, <span class="fl">267154.70</span>, <span class="fl">308650.30</span>)</span>
+<span id="cb178-15"><a href="datenmanipulation.html#cb178-15" tabindex="-1"></a>)</span>
+<span id="cb178-16"><a href="datenmanipulation.html#cb178-16" tabindex="-1"></a></span>
+<span id="cb178-17"><a href="datenmanipulation.html#cb178-17" tabindex="-1"></a><span class="co"># Überprüfen</span></span>
+<span id="cb178-18"><a href="datenmanipulation.html#cb178-18" tabindex="-1"></a><span class="fu">head</span>(wb)</span></code></pre></div>
+<pre><code>##   iso2c NY.GDP.PCAP.CD TX.VAL.FUEL.ZS.UN EN.ATM.CO2E.KT
+## 1    BE       45587.97            5.0210       85364.10
+## 2    BG       10148.34            4.6440       34138.10
+## 3    CH       85897.78            0.6111       34916.10
+## 4    EE       23565.18            4.8630        7097.52
+## 5    FR       39179.74            1.8860      267154.70
+## 6    GB       40217.01            7.0620      308650.30</code></pre>
+<p>Bereinigen wir den Datensatz (nur benötigte Variablen, alphabetisch sortiert, umbenannt und eine Variable gerundet, um die Zahlen verständlicher zu machen):</p>
+<div class="sourceCode" id="cb180"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb180-1"><a href="datenmanipulation.html#cb180-1" tabindex="-1"></a><span class="co"># Weltbank-Daten bereinigen</span></span>
+<span id="cb180-2"><a href="datenmanipulation.html#cb180-2" tabindex="-1"></a>wb <span class="ot">&lt;-</span> wb <span class="sc">%&gt;%</span></span>
+<span id="cb180-3"><a href="datenmanipulation.html#cb180-3" tabindex="-1"></a>  <span class="fu">select</span>(iso2c, NY.GDP.PCAP.CD, TX.VAL.FUEL.ZS.UN, EN.ATM.CO2E.KT) <span class="sc">%&gt;%</span></span>
+<span id="cb180-4"><a href="datenmanipulation.html#cb180-4" tabindex="-1"></a>  <span class="fu">arrange</span>(iso2c) <span class="sc">%&gt;%</span></span>
+<span id="cb180-5"><a href="datenmanipulation.html#cb180-5" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="at">gdp_per_cap =</span> NY.GDP.PCAP.CD,</span>
+<span id="cb180-6"><a href="datenmanipulation.html#cb180-6" tabindex="-1"></a>         <span class="at">fuel_exp    =</span> TX.VAL.FUEL.ZS.UN,</span>
+<span id="cb180-7"><a href="datenmanipulation.html#cb180-7" tabindex="-1"></a>         <span class="at">co2         =</span> EN.ATM.CO2E.KT) <span class="sc">%&gt;%</span> </span>
+<span id="cb180-8"><a href="datenmanipulation.html#cb180-8" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">fuel_exp =</span> <span class="fu">round</span>(fuel_exp, <span class="dv">2</span>))</span>
+<span id="cb180-9"><a href="datenmanipulation.html#cb180-9" tabindex="-1"></a></span>
+<span id="cb180-10"><a href="datenmanipulation.html#cb180-10" tabindex="-1"></a><span class="co"># Überprüfen</span></span>
+<span id="cb180-11"><a href="datenmanipulation.html#cb180-11" tabindex="-1"></a><span class="fu">head</span>(wb)</span></code></pre></div>
+<pre><code>##   iso2c gdp_per_cap fuel_exp       co2
+## 1    BE    45587.97     5.02  85364.10
+## 2    BG    10148.34     4.64  34138.10
+## 3    CH    85897.78     0.61  34916.10
+## 4    EE    23565.18     4.86   7097.52
+## 5    FR    39179.74     1.89 267154.70
+## 6    GB    40217.01     7.06 308650.30</code></pre>
+<p>Jetzt bereiten wir unsere ESS-Daten vor: Wir wählen die interessierenden Länder aus, benennen die Ländervariable um (der Grund wird später klar), gruppieren nach Land (iso2c) und Jahr, um das durchschnittliche Glücksempfinden pro Land zu berechnen. Abschließend runden wir den Wert auf zwei Dezimalstellen.</p>
+<div class="sourceCode" id="cb182"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb182-1"><a href="datenmanipulation.html#cb182-1" tabindex="-1"></a><span class="co"># ESS vorbereiten</span></span>
+<span id="cb182-2"><a href="datenmanipulation.html#cb182-2" tabindex="-1"></a>d1 <span class="ot">&lt;-</span> ess <span class="sc">%&gt;%</span></span>
+<span id="cb182-3"><a href="datenmanipulation.html#cb182-3" tabindex="-1"></a>  <span class="fu">filter</span>(cntry <span class="sc">==</span> <span class="fu">c</span>(<span class="st">&quot;BE&quot;</span>, <span class="st">&quot;BG&quot;</span>, <span class="st">&quot;CZ&quot;</span>, <span class="st">&quot;EE&quot;</span>, <span class="st">&quot;FI&quot;</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb182-4"><a href="datenmanipulation.html#cb182-4" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="at">iso2c =</span> cntry) <span class="sc">%&gt;%</span></span>
+<span id="cb182-5"><a href="datenmanipulation.html#cb182-5" tabindex="-1"></a>  <span class="fu">group_by</span>(iso2c, year) <span class="sc">%&gt;%</span> </span>
+<span id="cb182-6"><a href="datenmanipulation.html#cb182-6" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">happy_agg =</span> <span class="fu">round</span>(<span class="fu">mean</span>(happy), <span class="dv">2</span>))</span>
+<span id="cb182-7"><a href="datenmanipulation.html#cb182-7" tabindex="-1"></a>  </span>
+<span id="cb182-8"><a href="datenmanipulation.html#cb182-8" tabindex="-1"></a><span class="co"># Überprüfen</span></span>
+<span id="cb182-9"><a href="datenmanipulation.html#cb182-9" tabindex="-1"></a><span class="fu">head</span>(d1) </span></code></pre></div>
+<pre><code>## # A tibble: 5 × 3
+## # Groups:   iso2c [5]
+##   iso2c  year happy_agg
+##   &lt;chr&gt; &lt;dbl&gt;     &lt;dbl&gt;
+## 1 BE     2020      7.53
+## 2 BG     2020      6.41
+## 3 CZ     2020      7.08
+## 4 EE     2020      8.52
+## 5 FI     2020      7.51</code></pre>
+</div>
+<div id="left_join-und-right_join-mit-einem-identifikator" class="section level3 hasAnchor" number="2.5.2">
+<h3><span class="header-section-number">2.5.2</span> <code>left_join()</code> und <code>right_join()</code> mit einem Identifikator<a href="datenmanipulation.html#left_join-und-right_join-mit-einem-identifikator" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Zum Zusammenführen von Daten gibt es wichtige Funktionen aus dem <code>dplyr</code>-Paket: <code>left_join()</code> und <code>right_join()</code>. Da sie etwas komplex zu verstehen sind, gehen wir sie gemeinsam durch – am Ende könnt ihr die bevorzugte Methode wählen.</p>
+<ul>
+<li><code>left_join()</code>: Alle Beobachtungen der ersten (linken) Tabelle werden beibehalten, einschließlich passender Beobachtungen der zweiten (rechten) Tabelle. Die Daten aus der rechten Tabelle werden an die linke Tabelle angehängt. Der resultierende Datensatz hat dieselbe Zeilenanzahl wie die linke Tabelle:</li>
+</ul>
+<p><img src="images/left_join_with_one_identifier.PNG" fig-align="center" width="800" /></p>
+<ul>
+<li><code>right_join()</code>: Alle Beobachtungen der zweiten (rechten) Tabelle werden beibehalten, einschließlich passender Beobachtungen der ersten (linken) Tabelle. Die Tabelle übernimmt die Zeilenanzahl der rechts verbundenen Tabelle.</li>
+</ul>
+<p><img src="images/right_join_with_one_identifier.PNG" fig-align="center" width="800" /></p>
+<p>Letztlich ist es eine Frage der Programmiergewohnheit und des persönlichen Geschmacks. Ich zeige euch beide.</p>
+<p>Um zwei Datensätze zusammenzuführen, benötigt man mindestens eine gemeinsame Variable als eindeutigen Identifikator. Da jedes Land einmalig im Datensatz ist, dient es als Identifikator – also die Variable, anhand derer R die Datensätze zusammenführt:</p>
+<ul>
+<li><p>Zunächst definieren wir ein neues Objekt <code>merged_data</code>.</p></li>
+<li><p>Dann rufen wir <code>left_join()</code> auf.</p></li>
+<li><p>Wir legen die linke und die rechte Tabelle fest.</p></li>
+<li><p>Wir definieren das <code>by =</code>-Argument mit dem eindeutigen Identifikator in Anführungszeichen.</p></li>
+</ul>
+<div class="sourceCode" id="cb184"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb184-1"><a href="datenmanipulation.html#cb184-1" tabindex="-1"></a><span class="co"># left_join</span></span>
+<span id="cb184-2"><a href="datenmanipulation.html#cb184-2" tabindex="-1"></a>merged_data <span class="ot">&lt;-</span> <span class="fu">left_join</span>(d1, wb, </span>
+<span id="cb184-3"><a href="datenmanipulation.html#cb184-3" tabindex="-1"></a>                         <span class="at">by =</span> <span class="st">&quot;iso2c&quot;</span>)</span>
+<span id="cb184-4"><a href="datenmanipulation.html#cb184-4" tabindex="-1"></a></span>
+<span id="cb184-5"><a href="datenmanipulation.html#cb184-5" tabindex="-1"></a><span class="co"># Überprüfen</span></span>
+<span id="cb184-6"><a href="datenmanipulation.html#cb184-6" tabindex="-1"></a><span class="fu">head</span>(merged_data)</span></code></pre></div>
+<p>Für <code>right_join()</code> geht man genauso vor – aber man erhält ein anderes Ergebnis.</p>
+<div class="sourceCode" id="cb185"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb185-1"><a href="datenmanipulation.html#cb185-1" tabindex="-1"></a><span class="co"># right_join</span></span>
+<span id="cb185-2"><a href="datenmanipulation.html#cb185-2" tabindex="-1"></a>merged_data2 <span class="ot">&lt;-</span> <span class="fu">right_join</span>(d1, wb, </span>
+<span id="cb185-3"><a href="datenmanipulation.html#cb185-3" tabindex="-1"></a>                           <span class="at">by =</span> <span class="st">&quot;iso2c&quot;</span>)</span>
+<span id="cb185-4"><a href="datenmanipulation.html#cb185-4" tabindex="-1"></a></span>
+<span id="cb185-5"><a href="datenmanipulation.html#cb185-5" tabindex="-1"></a><span class="co"># Überprüfen</span></span>
+<span id="cb185-6"><a href="datenmanipulation.html#cb185-6" tabindex="-1"></a><span class="fu">head</span>(merged_data2)</span></code></pre></div>
+<pre><code>## # A tibble: 6 × 6
+## # Groups:   iso2c [6]
+##   iso2c  year happy_agg gdp_per_cap fuel_exp     co2
+##   &lt;chr&gt; &lt;dbl&gt;     &lt;dbl&gt;       &lt;dbl&gt;    &lt;dbl&gt;   &lt;dbl&gt;
+## 1 BE     2020      7.53      45588.     5.02  85364.
+## 2 BG     2020      6.41      10148.     4.64  34138.
+## 3 EE     2020      8.52      23565.     4.86   7098.
+## 4 CH       NA     NA         85898.     0.61  34916.
+## 5 FR       NA     NA         39180.     1.89 267155.
+## 6 GB       NA     NA         40217.     7.06 308650.</code></pre>
+</div>
+<div id="left_join-und-right_join-mit-zwei-identifikatoren" class="section level3 hasAnchor" number="2.5.3">
+<h3><span class="header-section-number">2.5.3</span> <code>left_join()</code> und <code>right_join()</code> mit zwei Identifikatoren<a href="datenmanipulation.html#left_join-und-right_join-mit-zwei-identifikatoren" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Manchmal gibt es mehrere Dimensionen. Was, wenn wir auch das Jahr einbeziehen? Dann ist jede Länder-Jahr-Beobachtung unser eindeutiger Identifikator. Warum? Weil eine Beobachtung im Land X zum Zeitpunkt Y erhoben wurde. Deshalb sollte man immer seine Daten und sein Forschungsziel kennen – entsprechend muss der Code geschrieben werden.</p>
+<p>Laden wir erneut Weltbank-Daten und bereinigen sie:</p>
+<div class="sourceCode" id="cb187"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb187-1"><a href="datenmanipulation.html#cb187-1" tabindex="-1"></a><span class="co"># wb &lt;- WDI( </span></span>
+<span id="cb187-2"><a href="datenmanipulation.html#cb187-2" tabindex="-1"></a><span class="co">#   country = c(&quot;BE&quot;, &quot;BG&quot;),</span></span>
+<span id="cb187-3"><a href="datenmanipulation.html#cb187-3" tabindex="-1"></a><span class="co">#   indicator = indicators,</span></span>
+<span id="cb187-4"><a href="datenmanipulation.html#cb187-4" tabindex="-1"></a><span class="co">#   start = 2019,</span></span>
+<span id="cb187-5"><a href="datenmanipulation.html#cb187-5" tabindex="-1"></a><span class="co">#   end = 2020)</span></span>
+<span id="cb187-6"><a href="datenmanipulation.html#cb187-6" tabindex="-1"></a></span>
+<span id="cb187-7"><a href="datenmanipulation.html#cb187-7" tabindex="-1"></a><span class="co"># Daten simulieren</span></span>
+<span id="cb187-8"><a href="datenmanipulation.html#cb187-8" tabindex="-1"></a>wb <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb187-9"><a href="datenmanipulation.html#cb187-9" tabindex="-1"></a>  <span class="at">iso3c =</span> <span class="fu">c</span>(<span class="st">&quot;BEL&quot;</span>, <span class="st">&quot;BEL&quot;</span>, <span class="st">&quot;BGR&quot;</span>, <span class="st">&quot;BGR&quot;</span>),</span>
+<span id="cb187-10"><a href="datenmanipulation.html#cb187-10" tabindex="-1"></a>  <span class="at">iso2c =</span> <span class="fu">c</span>(<span class="st">&quot;BE&quot;</span>, <span class="st">&quot;BE&quot;</span>, <span class="st">&quot;BG&quot;</span>, <span class="st">&quot;BG&quot;</span>), </span>
+<span id="cb187-11"><a href="datenmanipulation.html#cb187-11" tabindex="-1"></a>  <span class="at">year  =</span> <span class="fu">c</span>(<span class="dv">2019</span>, <span class="dv">2020</span>, <span class="dv">2019</span>, <span class="dv">2020</span>),</span>
+<span id="cb187-12"><a href="datenmanipulation.html#cb187-12" tabindex="-1"></a>  <span class="at">NY.GDP.PCAP.CD    =</span> <span class="fu">c</span>(<span class="fl">46641.72</span>, <span class="fl">45587.97</span>, <span class="fl">9874.336</span>, <span class="fl">10148.34</span>), </span>
+<span id="cb187-13"><a href="datenmanipulation.html#cb187-13" tabindex="-1"></a>  <span class="at">TX.VAL.FUEL.ZS.UN =</span> <span class="fu">c</span>(<span class="fl">7.38</span>, <span class="fl">5.02</span>, <span class="fl">9.53</span>, <span class="fl">4.64</span>), </span>
+<span id="cb187-14"><a href="datenmanipulation.html#cb187-14" tabindex="-1"></a>  <span class="at">EN.ATM.CO2E.KT    =</span> <span class="fu">c</span>(<span class="fl">92989.4</span>, <span class="fl">85364.10</span>, <span class="fl">39159.9</span>, <span class="fl">34138.10</span>)</span>
+<span id="cb187-15"><a href="datenmanipulation.html#cb187-15" tabindex="-1"></a>)</span>
+<span id="cb187-16"><a href="datenmanipulation.html#cb187-16" tabindex="-1"></a></span>
+<span id="cb187-17"><a href="datenmanipulation.html#cb187-17" tabindex="-1"></a><span class="co"># Daten bereinigen</span></span>
+<span id="cb187-18"><a href="datenmanipulation.html#cb187-18" tabindex="-1"></a>wb <span class="ot">&lt;-</span> wb <span class="sc">%&gt;%</span> </span>
+<span id="cb187-19"><a href="datenmanipulation.html#cb187-19" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">-</span>iso3c) <span class="sc">%&gt;%</span></span>
+<span id="cb187-20"><a href="datenmanipulation.html#cb187-20" tabindex="-1"></a>  <span class="fu">arrange</span>(iso2c) <span class="sc">%&gt;%</span></span>
+<span id="cb187-21"><a href="datenmanipulation.html#cb187-21" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="at">gdp_per_cap =</span> NY.GDP.PCAP.CD,</span>
+<span id="cb187-22"><a href="datenmanipulation.html#cb187-22" tabindex="-1"></a>         <span class="at">fuel_exp    =</span> TX.VAL.FUEL.ZS.UN,</span>
+<span id="cb187-23"><a href="datenmanipulation.html#cb187-23" tabindex="-1"></a>         <span class="at">co2         =</span> EN.ATM.CO2E.KT) <span class="sc">%&gt;%</span> </span>
+<span id="cb187-24"><a href="datenmanipulation.html#cb187-24" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">fuel_exp =</span> <span class="fu">round</span>(fuel_exp, <span class="dv">2</span>))</span>
+<span id="cb187-25"><a href="datenmanipulation.html#cb187-25" tabindex="-1"></a></span>
+<span id="cb187-26"><a href="datenmanipulation.html#cb187-26" tabindex="-1"></a><span class="co"># Überprüfen</span></span>
+<span id="cb187-27"><a href="datenmanipulation.html#cb187-27" tabindex="-1"></a><span class="fu">head</span>(wb)</span></code></pre></div>
+<pre><code>##   iso2c year gdp_per_cap fuel_exp     co2
+## 1    BE 2019   46641.720     7.38 92989.4
+## 2    BE 2020   45587.970     5.02 85364.1
+## 3    BG 2019    9874.336     9.53 39159.9
+## 4    BG 2020   10148.340     4.64 34138.1</code></pre>
+<p>Jetzt simulieren wir einige Daten, die wir zusammenführen möchten:</p>
+<div class="sourceCode" id="cb189"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb189-1"><a href="datenmanipulation.html#cb189-1" tabindex="-1"></a><span class="co"># Daten erstellen</span></span>
+<span id="cb189-2"><a href="datenmanipulation.html#cb189-2" tabindex="-1"></a>d1 <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb189-3"><a href="datenmanipulation.html#cb189-3" tabindex="-1"></a>  <span class="at">iso2c     =</span> <span class="fu">c</span>(<span class="st">&quot;BE&quot;</span>, <span class="st">&quot;BE&quot;</span>, <span class="st">&quot;BG&quot;</span>, <span class="st">&quot;BG&quot;</span>, <span class="st">&quot;CZ&quot;</span>, <span class="st">&quot;CZ&quot;</span>), </span>
+<span id="cb189-4"><a href="datenmanipulation.html#cb189-4" tabindex="-1"></a>  <span class="at">year      =</span> <span class="fu">c</span>(<span class="dv">2019</span>, <span class="dv">2020</span>, <span class="dv">2019</span>, <span class="dv">2020</span>, <span class="dv">2019</span>, <span class="dv">2020</span>), </span>
+<span id="cb189-5"><a href="datenmanipulation.html#cb189-5" tabindex="-1"></a>  <span class="at">happy_agg =</span> <span class="fu">c</span>(<span class="fl">5.95</span>, <span class="fl">6.76</span>, <span class="fl">6.56</span>, <span class="fl">7.54</span>, <span class="fl">6.27</span>, <span class="fl">6.88</span>)</span>
+<span id="cb189-6"><a href="datenmanipulation.html#cb189-6" tabindex="-1"></a>)</span>
+<span id="cb189-7"><a href="datenmanipulation.html#cb189-7" tabindex="-1"></a></span>
+<span id="cb189-8"><a href="datenmanipulation.html#cb189-8" tabindex="-1"></a><span class="co"># Überprüfen</span></span>
+<span id="cb189-9"><a href="datenmanipulation.html#cb189-9" tabindex="-1"></a><span class="fu">head</span>(d1)</span></code></pre></div>
+<pre><code>##   iso2c year happy_agg
+## 1    BE 2019      5.95
+## 2    BE 2020      6.76
+## 3    BG 2019      6.56
+## 4    BG 2020      7.54
+## 5    CZ 2019      6.27
+## 6    CZ 2020      6.88</code></pre>
+<p>Wie sieht es aus, wenn wir zwei Variablen haben und deren Kombination der eindeutige Identifikator ist?</p>
+<ul>
+<li><code>left_join()</code> mit zwei Identifikatoren:</li>
+</ul>
+<p><img src="images/left_join_with_two_identifiers.PNG" fig-align="center" width="800" /></p>
+<ul>
+<li><p>Der Datensatz übernimmt wieder die Zeilenanzahl der linken Tabelle.</p></li>
+<li><p>Im Code muss das <code>by</code>-Argument angepasst werden: Wir definieren einen Vektor mit unseren zwei Identifikatoren in Anführungszeichen:</p></li>
+</ul>
+<div class="sourceCode" id="cb191"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb191-1"><a href="datenmanipulation.html#cb191-1" tabindex="-1"></a><span class="co"># Daten mit left_join() zusammenführen</span></span>
+<span id="cb191-2"><a href="datenmanipulation.html#cb191-2" tabindex="-1"></a>merged_data3 <span class="ot">&lt;-</span> <span class="fu">left_join</span>(d1, wb,</span>
+<span id="cb191-3"><a href="datenmanipulation.html#cb191-3" tabindex="-1"></a>                          <span class="at">by =</span> <span class="fu">c</span>(<span class="st">&quot;iso2c&quot;</span>, <span class="st">&quot;year&quot;</span>))</span>
+<span id="cb191-4"><a href="datenmanipulation.html#cb191-4" tabindex="-1"></a><span class="co"># Überprüfen</span></span>
+<span id="cb191-5"><a href="datenmanipulation.html#cb191-5" tabindex="-1"></a><span class="fu">head</span>(merged_data3)</span></code></pre></div>
+<pre><code>##   iso2c year happy_agg gdp_per_cap fuel_exp     co2
+## 1    BE 2019      5.95   46641.720     7.38 92989.4
+## 2    BE 2020      6.76   45587.970     5.02 85364.1
+## 3    BG 2019      6.56    9874.336     9.53 39159.9
+## 4    BG 2020      7.54   10148.340     4.64 34138.1
+## 5    CZ 2019      6.27          NA       NA      NA
+## 6    CZ 2020      6.88          NA       NA      NA</code></pre>
+<ul>
+<li><code>right_join()</code> mit zwei Identifikatoren:</li>
+</ul>
+<p><img src="images/right_join_with_two_identifier.PNG" fig-align="center" width="800" /></p>
+<ul>
+<li>Dasselbe geht mit <code>right_join()</code>:</li>
+</ul>
+<div class="sourceCode" id="cb193"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb193-1"><a href="datenmanipulation.html#cb193-1" tabindex="-1"></a>merged_data4 <span class="ot">&lt;-</span> <span class="fu">right_join</span>(d1, wb,</span>
+<span id="cb193-2"><a href="datenmanipulation.html#cb193-2" tabindex="-1"></a>                          <span class="at">by =</span> <span class="fu">c</span>(<span class="st">&quot;iso2c&quot;</span>, <span class="st">&quot;year&quot;</span>))</span>
+<span id="cb193-3"><a href="datenmanipulation.html#cb193-3" tabindex="-1"></a><span class="fu">head</span>(merged_data4)</span></code></pre></div>
+<pre><code>##   iso2c year happy_agg gdp_per_cap fuel_exp     co2
+## 1    BE 2019      5.95   46641.720     7.38 92989.4
+## 2    BE 2020      6.76   45587.970     5.02 85364.1
+## 3    BG 2019      6.56    9874.336     9.53 39159.9
+## 4    BG 2020      7.54   10148.340     4.64 34138.1</code></pre>
+<blockquote>
+<p><em>Hinweis: Dieses Kapitel hat nur die Grundlagen behandelt. Für das Zusammenführen allein gibt es noch weitere Befehle wie <code>inner_join()</code>, <code>anti_join()</code>, <code>semi_join()</code> usw. Aber wenn man mit den beiden hier gezeigten Funktionen auf Probleme stößt, wird man ihnen früher oder später begegnen.</em></p>
+</blockquote>
+</div>
+</div>
+<div id="ausblick-1" class="section level2 hasAnchor" number="2.6">
+<h2><span class="header-section-number">2.6</span> Ausblick<a href="datenmanipulation.html#ausblick-1" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Dieses Kapitel hat euch die grundlegenden Funktionen des <code>dplyr</code>-Pakets vorgestellt. Ihr könnt nun Variablen nach euren Bedürfnissen transformieren, Pipes für effizienten Code nutzen, Daten laden, transformieren und für die Analyse vorbereiten sowie Datensätze zusammenführen. Es gibt viele Techniken, und Data Wrangling ist der aufwändigste Teil – weil jede Analyse individuell ist und eine individuelle Vorbereitung erfordert. Je individueller die Analyse, desto individueller die Vorbereitung.</p>
+<ul>
+<li>Für dieses Kapitel empfehle ich das Standardwerk zur Datenwissenschaft in R, das einen starken Schwerpunkt auf Datenmanipulation legt: <a href="https://r4ds.had.co.nz/">„R for Data Science”</a> von Hadley Wickham &amp; Garrett Grolemund.</li>
+</ul>
+</div>
+<div id="übungsaufgaben" class="section level2 hasAnchor" number="2.7">
+<h2><span class="header-section-number">2.7</span> Übungsaufgaben<a href="#%C3%BCbungsaufgaben" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="übung-1-ran-an-die-daten" class="section level3 hasAnchor" number="2.7.1">
+<h3><span class="header-section-number">2.7.1</span> Übung 1: Ran an die Daten!<a href="#%C3%BCbung-1-ran-an-die-daten" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Du interessierst dich für Diskriminierung und die Wahrnehmung der Justiz. Genauer gesagt möchtest du wissen, ob Menschen, die sich diskriminiert fühlen, Gerichte anders bewerten. In der folgenden Tabelle siehst du alle Variablen, die du in deine Analyse einbeziehen möchtest:</p>
+<p><em>(Tabelle wie im Kapiteltext oben – Variablen idnt, year, cntry, agea, gndr, happy, eisced, netusoft, trstprl, lrscale)</em></p>
+<ol style="list-style-type: lower-alpha">
+<li>Bereinige die Daten und weise sie einem Objekt namens <strong>ess</strong> zu.</li>
+<li>Wähle die benötigten Variablen aus.</li>
+<li>Filtere nach Österreich, Belgien, Dänemark, Georgien, Island und der Russischen Förderation.</li>
+<li>Schau dir das Codebuch an und kodiere alle irrelevanten Werte als fehlend. Bei binären Variablen rekodiere von 1, 2 zu 0 und 1.</li>
+<li>Erstelle eine Extremismus-Variable: Subtrahiere 5 von der Variable und quadriere das Ergebnis. Nenne sie <code>extremism</code>.</li>
+<li>Benenne die Variablen intuitiver um. Vergiss nicht, binäre Variablen nach der Kategorie zu benennen, die mit 1 kodiert ist.</li>
+<li>Entferne alle fehlenden Werte.</li>
+<li>Schau dir deinen neuen Datensatz an.</li>
+</ol>
+</div>
+<div id="übung-2-datensätze-zusammenführen" class="section level3 hasAnchor" number="2.7.2">
+<h3><span class="header-section-number">2.7.2</span> Übung 2: Datensätze zusammenführen<a href="#%C3%BCbung-2-datens%C3%A4tze-zusammenf%C3%BChren" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Das <code>gapminder</code>-Paket in R lädt automatisch den Gapminder-Datensatz. Das Gapminder-Projekt ist eine unabhängige gemeinnützige Bildungsorganisation, die globale Missverständnisse bekämpft. Weitere Infos auf der Website: <a href="https://www.gapminder.org/" class="uri">https://www.gapminder.org/</a>. Der Gapminder-Datensatz ist bereits geladen.</p>
+<ol style="list-style-type: lower-alpha">
+<li><p>Verschaffe dir einen Überblick über den Gapminder-Datensatz. Es gibt verschiedene Möglichkeiten – du kannst selbst wählen.</p></li>
+<li><p>Lade Weltbank-Daten von 1972 bis 2007 und die Variable „Exporte und Waren (% des BIP)“.</p></li>
+<li><p>Verbinde die Weltbank-Daten mit den Gapminder-Daten, sodass ein Datensatz mit der Zeilenanzahl der Gapminder-Daten entsteht.</p></li>
+</ol>
+<p>d. Bereinige die Daten, indem du alle fehlenden Werte entfernst.</p>
+
+</div>
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="grundlagen.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="datenvisualisierung.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": false,
+"twitter": false,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": {}
+},
+"fontsettings": null,
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": null,
+"search": null,
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

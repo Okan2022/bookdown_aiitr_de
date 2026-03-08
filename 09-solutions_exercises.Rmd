@@ -1,81 +1,75 @@
-# Solutions Exercises
-
-```{r loading packages for Exercises}
+# Lösungen zu den Übungsaufgaben
+```{r pakete laden loesungen}
 pacman::p_load("tidyverse", "gapminder", "babynames", "sjPlot", "ggridges")
 ```
 
-## Chapter 1: Fundamentals
+## Kapitel 1: Grundlagen
 
-### Exercise 1: Making your first Vector
+### Übung 1: Deinen ersten Vektor erstellen
 
-Create a vector called `my_vector` with the values 1,2,3 and check is class.
-
-```{r chapter 1 exercise 1, eval=FALSE}
-#create the vector  
+Erstelle einen Vektor namens `my_vector` mit den Werten 1, 2, 3 und überprüfe seine Klasse.
+```{r kap1 uebung 1, eval=FALSE}
+# Vektor erstellen
 my_vector <- c(1,2,3)
 
-#check the class 
+# Klasse überprüfen
 class(my_vector)
 ```
 
-### Exercise 2: Making your first matrix
+### Übung 2: Deine erste Matrix erstellen
 
-Create a Matrix called `student`. This should contain information about the `name`, `age` and `major`. Make three vectors with three entries and bind them together to a the matrix `student`. Print the matrix. Choose the three names, age, and major by yourself:
+Erstelle eine Matrix namens `student`. Diese soll Informationen über `name`, `age` und `major` enthalten. Erstelle drei Vektoren mit je drei Einträgen und verbinde sie zur Matrix `student`. Gib die Matrix aus. Die Namen, das Alter und das Studienfach kannst du frei wählen:
+```{r kap1 uebung 2, eval=FALSE}
+# Vektoren erstellen
+name  <- c("James", "Elif", "Jonas")
+age   <- c("19", "17", "24")
+major <- c("Politikwissenschaft", "Data Science", "Physik")
 
-```{r chapter 1 exercise 2, eval = FALSE}
-#Create the vectors   
-name <- c("James", "Elif", "Jonas")
-age <- c("19", "17", "24")
-major <- c("Political Science", "Data Science", "Physics")
-  
-#Create the matrix 
+# Matrix erstellen
 student <- cbind(name, age, major)
 
-#Or with the matrix command
+# Oder mit dem matrix-Befehl
 student <- matrix(name, age, major)
-  
-#Print the matrix 
+
+# Matrix ausgeben
 print(student)
 ```
 
-### Exercise 3: `ifelse` function
+### Übung 3: `ifelse`-Funktion
 
-Write an `ifelse` statement that checks if a given number is positive or negative. If the number is positive or 0, print "Number is positive", otherwise print "Number is negative". Feel free to decide if you want to use the `ifelse` function or the `ifelse` condition.
-
-```{r chapter 1 exercise 3, eval = FALSE}
-#Assigning the number to the object "number" 
+Schreibe eine `ifelse`-Anweisung, die prüft, ob eine gegebene Zahl positiv oder negativ ist. Wenn die Zahl positiv oder 0 ist, gib „Zahl ist positiv" aus, andernfalls „Zahl ist negativ". Du kannst selbst entscheiden, ob du die `ifelse()`-Funktion oder die `ifelse`-Bedingung verwenden möchtest.
+```{r kap1 uebung 3, eval=FALSE}
+# Die Zahl dem Objekt "number" zuweisen
 number <- 0
 
-#With ifelse() function
-ifelse(number >= 0, "Number is positive", "Number is negative")
+# Mit der ifelse()-Funktion
+ifelse(number >= 0, "Zahl ist positiv", "Zahl ist negativ")
 
-#With ifelse condition
-
+# Mit einer ifelse-Bedingung
 if (number > 0) {
-  print("Positive Number")
+  print("Positive Zahl")
 } else {
-  print("Negative Number")
+  print("Negative Zahl")
 }
 ```
 
-### Exercise 4: `ifelse` ladders
+### Übung 4: `ifelse`-Leitern
 
-Write an if-else ladder that categorizes a student's grade based on their score. The grading criteria are as follows:
+Schreibe eine if-else-Leiter, die die Note eines Studierenden anhand ihres Punktestands kategorisiert. Die Bewertungskriterien lauten:
 
-Score \>= 90: "A" Score \>= 80 and \< 90: "B" Score \>= 70 and \< 80: "C" Score \>= 60 and \< 70: "D" Score \< 60: "F".
-
-```{r chapter 1 exercise 4, eval = FALSE}
-#Defining the vector score 
+Punktzahl >= 90: „A"; Punktzahl >= 80 und < 90: „B"; Punktzahl >= 70 und < 80: „C"; Punktzahl >= 60 und < 70: „D"; Punktzahl < 60: „F".
+```{r kap1 uebung 4, eval=FALSE}
+# Vektor Score definieren
 Score <- 90
 
-#Defing ifelse ladder with ifelse() function
+# ifelse-Leiter mit der ifelse()-Funktion
 ifelse(Score >= 90, "A", 
        ifelse(Score >= 80 & Score < 90, "B",
               ifelse(Score >= 70 & Score < 80, "C",
                      ifelse(Score >= 60 & Score < 70, "D", 
                             ifelse(Score < 60, "F")))))
 
-#Defining it with a ifelse condition
+# ifelse-Leiter mit einer ifelse-Bedingung
 if (score >= 90) {
   print("A") 
 } else if (score >= 80 & score < 90) {
@@ -89,94 +83,92 @@ if (score >= 90) {
 }
 ```
 
-## Chapter 2: Data Manipulation
-
-```{r loading packages for Data Manipualtion}
+## Kapitel 2: Datenmanipulation
+```{r pakete laden datenmanipulation}
 pacman::p_load("tidyverse")
 ```
 
-### Exercise 1: Let's wrangle kid
+### Übung 1: Ran an die Daten!
 
-You are interested in discrimination and the perception of the judicial. More specifically, you want to know if people, who fell discriminated evaluate courts differently. Below you see a table with all variables you want to include in your analysis:
+Du interessierst dich für Diskriminierung und die Wahrnehmung der Justiz. Genauer gesagt möchtest du wissen, ob Menschen, die sich diskriminiert fühlen, Gerichte anders bewerten. In der folgenden Tabelle siehst du alle Variablen, die du in deine Analyse einbeziehen möchtest:
 
-+--------------+--------------------------------------------------------+-------------------------------------------------------------------------------------------------------+
-| **Variable** | **Description**                                        | Scales                                                                                                |
-+:============:+========================================================+=======================================================================================================+
-| **idnt**     | Respondent's identification number                     | unique number from 1-9000                                                                             |
-+--------------+--------------------------------------------------------+-------------------------------------------------------------------------------------------------------+
-| **year**     | The year when the survey was conducted                 | only 2020                                                                                             |
-+--------------+--------------------------------------------------------+-------------------------------------------------------------------------------------------------------+
-| **cntry**    | Country                                                | BE, BG, CH, CZ, EE, FI, FR,GB, GR, HR, HU, IE, IS, IT, LT,NL, NO, PT, SI, SK                          |
-+--------------+--------------------------------------------------------+-------------------------------------------------------------------------------------------------------+
-| **agea**     | Age of the Respondent, calculated                      | Number of Age = 15-90                                                                                 |
-|              |                                                        |                                                                                                       |
-|              |                                                        | 999 = Not available                                                                                   |
-+--------------+--------------------------------------------------------+-------------------------------------------------------------------------------------------------------+
-| **gndr**     | Gender                                                 | 1 = Male;                                                                                             |
-|              |                                                        |                                                                                                       |
-|              |                                                        | 2 = Female;                                                                                           |
-|              |                                                        |                                                                                                       |
-|              |                                                        | 9 = No answer                                                                                         |
-+--------------+--------------------------------------------------------+-------------------------------------------------------------------------------------------------------+
-| **happy**    | How happy are you                                      | 0 (Extremly unhappy) - 10 (Extremly happy);                                                           |
-|              |                                                        |                                                                                                       |
-|              |                                                        | 77 = Refusal;                                                                                         |
-|              |                                                        |                                                                                                       |
-|              |                                                        | 88 = Don't Know;                                                                                      |
-|              |                                                        |                                                                                                       |
-|              |                                                        | 99 = No answer                                                                                        |
-+--------------+--------------------------------------------------------+-------------------------------------------------------------------------------------------------------+
-| **eisced**   | Highest level of education, ES - ISCED                 | 0 = Not possible to harmonise into ES-ISCED;                                                          |
-|              |                                                        |                                                                                                       |
-|              |                                                        | 1 (ES-ISCED I , less than lower secondary) - 7 (ES-ISCED V2, higher tertiary education, =\> MA level; |
-|              |                                                        |                                                                                                       |
-|              |                                                        | 55 = Other;                                                                                           |
-|              |                                                        |                                                                                                       |
-|              |                                                        | 77 = Refusal;                                                                                         |
-|              |                                                        |                                                                                                       |
-|              |                                                        | 88 = Don't know;                                                                                      |
-|              |                                                        |                                                                                                       |
-|              |                                                        | 99 = No answer                                                                                        |
-+--------------+--------------------------------------------------------+-------------------------------------------------------------------------------------------------------+
-| **netusoft** | Internet use, how often                                | 1 (Never) - 5 (Every day);                                                                            |
-|              |                                                        |                                                                                                       |
-|              |                                                        | 7 = Refusal;                                                                                          |
-|              |                                                        |                                                                                                       |
-|              |                                                        | 8 = Don't know;                                                                                       |
-|              |                                                        |                                                                                                       |
-|              |                                                        | 9 = No answer                                                                                         |
-+--------------+--------------------------------------------------------+-------------------------------------------------------------------------------------------------------+
-| **trstprl**  | Most people can be trusted or you can't be too careful | 0 (You can't be too careful) - 10 (Most people can be trusted);                                       |
-|              |                                                        |                                                                                                       |
-|              |                                                        | 77 = Refusal;                                                                                         |
-|              |                                                        |                                                                                                       |
-|              |                                                        | 88 = Don't Know;                                                                                      |
-|              |                                                        |                                                                                                       |
-|              |                                                        | 99 = No answer                                                                                        |
-+--------------+--------------------------------------------------------+-------------------------------------------------------------------------------------------------------+
-| **lrscale**  | Left-Right Placement                                   | 0 (Left) - 10 (Right);                                                                                |
-|              |                                                        |                                                                                                       |
-|              |                                                        | 77 = Refusal;                                                                                         |
-|              |                                                        |                                                                                                       |
-|              |                                                        | 88 = Don't know;                                                                                      |
-|              |                                                        |                                                                                                       |
-|              |                                                        | 99 = No answer                                                                                        |
-+--------------+--------------------------------------------------------+-------------------------------------------------------------------------------------------------------+
++--------------+------------------------------------------------------------------+-------------------------------------------------------------------------------------------------------+
+| **Variable** | **Beschreibung**                                                 | Skalen                                                                                                |
++:============:+==================================================================+=======================================================================================================+
+| **idnt**     | Identifikationsnummer der befragten Person                       | eindeutige Nummer von 1–9000                                                                          |
++--------------+------------------------------------------------------------------+-------------------------------------------------------------------------------------------------------+
+| **year**     | Jahr der Durchführung der Befragung                              | nur 2020                                                                                              |
++--------------+------------------------------------------------------------------+-------------------------------------------------------------------------------------------------------+
+| **cntry**    | Land                                                             | BE, BG, CH, CZ, EE, FI, FR, GB, GR, HR, HU, IE, IS, IT, LT, NL, NO, PT, SI, SK                      |
++--------------+------------------------------------------------------------------+-------------------------------------------------------------------------------------------------------+
+| **agea**     | Alter der befragten Person, berechnet                            | Alter in Jahren = 15–90                                                                               |
+|              |                                                                  |                                                                                                       |
+|              |                                                                  | 999 = Nicht verfügbar                                                                                 |
++--------------+------------------------------------------------------------------+-------------------------------------------------------------------------------------------------------+
+| **gndr**     | Geschlecht                                                       | 1 = Männlich;                                                                                         |
+|              |                                                                  |                                                                                                       |
+|              |                                                                  | 2 = Weiblich;                                                                                         |
+|              |                                                                  |                                                                                                       |
+|              |                                                                  | 9 = Keine Antwort                                                                                     |
++--------------+------------------------------------------------------------------+-------------------------------------------------------------------------------------------------------+
+| **happy**    | Wie glücklich bist du?                                           | 0 (Extrem unglücklich) – 10 (Extrem glücklich);                                                       |
+|              |                                                                  |                                                                                                       |
+|              |                                                                  | 77 = Verweigerung;                                                                                    |
+|              |                                                                  |                                                                                                       |
+|              |                                                                  | 88 = Weiß nicht;                                                                                      |
+|              |                                                                  |                                                                                                       |
+|              |                                                                  | 99 = Keine Antwort                                                                                    |
++--------------+------------------------------------------------------------------+-------------------------------------------------------------------------------------------------------+
+| **eisced**   | Höchster Bildungsabschluss, ES-ISCED                             | 0 = Nicht in ES-ISCED harmonisierbar;                                                                 |
+|              |                                                                  |                                                                                                       |
+|              |                                                                  | 1 (ES-ISCED I, unter Sekundarstufe I) – 7 (ES-ISCED V2, höhere Tertiärbildung, >= MA-Niveau);         |
+|              |                                                                  |                                                                                                       |
+|              |                                                                  | 55 = Sonstiges;                                                                                       |
+|              |                                                                  |                                                                                                       |
+|              |                                                                  | 77 = Verweigerung;                                                                                    |
+|              |                                                                  |                                                                                                       |
+|              |                                                                  | 88 = Weiß nicht;                                                                                      |
+|              |                                                                  |                                                                                                       |
+|              |                                                                  | 99 = Keine Antwort                                                                                    |
++--------------+------------------------------------------------------------------+-------------------------------------------------------------------------------------------------------+
+| **netusoft** | Internetnutzung, wie oft                                         | 1 (Nie) – 5 (Jeden Tag);                                                                              |
+|              |                                                                  |                                                                                                       |
+|              |                                                                  | 7 = Verweigerung;                                                                                     |
+|              |                                                                  |                                                                                                       |
+|              |                                                                  | 8 = Weiß nicht;                                                                                       |
+|              |                                                                  |                                                                                                       |
+|              |                                                                  | 9 = Keine Antwort                                                                                     |
++--------------+------------------------------------------------------------------+-------------------------------------------------------------------------------------------------------+
+| **trstprl**  | Den meisten Menschen kann man vertrauen oder man kann nicht vorsichtig genug sein | 0 (Man kann nicht vorsichtig genug sein) – 10 (Den meisten Menschen kann man vertrauen); |
+|              |                                                                  |                                                                                                       |
+|              |                                                                  | 77 = Verweigerung;                                                                                    |
+|              |                                                                  |                                                                                                       |
+|              |                                                                  | 88 = Weiß nicht;                                                                                      |
+|              |                                                                  |                                                                                                       |
+|              |                                                                  | 99 = Keine Antwort                                                                                    |
++--------------+------------------------------------------------------------------+-------------------------------------------------------------------------------------------------------+
+| **lrscale**  | Links-Rechts-Einstufung                                          | 0 (Links) – 10 (Rechts);                                                                              |
+|              |                                                                  |                                                                                                       |
+|              |                                                                  | 77 = Verweigerung;                                                                                    |
+|              |                                                                  |                                                                                                       |
+|              |                                                                  | 88 = Weiß nicht;                                                                                      |
+|              |                                                                  |                                                                                                       |
+|              |                                                                  | 99 = Keine Antwort                                                                                    |
++--------------+------------------------------------------------------------------+-------------------------------------------------------------------------------------------------------+
 
-a.  Wrangle the data, and assign it to an object called **ess**.
-b.  Select the variables you need
-c.  Filter for Austria, Belgium, Denmark, Georgia, Iceland and the Russian Federation
-d.  Have a look at the codebook and code all irrelevant values as missing. If you have binary variables recode them from 1, 2 to 0 to 1
-e.  You want to build an extremism variable: You do so by subtracting 5 from the from the variable and squaring it afterwards. Call it extremism
-f.  Rename the variables to more intuitive names, don't forget to name binary varaibles after the category which is on 1
-g.  drop all missing values
-h.  Check out your new dataset
-
-```{r chapter2 exercise 1a-h, eval=FALSE}
+a.  Bereinige die Daten und weise sie einem Objekt namens **ess** zu.
+b.  Wähle die benötigten Variablen aus.
+c.  Filtere nach Österreich, Belgien, Dänemark, Georgien, Island und der Russischen Förderation.
+d.  Schau dir das Codebuch an und kodiere alle irrelevanten Werte als fehlend. Bei binären Variablen rekodiere von 1, 2 zu 0 und 1.
+e.  Erstelle eine Extremismus-Variable: Subtrahiere 5 von der Variable und quadriere das Ergebnis. Nenne sie `extremism`.
+f.  Benenne die Variablen intuitiver um. Vergiss nicht, binäre Variablen nach der Kategorie zu benennen, die mit 1 kodiert ist.
+g.  Entferne alle fehlenden Werte.
+h.  Schau dir deinen neuen Datensatz an.
+```{r kap2 uebung 1a-h, eval=FALSE}
 ess <- d1 %>% 
-  select(cntry, dscrgrp, cttresa, agea, gndr, eisced, lrscale) %>% #a
-  filter(cntry %in% c("AT", "BE", "DK", "GE", "IS","RU")) %>% #b
-  mutate(dscrgrp = case_when( #c
+  select(cntry, dscrgrp, cttresa, agea, gndr, eisced, lrscale) %>% # a
+  filter(cntry %in% c("AT", "BE", "DK", "GE", "IS", "RU")) %>% # b
+  mutate(dscrgrp = case_when( # c
     dscrgrp == 1 ~ 0, 
     dscrgrp == 2 ~ 1,
     dscrgrp %in% c(7, 8, 9) ~ NA_real_, 
@@ -197,559 +189,519 @@ ess <- d1 %>%
       TRUE ~ eisced),
     lrscale = case_when(
       lrscale %in% c(77, 88, 99) ~ NA_real_,
-      TRUE ~ lrscale) #d, you could do this step also in a separate mutate function if you think that is more intuitive 
+      TRUE ~ lrscale) # d: dieser Schritt kann auch in einer separaten mutate()-Funktion erfolgen
   ) %>% 
   mutate(extremism = (lrscale - 5)^2) %>% 
   rename(discriminated = dscrgrp,  
-         court = cttresa,
-         age = agea, 
-         female = gndr, 
-         education = eisced, 
-         lrscale = lrscale, 
-         extremism = extremism
+         court      = cttresa,
+         age        = agea, 
+         female     = gndr, 
+         education  = eisced, 
+         lrscale    = lrscale, 
+         extremism  = extremism
          ) %>% 
   drop_na()
 
-#Checking the dataset 
+# Datensatz prüfen
 head(ess)
 ```
 
-## Chapter 3: Data Visualisation
+## Kapitel 3: Datenvisualisierung
 
-In this exercise Section, we will work with the `babynames` and the `iris` package. This is a classic built-in package in R, which contains data from the Ronald Fisher's 1936 Study "*The use of multiple measurements in taxonomic problems".* It contains three plant species and four measured features for each species. Let us get an overview of the package:
-
-```{r inspect iris dataset}
+In diesem Übungsabschnitt arbeiten wir mit den Paketen `babynames` und `iris`. Das `iris`-Paket ist ein klassisches eingebautes Paket in R, das Daten aus Ronald Fishers Studie von 1936 *„The use of multiple measurements in taxonomic problems"* enthält. Es beinhaltet drei Pflanzenarten und vier gemessene Merkmale für jede Art. Verschaffen wir uns einen Überblick:
+```{r iris datensatz erkunden}
 summary(iris)
 ```
 
-### Exercise 1: Distributions
+### Übung 1: Verteilungen
 
-a\. Plot a Chart, which shows the distribution of `Sepal.Length` over the `setosa` Species. Choose the type of distribution chart for yourself. **HINT:** Prepare the data first and then plot it.
-
-```{r chapter 3 exercise 1a}
-
-#Filtering for setosa
+a\. Erstelle einen Graphen, der die Verteilung von `Sepal.Length` für die Art `setosa` zeigt. Den Typ des Verteilungsgraphen kannst du selbst wählen. **Hinweis:** Bereite die Daten zunächst auf und erstelle dann den Plot.
+```{r kap3 uebung 1a}
+# Filtern nach setosa
 d1 <- iris %>%
   filter(Species == "setosa")
 
-#Histogram
+# Histogramm
 ggplot(iris, aes(x = Sepal.Length)) +
   geom_histogram()
 
-#Density Plot
+# Dichtekurve
 ggplot(iris, aes(x = Sepal.Length)) +
   geom_density()
 
-#Boxplot
+# Boxplot
 ggplot(iris, aes(x = Sepal.Length)) +
   geom_boxplot()
 
-###EDIT: You could also do everythin in one step as shown below
+### EDIT: Man kann auch alles in einem Schritt erledigen, wie unten gezeigt
 
-#Histogram
-#iris %>%
-#  filter(Species == "setosa") %>%
-#  ggplot(aes(x = Sepal.Length)) +
-#  geom_histogram()
+# Histogramm
+# iris %>%
+#   filter(Species == "setosa") %>%
+#   ggplot(aes(x = Sepal.Length)) +
+#   geom_histogram()
 
-#Density Plot
-#iris %>%
-#  filter(Species == "setosa") %>%
-#  ggplot(aes(x = Sepal.Length)) +
-#  geom_density()
+# Dichtekurve
+# iris %>%
+#   filter(Species == "setosa") %>%
+#   ggplot(aes(x = Sepal.Length)) +
+#   geom_density()
 
-#Boxplot
-#iris %>%
-#  filter(Species == "setosa") %>%
-#  ggplot(aes(x = Sepal.Length)) +
-#  geom_boxplot()
+# Boxplot
+# iris %>%
+#   filter(Species == "setosa") %>%
+#   ggplot(aes(x = Sepal.Length)) +
+#   geom_boxplot()
 ```
 
-b\. Now I want you to add the two other Species to the Plot. Make Sure, that every Species has a unique color.
-
-```{r chapter 3 exercise 1b}
-#Histogram
+b\. Füge nun die beiden anderen Arten zum Plot hinzu. Stelle sicher, dass jede Art eine eindeutige Farbe hat.
+```{r kap3 uebung 1b}
+# Histogramm
 ggplot(iris, aes(x = Sepal.Length, fill = Species)) +
   geom_histogram()
 
-#Density Plot
+# Dichtekurve
 ggplot(iris, aes(x = Sepal.Length, fill = Species)) +
   geom_density()
 
-#Boxplot
+# Boxplot
 ggplot(iris, aes(x = Sepal.Length, fill = Species)) +
   geom_boxplot()
 
-#Violin Plot
+# Violin Plot
 ggplot(iris, aes(x = Species, y = Sepal.Length, fill = Species)) +
   geom_violin()
 
-#Ridgeline Plot
+# Ridgeline Plot
 ggplot(iris, aes(x = Sepal.Length, y = Species, fill = Species)) +
   geom_density_ridges()
 ```
 
-c\. Make a nice Plot! Give the Plot a meaningful title, meaningful labels for the x-axis and the y-axis and play around with the colors.
-
-```{r chapter 3 exercise 1c}
-#Histogram
+c\. Erstelle einen ansprechenden Plot! Gib dem Plot einen aussagekräftigen Titel sowie aussagekräftige Beschriftungen für die x- und y-Achse und experimentiere mit den Farben.
+```{r kap3 uebung 1c}
+# Histogramm
 ggplot(iris, aes(x = Sepal.Length, fill = Species)) +
   geom_histogram() +
   labs(
-    x = "Species",
-    y = "Sepal Length",
-    title = "Distribution of Sepal Length across Species"
+    x = "Art",
+    y = "Kelchblattlänge",
+    title = "Verteilung der Kelchblattlänge nach Art"
   ) +
   theme_bw() +
-  theme(
-    legend.position = "none"
-  ) +
+  theme(legend.position = "none") +
   scale_fill_brewer(palette = "Dark2")
 
-#Density Plot
+# Dichtekurve
 ggplot(iris, aes(x = Sepal.Length, fill = Species)) +
   geom_density() +
   labs(
-    x = "Species",
-    y = "Sepal Length",
-    title = "Distribution of Sepal Length across Species"
+    x = "Art",
+    y = "Kelchblattlänge",
+    title = "Verteilung der Kelchblattlänge nach Art"
   ) +
   theme_bw() +
-  theme(
-    legend.position = "none"
-  ) +
+  theme(legend.position = "none") +
   scale_fill_brewer(palette = "Dark2")
 
-#Boxplot
+# Boxplot
 ggplot(iris, aes(x = Sepal.Length, fill = Species)) +
   geom_boxplot() +
   labs(
-    x = "Species",
-    y = "Sepal Length",
-    title = "Distribution of Sepal Length across Species"
+    x = "Art",
+    y = "Kelchblattlänge",
+    title = "Verteilung der Kelchblattlänge nach Art"
   ) +
   theme_bw() +
-  theme(
-    legend.position = "none"
-  ) +
+  theme(legend.position = "none") +
   scale_fill_brewer(palette = "Dark2")
 
-#Ridgeline Plot
+# Violin Plot
 ggplot(iris, aes(x = Species, y = Sepal.Length, fill = Species)) +
   geom_violin() +
   labs(
-    x = "Species",
-    y = "Sepal Length",
-    title = "Distribution of Sepal Length across Species"
+    x = "Art",
+    y = "Kelchblattlänge",
+    title = "Verteilung der Kelchblattlänge nach Art"
   ) +
   theme_bw() +
-  theme(
-    legend.position = "none"
-  ) +
+  theme(legend.position = "none") +
   scale_fill_brewer(palette = "Dark2")
 
-#Ridgeline Plot
+# Ridgeline Plot
 ggplot(iris, aes(x = Sepal.Length, y = Species, fill = Species)) +
   geom_density_ridges() +
   labs(
-    x = "Species",
-    y = "Sepal Length",
-    title = "Distribution of Sepal Length across Species"
+    x = "Kelchblattlänge",
+    y = "Art",
+    title = "Verteilung der Kelchblattlänge nach Art"
   ) +
   theme_bw() +
-  theme(
-    legend.position = "none"
-  ) +
+  theme(legend.position = "none") +
   scale_fill_brewer(palette = "Dark2")
 ```
 
-d\. Interpret the Plot!
+d\. Interpretiere den Plot!
 
-### Exercise 2: Rankings
+### Übung 2: Rangfolgen
 
-a\. Calculate the average `Petal.Length` and plot it for every Species in a nice Barplot. **HINT:** You have to prepare the data again before you plot it. Decide for yourself if you want to do it vertically or horizontally.
-
-```{r chapter 3 exercise 2a}
-#Prepare the data 
+a\. Berechne die durchschnittliche `Petal.Length` und stelle sie für jede Art in einem ansprechenden Barplot dar. **Hinweis:** Die Daten müssen wieder zuerst aufbereitet werden. Entscheide selbst, ob du den Plot vertikal oder horizontal gestalten möchtest.
+```{r kap3 uebung 2a}
+# Daten aufbereiten
 d1 <- iris %>%
   group_by(Species) %>%
   dplyr::summarize(PL_average = mean(Petal.Length))
 
-#Check it
+# Überprüfen
 head(d1)  
-  
-#Plotting a horizontal barplot
-ggplot(d1, aes(x = Species, y = PL_average, fill  = Species)) +
+
+# Horizontaler Barplot
+ggplot(d1, aes(x = Species, y = PL_average, fill = Species)) +
   geom_bar(stat = "identity")
 
-#Plotting a vertical barplot
+# Vertikaler Barplot
 ggplot(d1, aes(x = PL_average, y = Species, fill = Species)) +
   geom_bar(stat = "identity") 
 ```
 
-b\. Make a nice Plot! Give the Plot a meaningful title, meaningful labels for the x-axis and the y-axis and play around with the colors.
-
-```{r chapter 3 exercise 2c}
-#Plotting a horizontal barplot
-ggplot(d1, aes(x = Species, y = PL_average, fill  = Species)) +
+b\. Erstelle einen ansprechenden Plot! Gib dem Plot einen aussagekräftigen Titel sowie aussagekräftige Beschriftungen für die x- und y-Achse und experimentiere mit den Farben.
+```{r kap3 uebung 2b}
+# Horizontaler Barplot
+ggplot(d1, aes(x = Species, y = PL_average, fill = Species)) +
   geom_bar(stat = "identity") +
   labs(
-    x = "Species",
-    y = "Average Sepal Length",
-    title = "Average Sepal Length across Species"
+    x = "Art",
+    y = "Durchschnittliche Blütenblattlänge",
+    title = "Durchschnittliche Blütenblattlänge nach Art"
   ) +
   theme_bw() +
-  theme(
-    legend.position = "none"
-  ) +
+  theme(legend.position = "none") +
   scale_fill_brewer(palette = "Set1")
 
-#Plotting a vertical barplot
+# Vertikaler Barplot
 ggplot(d1, aes(x = PL_average, y = Species, fill = Species)) +
   geom_bar(stat = "identity") +
-    labs(
-    x = "Average Sepal Length",
-    y = "Species",
-    title = "Average Sepal Length across Species"
+  labs(
+    x = "Durchschnittliche Blütenblattlänge",
+    y = "Art",
+    title = "Durchschnittliche Blütenblattlänge nach Art"
   ) +
   theme_bw() +
-  theme(
-    legend.position = "none"
-  ) +
+  theme(legend.position = "none") +
   scale_fill_brewer(palette = "Accent")
 ```
 
-### Exercise 3: Correlation
+### Übung 3: Korrelation
 
-a\. Make a scatter plot where you plot `Sepal.length` on the x-axis and `Sepal.width` on the y-axis. Make the plot for the species `virginica`
-
-```{r chapter 3 exercise 3a}
-#Preparing the data
+a\. Erstelle ein Streudiagramm mit `Sepal.Length` auf der x-Achse und `Sepal.Width` auf der y-Achse – für die Art `virginica`.
+```{r kap3 uebung 3a}
+# Daten aufbereiten
 d1 <- iris %>%
   filter(Species == "virginica")
 
-#Making the plot
+# Plot erstellen
 ggplot(d1, aes(x = Sepal.Length, y = Sepal.Width)) +
   geom_point()
 ```
 
-b\. Now I want you to add the species `versicolor` to the plot. The dots of this species should have a different color AND a different form.
-
-```{r chapter 3 exercise 3b}
-#Preparing the Data 
+b\. Füge nun die Art `versicolor` zum Plot hinzu. Die Punkte dieser Art sollen eine andere Farbe UND eine andere Form haben.
+```{r kap3 uebung 3b}
+# Daten aufbereiten
 d1 <- iris %>%
   filter(Species %in% c("virginica", "versicolor")) 
 
-#Making the Plot
+# Plot erstellen
 ggplot(d1, aes(x = Sepal.Length, y = Sepal.Width, 
                shape = Species, color = Species)) +
   geom_point() 
 ```
 
-c\. Make a nice plot! Add a theme, labels, and a nice title, increase the size of the forms and make play around with the colors.
-
-```{r chapter 3 exercise 3c}
-#Making the Plot
+c\. Erstelle einen ansprechenden Plot! Füge ein Theme, Beschriftungen und einen Titel hinzu, erhöhe die Größe der Formen und experimentiere mit den Farben.
+```{r kap3 uebung 3c}
+# Plot erstellen
 ggplot(d1, aes(x = Sepal.Length, y = Sepal.Width, 
                shape = Species, color = Species)) +
   geom_point() +
   labs(
-    title = "Relationship between Sepal Length and Sepal Width",
-    x = "Sepal Length", 
-    y = "Sepal Width"
+    title = "Zusammenhang zwischen Kelchblattlänge und Kelchblattbreite",
+    x = "Kelchblattlänge", 
+    y = "Kelchblattbreite"
   ) + 
   scale_color_brewer(palette = "Set1") +
   theme_classic()
-  
 ```
 
-## Chapter 4: Exploratory Data Analysis
+## Kapitel 4: Explorative Datenanalyse
 
-### Exercise 1: Standard Descriptive Statistics
+### Übung 1: Deskriptivstatistik
 
-In this exercise we will work with the built-in `iris` package in R:
+In dieser Übung arbeiten wir mit dem eingebauten `iris`-Datensatz in R:
 
-a\. Calculate the mode, mean and the median for the `iris$Sepal.Length` variable
+a\. Berechne den Modus, den Mittelwert und den Median für die Variable `iris$Sepal.Length`.
+```{r kap4 uebung 1a}
+mean(iris$Sepal.Length)   # Mittelwert berechnen
+median(iris$Sepal.Length) # Median berechnen
 
-```{r chapter 4 exercise 1a}
-mean(iris$Sepal.Length) #Calculating the mean
-median(iris$Sepal.Length) # Calculating the median
-
-#Calculating the mode
+# Modus berechnen
 uniq_vals <- unique(iris$Sepal.Length)
 freqs <- tabulate(iris$Sepal.Length)
 uniq_vals[which.max(freqs)]
 
-# You could also define a function for the mode
-
-#mode <- function (x) {
-#  uniq_vals <- unique(x, na.rm = TRUE)
-#  freqs <- tabulate(match(x, uniq_vals))
-#  uniq_vals[which.max(freqs)]
-#}
-#mode(iris$Sepal.Length)
+# Man könnte auch eine Funktion für den Modus definieren:
+# mode <- function(x) {
+#   uniq_vals <- unique(x, na.rm = TRUE)
+#   freqs <- tabulate(match(x, uniq_vals))
+#   uniq_vals[which.max(freqs)]
+# }
+# mode(iris$Sepal.Length)
 ```
 
-b\. Calculate the interquartile range, variance and the standard deviation for iris\$Sepal.Length
-
-```{r chapter 4 exercise 1b}
+b\. Berechne den Interquartilsabstand, die Varianz und die Standardabweichung für `iris$Sepal.Length`.
+```{r kap4 uebung 1b}
 IQR(iris$Sepal.Length)
-var(iris$Sepal.Length) #Variance
-sd(iris$Sepal.Length) #Standard deviatio
-#Or we take just the squareroot of the variance to get the sd
-#var(iris$Sepal.Length) %>%
-#  sqrt()
+var(iris$Sepal.Length) # Varianz
+sd(iris$Sepal.Length)  # Standardabweichung
+# Oder: Wurzel aus der Varianz für die Standardabweichung
+# var(iris$Sepal.Length) %>%
+#   sqrt()
 ```
 
-c\. Calculate all five measures at once by using a function that does so (Choose by yourself, which one you want to use)
-
-```{r chapter 4 exercise 1c}
-psych::describe(iris$Sepal.Length) #psych package
-skimr::skim(iris$Sepal.Length) #skim package
-summarytools::descr(iris$Sepal.Length) #summarytools package
+c\. Berechne alle fünf Maße auf einmal mit einer geeigneten Funktion (wähle selbst, welche du verwenden möchtest).
+```{r kap4 uebung 1c}
+psych::describe(iris$Sepal.Length)       # psych-Paket
+skimr::skim(iris$Sepal.Length)           # skimr-Paket
+summarytools::descr(iris$Sepal.Length)   # summarytools-Paket
 ```
 
-### Exercise 2: Contingency Tables and Correlations
+### Übung 2: Kreuztabellen und Korrelationen
 
-a\. Make a Contingency Table for `esoph$agegp` and `esoph$alcgp`
-
-```{r chapter 4 exercise 2a}
-table(esoph$agegp, esoph$alcgp) #with base R
-summarytools::ctable(esoph$agegp, esoph$alcgp) #with summarytools
+a\. Erstelle eine Kreuztabelle für `esoph$agegp` und `esoph$alcgp`.
+```{r kap4 uebung 2a}
+table(esoph$agegp, esoph$alcgp)                    # mit Base R
+summarytools::ctable(esoph$agegp, esoph$alcgp)     # mit summarytools
 gtsummary::tbl_cross(data = esoph,
                      row = agegp, 
-                     col = alcgp) #with gtsummary
+                     col = alcgp)                  # mit gtsummary
 ```
 
-b\. Cut down the iris dataset to Sepal.Length, Sepal.Width, Petal.Length and Petal.Width and save it in an object called iris_numeric.
-
-```{r chapter 4 exercise 2b}
+b\. Reduziere den `iris`-Datensatz auf `Sepal.Length`, `Sepal.Width`, `Petal.Length` und `Petal.Width` und speichere ihn in einem Objekt namens `iris_numeric`.
+```{r kap4 uebung 2b}
 iris_numeric <- iris %>% 
   select(Sepal.Length, Sepal.Width, Petal.Length, Petal.Width)
 ```
 
-c\. Make a correlation matrix with iris_numeric
-
-```{r chapter 4 exercise 2c}
-# With corrplot package
+c\. Erstelle eine Korrelationsmatrix mit `iris_numeric`.
+```{r kap4 uebung 2c}
+# Mit dem corrplot-Paket
 cor_iris <- cor(iris_numeric)
 corrplot::corrplot(cor_iris, method = "color")
 
-# With DataExplorer
+# Mit DataExplorer
 DataExplorer::plot_correlation(iris_numeric)
 ```
 
-d\. Make the correlation matrix pretty
-
-```{r chapter 4 exercise 2d}
-# With Corrplot
+d\. Verschönere die Korrelationsmatrix.
+```{r kap4 uebung 2d}
+# Mit corrplot
 corrplot::corrplot(cor_iris, method = "circle", type = "upper", 
          tl.col = "black", tl.srt = 45)
 
-# With DataExplorer
+# Mit DataExplorer
 DataExplorer::plot_correlation(
   iris_numeric,
   ggtheme = theme_minimal(base_size = 14),
-  title = "Correlation Matrix of Iris Numeric Variables"
+  title = "Korrelationsmatrix der numerischen Iris-Variablen"
 )
 ```
 
-### Exercise 3: Working with packages
+### Übung 3: Arbeiten mit Paketen
 
-a\. Use a function to get an overview of the dataset mtcars
-
-```{r chapter 4 exercise 3a}
+a\. Verwende eine Funktion, um einen Überblick über den Datensatz `mtcars` zu erhalten.
+```{r kap4 uebung 3a}
 skimr::skim(mtcars)
 summarytools::dfSummary(mtcars)
 gtsummary::tbl_summary(mtcars)
 ```
 
-b\. Have a look at the structure of the missing values in mtcars
-
-```{r chapter 4 exercise 3b}
-# With a table
+b\. Untersuche die Struktur der fehlenden Werte in `mtcars`.
+```{r kap4 uebung 3b}
+# Als Tabelle
 naniar::miss_var_summary(mtcars)
 DataExplorer::introduce(mtcars)
 SmartEDA::ExpData(mtcars, type = 1)
 
-# Graphically
+# Grafisch
 naniar::vis_miss(mtcars)
 DataExplorer::plot_missing(mtcars)
 ```
 
-c\. Make an automized EDA report for mtcars!
+c\. Erstelle einen automatisierten EDA-Report für `mtcars`!
 
 `dlookr::describe(mtcars)`
 
-`DataExplorer::create_reports(mtcars)`
+`DataExplorer::create_report(mtcars)`
 
-## Chapter 5: Data Analysis
+## Kapitel 5: Datenanalyse
 
-To understand linear regression, we do not have to load any complicated data. Let us assume, you are a market analyst and your customer is the production company of a series called "Breaking Thrones". The production company wants to know how the viewers of the series judge the final episode. You conduct a survey and ask people on how satisfied they were with the season final and some social demographics. Here is your codebook:
+Um die lineare Regression zu verstehen, müssen wir keine komplizierten Daten laden. Nehmen wir an, du bist Marktanalyst und dein Kunde ist die Produktionsfirma einer Serie namens „Breaking Thrones". Die Produktionsfirma möchte wissen, wie die Zuschauer der Serie die letzte Folge beurteilen. Du führst eine Umfrage durch und fragst die Teilnehmenden, wie zufrieden sie mit dem Staffelfinale waren, sowie nach einigen soziodemografischen Merkmalen. Hier ist dein Codebuch:
 
-| Variable | Description |
+| Variable | Beschreibung |
 |----|----|
-| id | The id of the respondent |
-| satisfaction | The answer to the question "How satisfied were you with the final episode of Breaking Throne?", where 0 is completely dissatisfied and 10 completely satisfied |
-| age | The age of the respondent |
-| female | The Gender of the respondent, where 0 = Male, 1 = Female |
+| id | Die ID der befragten Person |
+| satisfaction | Die Antwort auf die Frage „Wie zufrieden waren Sie mit der letzten Folge von Breaking Thrones?", wobei 0 = vollständig unzufrieden und 10 = vollständig zufrieden |
+| age | Das Alter der befragten Person |
+| female | Das Geschlecht der befragten Person, wobei 0 = Männlich, 1 = Weiblich |
 
-Let us generate the data:
-
-```{r generating data for chapter 5 exercises}
-#setting seed for reproduciability 
+Generieren wir die Daten:
+```{r daten fuer kap5 uebungen generieren}
+# Seed für Reproduzierbarkeit setzen
 set.seed(123)  
 
-#Generating the data 
+# Daten generieren
 final_BT <- data.frame(
-  id = c(1:10),    
+  id           = c(1:10),    
   satisfaction = round(rnorm(10, mean = 6, sd = 2.5)),    
-  age = round(rnorm(10, mean = 25, sd = 5)),    
-  female = rbinom(10, 1, 0.5)
+  age          = round(rnorm(10, mean = 25, sd = 5)),    
+  female       = rbinom(10, 1, 0.5)
   )  
 
-#Print the Data Frame
+# Dataframe ausgeben
 print(final_BT)
 ```
 
-### Exercise 1: Linear Regression with two variables
+### Übung 1: Lineare Regression mit zwei Variablen
 
-You want to know if age has an impact on the satisfaction with the last episode. You want to conduct a linear regression.
+Du möchtest wissen, ob das Alter einen Einfluss auf die Zufriedenheit mit der letzten Folge hat. Du führst eine lineare Regression durch.
 
-a\. Calculate $\beta_0$ and $\beta_1$ by hand
-
-```{r chapter 5 exercise 1a}
-#Calculating Covariance
-cov <- sum((final_BT$age - mean(final_BT$age)) * (final_BT$satisfaction - mean(final_BT$satisfaction)))
+a\. Berechne $\beta_0$ und $\beta_1$ von Hand.
+```{r kap5 uebung 1a}
+# Kovarianz berechnen
+cov <- sum((final_BT$age - mean(final_BT$age)) * 
+           (final_BT$satisfaction - mean(final_BT$satisfaction)))
   
-#Calculating Variance
-var <- (sum((final_BT$age - mean(final_BT$age))^2))
+# Varianz berechnen
+var <- sum((final_BT$age - mean(final_BT$age))^2)
 
-#Calculating beta_1
+# beta_1 berechnen
 beta_1 <- cov/var
 
-#printing beta_1
+# beta_1 ausgeben
 print(beta_1)
 
-#calculating beta 1
+# beta_0 berechnen
 beta_0 <- mean(final_BT$satisfaction) - (beta_1 * mean(final_BT$age))
 
-#Print both
+# Beide ausgeben
 print(beta_0)
 print(beta_1)
 ```
 
-b\. Calculate $\beta_0$ and $\beta_1$ automatically with R
-
-```{r chapter 5 exercise 1b}
-#Calculating it automatically
+b\. Berechne $\beta_0$ und $\beta_1$ automatisch mit R.
+```{r kap5 uebung 1b}
+# Automatisch berechnen
 summary(m1 <- lm(satisfaction ~ age, 
                  data = final_BT))
 ```
 
-c\. Interpret all quantities of your result: Standard Error, t-statistic, p-value, confidence intervals and the $R^2$.
+c\. Interpretiere alle Größen deines Ergebnisses: Standardfehler, t-Statistik, p-Wert, Konfidenzintervalle und das $R^2$.
 
-d\. Check for influential outliers
-
-```{r chapter 5 exercise 1d}
-#Cooks Distance can be calculated with a built-in function
+d\. Prüfe auf einflussreiche Ausreißer.
+```{r kap5 uebung 1d}
+# Cook's Distance mit einer eingebauten Funktion berechnen
 final_BT$cooks_distance <- cooks.distance(m1) 
 
-#Plotting it
+# Plotten
 ggplot(final_BT, aes(x = age, y = cooks_distance)) + 
   geom_point(colour = "darkgreen", size = 3, alpha = 0.5) + 
-  labs(y = "Cook's Distance", x = "Independent Variable") + 
+  labs(y = "Cook's Distance", x = "Unabhängige Variable") + 
   geom_hline(yintercept = 1, linetype = "dashed") + 
   theme_bw()
 ```
 
-### Exercise 2: Multivariate Regression
+### Übung 2: Multivariate Regression
 
-a\. Add the variable `female` to your regression
-
-```{r chapter 5 exercise 2a}
+a\. Füge die Variable `female` zu deiner Regression hinzu.
+```{r kap5 uebung 2a}
 summary(m1 <- lm(satisfaction ~ age + female, 
                  data = final_BT))
 ```
 
-b\. Interpret the Output. What has changed? What stood the same?
+b\. Interpretiere die Ausgabe. Was hat sich verändert? Was ist gleich geblieben?
 
-c\. Make an interaction effect between age and female and interpret it!
-
-```{r chapter 5 exercise 2c}
+c\. Erstelle einen Interaktionseffekt zwischen `age` und `female` und interpretiere ihn!
+```{r kap5 uebung 2c}
 summary(m2 <- lm(satisfaction ~ age + female + age:female, 
                  data = final_BT))
 ```
 
-d\. Plot the interaction and make the plot nice
-
-```{r chapter 5 exercise 2d}
+d\. Plotte die Interaktion und gestalte den Plot ansprechend.
+```{r kap5 uebung 2d}
 plot_model(m2, type = "int") +
-  scale_x_continuous(breaks = seq(0,60, 1)) + 
-  labs(title = "Relationship of Age and Gender on Satisfaction with BT.",
-       x = "Age", 
-       y = "Satisfaction") +
+  scale_x_continuous(breaks = seq(0, 60, 1)) + 
+  labs(title = "Zusammenhang von Alter und Geschlecht auf die Zufriedenheit mit BT.",
+       x = "Alter", 
+       y = "Zufriedenheit") +
   scale_color_manual(
     values = c("red", "blue"),
-    labels = c("Female", "Male")
+    labels = c("Weiblich", "Männlich")
   ) +
   theme_sjplot() +
   theme(legend.position = "bottom", 
         legend.title = element_blank())
 ```
 
-## Chapter 6: Loops and Functions
+## Kapitel 6: Schleifen und Funktionen
 
-### Exercise 1: Writing a loop
+### Übung 1: Eine Schleife schreiben
 
-Write a `for` loop that prints the square of each number from 1 to 10
-
-```{r chapter 6 exercise 1}
-#Assigning an object for a better workflow 
+Schreibe eine `for`-Schleife, die das Quadrat jeder Zahl von 1 bis 10 ausgibt.
+```{r kap6 uebung 1}
+# Objekt für einen besseren Arbeitsablauf zuweisen
 number <- 10
+
+# Die Schleife
+for (i in 1:number) {
+  print(i^2)
+}
 ```
 
-### Exercise 2: Writing a function
+### Übung 2: Eine Funktion schreiben
 
-Write a function that takes the input x and squares it:
-
-```{r chapter 6 exercise 2, eval=FALSE}
-#Defining a function for squaring  
-sq <- function (x) {          
+Schreibe eine Funktion, die den Input x nimmt und ihn quadriert:
+```{r kap6 uebung 2, eval=FALSE}
+# Eine Funktion zum Quadrieren definieren
+sq <- function(x) {          
   x_squared <- x^2
   return(x_squared)
 }  
 
-#Defining a vector containing a vector from 1 to 10  
+# Einen Vektor von 1 bis 10 definieren
 numbers <- c(1:10)   
 
-#Applying the number  
+# Die Funktion anwenden
 sq(numbers)
 ```
 
-### Exercise 3: The midnight Formula
+### Übung 3: Die Mitternachtsformel
 
-This is the midnight formula separated in two equations:
+Das ist die Mitternachtsformel, aufgeteilt in zwei Gleichungen:
 
 $x_{1,2} = \frac{-b \pm \sqrt{b^2 - 4ac}}{2a}$
 
-Make **one function** for the midnight formula, so the output are $x_1$ a d $x_2$. Test it with a = 2, b = -6, c = -8
+Schreibe **eine Funktion** für die Mitternachtsformel, sodass die Ausgabe $x_1$ und $x_2$ sind. Teste sie mit a = 2, b = -6, c = -8.
 
-**Hint**: You need two split up the formula into two equations with two outputs.
-
-```{r chapter 6 exercise 3, eval=FALSE}
+**Hinweis:** Du musst die Formel in zwei Gleichungen mit zwei Ausgaben aufteilen.
+```{r kap6 uebung 3, eval=FALSE}
 mnf <- function(a, b, c) {
   
-  x_1 <- (-b + sqrt(b^2 - 4*a*c))/(2*a)
-  
+  x_1 <- (-b + sqrt(b^2 - 4*a*c)) / (2*a)
   print(x_1)
   
-  x_2 <- (-b - sqrt(b^2 - 4*a*c))/(2*a)
-  
+  x_2 <- (-b - sqrt(b^2 - 4*a*c)) / (2*a)
   print(x_2)
   
 }   
   
-#Test it with these numbers (other numbers might throw an error if the number under the square root is negative)
+# Teste mit diesen Zahlen (andere Zahlen könnten einen Fehler werfen,
+# wenn die Zahl unter der Wurzel negativ ist)
 mnf(2, 20, 8)
 ```

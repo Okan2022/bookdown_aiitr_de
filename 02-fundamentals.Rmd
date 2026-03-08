@@ -191,7 +191,7 @@ print(preise_kombiniert)
 Objekte können unterschiedliche Datentypen besitzen:
 
 |               |            |                                                |
-|---------------|------------|------------------------------------------------|
+|---------------|---------------|------------------------------------------|
 | **Numeric**   | Zahlen     | `c(1, 2.4, 3.14, 4)`                           |
 | **Character** | Text       | `c("1", "blue", "Spaß", "monster")`            |
 | **Logical**   | TRUE/FALSE | `c(TRUE, FALSE, TRUE, FALSE)`                  |
@@ -302,11 +302,11 @@ print(matrix_beispiel) #matrix ausgeben lassen
 ```{r matrix info}
 #Mehr Informationen 
 
-nrow(matrix_example) #Wie viele zeilen
+nrow(matrix_beispiel) #Wie viele zeilen
 
-ncol(matrix_example) #Wie viele spalten
+ncol(matrix_beispiel) #Wie viele spalten
 
-dim(matrix_example) #wie viele dimensionen
+dim(matrix_beispiel) #wie viele dimensionen
 ```
 
 ### Data Frames
@@ -343,7 +343,7 @@ Sie sehen, dass Sie den Vektor der Spalte erhalten. Wir können noch weiter gehe
 -   Wir möchten „Brazil” haben. „Brazil” ist das dritte Element von df_beispiel\$land, daher setzen wir eine 3 in die eckigen Klammern:
 
 ```{r inspect data frames}
-df_example$land[3]
+df_beispiel$land[3]
 ```
 
 Das Letzte, was wir mit Datenrahmen tun müssen, ist, Spalten basierend auf Bedingungen zu erhalten. Im nächsten Teil dieses Kapitels werden wir eine Methode dafür kennenlernen, aber wir können dies auch mit dem Datenrahmen tun. Stellen Sie sich vor, Sie möchten einen Vektor von `df$land` haben, aber nur mit Ländern, deren `df$bev` größer als 60 ist. Das bedeutet eine Bevölkerung von mehr als 60 Einwohnern.
