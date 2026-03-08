@@ -92,13 +92,13 @@ streudiagramme-mit-mehreren-gruppen
 plots-mit-facet_wrap-und-facet_grid
 die-facet_wrap-funktion
 die-facet_grid-funktion
-ausblick-2
+zusammenfassung
 verschiedene-graphentypen-kombinieren
 verteilungen-ridgeline-chart-und-violin-chart
 rangfolge-lollipop-charts-und-radar-charts
 lollipop-charts
 karten
-ausblick-3
+ausblick-2
 übungsaufgaben-1
 übung-1-verteilungen
 übung-2-rangfolgen
@@ -152,7 +152,7 @@ konfidenzintervalle
 multivariate-regression
 kategoriale-variablen
 interaktionseffekte
-ausblick-4
+ausblick-3
 übungsaufgaben-3
 übung-1-lineare-regression-mit-zwei-variablen
 übung-2-multivariate-regression
@@ -164,7 +164,7 @@ die-apply-funktionsfamilie
 apply
 hinweise
 eigene-funktionen-schreiben
-ausblick-5
+ausblick-4
 übungsaufgaben-4
 übung-1-eine-schleife-schreiben
 übung-2-eine-funktion-schreiben

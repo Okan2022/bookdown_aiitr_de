@@ -4,18 +4,18 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Chapter 11 Schleifen und Funktionen | An intuitive Introduction to R</title>
-  <meta name="description" content="Chapter 11 Schleifen und Funktionen | An intuitive Introduction to R" />
+  <title>Chapter 6 Schleifen und Funktionen | Eine intuitive Einfürung in R</title>
+  <meta name="description" content="Chapter 6 Schleifen und Funktionen | Eine intuitive Einfürung in R" />
   <meta name="generator" content="bookdown 0.42 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Chapter 11 Schleifen und Funktionen | An intuitive Introduction to R" />
+  <meta property="og:title" content="Chapter 6 Schleifen und Funktionen | Eine intuitive Einfürung in R" />
   <meta property="og:type" content="book" />
   
   
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Chapter 11 Schleifen und Funktionen | An intuitive Introduction to R" />
+  <meta name="twitter:title" content="Chapter 6 Schleifen und Funktionen | Eine intuitive Einfürung in R" />
   
   
   
@@ -161,7 +161,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   <img src="images/AIITR.svg" alt="AIITR Logo" style="vertical-align: middle; margin-left: 5px; width: 125px; height: auto;">
 </div>
 <div style="text-align: center;">
-<li style="list-style: none;"><a href="./">by Okan Sarioglu</a></li>
+<li style="list-style: none;"><a href="./">von Okan Sarioglu</a></li>
 </div>
 <div style="text-align: center; margin-top: 10px;">
   <a href="https://github.com/Okan2022" target="_blank">
@@ -172,13 +172,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   </a>
 </div> 
 <div style="text-align: center; margin-top: 10px; margin-bottom: 10px;">
-  <a href="script/aiitr_script.R" download="aiitr_script.R" style="display: inline-block; padding: 10px 20px; font-size: 16px; color: #fff; background-color: #4169e1; text-decoration: none; border-radius: 8px;">Download R Script</a>
+  <a href="script/aiitr_script.R" download="aiitr_script.R" style="display: inline-block; padding: 10px 20px; font-size: 16px; color: #fff; background-color: #4169e1; text-decoration: none; border-radius: 8px;">R Skript herunterladen</a>
 </div>
 <div style="text-align: center; margin-top: 10px; margin-bottom: 10px;">
   <a href="https://www.paypal.com/donate?hosted_button_id=ZBMC2WD84P75S"
      style="display: inline-block; padding: 10px 20px; font-size: 16px; color: #fff; background-color: #FCBB32; text-decoration: none; border-radius: 8px;">
      <img src="images/pp_logo.png" alt="PayPal" style="height: 24px; vertical-align: middle; margin-right: 8px;">
-     Support me here!
+     Unterstütze mich hier  !
   </a>
 </div>
 
@@ -209,68 +209,53 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="3" data-path="datenvisualisierung.html"><a href="datenvisualisierung.html"><i class="fa fa-check"></i><b>3</b> Datenvisualisierung</a>
 <ul>
 <li class="chapter" data-level="3.1" data-path="07-loops-and-functions.html"><a href="#einf%C3%BChrung-in-ggplot2"><i class="fa fa-check"></i><b>3.1</b> Einführung in <code>ggplot2</code></a></li>
+<li class="chapter" data-level="3.2" data-path="datenvisualisierung.html"><a href="datenvisualisierung.html#verteilungen-histogramme-dichteplots-und-boxplots"><i class="fa fa-check"></i><b>3.2</b> Verteilungen: Histogramme, Dichteplots und Boxplots</a></li>
+<li class="chapter" data-level="3.3" data-path="datenvisualisierung.html"><a href="datenvisualisierung.html#rangfolge-barplot"><i class="fa fa-check"></i><b>3.3</b> Rangfolge: Barplot</a></li>
+<li class="chapter" data-level="3.4" data-path="datenvisualisierung.html"><a href="datenvisualisierung.html#entwicklung-liniendiagramm"><i class="fa fa-check"></i><b>3.4</b> Entwicklung: Liniendiagramm</a></li>
+<li class="chapter" data-level="3.5" data-path="datenvisualisierung.html"><a href="datenvisualisierung.html#korrelation-streudiagramme"><i class="fa fa-check"></i><b>3.5</b> Korrelation: Streudiagramme</a></li>
+<li class="chapter" data-level="3.6" data-path="datenvisualisierung.html"><a href="datenvisualisierung.html#plots-mit-facet_wrap-und-facet_grid"><i class="fa fa-check"></i><b>3.6</b> Plots mit <code>facet_wrap()</code> und <code>facet_grid()</code></a></li>
+<li class="chapter" data-level="3.7" data-path="datenvisualisierung.html"><a href="datenvisualisierung.html#zusammenfassung"><i class="fa fa-check"></i><b>3.7</b> Zusammenfassung</a></li>
+<li class="chapter" data-level="3.8" data-path="datenvisualisierung.html"><a href="datenvisualisierung.html#ausblick-2"><i class="fa fa-check"></i><b>3.8</b> Ausblick</a></li>
+<li class="chapter" data-level="3.9" data-path="07-loops-and-functions.html"><a href="#%C3%BCbungsaufgaben-1"><i class="fa fa-check"></i><b>3.9</b> Übungsaufgaben</a></li>
 </ul></li>
-<li class="chapter" data-level="4" data-path="verteilungen-histogramme-dichteplots-und-boxplots.html"><a href="verteilungen-histogramme-dichteplots-und-boxplots.html"><i class="fa fa-check"></i><b>4</b> Verteilungen: Histogramme, Dichteplots und Boxplots</a></li>
-<li class="chapter" data-level="5" data-path="histogramme.html"><a href="histogramme.html"><i class="fa fa-check"></i><b>5</b> Histogramme</a>
+<li class="chapter" data-level="4" data-path="explorative-datenanalyse-eda.html"><a href="explorative-datenanalyse-eda.html"><i class="fa fa-check"></i><b>4</b> Explorative Datenanalyse (EDA)</a>
 <ul>
-<li class="chapter" data-level="5.1" data-path="histogramme.html"><a href="histogramme.html#einfaches-histogramm"><i class="fa fa-check"></i><b>5.1</b> Einfaches Histogramm</a></li>
-<li class="chapter" data-level="5.2" data-path="histogramme.html"><a href="histogramme.html#binwidth"><i class="fa fa-check"></i><b>5.2</b> Binwidth</a></li>
+<li class="chapter" data-level="4.1" data-path="explorative-datenanalyse-eda.html"><a href="explorative-datenanalyse-eda.html#standard-deskriptivstatistik"><i class="fa fa-check"></i><b>4.1</b> Standard-Deskriptivstatistik</a></li>
+<li class="chapter" data-level="4.2" data-path="explorative-datenanalyse-eda.html"><a href="explorative-datenanalyse-eda.html#arbeiten-mit-eda-paketen"><i class="fa fa-check"></i><b>4.2</b> Arbeiten mit EDA-Paketen</a></li>
+<li class="chapter" data-level="4.3" data-path="explorative-datenanalyse-eda.html"><a href="explorative-datenanalyse-eda.html#fazit"><i class="fa fa-check"></i><b>4.3</b> Fazit</a></li>
+<li class="chapter" data-level="4.4" data-path="07-loops-and-functions.html"><a href="#%C3%BCbungsaufgaben-2"><i class="fa fa-check"></i><b>4.4</b> Übungsaufgaben</a></li>
 </ul></li>
-<li class="chapter" data-level="6" data-path="mehrere-histogramme.html"><a href="mehrere-histogramme.html"><i class="fa fa-check"></i><b>6</b> Mehrere Histogramme</a></li>
-<li class="chapter" data-level="7" data-path="dichteplots.html"><a href="dichteplots.html"><i class="fa fa-check"></i><b>7</b> Dichteplots</a>
+<li class="chapter" data-level="5" data-path="datenanalyse.html"><a href="datenanalyse.html"><i class="fa fa-check"></i><b>5</b> Datenanalyse</a>
 <ul>
-<li class="chapter" data-level="7.1" data-path="dichteplots.html"><a href="dichteplots.html#einfacher-dichteplot"><i class="fa fa-check"></i><b>7.1</b> Einfacher Dichteplot</a></li>
-<li class="chapter" data-level="7.2" data-path="dichteplots.html"><a href="dichteplots.html#mehrere-dichteplots"><i class="fa fa-check"></i><b>7.2</b> Mehrere Dichteplots</a></li>
+<li class="chapter" data-level="5.1" data-path="datenanalyse.html"><a href="datenanalyse.html#lineare-regression"><i class="fa fa-check"></i><b>5.1</b> Lineare Regression</a></li>
+<li class="chapter" data-level="5.2" data-path="datenanalyse.html"><a href="datenanalyse.html#hypothesentesten-in-r"><i class="fa fa-check"></i><b>5.2</b> Hypothesentesten in R</a></li>
+<li class="chapter" data-level="5.3" data-path="datenanalyse.html"><a href="datenanalyse.html#multivariate-regression"><i class="fa fa-check"></i><b>5.3</b> Multivariate Regression</a></li>
+<li class="chapter" data-level="5.4" data-path="datenanalyse.html"><a href="datenanalyse.html#kategoriale-variablen"><i class="fa fa-check"></i><b>5.4</b> Kategoriale Variablen</a></li>
+<li class="chapter" data-level="5.5" data-path="datenanalyse.html"><a href="datenanalyse.html#ausblick-3"><i class="fa fa-check"></i><b>5.5</b> Ausblick</a></li>
+<li class="chapter" data-level="5.6" data-path="07-loops-and-functions.html"><a href="#%C3%BCbungsaufgaben-3"><i class="fa fa-check"></i><b>5.6</b> Übungsaufgaben</a></li>
 </ul></li>
-<li class="chapter" data-level="8" data-path="boxplots.html"><a href="boxplots.html"><i class="fa fa-check"></i><b>8</b> Boxplots</a>
+<li class="chapter" data-level="6" data-path="schleifen-und-funktionen.html"><a href="schleifen-und-funktionen.html"><i class="fa fa-check"></i><b>6</b> Schleifen und Funktionen</a>
 <ul>
-<li class="chapter" data-level="8.1" data-path="boxplots.html"><a href="boxplots.html#einfache-boxplots"><i class="fa fa-check"></i><b>8.1</b> Einfache Boxplots</a></li>
-<li class="chapter" data-level="8.2" data-path="boxplots.html"><a href="boxplots.html#rangfolge-barplot"><i class="fa fa-check"></i><b>8.2</b> Rangfolge: Barplot</a></li>
-<li class="chapter" data-level="8.3" data-path="boxplots.html"><a href="boxplots.html#entwicklung-liniendiagramm"><i class="fa fa-check"></i><b>8.3</b> Entwicklung: Liniendiagramm</a></li>
-<li class="chapter" data-level="8.4" data-path="boxplots.html"><a href="boxplots.html#korrelation-streudiagramme"><i class="fa fa-check"></i><b>8.4</b> Korrelation: Streudiagramme</a></li>
-<li class="chapter" data-level="8.5" data-path="boxplots.html"><a href="boxplots.html#plots-mit-facet_wrap-und-facet_grid"><i class="fa fa-check"></i><b>8.5</b> Plots mit <code>facet_wrap()</code> und <code>facet_grid()</code></a></li>
-<li class="chapter" data-level="8.6" data-path="boxplots.html"><a href="boxplots.html#ausblick-2"><i class="fa fa-check"></i><b>8.6</b> Ausblick</a></li>
-<li class="chapter" data-level="8.7" data-path="boxplots.html"><a href="boxplots.html#ausblick-3"><i class="fa fa-check"></i><b>8.7</b> Ausblick</a></li>
-<li class="chapter" data-level="8.8" data-path="07-loops-and-functions.html"><a href="#%C3%BCbungsaufgaben-1"><i class="fa fa-check"></i><b>8.8</b> Übungsaufgaben</a></li>
+<li class="chapter" data-level="6.1" data-path="schleifen-und-funktionen.html"><a href="schleifen-und-funktionen.html#schleifen"><i class="fa fa-check"></i><b>6.1</b> Schleifen</a></li>
+<li class="chapter" data-level="6.2" data-path="schleifen-und-funktionen.html"><a href="schleifen-und-funktionen.html#die-apply-funktionsfamilie"><i class="fa fa-check"></i><b>6.2</b> Die <code>apply()</code>-Funktionsfamilie</a></li>
+<li class="chapter" data-level="6.3" data-path="schleifen-und-funktionen.html"><a href="schleifen-und-funktionen.html#eigene-funktionen-schreiben"><i class="fa fa-check"></i><b>6.3</b> Eigene Funktionen schreiben</a></li>
+<li class="chapter" data-level="6.4" data-path="schleifen-und-funktionen.html"><a href="schleifen-und-funktionen.html#ausblick-4"><i class="fa fa-check"></i><b>6.4</b> Ausblick</a></li>
+<li class="chapter" data-level="6.5" data-path="07-loops-and-functions.html"><a href="#%C3%BCbungsaufgaben-4"><i class="fa fa-check"></i><b>6.5</b> Übungsaufgaben</a></li>
 </ul></li>
-<li class="chapter" data-level="9" data-path="explorative-datenanalyse-eda.html"><a href="explorative-datenanalyse-eda.html"><i class="fa fa-check"></i><b>9</b> Explorative Datenanalyse (EDA)</a>
+<li class="chapter" data-level="7" data-path="07-loops-and-functions.html"><a href="#weitere-erl%C3%A4uterungen"><i class="fa fa-check"></i><b>7</b> Weitere Erläuterungen</a>
 <ul>
-<li class="chapter" data-level="9.1" data-path="explorative-datenanalyse-eda.html"><a href="explorative-datenanalyse-eda.html#standard-deskriptivstatistik"><i class="fa fa-check"></i><b>9.1</b> Standard-Deskriptivstatistik</a></li>
-<li class="chapter" data-level="9.2" data-path="explorative-datenanalyse-eda.html"><a href="explorative-datenanalyse-eda.html#arbeiten-mit-eda-paketen"><i class="fa fa-check"></i><b>9.2</b> Arbeiten mit EDA-Paketen</a></li>
-<li class="chapter" data-level="9.3" data-path="explorative-datenanalyse-eda.html"><a href="explorative-datenanalyse-eda.html#fazit"><i class="fa fa-check"></i><b>9.3</b> Fazit</a></li>
-<li class="chapter" data-level="9.4" data-path="07-loops-and-functions.html"><a href="#%C3%BCbungsaufgaben-2"><i class="fa fa-check"></i><b>9.4</b> Übungsaufgaben</a></li>
+<li class="chapter" data-level="7.1" data-path="07-loops-and-functions.html"><a href="#funktion-definieren-f%C3%BCr-sp%C3%A4ter"><i class="fa fa-check"></i><b>7.1</b> Funktion definieren (für später)</a></li>
+<li class="chapter" data-level="7.2" data-path="weitere-erläuterungen.html"><a href="weitere-erläuterungen.html"><i class="fa fa-check"></i><b>7.2</b> Wahrscheinlichkeitstheorie</a></li>
+<li class="chapter" data-level="7.3" data-path="weitere-erläuterungen.html"><a href="weitere-erläuterungen.html#regressionsdiagnostik"><i class="fa fa-check"></i><b>7.3</b> Regressionsdiagnostik</a></li>
 </ul></li>
-<li class="chapter" data-level="10" data-path="datenanalyse.html"><a href="datenanalyse.html"><i class="fa fa-check"></i><b>10</b> Datenanalyse</a>
+<li class="chapter" data-level="8" data-path="07-loops-and-functions.html"><a href="#l%C3%B6sungen-zu-den-%C3%BCbungsaufgaben"><i class="fa fa-check"></i><b>8</b> Lösungen zu den Übungsaufgaben</a>
 <ul>
-<li class="chapter" data-level="10.1" data-path="datenanalyse.html"><a href="datenanalyse.html#lineare-regression"><i class="fa fa-check"></i><b>10.1</b> Lineare Regression</a></li>
-<li class="chapter" data-level="10.2" data-path="datenanalyse.html"><a href="datenanalyse.html#hypothesentesten-in-r"><i class="fa fa-check"></i><b>10.2</b> Hypothesentesten in R</a></li>
-<li class="chapter" data-level="10.3" data-path="datenanalyse.html"><a href="datenanalyse.html#multivariate-regression"><i class="fa fa-check"></i><b>10.3</b> Multivariate Regression</a></li>
-<li class="chapter" data-level="10.4" data-path="datenanalyse.html"><a href="datenanalyse.html#kategoriale-variablen"><i class="fa fa-check"></i><b>10.4</b> Kategoriale Variablen</a></li>
-<li class="chapter" data-level="10.5" data-path="datenanalyse.html"><a href="datenanalyse.html#ausblick-4"><i class="fa fa-check"></i><b>10.5</b> Ausblick</a></li>
-<li class="chapter" data-level="10.6" data-path="07-loops-and-functions.html"><a href="#%C3%BCbungsaufgaben-3"><i class="fa fa-check"></i><b>10.6</b> Übungsaufgaben</a></li>
-</ul></li>
-<li class="chapter" data-level="11" data-path="schleifen-und-funktionen.html"><a href="schleifen-und-funktionen.html"><i class="fa fa-check"></i><b>11</b> Schleifen und Funktionen</a>
-<ul>
-<li class="chapter" data-level="11.1" data-path="schleifen-und-funktionen.html"><a href="schleifen-und-funktionen.html#schleifen"><i class="fa fa-check"></i><b>11.1</b> Schleifen</a></li>
-<li class="chapter" data-level="11.2" data-path="schleifen-und-funktionen.html"><a href="schleifen-und-funktionen.html#die-apply-funktionsfamilie"><i class="fa fa-check"></i><b>11.2</b> Die <code>apply()</code>-Funktionsfamilie</a></li>
-<li class="chapter" data-level="11.3" data-path="schleifen-und-funktionen.html"><a href="schleifen-und-funktionen.html#eigene-funktionen-schreiben"><i class="fa fa-check"></i><b>11.3</b> Eigene Funktionen schreiben</a></li>
-<li class="chapter" data-level="11.4" data-path="schleifen-und-funktionen.html"><a href="schleifen-und-funktionen.html#ausblick-5"><i class="fa fa-check"></i><b>11.4</b> Ausblick</a></li>
-<li class="chapter" data-level="11.5" data-path="07-loops-and-functions.html"><a href="#%C3%BCbungsaufgaben-4"><i class="fa fa-check"></i><b>11.5</b> Übungsaufgaben</a></li>
-</ul></li>
-<li class="chapter" data-level="12" data-path="07-loops-and-functions.html"><a href="#weitere-erl%C3%A4uterungen"><i class="fa fa-check"></i><b>12</b> Weitere Erläuterungen</a>
-<ul>
-<li class="chapter" data-level="12.1" data-path="07-loops-and-functions.html"><a href="#funktion-definieren-f%C3%BCr-sp%C3%A4ter"><i class="fa fa-check"></i><b>12.1</b> Funktion definieren (für später)</a></li>
-<li class="chapter" data-level="12.2" data-path="weitere-erläuterungen.html"><a href="weitere-erläuterungen.html"><i class="fa fa-check"></i><b>12.2</b> Wahrscheinlichkeitstheorie</a></li>
-<li class="chapter" data-level="12.3" data-path="weitere-erläuterungen.html"><a href="weitere-erläuterungen.html#regressionsdiagnostik"><i class="fa fa-check"></i><b>12.3</b> Regressionsdiagnostik</a></li>
-</ul></li>
-<li class="chapter" data-level="13" data-path="07-loops-and-functions.html"><a href="#l%C3%B6sungen-zu-den-%C3%BCbungsaufgaben"><i class="fa fa-check"></i><b>13</b> Lösungen zu den Übungsaufgaben</a>
-<ul>
-<li class="chapter" data-level="13.1" data-path="lösungen-zu-den-übungsaufgaben.html"><a href="lösungen-zu-den-übungsaufgaben.html"><i class="fa fa-check"></i><b>13.1</b> Kapitel 1: Grundlagen</a></li>
-<li class="chapter" data-level="13.2" data-path="lösungen-zu-den-übungsaufgaben.html"><a href="lösungen-zu-den-übungsaufgaben.html#kapitel-2-datenmanipulation"><i class="fa fa-check"></i><b>13.2</b> Kapitel 2: Datenmanipulation</a></li>
-<li class="chapter" data-level="13.3" data-path="lösungen-zu-den-übungsaufgaben.html"><a href="lösungen-zu-den-übungsaufgaben.html#kapitel-3-datenvisualisierung"><i class="fa fa-check"></i><b>13.3</b> Kapitel 3: Datenvisualisierung</a></li>
-<li class="chapter" data-level="13.4" data-path="lösungen-zu-den-übungsaufgaben.html"><a href="lösungen-zu-den-übungsaufgaben.html#kapitel-4-explorative-datenanalyse"><i class="fa fa-check"></i><b>13.4</b> Kapitel 4: Explorative Datenanalyse</a></li>
-<li class="chapter" data-level="13.5" data-path="lösungen-zu-den-übungsaufgaben.html"><a href="lösungen-zu-den-übungsaufgaben.html#kapitel-5-datenanalyse"><i class="fa fa-check"></i><b>13.5</b> Kapitel 5: Datenanalyse</a></li>
-<li class="chapter" data-level="13.6" data-path="lösungen-zu-den-übungsaufgaben.html"><a href="lösungen-zu-den-übungsaufgaben.html#kapitel-6-schleifen-und-funktionen"><i class="fa fa-check"></i><b>13.6</b> Kapitel 6: Schleifen und Funktionen</a></li>
+<li class="chapter" data-level="8.1" data-path="lösungen-zu-den-übungsaufgaben.html"><a href="lösungen-zu-den-übungsaufgaben.html"><i class="fa fa-check"></i><b>8.1</b> Kapitel 1: Grundlagen</a></li>
+<li class="chapter" data-level="8.2" data-path="lösungen-zu-den-übungsaufgaben.html"><a href="lösungen-zu-den-übungsaufgaben.html#kapitel-2-datenmanipulation"><i class="fa fa-check"></i><b>8.2</b> Kapitel 2: Datenmanipulation</a></li>
+<li class="chapter" data-level="8.3" data-path="lösungen-zu-den-übungsaufgaben.html"><a href="lösungen-zu-den-übungsaufgaben.html#kapitel-3-datenvisualisierung"><i class="fa fa-check"></i><b>8.3</b> Kapitel 3: Datenvisualisierung</a></li>
+<li class="chapter" data-level="8.4" data-path="lösungen-zu-den-übungsaufgaben.html"><a href="lösungen-zu-den-übungsaufgaben.html#kapitel-4-explorative-datenanalyse"><i class="fa fa-check"></i><b>8.4</b> Kapitel 4: Explorative Datenanalyse</a></li>
+<li class="chapter" data-level="8.5" data-path="lösungen-zu-den-übungsaufgaben.html"><a href="lösungen-zu-den-übungsaufgaben.html#kapitel-5-datenanalyse"><i class="fa fa-check"></i><b>8.5</b> Kapitel 5: Datenanalyse</a></li>
+<li class="chapter" data-level="8.6" data-path="lösungen-zu-den-übungsaufgaben.html"><a href="lösungen-zu-den-übungsaufgaben.html#kapitel-6-schleifen-und-funktionen"><i class="fa fa-check"></i><b>8.6</b> Kapitel 6: Schleifen und Funktionen</a></li>
 </ul></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
@@ -284,7 +269,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
       <div class="body-inner">
         <div class="book-header" role="navigation">
           <h1>
-            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">An intuitive Introduction to R</a>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Eine intuitive Einfürung in R</a>
           </h1>
         </div>
 
@@ -292,29 +277,17 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="schleifen-und-funktionen" class="section level1 hasAnchor" number="11">
-<h1><span class="header-section-number">Chapter 11</span> Schleifen und Funktionen<a href="schleifen-und-funktionen.html#schleifen-und-funktionen" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<div id="schleifen-und-funktionen" class="section level1 hasAnchor" number="6">
+<h1><span class="header-section-number">Chapter 6</span> Schleifen und Funktionen<a href="schleifen-und-funktionen.html#schleifen-und-funktionen" class="anchor-section" aria-label="Anchor link to header"></a></h1>
 <p>In diesem Kapitel möchte ich euch eine Möglichkeit vorstellen, effizienter zu arbeiten. R ist eine Programmiersprache für statistische Analysen, enthält aber auch klassische Elemente der Programmierung. Zwei grundlegende Operationen sind Schleifen und Funktionen. Wir können damit Aufgaben automatisieren – und je früher ihr das lernt, desto schneller versteht ihr die Logik von R. Das Ziel dieses Kapitels ist, euch mit Funktionen und Schleifen vertraut zu machen, damit ihr sie erkennt, wenn ihr auf sie trefft.</p>
-<div id="schleifen" class="section level2 hasAnchor" number="11.1">
-<h2><span class="header-section-number">11.1</span> Schleifen<a href="schleifen-und-funktionen.html#schleifen" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="schleifen" class="section level2 hasAnchor" number="6.1">
+<h2><span class="header-section-number">6.1</span> Schleifen<a href="schleifen-und-funktionen.html#schleifen" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Zum Beispiel könnt ihr eine Schleife verwenden, um eine Liste von Zahlen zu durchlaufen und für jede Zahl Berechnungen durchzuführen, oder um die Zeilen eines Datensatzes zu durchlaufen und auf jede Zeile bestimmte Operationen anzuwenden. Schleifen bieten eine Möglichkeit, den Code zu vereinfachen und das manuelle Schreiben von sich wiederholenden Anweisungen zu vermeiden.</p>
 <p>Es gibt verschiedene Arten von Schleifen, aber in diesem Kurs konzentrieren wir uns ausschließlich auf <code>for</code>-Schleifen, da ihr diesen Typ auch im QM-Tutorium begegnen werdet.</p>
-<div id="for-schleifen" class="section level3 hasAnchor" number="11.1.1">
-<h3><span class="header-section-number">11.1.1</span> <code>For</code>-Schleifen<a href="schleifen-und-funktionen.html#for-schleifen" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="for-schleifen" class="section level3 hasAnchor" number="6.1.1">
+<h3><span class="header-section-number">6.1.1</span> <code>For</code>-Schleifen<a href="schleifen-und-funktionen.html#for-schleifen" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Erinnert ihr euch an mein Notenbeispiel aus dem ersten Kapitel?</p>
-<div class="sourceCode" id="cb401"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb401-1"><a href="schleifen-und-funktionen.html#cb401-1" tabindex="-1"></a>grade <span class="ot">&lt;-</span> <span class="fl">4.0</span></span>
-<span id="cb401-2"><a href="schleifen-und-funktionen.html#cb401-2" tabindex="-1"></a></span>
-<span id="cb401-3"><a href="schleifen-und-funktionen.html#cb401-3" tabindex="-1"></a><span class="cf">if</span> (grade <span class="sc">==</span> <span class="fl">1.0</span>) {</span>
-<span id="cb401-4"><a href="schleifen-und-funktionen.html#cb401-4" tabindex="-1"></a>  <span class="fu">print</span>(<span class="st">&quot;Hervorragend&quot;</span>) </span>
-<span id="cb401-5"><a href="schleifen-und-funktionen.html#cb401-5" tabindex="-1"></a>} <span class="cf">else</span> <span class="cf">if</span> (grade <span class="sc">&gt;</span> <span class="fl">1.0</span> <span class="sc">&amp;</span> grade <span class="sc">&lt;=</span> <span class="fl">2.0</span>) {</span>
-<span id="cb401-6"><a href="schleifen-und-funktionen.html#cb401-6" tabindex="-1"></a>  <span class="fu">print</span>(<span class="st">&quot;Gut gemacht&quot;</span>)</span>
-<span id="cb401-7"><a href="schleifen-und-funktionen.html#cb401-7" tabindex="-1"></a>} <span class="cf">else</span> <span class="cf">if</span> (grade <span class="sc">&gt;</span> <span class="fl">2.0</span> <span class="sc">&amp;</span> grade <span class="sc">&lt;=</span> <span class="fl">3.0</span>) {</span>
-<span id="cb401-8"><a href="schleifen-und-funktionen.html#cb401-8" tabindex="-1"></a>  <span class="fu">print</span>(<span class="st">&quot;OK&quot;</span>)</span>
-<span id="cb401-9"><a href="schleifen-und-funktionen.html#cb401-9" tabindex="-1"></a>} <span class="cf">else</span> <span class="cf">if</span> (grade <span class="sc">&gt;</span> <span class="fl">3.0</span> <span class="sc">&amp;</span> grade <span class="sc">&lt;=</span> <span class="fl">4.0</span>) {</span>
-<span id="cb401-10"><a href="schleifen-und-funktionen.html#cb401-10" tabindex="-1"></a>  <span class="fu">print</span>(<span class="st">&quot;Das Leben geht weiter&quot;</span>) </span>
-<span id="cb401-11"><a href="schleifen-und-funktionen.html#cb401-11" tabindex="-1"></a>}</span></code></pre></div>
-<pre><code>## [1] &quot;Das Leben geht weiter&quot;</code></pre>
-<div class="sourceCode" id="cb403"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb403-1"><a href="schleifen-und-funktionen.html#cb403-1" tabindex="-1"></a>grade <span class="ot">&lt;-</span> <span class="fl">3.3</span></span>
+<div class="sourceCode" id="cb403"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb403-1"><a href="schleifen-und-funktionen.html#cb403-1" tabindex="-1"></a>grade <span class="ot">&lt;-</span> <span class="fl">4.0</span></span>
 <span id="cb403-2"><a href="schleifen-und-funktionen.html#cb403-2" tabindex="-1"></a></span>
 <span id="cb403-3"><a href="schleifen-und-funktionen.html#cb403-3" tabindex="-1"></a><span class="cf">if</span> (grade <span class="sc">==</span> <span class="fl">1.0</span>) {</span>
 <span id="cb403-4"><a href="schleifen-und-funktionen.html#cb403-4" tabindex="-1"></a>  <span class="fu">print</span>(<span class="st">&quot;Hervorragend&quot;</span>) </span>
@@ -326,7 +299,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb403-10"><a href="schleifen-und-funktionen.html#cb403-10" tabindex="-1"></a>  <span class="fu">print</span>(<span class="st">&quot;Das Leben geht weiter&quot;</span>) </span>
 <span id="cb403-11"><a href="schleifen-und-funktionen.html#cb403-11" tabindex="-1"></a>}</span></code></pre></div>
 <pre><code>## [1] &quot;Das Leben geht weiter&quot;</code></pre>
-<div class="sourceCode" id="cb405"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb405-1"><a href="schleifen-und-funktionen.html#cb405-1" tabindex="-1"></a>grade <span class="ot">&lt;-</span> <span class="fl">4.0</span></span>
+<div class="sourceCode" id="cb405"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb405-1"><a href="schleifen-und-funktionen.html#cb405-1" tabindex="-1"></a>grade <span class="ot">&lt;-</span> <span class="fl">3.3</span></span>
 <span id="cb405-2"><a href="schleifen-und-funktionen.html#cb405-2" tabindex="-1"></a></span>
 <span id="cb405-3"><a href="schleifen-und-funktionen.html#cb405-3" tabindex="-1"></a><span class="cf">if</span> (grade <span class="sc">==</span> <span class="fl">1.0</span>) {</span>
 <span id="cb405-4"><a href="schleifen-und-funktionen.html#cb405-4" tabindex="-1"></a>  <span class="fu">print</span>(<span class="st">&quot;Hervorragend&quot;</span>) </span>
@@ -338,7 +311,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb405-10"><a href="schleifen-und-funktionen.html#cb405-10" tabindex="-1"></a>  <span class="fu">print</span>(<span class="st">&quot;Das Leben geht weiter&quot;</span>) </span>
 <span id="cb405-11"><a href="schleifen-und-funktionen.html#cb405-11" tabindex="-1"></a>}</span></code></pre></div>
 <pre><code>## [1] &quot;Das Leben geht weiter&quot;</code></pre>
-<div class="sourceCode" id="cb407"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb407-1"><a href="schleifen-und-funktionen.html#cb407-1" tabindex="-1"></a>grade <span class="ot">&lt;-</span> <span class="fl">2.3</span></span>
+<div class="sourceCode" id="cb407"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb407-1"><a href="schleifen-und-funktionen.html#cb407-1" tabindex="-1"></a>grade <span class="ot">&lt;-</span> <span class="fl">4.0</span></span>
 <span id="cb407-2"><a href="schleifen-und-funktionen.html#cb407-2" tabindex="-1"></a></span>
 <span id="cb407-3"><a href="schleifen-und-funktionen.html#cb407-3" tabindex="-1"></a><span class="cf">if</span> (grade <span class="sc">==</span> <span class="fl">1.0</span>) {</span>
 <span id="cb407-4"><a href="schleifen-und-funktionen.html#cb407-4" tabindex="-1"></a>  <span class="fu">print</span>(<span class="st">&quot;Hervorragend&quot;</span>) </span>
@@ -349,8 +322,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb407-9"><a href="schleifen-und-funktionen.html#cb407-9" tabindex="-1"></a>} <span class="cf">else</span> <span class="cf">if</span> (grade <span class="sc">&gt;</span> <span class="fl">3.0</span> <span class="sc">&amp;</span> grade <span class="sc">&lt;=</span> <span class="fl">4.0</span>) {</span>
 <span id="cb407-10"><a href="schleifen-und-funktionen.html#cb407-10" tabindex="-1"></a>  <span class="fu">print</span>(<span class="st">&quot;Das Leben geht weiter&quot;</span>) </span>
 <span id="cb407-11"><a href="schleifen-und-funktionen.html#cb407-11" tabindex="-1"></a>}</span></code></pre></div>
-<pre><code>## [1] &quot;OK&quot;</code></pre>
-<div class="sourceCode" id="cb409"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb409-1"><a href="schleifen-und-funktionen.html#cb409-1" tabindex="-1"></a>grade <span class="ot">&lt;-</span> <span class="fl">1.7</span></span>
+<pre><code>## [1] &quot;Das Leben geht weiter&quot;</code></pre>
+<div class="sourceCode" id="cb409"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb409-1"><a href="schleifen-und-funktionen.html#cb409-1" tabindex="-1"></a>grade <span class="ot">&lt;-</span> <span class="fl">2.3</span></span>
 <span id="cb409-2"><a href="schleifen-und-funktionen.html#cb409-2" tabindex="-1"></a></span>
 <span id="cb409-3"><a href="schleifen-und-funktionen.html#cb409-3" tabindex="-1"></a><span class="cf">if</span> (grade <span class="sc">==</span> <span class="fl">1.0</span>) {</span>
 <span id="cb409-4"><a href="schleifen-und-funktionen.html#cb409-4" tabindex="-1"></a>  <span class="fu">print</span>(<span class="st">&quot;Hervorragend&quot;</span>) </span>
@@ -361,27 +334,39 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb409-9"><a href="schleifen-und-funktionen.html#cb409-9" tabindex="-1"></a>} <span class="cf">else</span> <span class="cf">if</span> (grade <span class="sc">&gt;</span> <span class="fl">3.0</span> <span class="sc">&amp;</span> grade <span class="sc">&lt;=</span> <span class="fl">4.0</span>) {</span>
 <span id="cb409-10"><a href="schleifen-und-funktionen.html#cb409-10" tabindex="-1"></a>  <span class="fu">print</span>(<span class="st">&quot;Das Leben geht weiter&quot;</span>) </span>
 <span id="cb409-11"><a href="schleifen-und-funktionen.html#cb409-11" tabindex="-1"></a>}</span></code></pre></div>
+<pre><code>## [1] &quot;OK&quot;</code></pre>
+<div class="sourceCode" id="cb411"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb411-1"><a href="schleifen-und-funktionen.html#cb411-1" tabindex="-1"></a>grade <span class="ot">&lt;-</span> <span class="fl">1.7</span></span>
+<span id="cb411-2"><a href="schleifen-und-funktionen.html#cb411-2" tabindex="-1"></a></span>
+<span id="cb411-3"><a href="schleifen-und-funktionen.html#cb411-3" tabindex="-1"></a><span class="cf">if</span> (grade <span class="sc">==</span> <span class="fl">1.0</span>) {</span>
+<span id="cb411-4"><a href="schleifen-und-funktionen.html#cb411-4" tabindex="-1"></a>  <span class="fu">print</span>(<span class="st">&quot;Hervorragend&quot;</span>) </span>
+<span id="cb411-5"><a href="schleifen-und-funktionen.html#cb411-5" tabindex="-1"></a>} <span class="cf">else</span> <span class="cf">if</span> (grade <span class="sc">&gt;</span> <span class="fl">1.0</span> <span class="sc">&amp;</span> grade <span class="sc">&lt;=</span> <span class="fl">2.0</span>) {</span>
+<span id="cb411-6"><a href="schleifen-und-funktionen.html#cb411-6" tabindex="-1"></a>  <span class="fu">print</span>(<span class="st">&quot;Gut gemacht&quot;</span>)</span>
+<span id="cb411-7"><a href="schleifen-und-funktionen.html#cb411-7" tabindex="-1"></a>} <span class="cf">else</span> <span class="cf">if</span> (grade <span class="sc">&gt;</span> <span class="fl">2.0</span> <span class="sc">&amp;</span> grade <span class="sc">&lt;=</span> <span class="fl">3.0</span>) {</span>
+<span id="cb411-8"><a href="schleifen-und-funktionen.html#cb411-8" tabindex="-1"></a>  <span class="fu">print</span>(<span class="st">&quot;OK&quot;</span>)</span>
+<span id="cb411-9"><a href="schleifen-und-funktionen.html#cb411-9" tabindex="-1"></a>} <span class="cf">else</span> <span class="cf">if</span> (grade <span class="sc">&gt;</span> <span class="fl">3.0</span> <span class="sc">&amp;</span> grade <span class="sc">&lt;=</span> <span class="fl">4.0</span>) {</span>
+<span id="cb411-10"><a href="schleifen-und-funktionen.html#cb411-10" tabindex="-1"></a>  <span class="fu">print</span>(<span class="st">&quot;Das Leben geht weiter&quot;</span>) </span>
+<span id="cb411-11"><a href="schleifen-und-funktionen.html#cb411-11" tabindex="-1"></a>}</span></code></pre></div>
 <pre><code>## [1] &quot;Gut gemacht&quot;</code></pre>
 <p>Ich könnte nun alle meine Noten aufschreiben und sie einzeln zuweisen, wie im ersten Kapitel – aber es gibt eine Möglichkeit, diesen Prozess zu automatisieren. Dazu verwende ich die <code>for</code>-Schleife.</p>
 <p>Zunächst erstellen wir einen Vektor mit Noten:</p>
-<div class="sourceCode" id="cb411"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb411-1"><a href="schleifen-und-funktionen.html#cb411-1" tabindex="-1"></a>grades <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fl">1.7</span>, <span class="fl">3.3</span>, <span class="fl">4.0</span>, <span class="fl">2.3</span>, <span class="fl">1.0</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb413"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb413-1"><a href="schleifen-und-funktionen.html#cb413-1" tabindex="-1"></a>grades <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fl">1.7</span>, <span class="fl">3.3</span>, <span class="fl">4.0</span>, <span class="fl">2.3</span>, <span class="fl">1.0</span>)</span></code></pre></div>
 <p>Jetzt können wir direkt in die Schleife einsteigen.</p>
 <ul>
 <li><p>Schreibe <code>for</code> und definiere in den Klammern den <strong>Schleifeniterator</strong> – das ist das <strong>i</strong> in der Schleife. Dann legst du fest, durch welches Objekt du iterieren möchtest. In unserem Fall soll die Operation durch den Notenvektor iterieren. Ich könnte auch die Zahl 5 schreiben, aber es ist konventionell, ein Objekt zu definieren. Warum?</p></li>
 <li><p>Nach dem Schließen der Klammern öffnest du geschweifte Klammern und schreibst deine Funktion, wie du es normalerweise tätest – aber diesmal musst du festlegen, wie der Iterator verwendet wird. Da ich die Zahlen in <code>grades</code> verwende, muss mein Iterator in eckigen Klammern nach dem Namen <code>grades</code> stehen. Warum?</p></li>
 <li><p>Und das war es im Grunde.</p></li>
 </ul>
-<div class="sourceCode" id="cb412"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb412-1"><a href="schleifen-und-funktionen.html#cb412-1" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">length</span>(grades)) {</span>
-<span id="cb412-2"><a href="schleifen-und-funktionen.html#cb412-2" tabindex="-1"></a>  <span class="cf">if</span> (grades[i] <span class="sc">==</span> <span class="fl">1.0</span>) {</span>
-<span id="cb412-3"><a href="schleifen-und-funktionen.html#cb412-3" tabindex="-1"></a>  <span class="fu">print</span>(<span class="st">&quot;Hervorragend&quot;</span>) </span>
-<span id="cb412-4"><a href="schleifen-und-funktionen.html#cb412-4" tabindex="-1"></a>} <span class="cf">else</span> <span class="cf">if</span> (grades[i] <span class="sc">&gt;</span> <span class="fl">1.0</span> <span class="sc">&amp;</span> grades[i] <span class="sc">&lt;=</span> <span class="fl">2.0</span>) {</span>
-<span id="cb412-5"><a href="schleifen-und-funktionen.html#cb412-5" tabindex="-1"></a>  <span class="fu">print</span>(<span class="st">&quot;Gut gemacht&quot;</span>)</span>
-<span id="cb412-6"><a href="schleifen-und-funktionen.html#cb412-6" tabindex="-1"></a>} <span class="cf">else</span> <span class="cf">if</span> (grades[i] <span class="sc">&gt;</span> <span class="fl">2.0</span> <span class="sc">&amp;</span> grades[i] <span class="sc">&lt;=</span> <span class="fl">3.0</span>) {</span>
-<span id="cb412-7"><a href="schleifen-und-funktionen.html#cb412-7" tabindex="-1"></a>  <span class="fu">print</span>(<span class="st">&quot;OK&quot;</span>)</span>
-<span id="cb412-8"><a href="schleifen-und-funktionen.html#cb412-8" tabindex="-1"></a>} <span class="cf">else</span> <span class="cf">if</span> (grades[i] <span class="sc">&gt;</span> <span class="fl">3.0</span> <span class="sc">&amp;</span> grades[i] <span class="sc">&lt;=</span> <span class="fl">4.0</span>) {</span>
-<span id="cb412-9"><a href="schleifen-und-funktionen.html#cb412-9" tabindex="-1"></a>  <span class="fu">print</span>(<span class="st">&quot;Das Leben geht weiter&quot;</span>) </span>
-<span id="cb412-10"><a href="schleifen-und-funktionen.html#cb412-10" tabindex="-1"></a>}</span>
-<span id="cb412-11"><a href="schleifen-und-funktionen.html#cb412-11" tabindex="-1"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb414"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb414-1"><a href="schleifen-und-funktionen.html#cb414-1" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">length</span>(grades)) {</span>
+<span id="cb414-2"><a href="schleifen-und-funktionen.html#cb414-2" tabindex="-1"></a>  <span class="cf">if</span> (grades[i] <span class="sc">==</span> <span class="fl">1.0</span>) {</span>
+<span id="cb414-3"><a href="schleifen-und-funktionen.html#cb414-3" tabindex="-1"></a>  <span class="fu">print</span>(<span class="st">&quot;Hervorragend&quot;</span>) </span>
+<span id="cb414-4"><a href="schleifen-und-funktionen.html#cb414-4" tabindex="-1"></a>} <span class="cf">else</span> <span class="cf">if</span> (grades[i] <span class="sc">&gt;</span> <span class="fl">1.0</span> <span class="sc">&amp;</span> grades[i] <span class="sc">&lt;=</span> <span class="fl">2.0</span>) {</span>
+<span id="cb414-5"><a href="schleifen-und-funktionen.html#cb414-5" tabindex="-1"></a>  <span class="fu">print</span>(<span class="st">&quot;Gut gemacht&quot;</span>)</span>
+<span id="cb414-6"><a href="schleifen-und-funktionen.html#cb414-6" tabindex="-1"></a>} <span class="cf">else</span> <span class="cf">if</span> (grades[i] <span class="sc">&gt;</span> <span class="fl">2.0</span> <span class="sc">&amp;</span> grades[i] <span class="sc">&lt;=</span> <span class="fl">3.0</span>) {</span>
+<span id="cb414-7"><a href="schleifen-und-funktionen.html#cb414-7" tabindex="-1"></a>  <span class="fu">print</span>(<span class="st">&quot;OK&quot;</span>)</span>
+<span id="cb414-8"><a href="schleifen-und-funktionen.html#cb414-8" tabindex="-1"></a>} <span class="cf">else</span> <span class="cf">if</span> (grades[i] <span class="sc">&gt;</span> <span class="fl">3.0</span> <span class="sc">&amp;</span> grades[i] <span class="sc">&lt;=</span> <span class="fl">4.0</span>) {</span>
+<span id="cb414-9"><a href="schleifen-und-funktionen.html#cb414-9" tabindex="-1"></a>  <span class="fu">print</span>(<span class="st">&quot;Das Leben geht weiter&quot;</span>) </span>
+<span id="cb414-10"><a href="schleifen-und-funktionen.html#cb414-10" tabindex="-1"></a>}</span>
+<span id="cb414-11"><a href="schleifen-und-funktionen.html#cb414-11" tabindex="-1"></a>}</span></code></pre></div>
 <pre><code>## [1] &quot;Gut gemacht&quot;
 ## [1] &quot;Das Leben geht weiter&quot;
 ## [1] &quot;Das Leben geht weiter&quot;
@@ -389,13 +374,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## [1] &quot;Hervorragend&quot;</code></pre>
 <p>Schleifen können unterschiedlich aussehen:</p>
 <p>In diesem Beispiel habe ich einen Zahlenvektor und lasse die Konsole einen Satz ausgeben, bei dem sich die Zahl und damit der Satz bei jedem Schleifendurchlauf ändert:</p>
-<div class="sourceCode" id="cb414"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb414-1"><a href="schleifen-und-funktionen.html#cb414-1" tabindex="-1"></a><span class="co"># Zahlenvektor erstellen</span></span>
-<span id="cb414-2"><a href="schleifen-und-funktionen.html#cb414-2" tabindex="-1"></a>num <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>, <span class="dv">249</span>)</span>
-<span id="cb414-3"><a href="schleifen-und-funktionen.html#cb414-3" tabindex="-1"></a></span>
-<span id="cb414-4"><a href="schleifen-und-funktionen.html#cb414-4" tabindex="-1"></a><span class="co"># Durch den Vektor iterieren</span></span>
-<span id="cb414-5"><a href="schleifen-und-funktionen.html#cb414-5" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> num) { </span>
-<span id="cb414-6"><a href="schleifen-und-funktionen.html#cb414-6" tabindex="-1"></a>  <span class="fu">print</span>(stringr<span class="sc">::</span><span class="fu">str_c</span>(<span class="st">&quot;Das ist die &quot;</span>, i, <span class="st">&quot;. Iteration&quot;</span>)) </span>
-<span id="cb414-7"><a href="schleifen-und-funktionen.html#cb414-7" tabindex="-1"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb416"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb416-1"><a href="schleifen-und-funktionen.html#cb416-1" tabindex="-1"></a><span class="co"># Zahlenvektor erstellen</span></span>
+<span id="cb416-2"><a href="schleifen-und-funktionen.html#cb416-2" tabindex="-1"></a>num <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>, <span class="dv">249</span>)</span>
+<span id="cb416-3"><a href="schleifen-und-funktionen.html#cb416-3" tabindex="-1"></a></span>
+<span id="cb416-4"><a href="schleifen-und-funktionen.html#cb416-4" tabindex="-1"></a><span class="co"># Durch den Vektor iterieren</span></span>
+<span id="cb416-5"><a href="schleifen-und-funktionen.html#cb416-5" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> num) { </span>
+<span id="cb416-6"><a href="schleifen-und-funktionen.html#cb416-6" tabindex="-1"></a>  <span class="fu">print</span>(stringr<span class="sc">::</span><span class="fu">str_c</span>(<span class="st">&quot;Das ist die &quot;</span>, i, <span class="st">&quot;. Iteration&quot;</span>)) </span>
+<span id="cb416-7"><a href="schleifen-und-funktionen.html#cb416-7" tabindex="-1"></a>}</span></code></pre></div>
 <pre><code>## [1] &quot;Das ist die 1. Iteration&quot;
 ## [1] &quot;Das ist die 2. Iteration&quot;
 ## [1] &quot;Das ist die 3. Iteration&quot;
@@ -403,22 +388,22 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## [1] &quot;Das ist die 5. Iteration&quot;
 ## [1] &quot;Das ist die 249. Iteration&quot;</code></pre>
 </div>
-<div id="verschachtelte-schleifen" class="section level3 hasAnchor" number="11.1.2">
-<h3><span class="header-section-number">11.1.2</span> Verschachtelte Schleifen<a href="schleifen-und-funktionen.html#verschachtelte-schleifen" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="verschachtelte-schleifen" class="section level3 hasAnchor" number="6.1.2">
+<h3><span class="header-section-number">6.1.2</span> Verschachtelte Schleifen<a href="schleifen-und-funktionen.html#verschachtelte-schleifen" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Da ihr ihnen früher oder später begegnen werdet, zeige ich euch kurz verschachtelte Schleifen:</p>
 <p>Spielen wir zunächst eine Runde Tic-Tac-Toe:</p>
-<div class="sourceCode" id="cb416"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb416-1"><a href="schleifen-und-funktionen.html#cb416-1" tabindex="-1"></a><span class="co"># Matrix definieren</span></span>
-<span id="cb416-2"><a href="schleifen-und-funktionen.html#cb416-2" tabindex="-1"></a>ttt <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">c</span>(<span class="st">&quot;X&quot;</span>, <span class="st">&quot;O&quot;</span>, <span class="st">&quot;X&quot;</span>,</span>
-<span id="cb416-3"><a href="schleifen-und-funktionen.html#cb416-3" tabindex="-1"></a>                <span class="st">&quot;O&quot;</span>, <span class="st">&quot;X&quot;</span>, <span class="st">&quot;O&quot;</span>,</span>
-<span id="cb416-4"><a href="schleifen-und-funktionen.html#cb416-4" tabindex="-1"></a>                <span class="st">&quot;O&quot;</span>, <span class="st">&quot;X&quot;</span>, <span class="st">&quot;O&quot;</span>), <span class="at">nrow =</span> <span class="dv">3</span>, <span class="at">ncol =</span> <span class="dv">3</span>, <span class="at">byrow =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb418"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb418-1"><a href="schleifen-und-funktionen.html#cb418-1" tabindex="-1"></a><span class="co"># Matrix definieren</span></span>
+<span id="cb418-2"><a href="schleifen-und-funktionen.html#cb418-2" tabindex="-1"></a>ttt <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">c</span>(<span class="st">&quot;X&quot;</span>, <span class="st">&quot;O&quot;</span>, <span class="st">&quot;X&quot;</span>,</span>
+<span id="cb418-3"><a href="schleifen-und-funktionen.html#cb418-3" tabindex="-1"></a>                <span class="st">&quot;O&quot;</span>, <span class="st">&quot;X&quot;</span>, <span class="st">&quot;O&quot;</span>,</span>
+<span id="cb418-4"><a href="schleifen-und-funktionen.html#cb418-4" tabindex="-1"></a>                <span class="st">&quot;O&quot;</span>, <span class="st">&quot;X&quot;</span>, <span class="st">&quot;O&quot;</span>), <span class="at">nrow =</span> <span class="dv">3</span>, <span class="at">ncol =</span> <span class="dv">3</span>, <span class="at">byrow =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
 <p>Wir definieren eine Schleife mit dem Iterator <strong>i</strong> für die Zeilen der Matrix und eine weitere mit dem Iterator <strong>j</strong> für die Spalten.</p>
 <p>Anschließend bauen wir den Schleifenkörper auf, der Informationen über die Matrix und ihren Inhalt liefert. Der ausgegebene Satz zeigt, welche Zeilen und Spalten welche Werte enthalten.</p>
-<div class="sourceCode" id="cb417"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb417-1"><a href="schleifen-und-funktionen.html#cb417-1" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">nrow</span>(ttt)) {</span>
-<span id="cb417-2"><a href="schleifen-und-funktionen.html#cb417-2" tabindex="-1"></a>  <span class="cf">for</span> (j <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">ncol</span>(ttt)) {</span>
-<span id="cb417-3"><a href="schleifen-und-funktionen.html#cb417-3" tabindex="-1"></a>    <span class="fu">print</span>(<span class="fu">paste</span>(<span class="st">&quot;In Zeile&quot;</span>, i, <span class="st">&quot;und Spalte&quot;</span>, </span>
-<span id="cb417-4"><a href="schleifen-und-funktionen.html#cb417-4" tabindex="-1"></a>                j, <span class="st">&quot;enthält das Spielfeld&quot;</span>, ttt[i,j]))</span>
-<span id="cb417-5"><a href="schleifen-und-funktionen.html#cb417-5" tabindex="-1"></a>  }</span>
-<span id="cb417-6"><a href="schleifen-und-funktionen.html#cb417-6" tabindex="-1"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb419"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb419-1"><a href="schleifen-und-funktionen.html#cb419-1" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">nrow</span>(ttt)) {</span>
+<span id="cb419-2"><a href="schleifen-und-funktionen.html#cb419-2" tabindex="-1"></a>  <span class="cf">for</span> (j <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">ncol</span>(ttt)) {</span>
+<span id="cb419-3"><a href="schleifen-und-funktionen.html#cb419-3" tabindex="-1"></a>    <span class="fu">print</span>(<span class="fu">paste</span>(<span class="st">&quot;In Zeile&quot;</span>, i, <span class="st">&quot;und Spalte&quot;</span>, </span>
+<span id="cb419-4"><a href="schleifen-und-funktionen.html#cb419-4" tabindex="-1"></a>                j, <span class="st">&quot;enthält das Spielfeld&quot;</span>, ttt[i,j]))</span>
+<span id="cb419-5"><a href="schleifen-und-funktionen.html#cb419-5" tabindex="-1"></a>  }</span>
+<span id="cb419-6"><a href="schleifen-und-funktionen.html#cb419-6" tabindex="-1"></a>}</span></code></pre></div>
 <pre><code>## [1] &quot;In Zeile 1 und Spalte 1 enthält das Spielfeld X&quot;
 ## [1] &quot;In Zeile 1 und Spalte 2 enthält das Spielfeld O&quot;
 ## [1] &quot;In Zeile 1 und Spalte 3 enthält das Spielfeld X&quot;
@@ -430,16 +415,16 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## [1] &quot;In Zeile 3 und Spalte 3 enthält das Spielfeld O&quot;</code></pre>
 </div>
 </div>
-<div id="die-apply-funktionsfamilie" class="section level2 hasAnchor" number="11.2">
-<h2><span class="header-section-number">11.2</span> Die <code>apply()</code>-Funktionsfamilie<a href="schleifen-und-funktionen.html#die-apply-funktionsfamilie" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<div id="apply" class="section level3 hasAnchor" number="11.2.1">
-<h3><span class="header-section-number">11.2.1</span> <code>apply()</code><a href="schleifen-und-funktionen.html#apply" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="die-apply-funktionsfamilie" class="section level2 hasAnchor" number="6.2">
+<h2><span class="header-section-number">6.2</span> Die <code>apply()</code>-Funktionsfamilie<a href="schleifen-und-funktionen.html#die-apply-funktionsfamilie" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="apply" class="section level3 hasAnchor" number="6.2.1">
+<h3><span class="header-section-number">6.2.1</span> <code>apply()</code><a href="schleifen-und-funktionen.html#apply" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p><code>apply()</code> nimmt einen Dataframe oder eine Matrix als Eingabe und gibt das Ergebnis als Vektor, Liste oder Array zurück. Die <code>apply()</code>-Funktion in R wird hauptsächlich verwendet, um explizite Schleifenkonstrukte zu vermeiden. Die Idee ist, eine Funktion wiederholt auf eine Matrix oder einen Dataframe anzuwenden: <code>apply(X, MARGIN, FUNCTION)</code>.</p>
-<div class="sourceCode" id="cb419"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb419-1"><a href="schleifen-und-funktionen.html#cb419-1" tabindex="-1"></a><span class="co"># Eine Matrix mit zufälligen Zahlen erstellen</span></span>
-<span id="cb419-2"><a href="schleifen-und-funktionen.html#cb419-2" tabindex="-1"></a>mat <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>, <span class="at">nrow =</span> <span class="dv">5</span>, <span class="at">ncol =</span> <span class="dv">6</span>)</span>
-<span id="cb419-3"><a href="schleifen-und-funktionen.html#cb419-3" tabindex="-1"></a></span>
-<span id="cb419-4"><a href="schleifen-und-funktionen.html#cb419-4" tabindex="-1"></a><span class="co"># Überprüfung</span></span>
-<span id="cb419-5"><a href="schleifen-und-funktionen.html#cb419-5" tabindex="-1"></a><span class="fu">head</span>(mat)</span></code></pre></div>
+<div class="sourceCode" id="cb421"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb421-1"><a href="schleifen-und-funktionen.html#cb421-1" tabindex="-1"></a><span class="co"># Eine Matrix mit zufälligen Zahlen erstellen</span></span>
+<span id="cb421-2"><a href="schleifen-und-funktionen.html#cb421-2" tabindex="-1"></a>mat <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>, <span class="at">nrow =</span> <span class="dv">5</span>, <span class="at">ncol =</span> <span class="dv">6</span>)</span>
+<span id="cb421-3"><a href="schleifen-und-funktionen.html#cb421-3" tabindex="-1"></a></span>
+<span id="cb421-4"><a href="schleifen-und-funktionen.html#cb421-4" tabindex="-1"></a><span class="co"># Überprüfung</span></span>
+<span id="cb421-5"><a href="schleifen-und-funktionen.html#cb421-5" tabindex="-1"></a><span class="fu">head</span>(mat)</span></code></pre></div>
 <pre><code>##      [,1] [,2] [,3] [,4] [,5] [,6]
 ## [1,]    1    6    1    6    1    6
 ## [2,]    2    7    2    7    2    7
@@ -447,18 +432,18 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## [4,]    4    9    4    9    4    9
 ## [5,]    5   10    5   10    5   10</code></pre>
 <p>Nehmen wir an, ihr möchtet den Mittelwert jeder Spalte berechnen:</p>
-<div class="sourceCode" id="cb421"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb421-1"><a href="schleifen-und-funktionen.html#cb421-1" tabindex="-1"></a><span class="fu">apply</span>(mat, <span class="dv">2</span>, mean) <span class="co"># Mittelwert berechnen</span></span></code></pre></div>
+<div class="sourceCode" id="cb423"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb423-1"><a href="schleifen-und-funktionen.html#cb423-1" tabindex="-1"></a><span class="fu">apply</span>(mat, <span class="dv">2</span>, mean) <span class="co"># Mittelwert berechnen</span></span></code></pre></div>
 <pre><code>## [1] 3 8 3 8 3 8</code></pre>
-<div class="sourceCode" id="cb423"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb423-1"><a href="schleifen-und-funktionen.html#cb423-1" tabindex="-1"></a><span class="fu">apply</span>(mat, <span class="dv">2</span>, sum)  <span class="co"># Summe berechnen</span></span></code></pre></div>
+<div class="sourceCode" id="cb425"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb425-1"><a href="schleifen-und-funktionen.html#cb425-1" tabindex="-1"></a><span class="fu">apply</span>(mat, <span class="dv">2</span>, sum)  <span class="co"># Summe berechnen</span></span></code></pre></div>
 <pre><code>## [1] 15 40 15 40 15 40</code></pre>
-<div class="sourceCode" id="cb425"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb425-1"><a href="schleifen-und-funktionen.html#cb425-1" tabindex="-1"></a><span class="fu">apply</span>(mat, <span class="dv">2</span>, sd)   <span class="co"># Standardabweichung berechnen</span></span></code></pre></div>
+<div class="sourceCode" id="cb427"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb427-1"><a href="schleifen-und-funktionen.html#cb427-1" tabindex="-1"></a><span class="fu">apply</span>(mat, <span class="dv">2</span>, sd)   <span class="co"># Standardabweichung berechnen</span></span></code></pre></div>
 <pre><code>## [1] 1.581139 1.581139 1.581139 1.581139 1.581139
 ## [6] 1.581139</code></pre>
-<div class="sourceCode" id="cb427"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb427-1"><a href="schleifen-und-funktionen.html#cb427-1" tabindex="-1"></a><span class="co"># Die entsprechende Schleife würde so aussehen:</span></span>
-<span id="cb427-2"><a href="schleifen-und-funktionen.html#cb427-2" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">ncol</span>(mat)) {</span>
-<span id="cb427-3"><a href="schleifen-und-funktionen.html#cb427-3" tabindex="-1"></a>  mean_col <span class="ot">&lt;-</span> <span class="fu">mean</span>(mat[, i])</span>
-<span id="cb427-4"><a href="schleifen-und-funktionen.html#cb427-4" tabindex="-1"></a>  <span class="fu">print</span>(mean_col)</span>
-<span id="cb427-5"><a href="schleifen-und-funktionen.html#cb427-5" tabindex="-1"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb429"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb429-1"><a href="schleifen-und-funktionen.html#cb429-1" tabindex="-1"></a><span class="co"># Die entsprechende Schleife würde so aussehen:</span></span>
+<span id="cb429-2"><a href="schleifen-und-funktionen.html#cb429-2" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">ncol</span>(mat)) {</span>
+<span id="cb429-3"><a href="schleifen-und-funktionen.html#cb429-3" tabindex="-1"></a>  mean_col <span class="ot">&lt;-</span> <span class="fu">mean</span>(mat[, i])</span>
+<span id="cb429-4"><a href="schleifen-und-funktionen.html#cb429-4" tabindex="-1"></a>  <span class="fu">print</span>(mean_col)</span>
+<span id="cb429-5"><a href="schleifen-und-funktionen.html#cb429-5" tabindex="-1"></a>}</span></code></pre></div>
 <pre><code>## [1] 3
 ## [1] 8
 ## [1] 3
@@ -467,13 +452,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## [1] 8</code></pre>
 <p>Die Funktion <code>apply()</code> ist besonders nützlich, wenn man mit mehrdimensionalen Strukturen arbeitet und Berechnungen durchführen möchte. Sie kann jedoch mit der Flexibilität von Schleifen nicht mithalten – das sollte man im Hinterkopf behalten.</p>
 </div>
-<div id="hinweise" class="section level3 hasAnchor" number="11.2.2">
-<h3><span class="header-section-number">11.2.2</span> Hinweise<a href="schleifen-und-funktionen.html#hinweise" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="hinweise" class="section level3 hasAnchor" number="6.2.2">
+<h3><span class="header-section-number">6.2.2</span> Hinweise<a href="schleifen-und-funktionen.html#hinweise" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Schleifen und die <code>apply()</code>-Funktion werden in der Programmierung häufig eingesetzt. Dies ist jedoch kein Programmierkurs, sondern eine Einführung – jetzt habt ihr eine Vorstellung davon, was passiert, wenn ihr diese beiden Konstrukte in Skripten seht. Wenn ihr euch für das Thema interessiert, empfehle ich euch, euch in <code>while</code>-Schleifen und <code>repeat</code>-Schleifen einzulesen. Die <code>apply()</code>-Funktion ist Teil einer Familie: <code>sapply()</code>, <code>lapply()</code> und <code>tapply()</code> gehören ebenfalls dazu.</p>
 </div>
 </div>
-<div id="eigene-funktionen-schreiben" class="section level2 hasAnchor" number="11.3">
-<h2><span class="header-section-number">11.3</span> Eigene Funktionen schreiben<a href="schleifen-und-funktionen.html#eigene-funktionen-schreiben" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="eigene-funktionen-schreiben" class="section level2 hasAnchor" number="6.3">
+<h2><span class="header-section-number">6.3</span> Eigene Funktionen schreiben<a href="schleifen-und-funktionen.html#eigene-funktionen-schreiben" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Wir können erneut viel Zeit sparen und effizienter arbeiten, indem wir eigene Funktionen schreiben.</p>
 <ul>
 <li>Zunächst muss man der Funktion einen Namen geben.</li>
@@ -482,60 +467,60 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li>Abschließend lässt man die Funktion die gewünschte Größe zurückgeben (<code>return()</code>) und schließt die geschweiften Klammern.</li>
 <li>Danach ist die Funktion gespeichert und kann verwendet werden.</li>
 </ul>
-<div class="sourceCode" id="cb429"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb429-1"><a href="schleifen-und-funktionen.html#cb429-1" tabindex="-1"></a><span class="co"># Meine Funktion berechnet einfach eine Summe</span></span>
-<span id="cb429-2"><a href="schleifen-und-funktionen.html#cb429-2" tabindex="-1"></a></span>
-<span id="cb429-3"><a href="schleifen-und-funktionen.html#cb429-3" tabindex="-1"></a>add <span class="ot">&lt;-</span> <span class="cf">function</span>(x, y) { </span>
-<span id="cb429-4"><a href="schleifen-und-funktionen.html#cb429-4" tabindex="-1"></a>  </span>
-<span id="cb429-5"><a href="schleifen-und-funktionen.html#cb429-5" tabindex="-1"></a>  result <span class="ot">&lt;-</span> x <span class="sc">+</span> y</span>
-<span id="cb429-6"><a href="schleifen-und-funktionen.html#cb429-6" tabindex="-1"></a>  <span class="fu">return</span>(result)</span>
-<span id="cb429-7"><a href="schleifen-und-funktionen.html#cb429-7" tabindex="-1"></a>}</span>
-<span id="cb429-8"><a href="schleifen-und-funktionen.html#cb429-8" tabindex="-1"></a></span>
-<span id="cb429-9"><a href="schleifen-und-funktionen.html#cb429-9" tabindex="-1"></a><span class="fu">add</span>(<span class="dv">2</span>, <span class="dv">7</span>) <span class="co"># Jetzt kann ich meine Funktion verwenden</span></span></code></pre></div>
-<pre><code>## [1] 9</code></pre>
-<p>Berechnen wir den Flächeninhalt eines Kreises:</p>
-<div class="sourceCode" id="cb431"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb431-1"><a href="schleifen-und-funktionen.html#cb431-1" tabindex="-1"></a>aoc <span class="ot">&lt;-</span> <span class="cf">function</span>(radius) {</span>
-<span id="cb431-2"><a href="schleifen-und-funktionen.html#cb431-2" tabindex="-1"></a>  pi <span class="ot">&lt;-</span> <span class="fl">3.14159</span></span>
-<span id="cb431-3"><a href="schleifen-und-funktionen.html#cb431-3" tabindex="-1"></a>  </span>
-<span id="cb431-4"><a href="schleifen-und-funktionen.html#cb431-4" tabindex="-1"></a>  area <span class="ot">&lt;-</span> pi <span class="sc">*</span> radius<span class="sc">^</span><span class="dv">2</span></span>
-<span id="cb431-5"><a href="schleifen-und-funktionen.html#cb431-5" tabindex="-1"></a>  </span>
-<span id="cb431-6"><a href="schleifen-und-funktionen.html#cb431-6" tabindex="-1"></a>  <span class="fu">return</span>(area)</span>
+<div class="sourceCode" id="cb431"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb431-1"><a href="schleifen-und-funktionen.html#cb431-1" tabindex="-1"></a><span class="co"># Meine Funktion berechnet einfach eine Summe</span></span>
+<span id="cb431-2"><a href="schleifen-und-funktionen.html#cb431-2" tabindex="-1"></a></span>
+<span id="cb431-3"><a href="schleifen-und-funktionen.html#cb431-3" tabindex="-1"></a>add <span class="ot">&lt;-</span> <span class="cf">function</span>(x, y) { </span>
+<span id="cb431-4"><a href="schleifen-und-funktionen.html#cb431-4" tabindex="-1"></a>  </span>
+<span id="cb431-5"><a href="schleifen-und-funktionen.html#cb431-5" tabindex="-1"></a>  result <span class="ot">&lt;-</span> x <span class="sc">+</span> y</span>
+<span id="cb431-6"><a href="schleifen-und-funktionen.html#cb431-6" tabindex="-1"></a>  <span class="fu">return</span>(result)</span>
 <span id="cb431-7"><a href="schleifen-und-funktionen.html#cb431-7" tabindex="-1"></a>}</span>
 <span id="cb431-8"><a href="schleifen-und-funktionen.html#cb431-8" tabindex="-1"></a></span>
-<span id="cb431-9"><a href="schleifen-und-funktionen.html#cb431-9" tabindex="-1"></a><span class="fu">aoc</span>(<span class="dv">5</span>)</span></code></pre></div>
+<span id="cb431-9"><a href="schleifen-und-funktionen.html#cb431-9" tabindex="-1"></a><span class="fu">add</span>(<span class="dv">2</span>, <span class="dv">7</span>) <span class="co"># Jetzt kann ich meine Funktion verwenden</span></span></code></pre></div>
+<pre><code>## [1] 9</code></pre>
+<p>Berechnen wir den Flächeninhalt eines Kreises:</p>
+<div class="sourceCode" id="cb433"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb433-1"><a href="schleifen-und-funktionen.html#cb433-1" tabindex="-1"></a>aoc <span class="ot">&lt;-</span> <span class="cf">function</span>(radius) {</span>
+<span id="cb433-2"><a href="schleifen-und-funktionen.html#cb433-2" tabindex="-1"></a>  pi <span class="ot">&lt;-</span> <span class="fl">3.14159</span></span>
+<span id="cb433-3"><a href="schleifen-und-funktionen.html#cb433-3" tabindex="-1"></a>  </span>
+<span id="cb433-4"><a href="schleifen-und-funktionen.html#cb433-4" tabindex="-1"></a>  area <span class="ot">&lt;-</span> pi <span class="sc">*</span> radius<span class="sc">^</span><span class="dv">2</span></span>
+<span id="cb433-5"><a href="schleifen-und-funktionen.html#cb433-5" tabindex="-1"></a>  </span>
+<span id="cb433-6"><a href="schleifen-und-funktionen.html#cb433-6" tabindex="-1"></a>  <span class="fu">return</span>(area)</span>
+<span id="cb433-7"><a href="schleifen-und-funktionen.html#cb433-7" tabindex="-1"></a>}</span>
+<span id="cb433-8"><a href="schleifen-und-funktionen.html#cb433-8" tabindex="-1"></a></span>
+<span id="cb433-9"><a href="schleifen-und-funktionen.html#cb433-9" tabindex="-1"></a><span class="fu">aoc</span>(<span class="dv">5</span>)</span></code></pre></div>
 <pre><code>## [1] 78.53975</code></pre>
 <p>Verknüpfen wir nun, was wir in diesem Kapitel gelernt haben, mit einem Beispiel aus dem Klassenzimmer. Den folgenden Code müsst ihr nicht vollständig verstehen – ich möchte ihn auch nicht im Detail erklären. Es geht darum zu zeigen, was Schleifen und Funktionen leisten können. Alle Pakete basieren schließlich auf Funktionen und Schleifen, daher ist es hilfreich, einen Überblick zu bekommen, wie das aussehen kann.</p>
 <p>In dieser Schleife lassen wir R ausgeben, wo Personen in einem Klassenzimmer sitzen. Die Sitzordnung ist dabei nichts anderes als eine Matrix – mit Zeilen und Spalten. Die Schleife identifiziert, in welcher Zeile (i) und in welcher Spalte (j) eine Person sitzt. Die Werte in der Matrix sind Studierenden-IDs, und die Schleife kennt diese IDs und gibt aus, welche Person wo sitzt. Das ist eine unnötige Schleife für diesen kleinen Datensatz – aber ein gutes Beispiel. Stellt euch vor, die Klasse hätte 1000 Personen: Dann wäre diese Schleife notwendig. Wie gesagt: Ihr müsst das nicht vollständig verstehen. Es soll illustrieren, was in R möglich ist.</p>
-<div class="sourceCode" id="cb433"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb433-1"><a href="schleifen-und-funktionen.html#cb433-1" tabindex="-1"></a><span class="co"># Die Funktion</span></span>
-<span id="cb433-2"><a href="schleifen-und-funktionen.html#cb433-2" tabindex="-1"></a>print_classroom <span class="ot">&lt;-</span> <span class="cf">function</span>(x) {</span>
-<span id="cb433-3"><a href="schleifen-und-funktionen.html#cb433-3" tabindex="-1"></a>  <span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">length</span>(x)) {        <span class="co"># Äußere Schleife iteriert über Zeilen</span></span>
-<span id="cb433-4"><a href="schleifen-und-funktionen.html#cb433-4" tabindex="-1"></a>    <span class="cf">for</span> (j <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">length</span>(x[[i]])) { <span class="co"># Innere Schleife iteriert über Spalten</span></span>
-<span id="cb433-5"><a href="schleifen-und-funktionen.html#cb433-5" tabindex="-1"></a>      student <span class="ot">&lt;-</span> x[[i]][j]</span>
-<span id="cb433-6"><a href="schleifen-und-funktionen.html#cb433-6" tabindex="-1"></a>      <span class="cf">if</span> (student <span class="sc">==</span> <span class="dv">1</span>) {</span>
-<span id="cb433-7"><a href="schleifen-und-funktionen.html#cb433-7" tabindex="-1"></a>        comment <span class="ot">&lt;-</span> <span class="st">&quot;Alice&quot;</span></span>
-<span id="cb433-8"><a href="schleifen-und-funktionen.html#cb433-8" tabindex="-1"></a>      } <span class="cf">else</span> <span class="cf">if</span> (student <span class="sc">==</span> <span class="dv">2</span>) {</span>
-<span id="cb433-9"><a href="schleifen-und-funktionen.html#cb433-9" tabindex="-1"></a>        comment <span class="ot">&lt;-</span> <span class="st">&quot;Bob&quot;</span></span>
-<span id="cb433-10"><a href="schleifen-und-funktionen.html#cb433-10" tabindex="-1"></a>      } <span class="cf">else</span> <span class="cf">if</span> (student <span class="sc">==</span> <span class="dv">3</span>) {</span>
-<span id="cb433-11"><a href="schleifen-und-funktionen.html#cb433-11" tabindex="-1"></a>        comment <span class="ot">&lt;-</span> <span class="st">&quot;Cathy&quot;</span></span>
-<span id="cb433-12"><a href="schleifen-und-funktionen.html#cb433-12" tabindex="-1"></a>      } <span class="cf">else</span> <span class="cf">if</span> (student <span class="sc">==</span> <span class="dv">4</span>) {</span>
-<span id="cb433-13"><a href="schleifen-und-funktionen.html#cb433-13" tabindex="-1"></a>        comment <span class="ot">&lt;-</span> <span class="st">&quot;David&quot;</span></span>
-<span id="cb433-14"><a href="schleifen-und-funktionen.html#cb433-14" tabindex="-1"></a>      } <span class="cf">else</span> <span class="cf">if</span> (student <span class="sc">==</span> <span class="dv">5</span>) {</span>
-<span id="cb433-15"><a href="schleifen-und-funktionen.html#cb433-15" tabindex="-1"></a>        comment <span class="ot">&lt;-</span> <span class="st">&quot;Eva&quot;</span></span>
-<span id="cb433-16"><a href="schleifen-und-funktionen.html#cb433-16" tabindex="-1"></a>      } <span class="cf">else</span> {</span>
-<span id="cb433-17"><a href="schleifen-und-funktionen.html#cb433-17" tabindex="-1"></a>        comment <span class="ot">&lt;-</span> <span class="fu">paste</span>(<span class="st">&quot;Unbekannter Student&quot;</span>, student, <span class="st">&quot;macht etwas Interessantes.&quot;</span>)</span>
-<span id="cb433-18"><a href="schleifen-und-funktionen.html#cb433-18" tabindex="-1"></a>      }</span>
-<span id="cb433-19"><a href="schleifen-und-funktionen.html#cb433-19" tabindex="-1"></a>      <span class="fu">cat</span>(<span class="st">&quot;In Zeile&quot;</span>, i, <span class="st">&quot;Spalte&quot;</span>, j, <span class="st">&quot;:&quot;</span>, comment, <span class="st">&quot;</span><span class="sc">\n</span><span class="st">&quot;</span>)</span>
-<span id="cb433-20"><a href="schleifen-und-funktionen.html#cb433-20" tabindex="-1"></a>    }</span>
-<span id="cb433-21"><a href="schleifen-und-funktionen.html#cb433-21" tabindex="-1"></a>  }</span>
-<span id="cb433-22"><a href="schleifen-und-funktionen.html#cb433-22" tabindex="-1"></a>}</span>
-<span id="cb433-23"><a href="schleifen-und-funktionen.html#cb433-23" tabindex="-1"></a></span>
-<span id="cb433-24"><a href="schleifen-und-funktionen.html#cb433-24" tabindex="-1"></a><span class="co"># Beispielverwendung</span></span>
-<span id="cb433-25"><a href="schleifen-und-funktionen.html#cb433-25" tabindex="-1"></a>seating_order <span class="ot">&lt;-</span> <span class="fu">list</span>(</span>
-<span id="cb433-26"><a href="schleifen-und-funktionen.html#cb433-26" tabindex="-1"></a>  <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">5</span>, <span class="dv">2</span>),</span>
-<span id="cb433-27"><a href="schleifen-und-funktionen.html#cb433-27" tabindex="-1"></a>  <span class="fu">c</span>(<span class="dv">4</span>, <span class="dv">3</span>, <span class="dv">7</span>)</span>
-<span id="cb433-28"><a href="schleifen-und-funktionen.html#cb433-28" tabindex="-1"></a>)</span>
-<span id="cb433-29"><a href="schleifen-und-funktionen.html#cb433-29" tabindex="-1"></a></span>
-<span id="cb433-30"><a href="schleifen-und-funktionen.html#cb433-30" tabindex="-1"></a><span class="co"># Ausgabe</span></span>
-<span id="cb433-31"><a href="schleifen-und-funktionen.html#cb433-31" tabindex="-1"></a><span class="fu">print_classroom</span>(seating_order)</span></code></pre></div>
+<div class="sourceCode" id="cb435"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb435-1"><a href="schleifen-und-funktionen.html#cb435-1" tabindex="-1"></a><span class="co"># Die Funktion</span></span>
+<span id="cb435-2"><a href="schleifen-und-funktionen.html#cb435-2" tabindex="-1"></a>print_classroom <span class="ot">&lt;-</span> <span class="cf">function</span>(x) {</span>
+<span id="cb435-3"><a href="schleifen-und-funktionen.html#cb435-3" tabindex="-1"></a>  <span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">length</span>(x)) {        <span class="co"># Äußere Schleife iteriert über Zeilen</span></span>
+<span id="cb435-4"><a href="schleifen-und-funktionen.html#cb435-4" tabindex="-1"></a>    <span class="cf">for</span> (j <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">length</span>(x[[i]])) { <span class="co"># Innere Schleife iteriert über Spalten</span></span>
+<span id="cb435-5"><a href="schleifen-und-funktionen.html#cb435-5" tabindex="-1"></a>      student <span class="ot">&lt;-</span> x[[i]][j]</span>
+<span id="cb435-6"><a href="schleifen-und-funktionen.html#cb435-6" tabindex="-1"></a>      <span class="cf">if</span> (student <span class="sc">==</span> <span class="dv">1</span>) {</span>
+<span id="cb435-7"><a href="schleifen-und-funktionen.html#cb435-7" tabindex="-1"></a>        comment <span class="ot">&lt;-</span> <span class="st">&quot;Alice&quot;</span></span>
+<span id="cb435-8"><a href="schleifen-und-funktionen.html#cb435-8" tabindex="-1"></a>      } <span class="cf">else</span> <span class="cf">if</span> (student <span class="sc">==</span> <span class="dv">2</span>) {</span>
+<span id="cb435-9"><a href="schleifen-und-funktionen.html#cb435-9" tabindex="-1"></a>        comment <span class="ot">&lt;-</span> <span class="st">&quot;Bob&quot;</span></span>
+<span id="cb435-10"><a href="schleifen-und-funktionen.html#cb435-10" tabindex="-1"></a>      } <span class="cf">else</span> <span class="cf">if</span> (student <span class="sc">==</span> <span class="dv">3</span>) {</span>
+<span id="cb435-11"><a href="schleifen-und-funktionen.html#cb435-11" tabindex="-1"></a>        comment <span class="ot">&lt;-</span> <span class="st">&quot;Cathy&quot;</span></span>
+<span id="cb435-12"><a href="schleifen-und-funktionen.html#cb435-12" tabindex="-1"></a>      } <span class="cf">else</span> <span class="cf">if</span> (student <span class="sc">==</span> <span class="dv">4</span>) {</span>
+<span id="cb435-13"><a href="schleifen-und-funktionen.html#cb435-13" tabindex="-1"></a>        comment <span class="ot">&lt;-</span> <span class="st">&quot;David&quot;</span></span>
+<span id="cb435-14"><a href="schleifen-und-funktionen.html#cb435-14" tabindex="-1"></a>      } <span class="cf">else</span> <span class="cf">if</span> (student <span class="sc">==</span> <span class="dv">5</span>) {</span>
+<span id="cb435-15"><a href="schleifen-und-funktionen.html#cb435-15" tabindex="-1"></a>        comment <span class="ot">&lt;-</span> <span class="st">&quot;Eva&quot;</span></span>
+<span id="cb435-16"><a href="schleifen-und-funktionen.html#cb435-16" tabindex="-1"></a>      } <span class="cf">else</span> {</span>
+<span id="cb435-17"><a href="schleifen-und-funktionen.html#cb435-17" tabindex="-1"></a>        comment <span class="ot">&lt;-</span> <span class="fu">paste</span>(<span class="st">&quot;Unbekannter Student&quot;</span>, student, <span class="st">&quot;macht etwas Interessantes.&quot;</span>)</span>
+<span id="cb435-18"><a href="schleifen-und-funktionen.html#cb435-18" tabindex="-1"></a>      }</span>
+<span id="cb435-19"><a href="schleifen-und-funktionen.html#cb435-19" tabindex="-1"></a>      <span class="fu">cat</span>(<span class="st">&quot;In Zeile&quot;</span>, i, <span class="st">&quot;Spalte&quot;</span>, j, <span class="st">&quot;:&quot;</span>, comment, <span class="st">&quot;</span><span class="sc">\n</span><span class="st">&quot;</span>)</span>
+<span id="cb435-20"><a href="schleifen-und-funktionen.html#cb435-20" tabindex="-1"></a>    }</span>
+<span id="cb435-21"><a href="schleifen-und-funktionen.html#cb435-21" tabindex="-1"></a>  }</span>
+<span id="cb435-22"><a href="schleifen-und-funktionen.html#cb435-22" tabindex="-1"></a>}</span>
+<span id="cb435-23"><a href="schleifen-und-funktionen.html#cb435-23" tabindex="-1"></a></span>
+<span id="cb435-24"><a href="schleifen-und-funktionen.html#cb435-24" tabindex="-1"></a><span class="co"># Beispielverwendung</span></span>
+<span id="cb435-25"><a href="schleifen-und-funktionen.html#cb435-25" tabindex="-1"></a>seating_order <span class="ot">&lt;-</span> <span class="fu">list</span>(</span>
+<span id="cb435-26"><a href="schleifen-und-funktionen.html#cb435-26" tabindex="-1"></a>  <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">5</span>, <span class="dv">2</span>),</span>
+<span id="cb435-27"><a href="schleifen-und-funktionen.html#cb435-27" tabindex="-1"></a>  <span class="fu">c</span>(<span class="dv">4</span>, <span class="dv">3</span>, <span class="dv">7</span>)</span>
+<span id="cb435-28"><a href="schleifen-und-funktionen.html#cb435-28" tabindex="-1"></a>)</span>
+<span id="cb435-29"><a href="schleifen-und-funktionen.html#cb435-29" tabindex="-1"></a></span>
+<span id="cb435-30"><a href="schleifen-und-funktionen.html#cb435-30" tabindex="-1"></a><span class="co"># Ausgabe</span></span>
+<span id="cb435-31"><a href="schleifen-und-funktionen.html#cb435-31" tabindex="-1"></a><span class="fu">print_classroom</span>(seating_order)</span></code></pre></div>
 <pre><code>## In Zeile 1 Spalte 1 : Alice 
 ## In Zeile 1 Spalte 2 : Eva 
 ## In Zeile 1 Spalte 3 : Bob 
@@ -543,50 +528,50 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## In Zeile 2 Spalte 2 : Cathy 
 ## In Zeile 2 Spalte 3 : Unbekannter Student 7 macht etwas Interessantes.</code></pre>
 </div>
-<div id="ausblick-5" class="section level2 hasAnchor" number="11.4">
-<h2><span class="header-section-number">11.4</span> Ausblick<a href="schleifen-und-funktionen.html#ausblick-5" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="ausblick-4" class="section level2 hasAnchor" number="6.4">
+<h2><span class="header-section-number">6.4</span> Ausblick<a href="schleifen-und-funktionen.html#ausblick-4" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Dieser Abschnitt war eine kurze Einführung in die Automatisierung von Arbeit und das Schreiben von effizientem Code: Schleifen und Funktionen. Da beide Konzepte sehr schnell komplex werden können, werdet ihr am Anfang eurer R-Reise seltener auf Schleifen und Funktionen zurückgreifen. Irgendwann werdet ihr jedoch auf sie treffen – und je früher ihr sie kennt, desto besser.</p>
 <ul>
 <li>Für weitere Informationen zur Programmierung in R empfehle ich <a href="https://rstudio-education.github.io/hopr/index.html">„Hands-On Programming with R”</a> von Garret Grolemund. In diesem Buch zeigt der Autor Projekte, in denen er Funktionen und Schleifen einsetzt – eine schöne Veranschaulichung ihrer Verwendung.</li>
 </ul>
 </div>
-<div id="übungsaufgaben-4" class="section level2 hasAnchor" number="11.5">
-<h2><span class="header-section-number">11.5</span> Übungsaufgaben<a href="#%C3%BCbungsaufgaben-4" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<div id="übung-1-eine-schleife-schreiben" class="section level3 hasAnchor" number="11.5.1">
-<h3><span class="header-section-number">11.5.1</span> Übung 1: Eine Schleife schreiben<a href="#%C3%BCbung-1-eine-schleife-schreiben" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="übungsaufgaben-4" class="section level2 hasAnchor" number="6.5">
+<h2><span class="header-section-number">6.5</span> Übungsaufgaben<a href="#%C3%BCbungsaufgaben-4" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="übung-1-eine-schleife-schreiben" class="section level3 hasAnchor" number="6.5.1">
+<h3><span class="header-section-number">6.5.1</span> Übung 1: Eine Schleife schreiben<a href="#%C3%BCbung-1-eine-schleife-schreiben" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Schreibe eine <code>for</code>-Schleife, die das Quadrat jeder Zahl von 1 bis 10 ausgibt.</p>
-<div class="sourceCode" id="cb435"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb435-1"><a href="schleifen-und-funktionen.html#cb435-1" tabindex="-1"></a><span class="co"># Objekt für einen besseren Arbeitsablauf zuweisen</span></span>
-<span id="cb435-2"><a href="schleifen-und-funktionen.html#cb435-2" tabindex="-1"></a>number <span class="ot">&lt;-</span> <span class="dv">10</span></span>
-<span id="cb435-3"><a href="schleifen-und-funktionen.html#cb435-3" tabindex="-1"></a></span>
-<span id="cb435-4"><a href="schleifen-und-funktionen.html#cb435-4" tabindex="-1"></a><span class="co"># Die Schleife</span></span></code></pre></div>
+<div class="sourceCode" id="cb437"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb437-1"><a href="schleifen-und-funktionen.html#cb437-1" tabindex="-1"></a><span class="co"># Objekt für einen besseren Arbeitsablauf zuweisen</span></span>
+<span id="cb437-2"><a href="schleifen-und-funktionen.html#cb437-2" tabindex="-1"></a>number <span class="ot">&lt;-</span> <span class="dv">10</span></span>
+<span id="cb437-3"><a href="schleifen-und-funktionen.html#cb437-3" tabindex="-1"></a></span>
+<span id="cb437-4"><a href="schleifen-und-funktionen.html#cb437-4" tabindex="-1"></a><span class="co"># Die Schleife</span></span></code></pre></div>
 </div>
-<div id="übung-2-eine-funktion-schreiben" class="section level3 hasAnchor" number="11.5.2">
-<h3><span class="header-section-number">11.5.2</span> Übung 2: Eine Funktion schreiben<a href="#%C3%BCbung-2-eine-funktion-schreiben" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="übung-2-eine-funktion-schreiben" class="section level3 hasAnchor" number="6.5.2">
+<h3><span class="header-section-number">6.5.2</span> Übung 2: Eine Funktion schreiben<a href="#%C3%BCbung-2-eine-funktion-schreiben" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Schreibe eine Funktion, die den Input x nimmt und ihn quadriert:</p>
-<div class="sourceCode" id="cb436"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb436-1"><a href="schleifen-und-funktionen.html#cb436-1" tabindex="-1"></a><span class="co"># Eine Funktion zum Quadrieren definieren</span></span>
-<span id="cb436-2"><a href="schleifen-und-funktionen.html#cb436-2" tabindex="-1"></a></span>
-<span id="cb436-3"><a href="schleifen-und-funktionen.html#cb436-3" tabindex="-1"></a>sq <span class="ot">&lt;-</span> <span class="cf">function</span>(x) {</span>
-<span id="cb436-4"><a href="schleifen-und-funktionen.html#cb436-4" tabindex="-1"></a>  </span>
-<span id="cb436-5"><a href="schleifen-und-funktionen.html#cb436-5" tabindex="-1"></a>  </span>
-<span id="cb436-6"><a href="schleifen-und-funktionen.html#cb436-6" tabindex="-1"></a>  </span>
-<span id="cb436-7"><a href="schleifen-und-funktionen.html#cb436-7" tabindex="-1"></a>}</span>
-<span id="cb436-8"><a href="schleifen-und-funktionen.html#cb436-8" tabindex="-1"></a></span>
-<span id="cb436-9"><a href="schleifen-und-funktionen.html#cb436-9" tabindex="-1"></a><span class="co"># Einen Vektor von 1 bis 10 definieren</span></span>
-<span id="cb436-10"><a href="schleifen-und-funktionen.html#cb436-10" tabindex="-1"></a>numbers <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>) </span>
-<span id="cb436-11"><a href="schleifen-und-funktionen.html#cb436-11" tabindex="-1"></a></span>
-<span id="cb436-12"><a href="schleifen-und-funktionen.html#cb436-12" tabindex="-1"></a><span class="co"># Die Funktion anwenden</span></span>
-<span id="cb436-13"><a href="schleifen-und-funktionen.html#cb436-13" tabindex="-1"></a><span class="fu">sq</span>(numbers)</span></code></pre></div>
+<div class="sourceCode" id="cb438"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb438-1"><a href="schleifen-und-funktionen.html#cb438-1" tabindex="-1"></a><span class="co"># Eine Funktion zum Quadrieren definieren</span></span>
+<span id="cb438-2"><a href="schleifen-und-funktionen.html#cb438-2" tabindex="-1"></a></span>
+<span id="cb438-3"><a href="schleifen-und-funktionen.html#cb438-3" tabindex="-1"></a>sq <span class="ot">&lt;-</span> <span class="cf">function</span>(x) {</span>
+<span id="cb438-4"><a href="schleifen-und-funktionen.html#cb438-4" tabindex="-1"></a>  </span>
+<span id="cb438-5"><a href="schleifen-und-funktionen.html#cb438-5" tabindex="-1"></a>  </span>
+<span id="cb438-6"><a href="schleifen-und-funktionen.html#cb438-6" tabindex="-1"></a>  </span>
+<span id="cb438-7"><a href="schleifen-und-funktionen.html#cb438-7" tabindex="-1"></a>}</span>
+<span id="cb438-8"><a href="schleifen-und-funktionen.html#cb438-8" tabindex="-1"></a></span>
+<span id="cb438-9"><a href="schleifen-und-funktionen.html#cb438-9" tabindex="-1"></a><span class="co"># Einen Vektor von 1 bis 10 definieren</span></span>
+<span id="cb438-10"><a href="schleifen-und-funktionen.html#cb438-10" tabindex="-1"></a>numbers <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>) </span>
+<span id="cb438-11"><a href="schleifen-und-funktionen.html#cb438-11" tabindex="-1"></a></span>
+<span id="cb438-12"><a href="schleifen-und-funktionen.html#cb438-12" tabindex="-1"></a><span class="co"># Die Funktion anwenden</span></span>
+<span id="cb438-13"><a href="schleifen-und-funktionen.html#cb438-13" tabindex="-1"></a><span class="fu">sq</span>(numbers)</span></code></pre></div>
 </div>
-<div id="übung-3-die-mitternachtsformel" class="section level3 hasAnchor" number="11.5.3">
-<h3><span class="header-section-number">11.5.3</span> Übung 3: Die Mitternachtsformel<a href="#%C3%BCbung-3-die-mitternachtsformel" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="übung-3-die-mitternachtsformel" class="section level3 hasAnchor" number="6.5.3">
+<h3><span class="header-section-number">6.5.3</span> Übung 3: Die Mitternachtsformel<a href="#%C3%BCbung-3-die-mitternachtsformel" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Das ist die Mitternachtsformel, aufgeteilt in zwei Gleichungen:</p>
 <p><span class="math inline">\(x_{1,2} = \frac{-b \pm \sqrt{b^2 - 4ac}}{2a}\)</span></p>
 <p>Schreibe <strong>eine Funktion</strong> für die Mitternachtsformel, sodass die Ausgabe <span class="math inline">\(x_1\)</span> und <span class="math inline">\(x_2\)</span> sind. Teste sie mit a = 2, b = -6, c = -8.</p>
 <p><strong>Hinweis:</strong> Du musst die Formel in zwei Gleichungen mit zwei Ausgaben aufteilen.</p>
-<div class="sourceCode" id="cb437"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb437-1"><a href="schleifen-und-funktionen.html#cb437-1" tabindex="-1"></a>mnf <span class="ot">&lt;-</span> </span>
-<span id="cb437-2"><a href="schleifen-und-funktionen.html#cb437-2" tabindex="-1"></a></span>
-<span id="cb437-3"><a href="schleifen-und-funktionen.html#cb437-3" tabindex="-1"></a></span>
-<span id="cb437-4"><a href="schleifen-und-funktionen.html#cb437-4" tabindex="-1"></a><span class="fu">mnf</span>(<span class="dv">2</span>, <span class="dv">6</span>, <span class="dv">8</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb439"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb439-1"><a href="schleifen-und-funktionen.html#cb439-1" tabindex="-1"></a>mnf <span class="ot">&lt;-</span> </span>
+<span id="cb439-2"><a href="schleifen-und-funktionen.html#cb439-2" tabindex="-1"></a></span>
+<span id="cb439-3"><a href="schleifen-und-funktionen.html#cb439-3" tabindex="-1"></a></span>
+<span id="cb439-4"><a href="schleifen-und-funktionen.html#cb439-4" tabindex="-1"></a><span class="fu">mnf</span>(<span class="dv">2</span>, <span class="dv">6</span>, <span class="dv">8</span>)</span></code></pre></div>
 
 </div>
 </div>

@@ -191,7 +191,7 @@ print(preise_kombiniert)
 Objekte können unterschiedliche Datentypen besitzen:
 
 |               |            |                                                |
-|---------------|---------------|------------------------------------------|
+|---------------|------------|------------------------------------------------|
 | **Numeric**   | Zahlen     | `c(1, 2.4, 3.14, 4)`                           |
 | **Character** | Text       | `c("1", "blue", "Spaß", "monster")`            |
 | **Logical**   | TRUE/FALSE | `c(TRUE, FALSE, TRUE, FALSE)`                  |

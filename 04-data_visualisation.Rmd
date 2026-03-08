@@ -4,16 +4,16 @@ In diesem Kapitel stelle ich dir den meiner Meinung nach **spannendsten Teil in 
 
 Das Ziel dieses Kapitels ist es:
 
-- die grundlegenden Diagrammtypen kennenzulernen,
-- zu lernen, wie man **ansprechende Grafiken für wissenschaftliche Arbeiten und Berichte erstellt**,  
-- und den Umgang mit dem Paket `ggplot2` zu verstehen.
+-   die grundlegenden Diagrammtypen kennenzulernen,
+-   zu lernen, wie man **ansprechende Grafiken für wissenschaftliche Arbeiten und Berichte erstellt**,\
+-   und den Umgang mit dem Paket `ggplot2` zu verstehen.
 
 ```{r loading packages viz}
 pacman::p_load("tidyverse", "babynames", "sf", "ggridges",
                "rnaturalearth", "rnaturalearthdata" ,"forcats" ,"tmap")
 ```
 
----
+------------------------------------------------------------------------
 
 ## Einführung in `ggplot2`
 
@@ -21,8 +21,8 @@ Das **`tidyverse`** enthält eines der beliebtesten Pakete zur Datenvisualisieru
 
 `ggplot2` basiert auf dem Konzept der **Grammar of Graphics**, das von Leland Wilkinson entwickelt wurde. Auch wenn der Ansatz zunächst komplex erscheinen kann, folgt er einer einfachen Logik:
 
-1. Es wird zunächst ein **Grundgerüst (Frame)** erstellt.
-2. Anschließend werden **Elemente schrittweise hinzugefügt**.
+1.  Es wird zunächst ein **Grundgerüst (Frame)** erstellt.
+2.  Anschließend werden **Elemente schrittweise hinzugefügt**.
 
 Schauen wir uns zuerst die Grundstruktur an und erstellen ein leeres Diagramm. Der zentrale Befehl dafür ist `ggplot()`:
 
@@ -34,9 +34,9 @@ Wie wir sehen können, erhalten wir ein **leeres Diagramm**. In den folgenden Ab
 
 Das ist allerdings nur ein kleiner Teil dessen, was mit Datenvisualisierung in R möglich ist. Ich empfehle sehr, sich intensiver mit diesem Thema zu beschäftigen. R ist bekannt für **besonders schöne und flexible Visualisierungen**, was auch ein wichtiger Grund für seine Popularität ist.
 
----
+------------------------------------------------------------------------
 
-# Verteilungen: Histogramme, Dichteplots und Boxplots
+## Verteilungen: Histogramme, Dichteplots und Boxplots
 
 Die erste Gruppe von Visualisierungen zeigt **Verteilungen von Variablen**.
 
@@ -44,15 +44,15 @@ Es ist immer sinnvoll, sich zunächst einen Überblick darüber zu verschaffen, 
 
 Beispiele:
 
-- Viele statistische Modelle setzen **bestimmte Verteilungen** voraus.
-- Verteilungen helfen dabei zu erkennen, ob diese Annahmen erfüllt sind.
-- Außerdem lassen sich **Ausreißer oder Verzerrungen** leicht erkennen.
+-   Viele statistische Modelle setzen **bestimmte Verteilungen** voraus.
+-   Verteilungen helfen dabei zu erkennen, ob diese Annahmen erfüllt sind.
+-   Außerdem lassen sich **Ausreißer oder Verzerrungen** leicht erkennen.
 
----
+------------------------------------------------------------------------
 
-# Histogramme
+### Histogramme
 
-## Einfaches Histogramm
+#### Einfaches Histogramm
 
 Beginnen wir mit einem normalen Histogramm.
 
@@ -83,8 +83,8 @@ Für ein Histogramm mit `ggplot` benötigen wir zunächst den Befehl `ggplot()`.
 
 In `aes()` definieren wir:
 
-- die **x-Achse**
-- und optional die **y-Achse**
+-   die **x-Achse**
+-   und optional die **y-Achse**
 
 Bei einem Histogramm reicht jedoch die x-Achse, da `ggplot` die **Häufigkeit (Count)** automatisch berechnet.
 
@@ -110,8 +110,8 @@ Das sieht schon besser aus. Aber für einen wissenschaftlichen Artikel oder Beri
 
 Als nächstes sollten wir:
 
-- die **Achsenbeschriftungen anpassen**
-- einen **Titel hinzufügen**
+-   die **Achsenbeschriftungen anpassen**
+-   einen **Titel hinzufügen**
 
 Dafür verwenden wir die Funktion `labs()`.
 
@@ -146,9 +146,9 @@ ggplot(data1, aes(x = value)) +
 
 Jetzt haben wir eine Grafik, die sich **problemlos in einem Bericht oder Paper verwenden lässt**.
 
----
+------------------------------------------------------------------------
 
-## Binwidth
+#### Binwidth
 
 Ein wichtiger Parameter ist die **Breite der Intervalle (binwidth)**.
 
@@ -180,9 +180,9 @@ ggplot(data1, aes(x = value)) +
   theme_minimal()
 ```
 
----
+------------------------------------------------------------------------
 
-# Mehrere Histogramme
+#### Mehrere Histogramme
 
 Nun betrachten wir mehrere Verteilungen gleichzeitig.
 
@@ -223,9 +223,9 @@ ggplot(data2, aes(x=value, fill=type)) +
   theme_bw() 
 ```
 
----
+------------------------------------------------------------------------
 
-# Dichteplots
+### Dichteplots
 
 Ein **Density Plot** zeigt ebenfalls die Verteilung einer numerischen Variable.
 
@@ -233,9 +233,9 @@ Er basiert auf einer **Kernel-Dichteschätzung** und kann als **geglättete Vers
 
 Der Code ist nahezu identisch – lediglich `geom_histogram()` wird durch `geom_density()` ersetzt.
 
----
+------------------------------------------------------------------------
 
-## Einfacher Dichteplot
+#### Einfacher Dichteplot
 
 ```{r basic density}
 ggplot(data1, aes(x = value)) + 
@@ -244,10 +244,10 @@ ggplot(data1, aes(x = value)) +
 
 Wir können hier wieder:
 
-- Farben anpassen
-- Transparenz definieren
-- Achsen beschriften
-- Themes verändern
+-   Farben anpassen
+-   Transparenz definieren
+-   Achsen beschriften
+-   Themes verändern
 
 ```{r density color}
 ggplot(data1, aes(x = value, fill =)) + 
@@ -263,9 +263,9 @@ ggplot(data1, aes(x = value, fill =)) +
   theme_minimal()
 ```
 
----
+------------------------------------------------------------------------
 
-## Mehrere Dichteplots
+#### Mehrere Dichteplots
 
 Auch mehrere Verteilungen lassen sich gleichzeitig darstellen:
 
@@ -279,11 +279,11 @@ ggplot(data2, aes(x=value, fill=type)) +
   theme_minimal() 
 ```
 
----
+------------------------------------------------------------------------
 
-# Boxplots
+### Boxplots
 
-## Einfache Boxplots
+#### Einfache Boxplots
 
 Die letzte Visualisierungsform für Verteilungen sind **Boxplots**.
 
@@ -292,7 +292,6 @@ Boxplots sind besonders informativ, da sie mehrere statistische Kennwerte gleich
 Schauen wir uns zunächst die **Anatomie eines Boxplots** an:
 
 ![Anatomy of a Boxplot](images/Boxplot_graph.jpg){fig-align="center" width="647"}
-
 
 -   **Das schwarze Rechteck** repräsentiert den Interquartilsabstand (IQR), also die Differenz zwischen dem 25. und 75. Perzentil der Daten.
 
@@ -303,12 +302,14 @@ Schauen wir uns zunächst die **Anatomie eines Boxplots** an:
 -   **Die Punkte außerhalb der schwarzen Linien** sind potenzielle Ausreißer, und die Punkte an den Enden sind der minimale bzw. maximale Wert der Daten. Wir sollten auf sie achten, denn wenn wir sie ignorieren, könnten sie unsere statistischen Modelle verzerren – mehr dazu in Kapitel 6.
 
 Implementieren wir nun einen Boxplot in R. Wieder ändert sich nur eine Kleinigkeit: Wir verwenden die Standardfunktion `ggplot()` und fügen anschließend die Funktion `geom_boxplot()` hinzu:
+
 ```{r einfacher boxplot}
 ggplot(data1, aes(x = value)) + 
   geom_boxplot()
 ```
 
 Auch diesen Graphen können wir mit den gleichen Techniken wie zuvor optisch verbessern:
+
 ```{r boxplot beispiel}
 ggplot(data1, aes(x = value)) + 
   geom_boxplot() + 
@@ -324,6 +325,7 @@ ggplot(data1, aes(x = value)) +
 #### Mehrere Boxplots
 
 Ein großer Vorteil von Boxplots ist, dass sie eine einfache Möglichkeit bieten, die Struktur von Verteilungen verschiedener Gruppen zu vergleichen. Betrachten wir folgendes Beispiel: Wir möchten das Einkommen von Menschen mit Migrationshintergrund und Menschen ohne Migrationshintergrund vergleichen. Angenommen, wir haben eine Stichprobe von 2000 Personen erhoben, davon 1000 mit und 1000 ohne Migrationshintergrund. Außerdem haben wir das Einkommen jeder befragten Person erfasst. Beachte, dass wir nun die y-Achse mit dem Einkommen definieren müssen, da wir nicht mehr die Häufigkeit der Verteilung betrachten, sondern die Verteilung über eine andere Variable (hier: Einkommen). Schauen wir uns zunächst den Plot an:
+
 ```{r daten simulieren fuer zweiten boxplot}
 # Reproduzierbarkeit sicherstellen
 set.seed(123)
@@ -340,6 +342,7 @@ data3 <- data.frame(
                                 each = 1000))
 )
 ```
+
 ```{r gruppierter boxplot}
 ggplot(data3, aes(x = age, 
                  y = income, fill = age)) +
@@ -347,6 +350,7 @@ geom_boxplot()
 ```
 
 Bevor wir den Plot interpretieren, machen wir ihn zunächst etwas ansprechender: Wir ändern die Beschriftungen der x- und y-Achse und geben dem Plot einen Titel mit der Funktion `labs()`. Die Farben gefallen mir nicht besonders, deshalb ändern wir sie mit `scale_fill_manual()`. Außerdem setzen wir wieder `alpha = 0.5` und definieren `width = 0.5` für die Boxen in `geom_boxplot()`. Ich denke außerdem, dass wir keine Legende benötigen, daher entfernen wir sie mit der Funktion `theme()`. Diese Funktion ist sehr mächtig, da ihre Spezifikation uns viele Möglichkeiten bietet, den Plot nach unseren Wünschen zu gestalten. Wir legen in der `theme()`-Funktion fest, dass `legend.position = "none"` sein soll, was bedeutet, dass keine Legende angezeigt wird:
+
 ```{r mehrere boxplots}
 # Boxplot erstellen
 ggplot(data3, aes(x = age, y = income, fill = age)) +
@@ -374,6 +378,7 @@ Ich könnte den ganzen Tag so weitermachen – Boxplots sind sehr informativ und
 Die bekannteste und einfachste Möglichkeit, Werte verschiedener Gruppen darzustellen, ist der Barplot. Ein Barplot (oder Balkendiagramm) ist eine der häufigsten Arten von Grafiken. Er zeigt die Beziehung zwischen einer numerischen und einer kategorialen Variable. Jede Kategorie der kategorialen Variable wird als Balken dargestellt. Die Höhe des Balkens entspricht ihrem numerischen Wert.
 
 -   In ggplot müssen wir lediglich die x-Achse und die y-Achse innerhalb der `ggplot()`-Funktion definieren und anschließend die Funktion `geom_bar()` hinzufügen. Innerhalb von `geom_bar()` müssen wir `stat = "identity"` hinzufügen, aus dem einfachen Grund, dass wir ggplot2 mitteilen müssen, die Zahlen aus der Spalte `strength` anzuzeigen – andernfalls erhalten wir einen Fehler.
+
 ```{r barplot daten}
 # Daten erstellen
 data4 <- data.frame(
@@ -390,6 +395,7 @@ ggplot(data4, aes(x = name, y = strength)) +
 Auch hier können wir das Erscheinungsbild unseres Plots verändern. Wir beginnen damit, die Farbe zu ändern, indem wir sie innerhalb der Funktion `geom_bar()` festlegen. Danach setzen wir ein Theme – diesmal verwenden wir `theme_test()` – und ändern die Namen der Achsen mit der Funktion `labs()`.
 
 *Hinweis: Ich kann die Beschriftung der x-Achse deaktivieren, indem ich einfach leere Anführungszeichen in der `labs()`-Funktion angebe.*
+
 ```{r einfacher barplot}
 ggplot(data4, aes(x = name, y = strength)) + 
   geom_bar(stat = "identity", fill = "#AE388B") +
@@ -402,6 +408,7 @@ ggplot(data4, aes(x = name, y = strength)) +
 ```
 
 Es gibt noch eine weitere Möglichkeit, Barplots einzusetzen: Wir können sie nutzen, um Kategorien zu zählen. Ähnlich wie bei einem Histogramm, allerdings mit dem Unterschied, dass wir hier keine Zahlenbereiche zählen. Stattdessen haben wir Gruppen und möchten zählen, wie oft diese Gruppen in unserem Datensatz vorkommen. Nehmen wir an, wir haben 20 Kinder gefragt, welcher fiktive Charakter ihr Lieblingscharakter ist: Superman, King Kong oder Godzilla.
+
 ```{r barplot zaehl-daten}
 data5 <- data.frame(
   hero = c(rep("Superman", 10), 
@@ -415,6 +422,7 @@ data5 <- data.frame(
              rep("Male", 4))
 ) 
 ```
+
 ```{r barplot zaehlung}
 ggplot(data5, aes(x = hero)) + 
   geom_bar(fill = "#AE388B") +
@@ -430,6 +438,7 @@ ggplot(data5, aes(x = hero)) +
 Wir könnten beide Barplots auch drehen, sodass ein horizontaler Barplot entsteht. Das ist ganz einfach: Wir müssen lediglich die Funktion `coord_flip()` hinzufügen. Diese Funktion tauscht die x-Achse und die y-Achse.
 
 Schauen wir uns die Plots an:
+
 ```{r barplot gedreht}
 # Plot 1 
 ggplot(data4, aes(x = name, y = strength)) + 
@@ -464,6 +473,7 @@ Um einen Barplot intuitiver zu gestalten, können wir ihn so sortieren, dass der
 -   Wir nehmen den Code von oben und umschließen den x-Wert mit dem Befehl `fct_reorder()`. Dabei geben wir an, nach welchem Wert sortiert werden soll – in unserem Fall ist der x-Wert der Name des fiktiven Charakters und der Sortierwert ist die Stärke bzw. die Häufigkeit.
 
 Hinweis: Die absteigende Sortierung ist ebenfalls möglich, indem man den Sortierwert mit `desc()` umschließt, also z. B.: `fct_reorder(name, desc(strength))`.
+
 ```{r barplot sortiert}
 # Plot 1
 ggplot(data4, aes(x = fct_reorder(name, strength), y = strength)) + 
@@ -490,6 +500,7 @@ ggplot(data4, aes(x = fct_reorder(name, strength), y = strength)) +
 ### Gruppierte und gestapelte Barplots
 
 Wir können Barplots noch einen Schritt weiterdenken und sie gruppieren. Nehmen wir an, wir haben Befragte gebeten, uns auf einer Skala von 0 bis 10 anzugeben, wie gesund sie sich fühlen. Dabei möchten wir Befragte über 40 und unter 40 Jahren trennen und zusätzlich nach Geschlecht unterscheiden. Wir betrachten also den Durchschnittswert von 4 Gruppen: Weiblich über 40, Männlich über 40, Weiblich unter 40 und Männlich unter 40 – um zu sehen, ob es geschlechtsspezifische Unterschiede innerhalb der Altersgruppen gibt. Hier sind die Daten:
+
 ```{r daten gruppierter barplot}
 data6 <- data.frame(
   female = c("Weiblich", "Männlich", "Weiblich", "Männlich"), 
@@ -499,12 +510,14 @@ data6 <- data.frame(
 ```
 
 Nun haben wir die Daten. Wir müssen innerhalb von `aes()` drei Parameter definieren: Die x-Achse bildet die Altersgruppen ab, die y-Achse den Durchschnittswert, und wir müssen `fill = female` definieren, da dies die Gruppe ist, die wir innerhalb der Altersgruppen untersuchen möchten. Innerhalb von `geom_bar()` benötigen wir zwei Argumente: `stat = "identity"` und `position = "dodge"`. Et voilà – so erhalten wir unseren ersten **gruppierten Barplot**.
+
 ```{r gruppierter barplot nebeneinander}
 ggplot(data6, aes(x = age, y = value, fill = female)) + 
     geom_bar(position = "dodge", stat="identity") 
 ```
 
 Alternativ können wir einen **gestapelten Barplot** verwenden. Der Unterschied besteht darin, dass wir einen Balken für unsere x-Achsen-Gruppe haben – in unserem Beispiel die Altersgruppe – und die Anteile der zweiten Gruppe, das Geschlecht, werden übereinander gestapelt. Man kann das auch als normalen Barplot betrachten, bei dem der Balken je nach prozentualer Verteilung der anderen Gruppe eingefärbt ist. Im Code ändert sich lediglich, dass wir das Argument `position` in `geom_bar()` auf `position = "stack"` setzen:
+
 ```{r gruppierter barplot gestapelt}
 ggplot(data6, aes(x = age, y = value, fill = female)) + 
     geom_bar(position = "stack", stat="identity") 
@@ -515,6 +528,7 @@ Nun gestalten wir die Plots mit unseren bekannten Techniken ansprechender. Dabei
 -   Das Argument `width = 0.35` wird in `geom_bar()` eingefügt, um die Breite der Balken festzulegen.
 
 -   Ich stelle euch sogenannte Farbpaletten vor. Anstatt die Farben manuell zu skalieren, könnt ihr vordefinierte Farbpaletten für verschiedene Plottypen verwenden. Für Barplots kann man `scale_fill_brewer()` nutzen, das verschiedene Paletten und Farben enthält, die automatisch angezeigt werden. Eine Übersicht der verfügbaren Paletten findet ihr [hier](https://r-graph-gallery.com/38-rcolorbrewers-palettes.html). Das ist besonders hilfreich, wenn man viele Gruppen hat und sich nicht selbst um aufeinander abgestimmte Farben kümmern möchte.
+
 ```{r barplot mit farbpaletten}
 # Plot 1
 ggplot(data6, aes(x = age, y = value, fill = female)) + 
@@ -553,6 +567,7 @@ Ein sehr bekannter Plottyp ist das Liniendiagramm. Es ist eine weit verbreitete 
 ### Einfaches Liniendiagramm
 
 In ggplot verwenden wir wie gewohnt die `ggplot()`-Funktion, definieren unsere x- und y-Achse und fügen die Funktion `geom_line()` hinzu.
+
 ```{r daten simulieren fuer liniendiagramm}
 # Seed setzen
 set.seed(500)
@@ -562,6 +577,7 @@ y <- cumsum(rnorm(25))
 y2 <- cumsum(rnorm(25))
 data7 <- data.frame(date, y, y2)
 ```
+
 ```{r einfaches liniendiagramm}
 ggplot(data7, aes(x = date, y = y)) + 
   geom_line()
@@ -574,6 +590,7 @@ Normalerweise würden wir den Plot nun verschönern. Aber zunächst gibt es eini
 -   Zweitens ändere ich die Linienstärke mit `size = 1` im `geom_line()`-Befehl.
 
 -   Die übrigen Gestaltungselemente bleiben gleich: Achsen neu skalieren, Farben anpassen und Themes setzen.
+
 ```{r gestricheltes liniendiagramm}
 ggplot(data7, aes(x = date, y = y)) + 
   geom_line(color = "#0F52BA", linetype = "dashed",
@@ -598,6 +615,7 @@ Im nächsten Schritt möchten wir mehrere Linien in einem Plot darstellen. Das i
 -   Im ersten `geom_line()`-Befehl fügen wir die `aes()`-Funktion hinzu und definieren x und y. Bisher haben wir die `aes()`-Funktion immer innerhalb der `ggplot()`-Funktion geschrieben – nun müssen wir sie in der `geom_line()`-Funktion angeben, da wir eine weitere `geom_line()`-Ebene hinzufügen.
 
 -   Im zweiten `geom_line()`-Befehl definieren wir unsere nächste Ebene. Die x-Achse bleibt logischerweise gleich, aber wir ändern y und setzen es auf die zweite Variable, die wir darstellen möchten.
+
 ```{r mehrere linien}
 ggplot(data7) + 
   geom_line(aes(x = date, y = y)) +
@@ -607,6 +625,7 @@ ggplot(data7) +
 Wie immer gestalten wir den Plot im nächsten Schritt ansprechender. Ich verwende denselben Code wie oben. Bezüglich der Linien selbst können wir die Gestaltung für jede Ebene separat festlegen:
 
 -   Wir können Linientyp, Farbe und Stärke für jede Ebene unterschiedlich definieren. Wir müssen dies lediglich im jeweiligen `geom_line()`-Befehl der entsprechenden Ebene angeben.
+
 ```{r mehrere farbige linien}
 ggplot(data7) + 
   geom_line(aes(x = date, y = y), 
@@ -631,12 +650,14 @@ ggplot(data7) +
 ### Gruppierte Liniendiagramme
 
 Eine weitere Möglichkeit, Liniendiagramme einzusetzen, ist die getrennte Darstellung der Entwicklung verschiedener Gruppen. Ich stelle euch den `babynames`-Datensatz vor – ein R-Paket, das automatisch Daten zu den beliebtesten Babynamen in den USA von 1880 bis 2017 lädt. Schauen wir uns den Datensatz an:
+
 ```{r babynamen}
 # Datensatz betrachten
 head(babynames)
 ```
 
 Nehmen wir an, wir interessieren uns für die Popularität der Namen Michael, Abby und Lisa. Wir reduzieren den Datensatz mit der `filter()`-Funktion, die ihr im vorherigen Kapitel kennengelernt habt, auf diese drei Namen:
+
 ```{r babynamen bereinigen}
 babynames_cut <- babynames %>%
   filter(name %in% c("Emma", "Kimberly", "Ruth")) %>%
@@ -646,6 +667,7 @@ babynames_cut <- babynames %>%
 Im nächsten Schritt stellen wir die Popularität dieser drei Namen über die Zeit dar.
 
 -   Wir definieren die x- und y-Achse und fügen eine `geom_line()`-Ebene hinzu – soweit wie gewohnt. Als Nächstes teilen wir ggplot2 mit, dass wir Gruppen darstellen möchten, indem wir in der `ggplot()`-Funktion `group = name` setzen. Außerdem sollten wir `color = name` setzen, da sonst alle Linien schwarz sind und wir nicht erkennen können, welche Linie zu welcher Gruppe gehört.
+
 ```{r einfaches liniendiagramm gruppen}
 ggplot(babynames_cut, aes(x = year, y = n,
                       group = name,
@@ -656,6 +678,7 @@ ggplot(babynames_cut, aes(x = year, y = n,
 Das sieht gut aus – wir können erkennen, dass Ruth in den 1920er Jahren seinen Höhepunkt hatte, Kimberly in den 1960er Jahren und Emma aktuell im Aufstieg ist. Nun gestalten wir den Plot mit einem Theme, entfernen den Legendentitel, vergeben aussagekräftige Achsenbeschriftungen und fügen eine Farbpalette mit `scale_color_brewer()` hinzu.
 
 -   Bezüglich der Beschriftungen zeige ich euch, wie man die Legende umbenennt: Einfach `color = "Neuer Name"` in der `labs()`-Funktion angeben.
+
 ```{r farbiges liniendiagramm}
 ggplot(babynames_cut, aes(x = year, y = n,
                       group = name,
@@ -678,6 +701,7 @@ Der letzte Visualisierungstyp sind Streudiagramme (Scatterplots). Ein Streudiagr
 ### Einfaches Streudiagramm
 
 Wir möchten die Beziehung zwischen zwei Variablen untersuchen. Nehmen wir an, wir sind der Inhaber eines großen Schokoladenunternehmens und möchten herausfinden, wie sich unsere Marketingausgaben auf den Verkauf unserer Schokolade auswirken. Wir verfügen über Daten für jedes Quartal eines Jahres über mehrere Jahre hinweg:
+
 ```{r daten fuer streudiagramm}
 # Seed für Reproduzierbarkeit setzen
 set.seed(123)
@@ -702,6 +726,7 @@ Ein Streudiagramm in R wird nach derselben Logik wie immer erstellt:
 -   Zunächst definieren wir die x- und y-Achse im `ggplot()`-Befehl.
 
 -   Dann fügen wir die Funktion `geom_point()` hinzu.
+
 ```{r einfaches streudiagramm}
 ggplot(data_point, aes(x = marketing_budget, 
                        y = sales)) +
@@ -709,6 +734,7 @@ ggplot(data_point, aes(x = marketing_budget,
 ```
 
 Nun gestalten wir den Plot ansprechender: Wir definieren eine Farbe für die Punkte in der Ebene, also in der `geom_point()`-Funktion, skalieren die Achsen neu (in diesem Fall nur die x-Achse), benennen die Achsen um, vergeben einen Titel und definieren ein Theme.
+
 ```{r streudiagramm milch}
 ggplot(data_point, aes(x = marketing_budget, 
                        y = sales)) +
@@ -725,6 +751,7 @@ ggplot(data_point, aes(x = marketing_budget,
 ### Streudiagramme mit mehreren Gruppen
 
 Weiter mit unserem Beispiel: Wir verkaufen nicht nur eine Schokoladensorte, sondern zwei – Vollmilchschokolade und dunkle Schokolade. Holen wir uns auch die Daten für die dunkle Schokolade:
+
 ```{r weitere daten fuer streudiagramm}
 # Seed für Reproduzierbarkeit setzen
 set.seed(123)
@@ -750,6 +777,7 @@ Wir könnten denselben Code wie oben verwenden, wären dann jedoch nicht in der 
 -   Deshalb müssen wir in der `aes()`-Funktion das Argument `color = name` angeben. Dadurch werden die Punkte entsprechend ihrer Gruppe eingefärbt.
 
 -   Ich werde die Farben manuell festlegen, da ich in diesem Beispiel Brauntöne verwenden möchte.
+
 ```{r schokolade und marketing}
 ggplot(data8, aes(x = marketing_budget, 
                        y = sales, 
@@ -778,6 +806,7 @@ Die Verwendung von Farben ist eine Möglichkeit, Gruppen in Streudiagrammen zu u
 -   In der `labs()`-Funktion ändern wir das Argument `color = "Produkt"` zu `shape = "Produkt"`, da wir nun die Legende der Form-Ebene benennen und nicht mehr die der Farb-Ebene.
 
 Schauen wir uns das Ergebnis an:
+
 ```{r streudiagramm mit formen}
 ggplot(data8, aes(x = marketing_budget, 
                        y = sales, 
@@ -800,6 +829,7 @@ Es gibt verschiedene Formtypen, die wir manuell über Zahlen festlegen können.
 -   Wir können auch verschiedene Farben mit verschiedenen Formen kombinieren, indem wir das Argument `color = name` in der `ggplot()`-Funktion belassen.
 
 -   In der `labs()`-Funktion setzen wir dann `color = ""` und `shape = ""`, sodass die Legende die eingefärbten Formen anzeigt.
+
 ```{r farben und formen}
 ggplot(data8, aes(x = marketing_budget, 
                        y = sales, 
@@ -826,6 +856,7 @@ Manchmal möchten wir nicht die Elemente innerhalb eines Plots vergleichen (z. B
 ### Die `facet_wrap()`-Funktion
 
 Das klingt noch etwas abstrakt – bleiben wir bei unserem Schokoladenunternehmen. Wir möchten den Effekt unseres Marketingbudgets auf die Verkäufe für verschiedene Quartale vergleichen und denselben Scatterplot wie zuvor darstellen, diesmal jedoch für jedes Quartal separat. Natürlich könnten wir den Datensatz nach Quartal aufteilen und 4 einzelne Plots erstellen – aber das ist nicht effizient. Kopieren wir stattdessen den Code von oben und fügen die `facet_wrap()`-Funktion hinzu. Innerhalb dieser Funktion verwenden wir das Tilde-Symbol `~` gefolgt von der Variable, nach der wir aufteilen möchten – in unserem Fall die Quartale.
+
 ```{r einfaches facet_wrap}
 # Einfache facet_wrap()-Funktion
 ggplot(data8, aes(x = marketing_budget, 
@@ -835,6 +866,7 @@ ggplot(data8, aes(x = marketing_budget,
 ```
 
 Wie wir sehen, erstellt ggplot2 automatisch 4 Graphen – einen für jedes Quartal. Anstatt 4 Graphen manuell zu erstellen und unnötig langen Code zu schreiben, können wir die praktische `facet_wrap()`-Funktion nutzen. Um die Graphen ansprechend zu gestalten, gehen wir genauso vor wie bei einem einzelnen Plot – wir können einfach den Code von oben übernehmen und ergänzen:
+
 ```{r facet_wrap mit farben}
 ggplot(data8, aes(x = marketing_budget, 
                        y = sales)) +
@@ -850,6 +882,7 @@ ggplot(data8, aes(x = marketing_budget,
 ```
 
 Wir können die `facet_wrap()`-Funktion auch auf unseren Plot mit verschiedenen Formen und Farben für Vollmilch- und dunkle Schokolade anwenden:
+
 ```{r facet_wrap mit formen und farben}
 ggplot(data8, aes(x = marketing_budget, 
                        y = sales, 
@@ -877,6 +910,7 @@ Die `facet_grid()`-Funktion funktioniert ähnlich wie `facet_wrap()`, ermöglich
 -   Da wir zwei Dimensionen haben, müssen wir beide definieren. Wir legen zunächst die Zeile und dann die Spalte fest, getrennt durch das Tilde-Symbol `~`: `facet_grid(Zeile ~ Spalte)`.
 
 -   Wir verwenden die `geom_line()`-Funktion und gestalten den Plot ansprechend: aussagekräftige Achsenbeschriftungen, eindeutige Farben für jedes Jahr, ein Titel, ein Theme und keine Legende, da diese ohnehin nur zeigen würde, dass die Jahre unterschiedliche Farben haben.
+
 ```{r daten facet_grid}
 # Seed für Reproduzierbarkeit setzen
 set.seed(123)
@@ -916,15 +950,16 @@ p <- ggplot(data9, aes(x = Month, y = Temperature, group = Year, color = factor(
 p
 ```
 
-## Ausblick
+## Zusammenfassung
 
 Das war eine kurze Einführung in die Datenvisualisierung in R und die grundlegenden Visualisierungen, die in der Datenanalyse verwendet werden. Die meisten Visualisierungen beginnen mit diesen Grundplots, und wie ihr gesehen habt, ist der Arbeitsablauf immer gleich: Zunächst erstellt man den Grundplot, dann fügt man die gewünschten Ebenen hinzu. ggplot2 wirkt am Anfang kompliziert, aber da Datenvisualisierung eine zentrale Aufgabe in der Datenwissenschaft und Forschung ist, werdet ihr sehr schnell sehr routiniert damit umgehen.
 
-Ich kann euch nur ermutigen, die Welt der Datenvisualisierung in R mit ggplot2 weiter zu erkunden. In diesem Abschnitt möchte ich einen kurzen Einblick geben, was alles möglich ist:
+Ich kann euch nur ermutigen, die Welt der Datenvisualisierung in R mit ggplot2 weiter zu erkunden. In diesem Abschnitt möchte ich einen kurzen Einblick geben, was an weiterführenden Grafiken möglich ist:
 
 ### Verschiedene Graphentypen kombinieren
 
 Man kann auch verschiedene Graphentypen miteinander kombinieren. Aber Vorsicht! Zu viele Elemente in einem Graphen können ablenkend wirken. Im Folgenden präsentiere ich einen Graphen mit zwei y-Achsen – eine für ein Liniendiagramm mit Punkten und eine für einen Barplot. Die x-Achse zeigt die Monate des Jahres:
+
 ```{r mehrere graphen in einem graphen}
 # Beispieldaten simulieren
 data10 <- data.frame(
@@ -962,6 +997,7 @@ ggplot(data10, aes(x = months)) +
 Zwei Visualisierungen, die immer beliebter werden: der Ridgeline Chart und der Violin Chart.
 
 Der Violin Chart stellt einen Dichtegraphen horizontal dar und spiegelt ihn zusätzlich, sodass eine symmetrische Form entsteht:
+
 ```{r violin chart}
 # Seed für Reproduzierbarkeit setzen
 set.seed(123)  
@@ -997,6 +1033,7 @@ ggplot(sports_data, aes(x = sport, y = height, fill = sport)) +
 ```
 
 Der Ridgeline Chart ist eine elegante Möglichkeit, mehr als zwei Verteilungen miteinander zu vergleichen. Die Idee dabei ist, die Skala auf der x-Achse darzustellen und auf der y-Achse die zu vergleichenden Gruppen abzutragen:
+
 ```{r ridgeline plot}
 # Seed für Reproduzierbarkeit setzen
 set.seed(123)  
@@ -1041,6 +1078,7 @@ Lollipop Charts werden immer beliebter, daher möchte ich sie euch vorstellen. D
 -   Zur Umsetzung benötigen wir eine `geom_point()`-Ebene in Kombination mit einer `geom_segment()`-Ebene.
 -   Die Achsen werden innerhalb der `ggplot()`-Ebene definiert.
 -   Abschließend müssen wir die Ästhetik im `geom_segment()`-Plot festlegen.
+
 ```{r lollipop chart}
 ggplot(data4, aes(x=name, y=strength)) +
   geom_point() + 
@@ -1048,6 +1086,7 @@ ggplot(data4, aes(x=name, y=strength)) +
 ```
 
 Nun gestalten wir den Chart ansprechender. Wir können der Linie verschiedene Farben geben und sie mit denselben Methoden wie beim Liniendiagramm anpassen. Das Gleiche gilt für die Punkte – auch sie lassen sich beliebig anpassen:
+
 ```{r huebscher lollipop chart}
 ggplot(data4, aes(x=name, y=strength)) +
   geom_segment(aes(x=name, xend=name, y=0, yend=strength), 
@@ -1069,6 +1108,7 @@ ggplot(data4, aes(x=name, y=strength)) +
 R bietet auch eine Vielzahl von Möglichkeiten, mit räumlichen Daten zu arbeiten. Die Visualisierung von Karten ist natürlich ein wesentlicher Bestandteil, wenn man mit räumlichen Daten arbeitet. Mit R lassen sich alle Arten von Karten erstellen: interaktive Karten mit `leaflet`, Shapefiles von Ländern und mehrere Ebenen mit dem `sf`-Paket sowie Standardvisualisierungen wie Verbindungskarten oder Kartogramme.
 
 Hier ist ein Beispiel einer interaktiven, mit Daten befüllten Karte. Um den Code so einfach wie möglich zu halten, habe ich das `tmap`-Paket verwendet. Es handelt sich um eine Weltkarte, die über ihre Farbe anzeigt, ob ein Land ein Hocheinkommens-, oberes Mitteleinkommens-, unteres Mitteleinkommens- oder Niedrigeinkommensland ist:
+
 ```{r weltkarte}
 # Shapefiles auf Länderebene laden
 world <- ne_countries(scale = "medium", returnclass = "sf")
@@ -1101,6 +1141,7 @@ Dieses Kapitel war eine Einführung in einen der schönsten Teile von R – das 
 ## Übungsaufgaben
 
 In diesem Übungsabschnitt arbeiten wir mit dem `iris`-Datensatz. Dabei handelt es sich um einen klassischen eingebauten Datensatz in R, der Daten aus Ronald Fishers Studie von 1936 *„The use of multiple measurements in taxonomic problems"* enthält. Er umfasst drei Pflanzenarten sowie vier gemessene Merkmale für jede Art. Verschaffen wir uns zunächst einen Überblick:
+
 ```{r iris inspizieren}
 summary(iris)
 ```
@@ -1108,14 +1149,17 @@ summary(iris)
 ### Übung 1: Verteilungen
 
 a\. Erstelle einen Graphen, der die Verteilung von `Sepal.Length` für die Art `setosa` zeigt. Wähle den Verteilungsplottyp selbst. **Hinweis:** Bereite die Daten zunächst auf, bevor du sie plottest.
+
 ```{r kap4 uebung 1a, eval=FALSE}
 ```
 
 b\. Füge nun die beiden anderen Arten zum Plot hinzu. Stelle sicher, dass jede Art eine eindeutige Farbe hat.
+
 ```{r kap4 uebung 1b, eval=FALSE}
 ```
 
 c\. Gestalte den Plot ansprechend! Gib dem Plot einen aussagekräftigen Titel sowie aussagekräftige Beschriftungen für die x- und y-Achse, und experimentiere mit den Farben.
+
 ```{r kap4 uebung 1c, eval=FALSE}
 ```
 
@@ -1124,14 +1168,17 @@ d\. Interpretiere den Plot!
 ### Übung 2: Rangfolgen
 
 a\. Berechne die durchschnittliche `Petal.Length` für jede Art und stelle sie in einem Barplot dar. **Hinweis:** Du musst die Daten erneut aufbereiten, bevor du sie plottest.
+
 ```{r kap4 uebung 2a, eval=FALSE}
 ```
 
 b\. Füge die Mittelwerte der Variable `Petal.Width` zum Plot hinzu, sodass ein gruppierter Barplot entsteht.
+
 ```{r kap4 uebung 2b, eval=FALSE}
 ```
 
 c\. Gestalte den Plot ansprechend! Gib dem Plot einen aussagekräftigen Titel sowie aussagekräftige Beschriftungen für die x- und y-Achse, und experimentiere mit den Farben.
+
 ```{r kap4 uebung 2c, eval=FALSE}
 ```
 
@@ -1140,13 +1187,16 @@ d\. Interpretiere den Plot!
 ### Übung 3: Korrelation
 
 a\. Erstelle ein Streudiagramm, bei dem `Sepal.Length` auf der x-Achse und `Sepal.Width` auf der y-Achse dargestellt wird. Erstelle den Plot für die Art `virginica`.
+
 ```{r kap4 uebung 3a, eval=FALSE}
 ```
 
 b\. Füge nun die Art `versicolor` zum Plot hinzu. Die Punkte dieser Art sollen eine andere Farbe UND eine andere Form haben.
+
 ```{r kap4 uebung 3b, eval=FALSE}
 ```
 
 c\. Gestalte den Plot ansprechend! Füge ein Theme, Achsenbeschriftungen und einen aussagekräftigen Titel hinzu.
+
 ```{r kap4 uebung 3c, eval=FALSE}
 ```

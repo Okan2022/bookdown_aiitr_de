@@ -1,5 +1,5 @@
 ---
-title: "An intuitive Introduction to R"
+title: "Eine intuitive Einfürung in R"
 author: "Okan Sarioglu"
 date: "`r Sys.Date()`"
 site: bookdown::bookdown_site
@@ -15,13 +15,13 @@ Dieser Kurs war ursprünglich ein Tutorial für meine jüngeren Studierenden an 
 
 -   Viele Kurse waren nicht reproduzierbar! Das liegt nicht direkt an den Kursen selbst. Es gibt Werkzeuge, um R-Skripte reproduzierbar zu machen. Allerdings sind diese Werkzeuge nicht besonders anfängerfreundlich. Autorinnen und Autoren solcher Kurse stehen daher vor einem Zielkonflikt: Entweder sie vermitteln Einsteigerinnen und Einsteigern unnötig komplexe Inhalte oder sie verzichten darauf und nehmen in Kauf, dass der Kurs nicht reproduzierbar ist.
 
-Dieser Kurs ist anders! Hier kannst du die R-Skripte herunterladen, sie direkt auf deinem eigenen Gerät ausführen und den Kurs aktiv nachvollziehen, indem du den Code selbst ausführst. So erhältst du die originale Erfahrung, mit R zu arbeiten.
+Dieser Kurs ist anders! Hier kannst du die R-Skripte herunterladen, sie direkt auf deinem eigenen Gerät ausführen und den Kurs aktiv nachvollziehen. So erhältst du eine authentische Erfahrung mit R zu arbeiten.
 
 ## Über diesen Kurs {.unnumbered}
 
 ### Voraussetzungen {.unnumbered}
 
--   `R` und RStudio. Du solltest die jeweils aktuellste Version von R und RStudio installieren. Wie das einfach funktioniert, wird [hier](https://posit.co/download/rstudio-desktop/ "Link zum Download von R") erklärt.
+-   `R` und `RStudio`. Du solltest die jeweils aktuellste Version von R und RStudio installieren. Wie das geht, wird [hier](https://posit.co/download/rstudio-desktop/ "Link zum Download von R") erklärt.
 
 ### Was sind `R` und `RStudio`? {.unnumbered}
 
@@ -29,24 +29,26 @@ Dieser Kurs ist anders! Hier kannst du die R-Skripte herunterladen, sie direkt a
 
 ### Warum `R`? {.unnumbered}
 
--   Kostenlos und Open Source  
--   Funktionalitäten für alle Schritte des Forschungsprozesses – von der Datenerhebung bis zur Datenanalyse  
--   Speziell für statistische Analysen entwickelte Programmiersprache  
--   Sehr aktive Community:  
--   z. B. die `R`-Community auf [StackOverflow](https://stackoverflow.blog/2017/10/10/impressive-growth-r/)  
--   z. B. *#rstats* auf Twitter  
+-   Kostenlos und Open Source\
+-   Funktionalitäten für alle Schritte des Forschungsprozesses – von der Datenerhebung bis zur Datenanalyse\
+-   Speziell für statistische Analysen entwickelte Programmiersprache\
+-   Sehr aktive Community:\
+-   
+    z.  B. die `R`-Community auf [StackOverflow](https://stackoverflow.blog/2017/10/10/impressive-growth-r/)\
+-   
+    z.  B. *#rstats* auf Twitter
 
 ### Was dich erwartet – und was nicht {.unnumbered}
 
 In diesem Kurs lernst du:
 
--   Dich mit `R` und seiner grundlegenden Syntax vertraut zu machen  
--   Zentrale Befehle aus dem tidyverse-Paket  
--   Data Wrangling, Data Bridging, Data Munging und Data Manipulation  
--   Einen effizienten Workflow  
--   Eine kurze Einführung in grundlegende Datenanalyse und Explorative Datenanalyse (EDA)  
+-   Dich mit `R` und seiner grundlegenden Syntax vertraut zu machen\
+-   Zentrale Befehle aus dem tidyverse-Paket\
+-   Data Manipulation\
+-   Einen effizienten Workflow\
+-   Eine kurze Einführung in grundlegende Datenanalyse und Explorative Datenanalyse (EDA)
 
-Du wirst **nicht** lernen:
+Was du **nicht** lernen wirst:
 
 -   Fortgeschrittene R-Anwendungen (z. B. Webscraping, quantitative Textanalyse etc.)
 
@@ -54,49 +56,54 @@ Du wirst **nicht** lernen:
 
 **1. Die R-Umgebung**
 
--   Grundlegende Funktionalitäten (Berechnungen, Vektoren, Matrizen, Listen)  
--   Objektklassen  
--   Zugriff auf, Subsetting und Benennung von Objekten  
+-   Grundlegende Funktionalitäten (Berechnungen, Vektoren, Matrizen, Listen)\
+-   Objektklassen\
+-   Zugriff auf, Filtern und Benennung von Objekten
 
 **2. Datenmanipulation**
 
--   Pipelines bzw. Piping  
--   Das tidyverse – dplyr  
--   Laden und Speichern von Daten  
--   Daten strukturieren: Umbenennen, Neuordnen, Subsetting und Selektieren  
--   Variablen transformieren  
--   Daten zusammenführen (Merging)  
--   Fehlende Werte  
+-   Pipelines bzw. Piping\
+-   Das tidyverse – dplyr\
+-   Laden und Speichern von Daten\
+-   Daten strukturieren: Umbenennen, Neuordnen, Filtern und Selektieren\
+-   Variablen transformieren\
+-   Daten zusammenführen (Merging)\
+-   Fehlende Werte
 
 **3. Explorative Datenanalyse / Deskriptive Statistik**
 
--   Standardkennzahlen (Mittelwert, Median, Standardabweichung usw.)  
--   Kontingenztafeln  
--   Korrelationen  
--   Arbeiten mit EDA-Paketen  
+-   Standardkennzahlen (Mittelwert, Median, Standardabweichung usw.)\
+-   Kontingenztafeln\
+-   Korrelationen\
+-   Arbeiten mit EDA-Paketen
 
 **4. Datenvisualisierung**
 
--   Das tidyverse – ggplot2  
--   Erstellung von Plots  
--   Visualisierung beliebiger Datenstrukturen  
+-   Das tidyverse – ggplot2\
+-   Erstellung von Plots\
+-   Visualisierung beliebiger Datenstrukturen
 
 **5. Datenanalyse**
 
--   Lineare Regression  
--   Modellgüte  
--   Hypothesentests mit R  
--   Multiple Regression  
--   Kategoriale Variablen  
+-   Lineare Regression\
+-   Modellgüte\
+-   Hypothesentests mit R\
+-   Multiple Regression\
+-   Kategoriale Variablen
 
 **6. R-Programmierung**
 
--   For-Schleifen  
--   Die apply-Familie  
--   Eigene Funktionen  
+-   For-Schleifen\
+-   Die apply-Familie\
+-   Eigene Funktionen
+
+**7. Weitere Erläuterungen zu Datenanalyse**
+
+-   Wahrscheinlichkeitstheorie\
+-   Regressionsdiagnostik
 
 ## Über mich {.unnumbered}
 
-Mein Name ist Okan und ich bin Data Scientist. Genauer gesagt ist Data Science mein Beruf – ursprünglich habe ich jedoch Politikwissenschaft studiert. Von Politik zu Daten? Meine Universität war stark auf empirische Forschung ausgerichtet, und die Politikwissenschaft bildete hier keine Ausnahme. Um politische Phänomene zu erklären, habe ich große Datensätze analysiert – und das war der spannendste Teil meines Studiums. Deshalb habe ich mich entschieden, Data Scientist zu werden. Und ich bin sehr glücklich mit dieser Entscheidung.
+Mein Name ist Okan Sarioglu und ich bin studierter Politikwissenschaftler. Aktuell arbeite ich als Berater für Daten und KI. Mein Job ist es, meine Kunden zu befähigen, Daten zu nutzen und ihr Leben einfacher und somit besser zu machen. Wie bereits erwähnt, startete dieser Kurs als eine Einführung in R für Masterstudierende und ich hoffe, dass dieser Kurs R jeder und jedem beibringt, die genauso enthusiastisch bezüglich Daten sind wie meine Studierenden damals!
 
-Werde Teil dieses Kurses! Bitte melde Fehler, Bugs oder Probleme im Code. Wenn du Ideen hast, wie sich dieser Kurs verbessern lässt, kontaktiere mich gerne über GitHub oder per E-Mail. Lass uns generell in Kontakt bleiben – folge mir auf GitHub und LinkedIn. Wenn dir der Kurs gefällt, teile deine Erfahrungen und empfehle ihn weiter!
+*Werde Teil dieses Kurses! Bitte melde Fehler, Bugs oder Probleme im Code. Wenn du Ideen hast, wie sich dieser Kurs verbessern lässt, kontaktiere mich gerne über GitHub oder per E-Mail. Lass uns generell in Kontakt bleiben – folge mir auf GitHub und LinkedIn. Wenn dir der Kurs gefällt, teile deine Erfahrungen und empfehle ihn weiter!*
