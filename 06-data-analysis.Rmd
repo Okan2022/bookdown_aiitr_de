@@ -1,6 +1,7 @@
 # Datenanalyse
 
 In diesem Kapitel stelle ich euch die grundlegenden Ideen der statistischen Analyse und des Hypothesentestens vor. Mir ist es wichtig, dass ihr ein Gespür dafür bekommt, was vor sich geht, anstatt euch mit komplizierter Mathematik zu überhäufen. Auch wenn ich zentrale Formeln nicht weglassen kann und werde, werdet ihr mit der Mathematik gut zurechtkommen. Sie ist ausführlich kommentiert und am Ende des Tages gar nicht so schwer zu verstehen. Ihr werdet feststellen, dass die Programmierung in diesem Kapitel im Vergleich zu den vorherigen recht einfach ist. Am Ende braucht ihr nur Formeln, die alles erledigen, was ihr zur Datenanalyse benötigt – das ist auch eine Stärke von R. Bitte konzentriert euch mehr auf die Konzepte und versucht zu verstehen, was vor sich geht. Das Ziel dieses Kapitels ist, dass ihr die lineare Regression kennenlernt und wisst, wie ihr überprüft, ob das Modell gut passt und die Ergebnisse robust und signifikant sind.
+
 ```{r pakete laden}
 pacman::p_load("tidyverse", "ggpubr","gapminder", 
                "sjPlot", "GGally", "car", "margins", "plotly")
@@ -33,6 +34,7 @@ dabei gilt:
 ### Schätzung des Kleinste-Quadrate-Schätzers
 
 Um ein Gefühl für die lineare Regression zu bekommen, schauen wir uns ein Beispiel an. Dazu simulieren wir einige Daten und stellen sie grafisch dar. Ihr solltet nun den Dataframe `df` in eurer Umgebung haben. Er enthält die Variable X, unsere unabhängige Variable, sowie Y, unsere abhängige Variable. Wir möchten Y mit X erklären. Stellen wir die Variablen zunächst in einem Streudiagramm dar:
+
 ```{r daten simulieren 2, echo=FALSE}
 set.seed(123) # Reproduzierbarkeit sicherstellen
 
@@ -40,21 +42,21 @@ n <- 30
 
 x <- runif(n) * 10 
 
-categorical_variable <- factor(sample(c(0, 1), n, replace = TRUE))
+kategorische_variable <- factor(sample(c(0, 1), n, replace = TRUE))
 
 y <- 0.8 + 1.6 * x + rnorm(n, 0, 3)
 
-df <- data.frame(x, y, categorical_variable)
+df <- data.frame(x, y, kategorische_variable)
 
 # Weitere Daten simulieren
-X_quadratic <- X <- runif(50, min = -5, max = 5)
+X_quadratisch <- X <- runif(50, min = -5, max = 5)
 u <- rnorm(50, sd = 1)  
 
 # Wahre Beziehung
-Y_quadratic <- X^2 + 2 * X + u
+Y_quadratisch <- X^2 + 2 * X + u
 
 # Dataframe erstellen
-df2 <- data.frame(X_quadratic, Y_quadratic)
+df2 <- data.frame(X_quadratisch, Y_quadratisch)
 ```
 
 ```{r x und y in df plotten}
@@ -70,6 +72,7 @@ Wir können erkennen, dass es eine Beziehung zwischen diesen beiden Variablen ge
 #### Visualisierung
 
 Die visuelle Schätzung ist gut, um ein Gespür für die Daten zu bekommen, funktioniert jedoch – wie wir später sehen werden – nicht bei mehreren unabhängigen Variablen. Außerdem liefert sie nicht viele Informationen, zumindest nicht so viele, wie wir gerne hätten.
+
 ```{r ols-schätzer linie visuell anpassen}
 ggplot(df, aes(x, y)) + 
   geom_point() +
@@ -91,6 +94,7 @@ $$
 dabei ist $x_i$ die Antwort von Beobachtung *i* für unsere unabhängige Variable x und $\bar{x}$ der Durchschnittswert. Diese beiden Werte werden subtrahiert, wodurch die Abweichung vom Mittelwert berechnet wird. Dasselbe gilt für unsere abhängige Variable y, wobei $y_i$ die Antwort von Beobachtung *i* und $\bar{y}$ der Durchschnittswert aller Beobachtungen ist. Dies wird für jede Beobachtung *i*, also *n*-mal, durchgeführt, was durch das Summenzeichen dargestellt wird. Damit haben wir die sogenannte **Kovarianz** berechnet.
 
 Die **Kovarianz** wird dann durch die quadrierte Abweichung vom Mittelwert unserer unabhängigen Variablen x dividiert. So erhalten wir den geschätzten Koeffizienten unseres Modells $\hat{\beta_1}$. Klingt kompliziert, aber schauen wir es uns in R an:
+
 ```{r ols von hand berechnen}
 # Zunächst berechnen wir die Kovarianz
 cov <- sum((df$x - mean(df$x)) * (df$y - mean(df$y)))
@@ -100,11 +104,11 @@ x_sq <- sum((df$x - mean(df$x))^2)
 
 x_sq
 
-# Wir müssen nur dividieren 
-slope <- cov/x_sq 
+# Wir müssen nur noch dividieren 
+steigung <- cov/x_sq 
 
 # Ausgabe
-print(slope)
+print(steigung)
 ```
 
 Um den Achsenabschnitt $\hat{\beta_0}$ zu erhalten, nehmen wir das Ergebnis der Steigung und setzen es in folgende Formel ein:
@@ -114,9 +118,10 @@ $$
 $$
 
 Wir multiplizieren $\hat{\beta_1}$ mit dem Mittelwert unserer unabhängigen Variable X und subtrahieren das Ergebnis vom Mittelwert unserer abhängigen Variable y.
+
 ```{r achsenabschnitt von hand berechnen}
 # Achsenabschnitt berechnen
-beta_0 <- mean(df$y) - (slope * mean(df$x))
+beta_0 <- mean(df$y) - (steigung * mean(df$x))
 
 # Ausgabe
 beta_0
@@ -131,6 +136,7 @@ $$
 #### Automatische Berechnung
 
 Diese manuelle Vorgehensweise ist viel zu zeitaufwendig. R verfügt über eine eingebaute Funktion namens `lm()`, die die Parameter für uns berechnet:
+
 ```{r lineare regression automatisch berechnen}
 # Lineare Regression berechnen
 model1 <- lm(y ~ x, 
@@ -150,13 +156,14 @@ $$
 \hat{y_i} = 1.68 + 1.54x_i 
 $$
 
-Wir müssen lediglich x-Werte einsetzen und erhalten gemäß unserem Modell eine Vorhersage des y-Werts $\hat{y_i}$. Wir können das für alle x-Werte in unserem Datensatz tun und eine Spalte mit allen vorhergesagten Werten erhalten – nennen wir sie `y_hat`:
+Wir müssen lediglich x-Werte einsetzen und erhalten gemäß unserem Modell eine Vorhersage des y-Werts $\hat{y_i}$. Wir können das für alle x-Werte in unserem Datensatz tun und eine Spalte mit allen vorhergesagten Werten erhalten – nennen wir sie `y_dach`:
+
 ```{r vorhersagen berechnen}
 # Zunächst berechnen wir die Vorhersagen für y
-df$y_hat <- 1.6821 + 1.5394*df$x 
+df$y_dach <- 1.6821 + 1.5394*df$x 
 
 # Alternativ automatisch mit der predict()-Funktion
-df$auto_y_hat <- predict(model1)
+df$auto_y_dach <- predict(model1)
 
 # Überprüfung
 head(df)
@@ -179,9 +186,10 @@ Fällt euch mögliche Kritik an unserer Datenerhebungsstrategie ein?
 #### Wurzel des mittleren quadratischen Fehlers (RMSE)
 
 Bevor wir zu den Standardfehlern übergehen, stelle ich eine weitere Kennzahl vor: den Wurzel des mittleren quadratischen Fehlers (RMSE). Er ist die durchschnittliche Differenz zwischen den tatsächlichen Werten $y_i$ und unseren vorhergesagten Werten $\hat{y_i}$. Zur Berechnung quadrieren wir die Residuen, um nur positive Werte zu erhalten. Dann berechnen wir den Mittelwert und ziehen abschließend die Quadratwurzel.
+
 ```{r rsme}
 # Summe der quadrierten Residuen (SSR) berechnen
-SSR <- df$y_hat^2
+SSR <- df$y_dach^2
 
 # Mittelwert der quadrierten Residuen berechnen
 mean_SSR <- mean(SSR) 
@@ -198,6 +206,7 @@ Als Faustregel gilt: Je niedriger der RMSE, desto besser. Er ist ein nicht-stand
 #### Standardfehler des Schätzers
 
 Der Standardfehler eines Koeffizientenschätzers ist die Kennzahl, die direkt neben dem Koeffizienten in der Regressionsausgabe angezeigt wird. Er ist die Quadratwurzel der Varianz des Regressionskoeffizienten.
+
 ```{r se}
 # Standardfehler von Hand berechnen
 se <- SSR/(nrow(df) - 2 * (sum(df$x - mean(x))))
@@ -215,14 +224,15 @@ t_i = \frac{\beta_i}{SE(\beta_i)}
 $$
 
 dabei ist $\beta_i$ der durch die lineare Regression berechnete Koeffizient und $SE(\beta_i)$ der Standardfehler. Berechnen wir ihn manuell für unser Beispiel:
+
 ```{r t-wert von hand}
 # t-Wert von Hand
-t_value_intercept <- -0.32773/0.30271 
-t_value_x         <- 0.67949/0.04813 
+t_wert_intercept <- -0.32773/0.30271 
+t_wert_x         <- 0.67949/0.04813 
 
 # Ausgabe
-print(t_value_intercept) # -1.082653
-print(t_value_x)         # 14.11781
+print(t_wert_intercept) # -1.082653
+print(t_wert_x)         # 14.11781
 ```
 
 Der t-Wert allein sagt uns noch nichts über statistische Signifikanz aus. Er wird verwendet, um den **p-Wert** zu berechnen, der uns über die Signifikanz des Wertes informiert. Bevor wir ihn berechnen, müssen wir jedoch einige wichtige Konzepte verstehen.
@@ -232,25 +242,26 @@ Der t-Wert allein sagt uns noch nichts über statistische Signifikanz aus. Er wi
 -   Die Regel lautet: **Je größer die Stichprobe, desto höher die Freiheitsgrade** und **je kleiner die Stichprobe, desto geringer die Freiheitsgrade.**
 
 -   **T-Verteilungen** sind die Verteilungen, mit denen wir den p-Wert berechnen werden. Ich werde gleich ausführlicher darauf eingehen. Sie sind mit den Freiheitsgraden verknüpft, da diese das Randverhalten und die Form der Kurve bestimmen, bis zu dem Punkt, an dem die t-Verteilung einer Standardnormalverteilung ähnelt. Visualisieren wir das:
+
 ```{r interaktiver t-statistik plot}
 # Daten generieren
 x <- seq(-5, 5, length.out = 100)
 
 # Dichten berechnen
-densities <- data.frame(
+dichten <- data.frame(
   x = rep(x, 4),
-  density = c(dt(x, df = 1), dt(x, df = 2), dt(x, df = 10), dnorm(x, mean = 0, sd = 1)),
-  distribution = rep(c("t(df=1)", "t(df=2)", "t(df=10)", "Normal"), each = 100)
+  dichte = c(dt(x, df = 1), dt(x, df = 2), dt(x, df = 10), dnorm(x, mean = 0, sd = 1)),
+  verteilung = rep(c("t(df=1)", "t(df=2)", "t(df=10)", "Normal"), each = 100)
 )
 
-densities$distribution <- factor(densities$distribution, 
+dichten$verteilung <- factor(dichten$verteilung, 
                                  levels = c("Normal", 
                                             "t(df=10)", 
                                             "t(df=2)", 
                                             "t(df=1)"))
 
 # Plot erstellen
-plotly::ggplotly(ggplot(densities, aes(x = x, y = density, color = distribution)) +
+plotly::ggplotly(ggplot(dichten, aes(x = x, y = dichte, color = verteilung)) +
   geom_line() +
   theme_minimal() +
   labs(x = "x", y = "Dichte", 
@@ -260,27 +271,28 @@ plotly::ggplotly(ggplot(densities, aes(x = x, y = density, color = distribution)
 ```
 
 -   Bevor wir herausfinden, wie wir bestimmen, ob ein Wert die Ablehnung der Nullhypothese erlaubt, müssen wir einen sogenannten **kritischen Wert** festlegen. Das ist keine Mathematik, sondern eine Wahrscheinlichkeit, über die wir selbst entscheiden. Genauer gesagt: die Wahrscheinlichkeit, dass unser t-Wert und damit unser Koeffizient rein zufällig aufgetreten ist. Wenn wir sagen, die Wahrscheinlichkeit, dass er zufällig aufgetreten ist, beträgt 10 %, dann ist das unser kritischer Wert. Als Faustregel gilt, dass eine Wahrscheinlichkeit von weniger als 5 %, dass der Koeffizient zufällig aufgetreten ist, auf statistische Signifikanz hinweist. Beachte, dass der kritische Wert je nach Stichprobengröße, Freiheitsgraden, Fachgebiet usw. variieren kann.
+
 ```{r t-statistik visuell identifizieren}
 # Seed setzen
 set.seed(42) 
 
 # Daten generieren
 x <- seq(-5, 5, length.out = 100)
-t_density <- function(x) dt(x, df = 28)
+t_dichte <- function(x) dt(x, df = 28)
 
 # Dichten berechnen
-t_value_data <- data.frame(
+t_wert_data <- data.frame(
   x = rep(x, 1),
-  density = dt(x, df = 28),
-  distribution = rep("t(df=28)", 100)
+  dichte = dt(x, df = 28),
+  verteilung = rep("t(df=28)", 100)
 )
 
 # Plot erstellen
-plotly::ggplotly(ggplot(t_value_data, aes(x = x, y = density)) + 
+plotly::ggplotly(ggplot(t_wert_data, aes(x = x, y = dichte)) + 
   geom_line(lineend = "round") + 
-  stat_function(fun = t_density, geom = "area", fill = "gray", 
+  stat_function(fun = t_dichte, geom = "area", fill = "gray", 
                 alpha = 0.75, xlim = c(-5, -1.701), n = 10000) +
-  stat_function(fun = t_density, geom = "area", fill = "gray", 
+  stat_function(fun = t_dichte, geom = "area", fill = "gray", 
                 alpha = 0.75, xlim = c(5, 1.701), n = 10000) +
   geom_vline(xintercept = -1.701, linetype = "dashed", 
              colour = "red") +
@@ -311,13 +323,14 @@ plotly::ggplotly(ggplot(t_value_data, aes(x = x, y = density)) +
 
 -   Bevor wir euch zwei Wege zeigen, den p-Wert zu finden, müssen wir erneut einen **kritischen Wert** festlegen. Als Faustregel gilt: Wenn der p-Wert kleiner als 5 % ist, können wir die Nullhypothese ablehnen. Je nach verschiedenen Faktoren kann dies jedoch auch anders sein – abhängig von euren Daten, der Stichprobengröße, den Freiheitsgraden usw.
 
--   Für unser Beispiel folgen wir der Faustregel und setzen das Signifikanzniveau auf 0,05. Das bedeutet: Wenn der Koeffizient eine geringere Wahrscheinlichkeit (p-Wert < 0,05) als 5 % hat, null zu sein, können wir die Nullhypothese ablehnen – andernfalls nicht.
+-   Für unser Beispiel folgen wir der Faustregel und setzen das Signifikanzniveau auf 0,05. Das bedeutet: Wenn der Koeffizient eine geringere Wahrscheinlichkeit (p-Wert \< 0,05) als 5 % hat, null zu sein, können wir die Nullhypothese ablehnen – andernfalls nicht.
 
 -   Da die Mathematik kompliziert ist und nicht dazu beiträgt, die Intuition zu verstehen, zeige ich euch direkt, wie man den p-Wert von Hand berechnet:
+
 ```{r p-wert von hand}
 # p-Werte von Hand berechnen
-p_value_1 <- 2 * pt(-abs(t_value_intercept), 28)
-p_value_2 <- 2 * pt(-abs(t_value_x), 28)
+p_value_1 <- 2 * pt(-abs(t_wert_intercept), 28)
+p_value_2 <- 2 * pt(-abs(t_wert_x), 28)
 
 # Ausgabe
 print(p_value_1) 
@@ -335,39 +348,43 @@ Im Folgenden nehmen wir an, dass wir 1000 Stichproben vor der Wahl ziehen, um de
 -   In 95 % aller Stichproben, die gezogen werden könnten, werden die Konfidenzintervalle den wahren Populationsparameter enthalten.
 
 Wenn wir also 1000 Stichproben ziehen, müssen in 950 davon die Konfidenzintervalle den wahren Populationsparameter enthalten:
+
+*Edit: Im Folgenden kürzen wir Konfidenzintervalle (Mehrzahl) mit CIs und Konfidenzintervall (Einzahl) mit ci ab*
+
 ```{r 100 kis simulieren}
 # Da dies eine Simulation ist, setzen wir einen Seed
 set.seed(187)
 
 # Vektoren für das obere und untere Konfidenzintervall erstellen
-lower_ci <- numeric(100)
-upper_ci <- numeric(100)
-estimates <- numeric(100)
+unteres_ci <- numeric(100)
+oberes_ci <- numeric(100)
+schätzungen <- numeric(100)
 
 # Diese Schleife repräsentiert die Stichprobenziehungen
-for(i in 1:length(lower_ci)) {
+for(i in 1:length(unteres_ci)) {
   
   Y <- rnorm(100, mean = 24, sd = 2)
-  estimates[i] <- Y[i]
-  lower_ci[i] <- Y[i] - 1.96 * 24 / 10
-  upper_ci[i] <- Y[i] + 1.96 * 24 / 10
+  schätzungen[i] <- Y[i]
+  oberes_ci[i] <- Y[i] - 1.96 * 24 / 10
+  unteres_ci[i] <- Y[i] + 1.96 * 24 / 10
   
 }
 
 # Beide Vektoren zusammenführen
-CIs <- data.frame(estimates, lower_ci, upper_ci)
+CIs <- data.frame(schätzungen, unteres_ci, oberes_ci)
 
 # Ausgabe
 head(CIs)
 ```
 
 Nun haben wir unsere 1000 Stichproben gezogen und unsere Schätzungen sowie die zugehörigen Intervalle berechnet – also 1000 Stichproben über den Stimmenanteil von Partei A. Überprüfen wir, ob der wahre Populationsparameter in 95 % der berechneten Konfidenzintervalle enthalten ist:
+
 ```{r simulierte kis plotten}
 # Wahren Mittelwert festlegen
-true_mean <- 24
+wahrer_mittelwert <- 24
 
 # Diejenigen identifizieren, die den wahren Populationsparameter 24 nicht enthalten
-CIs$missed <- ifelse(CIs$lower_ci > true_mean | CIs$upper_ci < true_mean, "Außerhalb", "Innerhalb")
+CIs$missed <- ifelse(CIs$oberes_ci > wahrer_mittelwert | CIs$unteres_ci < wahrer_mittelwert, "Außerhalb", "Innerhalb")
 
 # Jeder Stichprobe eine Identifikationsnummer geben
 CIs$id <- 1:nrow(CIs)
@@ -376,17 +393,17 @@ CIs$id <- 1:nrow(CIs)
 ggplot(data = CIs) +
   geom_pointrange(
     aes(
-      x = estimates,    # Punktschätzer
-      xmin = lower_ci,  # unteres KI
-      xmax = upper_ci,  # oberes KI
+      x = schätzungen,    # Punktschätzer
+      xmin = unteres_ci,  # unteres KI
+      xmax = oberes_ci,  # oberes KI
       y = id,           # y-Achse – nur die Beobachtungsnummer
       color = missed    # Farbe variiert je nach missed-Variable
     )
   ) +
   geom_vline(
-    aes(xintercept = true_mean), # Vertikale Linie beim wahren Mittelwert
+    aes(xintercept = wahrer_mittelwert), # Vertikale Linie beim wahren Mittelwert
   ) +
-  scale_color_manual(values = c("azure4", "red")) + 
+  scale_color_manual(values = c("red", "azure4")) + 
   theme_minimal() + 
   labs(
     title = "Konfidenzintervall für den Mittelwert",
@@ -409,25 +426,26 @@ $$
 KI_{unten} = \beta_i - 1.96 * SE(\beta_i) \\
 KI_{oben} = \beta_i + 1.96 * SE(\beta_i)
 $$
+
 ```{r kis fuer modell 1 von hand berechnen}
 # Konfidenzintervalle von Modell 1 betrachten
 confint(model1)
 
 # Konfidenzintervalle von Hand für Achsenabschnitt und x berechnen
-ci_lower_int <- model1$coefficients[1] - 1.96 * summary(model1)$coef[, "Std. Error"][1]
-ci_upper_int <- model1$coefficients[1] + 1.96 * summary(model1)$coef[, "Std. Error"][1]
+ci_unteres_int <- model1$coefficients[1] - 1.96 * summary(model1)$coef[, "Std. Error"][1]
+ci_oberes_int <- model1$coefficients[1] + 1.96 * summary(model1)$coef[, "Std. Error"][1]
 
 # Ausgabe
-print(ci_lower_int)
-print(ci_upper_int)
+print(ci_unteres_int)
+print(ci_oberes_int)
 
 # Schätzer X
-ci_lower_est <- model1$coefficients[2] - 1.96 * summary(model1)$coef[, "Std. Error"][2]
-ci_upper_est <- model1$coefficients[2] + 1.96 * summary(model1)$coef[, "Std. Error"][2]
+ci_unteres_est <- model1$coefficients[2] - 1.96 * summary(model1)$coef[, "Std. Error"][2]
+ci_oberes_est <- model1$coefficients[2] + 1.96 * summary(model1)$coef[, "Std. Error"][2]
 
 # Ausgabe
-print(ci_lower_est)
-print(ci_upper_est)
+print(ci_unteres_est)
+print(ci_oberes_est)
 ```
 
 ## Multivariate Regression
@@ -463,8 +481,9 @@ In R können wir ein multivariates Modell sehr einfach mit der bereits bekannten
 $$ Y_i = \beta_0 + \beta_1X_i + \beta_2Z_i + \epsilon_i $$
 
 Berechnen wir die Steigungen:
+
 ```{r modell fuer multivariate analyse berechnen}
-lm(y ~ x + categorical_variable, data = df) %>% 
+lm(y ~ x + kategorische_variable, data = df) %>% 
   summary()
 ```
 
@@ -478,22 +497,24 @@ Um das zu visualisieren, bräuchten wir ein dreidimensionales Koordinatensystem 
 
 Wie ich im ersten Kapitel erwähnt habe, gibt es verschiedene Variablentypen. Rufen wir sie uns in Erinnerung:
 
-|               |               |                                              |
-|---------------|---------------|----------------------------------------------|
-| **Numerisch** | Zahlen        | `c(1, 2.4, 3.14, 4)`                         |
-| **Character** | Text          | `c("1", "blue", "fun", "monster")`           |
-| **Logisch**   | Wahr oder falsch | `c(TRUE, FALSE, TRUE, FALSE)`             |
-| **Faktor**    | Kategorie     | `c("Stimme gar nicht zu", "Stimme zu", "Neutral")` |
+|  |  |  |
+|------------------------|------------------------|------------------------|
+| **Numerisch** | Zahlen | `c(1, 2.4, 3.14, 4)` |
+| **Character** | Text | `c("1", "blue", "fun", "monster")` |
+| **Logisch** | Wahr oder falsch | `c(TRUE, FALSE, TRUE, FALSE)` |
+| **Faktor** | Kategorie | `c("Stimme gar nicht zu", "Stimme zu", "Neutral")` |
 
 Abhängige Variablen müssen bei der linearen Regression numerisch sein. Unabhängige Variablen können jedoch unterschiedlich skaliert sein. Numerische Variablen sind der einfachste Fall – die Interpretation erfolgt wie in den vorherigen Beispielen beschrieben. Kategoriale Variablen werden jedoch anders interpretiert. Untersuchen wir die kategoriale Variable in unserem Datensatz, `categorical_variable`:
+
 ```{r tabelle der kategorialen variable ausgeben}
-table(df$categorical_variable) 
+table(df$kategorische_variable) 
 ```
 
 Wir sehen, dass unser Datensatz eine kategoriale Variable mit zwei Kategorien enthält: „A" und „B". Diese Kategorien könnten für alles stehen: Weiblich und Männlich, Produkt gekauft oder nicht gekauft, Impfstoff oder Placebo usw. Was passiert nun, wenn wir ein Modell damit berechnen?
+
 ```{r modell mit kategorialer variable}
 # Modell mit kategorialer Variable berechnen
-model2 <- lm(y ~ categorical_variable, 
+model2 <- lm(y ~ kategorische_variable, 
              data = df) 
 
 # Zusammenfassung ausgeben
@@ -503,15 +524,17 @@ summary(model2)
 Wir sehen einen Koeffizienten von 0,64 – das ist in Ordnung. Aber wie ihr seht, wird die Kategorie „category_A" nicht angezeigt. Warum? Kategoriale Variablen werden auf Basis sogenannter „Referenzkategorien" berechnet. R bestimmt die Referenzkategorie alphabetisch. In diesem Fall ist Kategorie „A" die Referenzkategorie. Sie heißt so, weil sich die berechneten Koeffizienten auf sie beziehen. Die Referenzkategorie „A" nimmt den Wert 0 an. Der Koeffizient der Kategorie B beträgt „0,92". Das bedeutet: Wenn eine befragte Person zu Kategorie „B" gehört, steigt die abhängige Variable Y im Durchschnitt um 0,64 Einheiten im Vergleich zu Kategorie „A", unter sonst gleichen Bedingungen.
 
 Das klingt technisch – schauen wir uns ein besseres Verständnis davon an. Wir fügen eine Null zu unserem Code hinzu und betrachten die Ausgabe:
+
 ```{r modell mit + 0 berechnen}
 # Modell berechnen
-model3 <- lm(y ~ categorical_variable + 0, 
+model3 <- lm(y ~ kategorische_variable + 0, 
              data = df) 
 # Zusammenfassung ausgeben
 summary(model3)
 ```
 
 Die Koeffizienten haben sich verändert, aber nur geringfügig. Subtrahieren wir den Koeffizienten von Kategorie A von Kategorie B:
+
 ```{r kategorien subtrahieren um koeffizient zu erhalten}
 # Ergebnis
 result <- coefficients(model3)[2] - coefficients(model3)[1] # Koeffizienten können so extrahiert werden
@@ -549,28 +572,29 @@ dabei gilt:
 Im Folgenden zeige ich euch an einem Beispiel, wie Interaktionseffekte verwendet werden. Nehmen wir an, ich habe eine Umfrage unter 1000 Befragten durchgeführt und sie gefragt, wie viele Stunden sie mit R-Online-Kursen wie diesem verbracht haben. Dann habe ich nach ihren Programmierkenntnissen gefragt. Abschließend habe ich gefragt, ob sie mit diesem Kurs oder mit anderen Kursen gelernt haben (0 = andere Kurse, 1 = dieser Kurs). Nun wollen wir herausfinden, ob mehr investierte Stunden zu höheren R-Programmierkenntnissen führen. Außerdem möchten wir untersuchen, ob dieser Kurs im Vergleich zu anderen Kursen zu besseren Kenntnissen führt. Dazu interagieren wir die aufgewendeten Stunden mit der Variable, die angibt, ob die befragte Person andere Kurse oder diesen Kurs absolviert hat.
 
 -   Interaktionseffekte können in R implementiert werden, indem man sie explizit in die Funktion `lm()` schreibt – entweder mit einem Sternchen `*` oder einem Doppelpunkt `:`:
+
 ```{r modell mit interaktionseffekt}
 # Seed für Reproduzierbarkeit setzen
 set.seed(123)
 
 # Aufgewendete Stunden generieren
-hours_spent <- runif(100, min = 0, max = 10)
+investierte_stunden <- runif(100, min = 0, max = 10)
 
 # Kurs-Dummy generieren (0 = andere Kurse, 1 = dieser Kurs)
-this_course = sample(c(0, 1), 100, replace = TRUE)
+dieser_course = sample(c(0, 1), 100, replace = TRUE)
 
 # Y mit Interaktionseffekt generieren
-coding_ability <- 2 + 0.5 * hours_spent + 0 * this_course + 
-  1.5 * hours_spent * this_course + rnorm(100)
+coding_fähigkeiten <- 2 + 0.5 * investierte_stunden + 0 * 
+  dieser_course + 1.5 * investierte_stunden * dieser_course + rnorm(100)
 
 # Dataframe erstellen
-df_int <- data.frame(hours_spent, this_course, coding_ability)
+df_int <- data.frame(investierte_stunden, dieser_course, coding_fähigkeiten)
 
 # Interaktionsmodell anpassen
-model_interaction <- lm(coding_ability ~ hours_spent * this_course, data = df_int)
+model_interaktion <- lm(coding_fähigkeiten ~ investierte_stunden * dieser_course, data = df_int)
 
 # Modellzusammenfassung ausgeben
-summary(model_interaction)
+summary(model_interaktion)
 ```
 
 Interaktionseffekte sind für sich genommen nicht intuitiv. Um ein Gespür dafür zu bekommen, müssen wir sie grafisch darstellen. Das `sjPlot`-Paket bietet den Befehl `plot_model()`, der automatisch sogenannte vorhergesagte Wahrscheinlichkeiten plottet. Es würde zu weit führen, vorhergesagte Wahrscheinlichkeiten im Detail zu erklären. Wichtiger ist, dass wir einen Graphen erhalten, der den Interaktionseffekt visualisiert:
@@ -578,8 +602,9 @@ Interaktionseffekte sind für sich genommen nicht intuitiv. Um ein Gespür dafü
 -   Wir rufen `plot_model()` auf und übergeben unser Modell mit dem Interaktionseffekt `model_interaction`.
 
 -   Dann geben wir den Typ an und setzen ihn auf `type="int"`, was explizit Interaktionseffekte plottet.
+
 ```{r interaktionseffekt plotten, message=FALSE}
-plot_model(model_interaction, type = "int") +
+plot_model(model_interaktion, type = "int") +
   scale_x_continuous(breaks = seq(0,10, 1)) + 
   labs(title = "Programmierkenntnisse nach Kursart im Vergleich",
        x = "Aufgewendete Stunden", 
@@ -625,13 +650,14 @@ Weiterführende Links:
 Um die lineare Regression zu verstehen, müssen wir keine komplizierten Daten laden. Nehmen wir an, ihr seid Marktanalysten und euer Auftraggeber ist die Produktionsfirma einer Serie namens „Breaking Thrones". Die Produktionsfirma möchte wissen, wie die Zuschauer die letzte Folge bewertet haben. Ihr führt eine Umfrage durch und fragt die Befragten nach ihrer Zufriedenheit mit dem Serienfinale sowie nach einigen soziodemografischen Merkmalen. Hier ist euer Codebuch:
 
 | Variable | Beschreibung |
-|----|----|
+|------------------------------------|------------------------------------|
 | id | Die ID des Befragten |
 | satisfaction | Antwort auf die Frage „Wie zufrieden waren Sie mit der letzten Folge von Breaking Throne?", wobei 0 = völlig unzufrieden und 10 = völlig zufrieden |
 | age | Das Alter des Befragten |
 | female | Das Geschlecht des Befragten, wobei 0 = Männlich, 1 = Weiblich |
 
 Generieren wir die Daten:
+
 ```{r}
 # Seed für Reproduzierbarkeit setzen
 set.seed(123)
@@ -652,31 +678,45 @@ print(final_BT)
 Ihr möchtet wissen, ob das Alter einen Einfluss auf die Zufriedenheit mit der letzten Folge hat. Dazu führt ihr eine lineare Regression durch.
 
 a\. Berechnet $\beta_0$ und $\beta_1$ von Hand.
-```{r kap6 uebung 1a, eval=FALSE}
+
+```{r kap5_uebung_1a, eval=FALSE}
+#beta_0 von hand
+
+#beta_1 von hand
 ```
 
 b\. Berechnet $\beta_0$ und $\beta_1$ automatisch mit R.
-```{r kap6 uebung 1b, eval=FALSE}
+
+```{r kap5_uebung_1b, eval=FALSE}
+# automatische berechnung von beta_0 und beta_1
 ```
 
 c\. Interpretiert alle Größen eures Ergebnisses: Standardfehler, t-Statistik, p-Wert, Konfidenzintervalle und das $R^2$.
 
 d\. Überprüft auf einflussreiche Ausreißer.
-```{r kap6 uebung 1d, eval=FALSE}
+
+```{r kap5_uebung_1d, eval=FALSE}
+# Überprüfung Ausreißer
 ```
 
 ### Übung 2: Multivariate Regression
 
 a\. Fügt die Variable `female` zu eurer Regression hinzu.
-```{r kap6 uebung 2a, eval=FALSE}
+
+```{r kap5_uebung_2a, eval=FALSE}
+# Multivariate Regression
 ```
 
 b\. Interpretiert die Ausgabe. Was hat sich verändert? Was bleibt gleich?
 
 c\. Erstellt einen Interaktionseffekt zwischen Alter und Geschlecht und interpretiert ihn!
-```{r kap6 uebung 2c, eval=FALSE}
+
+```{r kap5_uebung_2c, eval=FALSE}
+# Regression mit Interaktionseffekt
 ```
 
 d\. Plottet den Interaktionseffekt und gestaltet den Plot ansprechend.
-```{r kap6 uebung 2d, eval=FALSE}
+
+```{r kap5_uebung_2d, eval=FALSE}
+# Interaktionseffekt plotten
 ```

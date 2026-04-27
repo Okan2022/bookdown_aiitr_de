@@ -23,7 +23,7 @@
 <meta name="author" content="Okan Sarioglu" />
 
 
-<meta name="date" content="2026-03-08" />
+<meta name="date" content="2026-04-27" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -281,13 +281,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h1><span class="header-section-number">Chapter 4</span> Explorative Datenanalyse (EDA)<a href="explorative-datenanalyse-eda.html#explorative-datenanalyse-eda" class="anchor-section" aria-label="Anchor link to header"></a></h1>
 <p>In diesem Kapitel beginnen wir mit der Datenanalyse. Ein entscheidender Schritt bei der Analyse von Daten ist die explorative Datenanalyse. Sie beschreibt den Prozess der Untersuchung von Datensätzen, um deren wesentliche Merkmale zusammenzufassen. Dieser Schritt kann dabei helfen, die Daten zu verstehen, ihre Qualität zu überprüfen, Muster und Trends frühzeitig zu erkennen und erste Einblicke zu gewinnen!</p>
 <p>Da R eine speziell für die Statistik entwickelte Software ist, stehen uns viele hochwertige Bibliotheken zur Durchführung von EDA zur Verfügung. Der Datensatz, den wir für diesen Teil verwenden werden, heißt <code>palmerpenguins</code>. Es handelt sich um einen Datensatz über Pinguinarten und ihre Merkmale.</p>
-<div class="sourceCode" id="cb278"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb278-1"><a href="explorative-datenanalyse-eda.html#cb278-1" tabindex="-1"></a>pacman<span class="sc">::</span><span class="fu">p_load</span>(<span class="st">&quot;summarytools&quot;</span>, <span class="st">&quot;SmartEDA&quot;</span>, <span class="st">&quot;skimr&quot;</span>, </span>
-<span id="cb278-2"><a href="explorative-datenanalyse-eda.html#cb278-2" tabindex="-1"></a>               <span class="st">&quot;naniar&quot;</span>, <span class="st">&quot;gtsummary&quot;</span>, <span class="st">&quot;dlookr&quot;</span>,</span>
-<span id="cb278-3"><a href="explorative-datenanalyse-eda.html#cb278-3" tabindex="-1"></a>               <span class="st">&quot;DataExplorer&quot;</span>, <span class="st">&quot;psych&quot;</span>, <span class="st">&quot;ggplot2&quot;</span>,</span>
-<span id="cb278-4"><a href="explorative-datenanalyse-eda.html#cb278-4" tabindex="-1"></a>               <span class="st">&quot;palmerpenguins&quot;</span>, <span class="st">&quot;dplyr&quot;</span>, <span class="st">&quot;tidyr&quot;</span>, <span class="st">&quot;corrplot&quot;</span>)</span>
-<span id="cb278-5"><a href="explorative-datenanalyse-eda.html#cb278-5" tabindex="-1"></a></span>
-<span id="cb278-6"><a href="explorative-datenanalyse-eda.html#cb278-6" tabindex="-1"></a>penguins <span class="ot">&lt;-</span> <span class="fu">na.omit</span>(penguins)</span>
-<span id="cb278-7"><a href="explorative-datenanalyse-eda.html#cb278-7" tabindex="-1"></a>penguins_raw <span class="ot">&lt;-</span> penguins_raw</span></code></pre></div>
+<div class="sourceCode" id="cb282"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb282-1"><a href="explorative-datenanalyse-eda.html#cb282-1" tabindex="-1"></a>pacman<span class="sc">::</span><span class="fu">p_load</span>(<span class="st">&quot;summarytools&quot;</span>, <span class="st">&quot;SmartEDA&quot;</span>, <span class="st">&quot;skimr&quot;</span>, </span>
+<span id="cb282-2"><a href="explorative-datenanalyse-eda.html#cb282-2" tabindex="-1"></a>               <span class="st">&quot;naniar&quot;</span>, <span class="st">&quot;gtsummary&quot;</span>, <span class="st">&quot;dlookr&quot;</span>,</span>
+<span id="cb282-3"><a href="explorative-datenanalyse-eda.html#cb282-3" tabindex="-1"></a>               <span class="st">&quot;DataExplorer&quot;</span>, <span class="st">&quot;psych&quot;</span>, <span class="st">&quot;ggplot2&quot;</span>,</span>
+<span id="cb282-4"><a href="explorative-datenanalyse-eda.html#cb282-4" tabindex="-1"></a>               <span class="st">&quot;palmerpenguins&quot;</span>, <span class="st">&quot;dplyr&quot;</span>, <span class="st">&quot;tidyr&quot;</span>, <span class="st">&quot;corrplot&quot;</span>)</span>
+<span id="cb282-5"><a href="explorative-datenanalyse-eda.html#cb282-5" tabindex="-1"></a></span>
+<span id="cb282-6"><a href="explorative-datenanalyse-eda.html#cb282-6" tabindex="-1"></a>penguins <span class="ot">&lt;-</span> <span class="fu">na.omit</span>(penguins)</span>
+<span id="cb282-7"><a href="explorative-datenanalyse-eda.html#cb282-7" tabindex="-1"></a>pinguine_raw <span class="ot">&lt;-</span> penguins_raw</span></code></pre></div>
 <div id="standard-deskriptivstatistik" class="section level2 hasAnchor" number="4.1">
 <h2><span class="header-section-number">4.1</span> Standard-Deskriptivstatistik<a href="explorative-datenanalyse-eda.html#standard-deskriptivstatistik" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <div id="lagemaße" class="section level3 hasAnchor" number="4.1.1">
@@ -301,9 +301,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="modus" class="section level4 hasAnchor" number="4.1.1.1">
 <h4><span class="header-section-number">4.1.1.1</span> Modus<a href="explorative-datenanalyse-eda.html#modus" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <p>Der Modus ist wahrscheinlich das einfachste aller Maße: Er ist definiert als die am häufigsten vorkommende Zahl aller Beobachtungen. Wir können den Modus nicht direkt berechnen, aber es gibt einen Weg. Zunächst betrachten wir alle eindeutigen Werte unserer Beobachtungen mit der Funktion <code>unique()</code>, dann zählen wir das Vorkommen jedes eindeutigen Wertes mit <code>tabulate()</code>, und schließlich verwenden wir die Funktion <code>which.max()</code>, um den häufigsten eindeutigen Wert zu ermitteln:</p>
-<div class="sourceCode" id="cb279"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb279-1"><a href="explorative-datenanalyse-eda.html#cb279-1" tabindex="-1"></a>uniq_vals <span class="ot">&lt;-</span> <span class="fu">unique</span>(penguins<span class="sc">$</span>bill_length_mm)  <span class="co"># Eindeutige Werte ermitteln</span></span>
-<span id="cb279-2"><a href="explorative-datenanalyse-eda.html#cb279-2" tabindex="-1"></a>freqs <span class="ot">&lt;-</span> <span class="fu">tabulate</span>(<span class="fu">match</span>(penguins<span class="sc">$</span>bill_length_mm, uniq_vals))  <span class="co"># Häufigkeiten zählen</span></span>
-<span id="cb279-3"><a href="explorative-datenanalyse-eda.html#cb279-3" tabindex="-1"></a>uniq_vals[<span class="fu">which.max</span>(freqs)] <span class="co"># Den eindeutigen Wert mit den meisten Vorkommen ermitteln</span></span></code></pre></div>
+<div class="sourceCode" id="cb283"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb283-1"><a href="explorative-datenanalyse-eda.html#cb283-1" tabindex="-1"></a>uniq_werte <span class="ot">&lt;-</span> <span class="fu">unique</span>(penguins<span class="sc">$</span>bill_length_mm)  <span class="co"># Eindeutige Werte ermitteln</span></span>
+<span id="cb283-2"><a href="explorative-datenanalyse-eda.html#cb283-2" tabindex="-1"></a>freq <span class="ot">&lt;-</span> <span class="fu">tabulate</span>(<span class="fu">match</span>(penguins<span class="sc">$</span>bill_length_mm, uniq_werte))  <span class="co"># Häufigkeiten zählen</span></span>
+<span id="cb283-3"><a href="explorative-datenanalyse-eda.html#cb283-3" tabindex="-1"></a>uniq_werte[<span class="fu">which.max</span>(freq)] <span class="co"># Den eindeutigen Wert mit den meisten Vorkommen ermitteln</span></span></code></pre></div>
 <pre><code>## [1] 41.1</code></pre>
 </div>
 <div id="mittelwert" class="section level4 hasAnchor" number="4.1.1.2">
@@ -319,7 +319,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><p><span class="math inline">\(n\)</span> ist die Anzahl aller unserer Beobachtungen</p></li>
 </ul>
 <p>Wir könnten das von Hand berechnen, oder wir verwenden einfach die eingebaute Funktion <code>mean()</code>:</p>
-<div class="sourceCode" id="cb281"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb281-1"><a href="explorative-datenanalyse-eda.html#cb281-1" tabindex="-1"></a><span class="fu">mean</span>(penguins<span class="sc">$</span>bill_length_mm)</span></code></pre></div>
+<div class="sourceCode" id="cb285"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb285-1"><a href="explorative-datenanalyse-eda.html#cb285-1" tabindex="-1"></a><span class="fu">mean</span>(penguins<span class="sc">$</span>bill_length_mm)</span></code></pre></div>
 <pre><code>## [1] 43.99279</code></pre>
 </div>
 <div id="median" class="section level4 hasAnchor" number="4.1.1.3">
@@ -330,7 +330,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><p><span class="math inline">\(\frac{1}{2}X_{(\frac{n}{2})} + X_{(\frac{n}{2} + 1)}\)</span> für eine ungerade Anzahl von <em>n</em></p></li>
 </ul>
 <p>Auch hier könnten wir das von Hand berechnen, oder wir verwenden einfach die Funktion <code>median()</code>:</p>
-<div class="sourceCode" id="cb283"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb283-1"><a href="explorative-datenanalyse-eda.html#cb283-1" tabindex="-1"></a><span class="fu">median</span>(penguins<span class="sc">$</span>bill_length_mm)</span></code></pre></div>
+<div class="sourceCode" id="cb287"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb287-1"><a href="explorative-datenanalyse-eda.html#cb287-1" tabindex="-1"></a><span class="fu">median</span>(penguins<span class="sc">$</span>bill_length_mm)</span></code></pre></div>
 <pre><code>## [1] 44.5</code></pre>
 </div>
 </div>
@@ -350,7 +350,7 @@ IQR = Q_3 - Q_1
 <li><p><strong>Q1 (erstes Quartil, 25. Perzentil)</strong> und <strong>Q3 (drittes Quartil, 75. Perzentil)</strong> bestimmen.</p></li>
 </ol>
 <p>Beachte, dass die Daten aufgrund ihrer Größe nicht immer exakt in vier gleiche Teile aufgeteilt werden können. In solchen Fällen werden Quartile durch verschiedene statistische Methoden (z. B. Tukeys Scharniere) angenähert.</p>
-<div class="sourceCode" id="cb285"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb285-1"><a href="explorative-datenanalyse-eda.html#cb285-1" tabindex="-1"></a><span class="fu">IQR</span>(penguins<span class="sc">$</span>bill_length_mm)</span></code></pre></div>
+<div class="sourceCode" id="cb289"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb289-1"><a href="explorative-datenanalyse-eda.html#cb289-1" tabindex="-1"></a><span class="fu">IQR</span>(penguins<span class="sc">$</span>bill_length_mm)</span></code></pre></div>
 <pre><code>## [1] 9.1</code></pre>
 </div>
 <div id="varianz" class="section level4 hasAnchor" number="4.1.2.2">
@@ -371,7 +371,7 @@ s² = \frac{\sum(x_i - \bar{x})²}{n-1}
 <p>Nun stell dir vor, wir würden die Differenzen berechnen und sie ohne Quadrierung aufsummieren.</p>
 <p>Du siehst, dass Abstand 1 den Wert -3 und Abstand 2 den Wert 4 hätte – in Summe ergibt das 0,8, aber das ist sicher nicht der Abstand zwischen diesen beiden Punkten. Hier kommt die Quadrierung ins Spiel: Jede quadrierte Zahl ist positiv, dadurch wird aus -3 der Wert 9 und aus 4 der Wert 16, sodass die Differenzen summiert werden können und 24 ergeben.</p>
 <p>In R können wir das ganz einfach mit der Funktion <code>var()</code> berechnen:</p>
-<div class="sourceCode" id="cb287"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb287-1"><a href="explorative-datenanalyse-eda.html#cb287-1" tabindex="-1"></a><span class="fu">var</span>(penguins<span class="sc">$</span>bill_length_mm)</span></code></pre></div>
+<div class="sourceCode" id="cb291"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb291-1"><a href="explorative-datenanalyse-eda.html#cb291-1" tabindex="-1"></a><span class="fu">var</span>(penguins<span class="sc">$</span>bill_length_mm)</span></code></pre></div>
 <pre><code>## [1] 29.90633</code></pre>
 <p>Wir erhalten 29,9 – und das Problem bei der Varianz besteht darin, dass die Quadrierungstechnik zu einem Interpretationsproblem führt: Wir können die Daten nicht wirklich interpretieren, da die ursprüngliche Einheit verloren geht. Wenn unsere Daten beispielsweise in Metern vorliegen, würde die Varianz in Quadratmetern angegeben. Dieses Problem lässt sich mit dem nächsten Maß lösen: der Standardabweichung.</p>
 </div>
@@ -384,7 +384,7 @@ s = \sqrt{s²} = \sqrt\frac{\sum(x_i - \bar{x})}{n-1}
 \]</span></p>
 <p>Erinnerst du dich an unser Beispiel? Wir haben berechnet, dass die Summe der quadrierten Abstände 24 beträgt (9 + 16). Was passiert nun, wenn wir die Quadratwurzel der quadrierten Werte ziehen, bevor wir sie addieren? Wir erhalten 3 für Abstand 1 und 4 für Abstand 2. Für Abstand 2 hat sich nichts geändert, er behält seinen ursprünglichen Wert 4, aber Abstand 1 ist von -3 auf den positiven Wert 3 gewechselt. Nun können wir beide addieren und erhalten den Abstand 7.</p>
 <p>Wenden wir das in R mit der Funktion <code>sd()</code> an:</p>
-<div class="sourceCode" id="cb289"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb289-1"><a href="explorative-datenanalyse-eda.html#cb289-1" tabindex="-1"></a><span class="fu">sd</span>(penguins<span class="sc">$</span>bill_length_mm)</span></code></pre></div>
+<div class="sourceCode" id="cb293"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb293-1"><a href="explorative-datenanalyse-eda.html#cb293-1" tabindex="-1"></a><span class="fu">sd</span>(penguins<span class="sc">$</span>bill_length_mm)</span></code></pre></div>
 <pre><code>## [1] 5.468668</code></pre>
 <p>Der große Vorteil der Standardabweichung gegenüber der Varianz besteht darin, dass sie in der ursprünglichen Einheit interpretiert werden kann und damit ein intuitiveres Streuungsmaß darstellt.</p>
 </div>
@@ -394,13 +394,13 @@ s = \sqrt{s²} = \sqrt\frac{\sum(x_i - \bar{x})}{n-1}
 <p>Es ist wichtig, einen wesentlichen Unterschied in der EDA zu verstehen. Es gibt Werte, die man einfach betrachtet und interpretiert, wie die bisher vorgestellten Maße. Auf der anderen Seite gibt es Maße, die die Beziehung zwischen Variablen untersuchen und analysieren, wie diese miteinander interagieren. Im Folgenden betrachten wir zwei Methoden dazu.</p>
 <div id="kreuztabellen-kontingenztabellen" class="section level4 hasAnchor" number="4.1.3.1">
 <h4><span class="header-section-number">4.1.3.1</span> Kreuztabellen / Kontingenztabellen<a href="explorative-datenanalyse-eda.html#kreuztabellen-kontingenztabellen" class="anchor-section" aria-label="Anchor link to header"></a></h4>
-<div class="sourceCode" id="cb291"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb291-1"><a href="explorative-datenanalyse-eda.html#cb291-1" tabindex="-1"></a><span class="fu">table</span>(penguins<span class="sc">$</span>species, penguins<span class="sc">$</span>island)</span></code></pre></div>
+<div class="sourceCode" id="cb295"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb295-1"><a href="explorative-datenanalyse-eda.html#cb295-1" tabindex="-1"></a><span class="fu">table</span>(penguins<span class="sc">$</span>species, penguins<span class="sc">$</span>island)</span></code></pre></div>
 <pre><code>##            
 ##             Biscoe Dream Torgersen
 ##   Adelie        44    55        47
 ##   Chinstrap      0    68         0
 ##   Gentoo       119     0         0</code></pre>
-<div class="sourceCode" id="cb293"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb293-1"><a href="explorative-datenanalyse-eda.html#cb293-1" tabindex="-1"></a>summarytools<span class="sc">::</span><span class="fu">ctable</span>(penguins<span class="sc">$</span>species, penguins<span class="sc">$</span>island)</span></code></pre></div>
+<div class="sourceCode" id="cb297"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb297-1"><a href="explorative-datenanalyse-eda.html#cb297-1" tabindex="-1"></a>summarytools<span class="sc">::</span><span class="fu">ctable</span>(penguins<span class="sc">$</span>species, penguins<span class="sc">$</span>island)</span></code></pre></div>
 <pre><code>## Cross-Tabulation, Row Proportions  
 ## species * island  
 ## Data Frame: penguins  
@@ -413,9 +413,9 @@ s = \sqrt{s²} = \sqrt\frac{\sum(x_i - \bar{x})}{n-1}
 ##      Gentoo            119 (100.0%)     0 (  0.0%)    0 ( 0.0%)   119 (100.0%)
 ##       Total            163 ( 48.9%)   123 ( 36.9%)   47 (14.1%)   333 (100.0%)
 ## ----------- -------- -------------- -------------- ------------ --------------</code></pre>
-<div class="sourceCode" id="cb295"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb295-1"><a href="explorative-datenanalyse-eda.html#cb295-1" tabindex="-1"></a>gtsummary<span class="sc">::</span><span class="fu">tbl_cross</span>(<span class="at">data =</span> penguins, </span>
-<span id="cb295-2"><a href="explorative-datenanalyse-eda.html#cb295-2" tabindex="-1"></a>                     <span class="at">row =</span> species, </span>
-<span id="cb295-3"><a href="explorative-datenanalyse-eda.html#cb295-3" tabindex="-1"></a>                     <span class="at">col =</span> island)</span></code></pre></div>
+<div class="sourceCode" id="cb299"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb299-1"><a href="explorative-datenanalyse-eda.html#cb299-1" tabindex="-1"></a>gtsummary<span class="sc">::</span><span class="fu">tbl_cross</span>(<span class="at">data =</span> penguins, </span>
+<span id="cb299-2"><a href="explorative-datenanalyse-eda.html#cb299-2" tabindex="-1"></a>                     <span class="at">row =</span> species, </span>
+<span id="cb299-3"><a href="explorative-datenanalyse-eda.html#cb299-3" tabindex="-1"></a>                     <span class="at">col =</span> island)</span></code></pre></div>
 <div id="qipzyayjvz" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
 <style>#qipzyayjvz table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
@@ -920,8 +920,8 @@ s = \sqrt{s²} = \sqrt\frac{\sum(x_i - \bar{x})}{n-1}
 <h5><span class="header-section-number">4.1.3.2.1</span> Pearsons Korrelation<a href="explorative-datenanalyse-eda.html#pearsons-korrelation" class="anchor-section" aria-label="Anchor link to header"></a></h5>
 <p>Pearsons Korrelation misst die lineare Beziehung zwischen zwei kontinuierlichen Variablen. Dazu setzt sie eine Normalverteilung beider Variablen, eine lineare Beziehung und keine wesentlichen Ausreißer voraus.</p>
 <p>Normalerweise sollte man diese Voraussetzungen vor der Berechnung einer Korrelation überprüfen, aber wir überspringen diesen Teil und schauen uns die Umsetzung in R an:</p>
-<div class="sourceCode" id="cb296"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb296-1"><a href="explorative-datenanalyse-eda.html#cb296-1" tabindex="-1"></a><span class="fu">cor</span>(penguins<span class="sc">$</span>bill_length_mm, penguins<span class="sc">$</span>body_mass_g,</span>
-<span id="cb296-2"><a href="explorative-datenanalyse-eda.html#cb296-2" tabindex="-1"></a>    <span class="at">method =</span> <span class="st">&quot;pearson&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb300"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb300-1"><a href="explorative-datenanalyse-eda.html#cb300-1" tabindex="-1"></a><span class="fu">cor</span>(penguins<span class="sc">$</span>bill_length_mm, penguins<span class="sc">$</span>body_mass_g,</span>
+<span id="cb300-2"><a href="explorative-datenanalyse-eda.html#cb300-2" tabindex="-1"></a>    <span class="at">method =</span> <span class="st">&quot;pearson&quot;</span>)</span></code></pre></div>
 <pre><code>## [1] 0.5894511</code></pre>
 <p>Die Interpretation von Pearsons r ist recht einfach: Das Ergebnis liegt immer zwischen +1 und -1, wobei +1 eine perfekte lineare Beziehung, 0 keinerlei Beziehung und -1 eine perfekte negative lineare Beziehung bedeutet.</p>
 <p>In unserem Fall besteht mit r = 0,59 eine starke positive, lineare Beziehung zwischen beiden Variablen.</p>
@@ -931,8 +931,8 @@ s = \sqrt{s²} = \sqrt\frac{\sum(x_i - \bar{x})}{n-1}
 <p>Spearmans Rangkorrelation, kurz Spearmans Rho, gibt an, ob ordinale oder kontinuierliche Variablen eine monotone Beziehung aufweisen. Das bedeutet: Wenn eine Variable steigt, steigt oder fällt die andere immer – aber nicht zwingend in einem konstanten Verhältnis, wie es bei einer linearen Beziehung der Fall wäre.</p>
 <p>Sie hat andere Voraussetzungen: Ausreißer sind erlaubt, die Beziehung kann nichtlinear sein, die Daten können Rangwerte enthalten, und die Variablen müssen nicht normalverteilt sein.</p>
 <p>Schauen wir uns an, wie sie in R berechnet wird:</p>
-<div class="sourceCode" id="cb298"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb298-1"><a href="explorative-datenanalyse-eda.html#cb298-1" tabindex="-1"></a><span class="fu">cor</span>(penguins<span class="sc">$</span>bill_length_mm, penguins<span class="sc">$</span>body_mass_g,</span>
-<span id="cb298-2"><a href="explorative-datenanalyse-eda.html#cb298-2" tabindex="-1"></a>    <span class="at">method =</span> <span class="st">&quot;spearman&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb302"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb302-1"><a href="explorative-datenanalyse-eda.html#cb302-1" tabindex="-1"></a><span class="fu">cor</span>(penguins<span class="sc">$</span>bill_length_mm, penguins<span class="sc">$</span>body_mass_g,</span>
+<span id="cb302-2"><a href="explorative-datenanalyse-eda.html#cb302-2" tabindex="-1"></a>    <span class="at">method =</span> <span class="st">&quot;spearman&quot;</span>)</span></code></pre></div>
 <pre><code>## [1] 0.5764804</code></pre>
 <p>Die Interpretation ist analog zu Pearsons r: +1 bedeutet eine perfekte positive monotone Beziehung, 0 bedeutet keine monotone Beziehung und -1 bedeutet eine perfekte negative monotone Beziehung.</p>
 <p>Ein Spearmans Rho von 0,58 weist auf eine starke, positive, monotone Beziehung zwischen den beiden Variablen hin.</p>
@@ -945,8 +945,8 @@ s = \sqrt{s²} = \sqrt\frac{\sum(x_i - \bar{x})}{n-1}
 <li><p>Eine diskordante Beziehung bedeutet, dass wenn ein Datenpunkt steigt, der andere fällt (oder umgekehrt).</p></li>
 </ul>
 <p>Berechnen wir Kendalls Tau:</p>
-<div class="sourceCode" id="cb300"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb300-1"><a href="explorative-datenanalyse-eda.html#cb300-1" tabindex="-1"></a><span class="fu">cor</span>(penguins<span class="sc">$</span>bill_length_mm, penguins<span class="sc">$</span>body_mass_g,</span>
-<span id="cb300-2"><a href="explorative-datenanalyse-eda.html#cb300-2" tabindex="-1"></a>    <span class="at">method =</span> <span class="st">&quot;kendall&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb304"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb304-1"><a href="explorative-datenanalyse-eda.html#cb304-1" tabindex="-1"></a><span class="fu">cor</span>(penguins<span class="sc">$</span>bill_length_mm, penguins<span class="sc">$</span>body_mass_g,</span>
+<span id="cb304-2"><a href="explorative-datenanalyse-eda.html#cb304-2" tabindex="-1"></a>    <span class="at">method =</span> <span class="st">&quot;kendall&quot;</span>)</span></code></pre></div>
 <pre><code>## [1] 0.4277598</code></pre>
 <p>Kendalls Tau wird folgendermaßen interpretiert: +1 bedeutet eine perfekte Übereinstimmung der Ränge, 0 bedeutet keinerlei Zusammenhang und -1 bedeutet eine perfekte Umkehrung der Ränge.</p>
 <p>Unser Kendalls Tau weist auf eine hohe Rangübereinstimmung zwischen unseren beiden Variablen hin.</p>
@@ -955,44 +955,44 @@ s = \sqrt{s²} = \sqrt\frac{\sum(x_i - \bar{x})}{n-1}
 <div id="korrelation-grafisch-darstellen" class="section level4 hasAnchor" number="4.1.3.3">
 <h4><span class="header-section-number">4.1.3.3</span> Korrelation grafisch darstellen<a href="explorative-datenanalyse-eda.html#korrelation-grafisch-darstellen" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <p>Der vorherige Abschnitt war recht theoretisch, aber es gibt auch schöne Möglichkeiten, Korrelationen grafisch darzustellen. Wir beginnen mit einem einfachen Streudiagramm:</p>
-<div class="sourceCode" id="cb302"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb302-1"><a href="explorative-datenanalyse-eda.html#cb302-1" tabindex="-1"></a><span class="fu">ggplot</span>(penguins, <span class="fu">aes</span>(<span class="at">x =</span> bill_length_mm, <span class="at">y =</span> body_mass_g)) <span class="sc">+</span></span>
-<span id="cb302-2"><a href="explorative-datenanalyse-eda.html#cb302-2" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">color =</span> <span class="st">&quot;#0077b6&quot;</span>) <span class="sc">+</span></span>
-<span id="cb302-3"><a href="explorative-datenanalyse-eda.html#cb302-3" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">&quot;Länge in mm&quot;</span>,</span>
-<span id="cb302-4"><a href="explorative-datenanalyse-eda.html#cb302-4" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">&quot;Körpermasse in g&quot;</span>,</span>
-<span id="cb302-5"><a href="explorative-datenanalyse-eda.html#cb302-5" tabindex="-1"></a>       <span class="at">title =</span> <span class="st">&quot;Beziehung zwischen Länge (in mm) und Körpermasse (in g)&quot;</span>) <span class="sc">+</span> </span>
-<span id="cb302-6"><a href="explorative-datenanalyse-eda.html#cb302-6" tabindex="-1"></a>  <span class="fu">theme_bw</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb306"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb306-1"><a href="explorative-datenanalyse-eda.html#cb306-1" tabindex="-1"></a><span class="fu">ggplot</span>(penguins, <span class="fu">aes</span>(<span class="at">x =</span> bill_length_mm, <span class="at">y =</span> body_mass_g)) <span class="sc">+</span></span>
+<span id="cb306-2"><a href="explorative-datenanalyse-eda.html#cb306-2" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">color =</span> <span class="st">&quot;#0077b6&quot;</span>) <span class="sc">+</span></span>
+<span id="cb306-3"><a href="explorative-datenanalyse-eda.html#cb306-3" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">&quot;Länge in mm&quot;</span>,</span>
+<span id="cb306-4"><a href="explorative-datenanalyse-eda.html#cb306-4" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">&quot;Körpermasse in g&quot;</span>,</span>
+<span id="cb306-5"><a href="explorative-datenanalyse-eda.html#cb306-5" tabindex="-1"></a>       <span class="at">title =</span> <span class="st">&quot;Beziehung zwischen Länge (in mm) und Körpermasse (in g)&quot;</span>) <span class="sc">+</span> </span>
+<span id="cb306-6"><a href="explorative-datenanalyse-eda.html#cb306-6" tabindex="-1"></a>  <span class="fu">theme_bw</span>()</span></code></pre></div>
 <p><img src="bookdownproj_files/figure-html/korrelation%20grafisch-1.png" width="672" /></p>
 <p>Bei der Untersuchung von Beziehungen zwischen zwei Variablen sind Streudiagramme die Standardvisualisierung. Wie wir sehen, ist klar erkennbar, dass die Länge in mm möglicherweise positiv mit der Körpermasse in g zusammenhängt. Grundsätzlich gibt es drei Arten von linearen Beziehungen, und Streudiagramme sehen entsprechend aus:</p>
-<div class="sourceCode" id="cb303"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb303-1"><a href="explorative-datenanalyse-eda.html#cb303-1" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123</span>)</span>
-<span id="cb303-2"><a href="explorative-datenanalyse-eda.html#cb303-2" tabindex="-1"></a></span>
-<span id="cb303-3"><a href="explorative-datenanalyse-eda.html#cb303-3" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">100</span></span>
-<span id="cb303-4"><a href="explorative-datenanalyse-eda.html#cb303-4" tabindex="-1"></a></span>
-<span id="cb303-5"><a href="explorative-datenanalyse-eda.html#cb303-5" tabindex="-1"></a>df_cor <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
-<span id="cb303-6"><a href="explorative-datenanalyse-eda.html#cb303-6" tabindex="-1"></a>  <span class="at">x =</span> <span class="fu">rep</span>(<span class="dv">1</span><span class="sc">:</span>n, <span class="dv">3</span>),</span>
-<span id="cb303-7"><a href="explorative-datenanalyse-eda.html#cb303-7" tabindex="-1"></a>  <span class="at">relationship =</span> <span class="fu">rep</span>(<span class="fu">c</span>(<span class="st">&quot;Positiv&quot;</span>, <span class="st">&quot;Negativ&quot;</span>, <span class="st">&quot;Keine&quot;</span>), </span>
-<span id="cb303-8"><a href="explorative-datenanalyse-eda.html#cb303-8" tabindex="-1"></a>                     <span class="at">each =</span> n),</span>
-<span id="cb303-9"><a href="explorative-datenanalyse-eda.html#cb303-9" tabindex="-1"></a>  <span class="at">y =</span> <span class="fu">c</span>(</span>
-<span id="cb303-10"><a href="explorative-datenanalyse-eda.html#cb303-10" tabindex="-1"></a>    (<span class="dv">1</span><span class="sc">:</span>n) <span class="sc">+</span> <span class="fu">rnorm</span>(n, <span class="at">sd =</span> <span class="dv">15</span>),    <span class="co"># starke positive Korrelation</span></span>
-<span id="cb303-11"><a href="explorative-datenanalyse-eda.html#cb303-11" tabindex="-1"></a>    (n<span class="sc">:</span><span class="dv">1</span>) <span class="sc">+</span> <span class="fu">rnorm</span>(n, <span class="at">sd =</span> <span class="dv">15</span>),    <span class="co"># starke negative Korrelation</span></span>
-<span id="cb303-12"><a href="explorative-datenanalyse-eda.html#cb303-12" tabindex="-1"></a>    <span class="fu">rnorm</span>(n, <span class="at">mean =</span> <span class="dv">50</span>, <span class="at">sd =</span> <span class="dv">20</span>)  <span class="co"># keine Korrelation</span></span>
-<span id="cb303-13"><a href="explorative-datenanalyse-eda.html#cb303-13" tabindex="-1"></a>  )</span>
-<span id="cb303-14"><a href="explorative-datenanalyse-eda.html#cb303-14" tabindex="-1"></a>)</span>
-<span id="cb303-15"><a href="explorative-datenanalyse-eda.html#cb303-15" tabindex="-1"></a></span>
-<span id="cb303-16"><a href="explorative-datenanalyse-eda.html#cb303-16" tabindex="-1"></a><span class="co"># Reihenfolge der Faktorstufen festlegen</span></span>
-<span id="cb303-17"><a href="explorative-datenanalyse-eda.html#cb303-17" tabindex="-1"></a>df_cor<span class="sc">$</span>relationship <span class="ot">&lt;-</span> <span class="fu">factor</span>(df_cor<span class="sc">$</span>relationship, </span>
-<span id="cb303-18"><a href="explorative-datenanalyse-eda.html#cb303-18" tabindex="-1"></a>                          <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">&quot;Positiv&quot;</span>, </span>
-<span id="cb303-19"><a href="explorative-datenanalyse-eda.html#cb303-19" tabindex="-1"></a>                                     <span class="st">&quot;Keine&quot;</span>, <span class="st">&quot;Negativ&quot;</span>),</span>
-<span id="cb303-20"><a href="explorative-datenanalyse-eda.html#cb303-20" tabindex="-1"></a>                          <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">&quot;Positiv&quot;</span>, </span>
-<span id="cb303-21"><a href="explorative-datenanalyse-eda.html#cb303-21" tabindex="-1"></a>                                     <span class="st">&quot;Keine Korrelation&quot;</span>, </span>
-<span id="cb303-22"><a href="explorative-datenanalyse-eda.html#cb303-22" tabindex="-1"></a>                                     <span class="st">&quot;Negativ&quot;</span>))</span>
-<span id="cb303-23"><a href="explorative-datenanalyse-eda.html#cb303-23" tabindex="-1"></a></span>
-<span id="cb303-24"><a href="explorative-datenanalyse-eda.html#cb303-24" tabindex="-1"></a><span class="co"># Plot erstellen</span></span>
-<span id="cb303-25"><a href="explorative-datenanalyse-eda.html#cb303-25" tabindex="-1"></a><span class="fu">ggplot</span>(df_cor, <span class="fu">aes</span>(<span class="at">x =</span> x, <span class="at">y =</span> y)) <span class="sc">+</span></span>
-<span id="cb303-26"><a href="explorative-datenanalyse-eda.html#cb303-26" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">color =</span> <span class="st">&quot;steelblue&quot;</span>, <span class="at">size =</span> <span class="dv">2</span>) <span class="sc">+</span></span>
-<span id="cb303-27"><a href="explorative-datenanalyse-eda.html#cb303-27" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>relationship, <span class="at">nrow =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
-<span id="cb303-28"><a href="explorative-datenanalyse-eda.html#cb303-28" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;Starke positive, negative und keine Korrelation&quot;</span>,</span>
-<span id="cb303-29"><a href="explorative-datenanalyse-eda.html#cb303-29" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">&quot;X&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Y&quot;</span>) <span class="sc">+</span></span>
-<span id="cb303-30"><a href="explorative-datenanalyse-eda.html#cb303-30" tabindex="-1"></a>  <span class="fu">theme_bw</span>(<span class="at">base_size =</span> <span class="dv">18</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb307"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb307-1"><a href="explorative-datenanalyse-eda.html#cb307-1" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123</span>)</span>
+<span id="cb307-2"><a href="explorative-datenanalyse-eda.html#cb307-2" tabindex="-1"></a></span>
+<span id="cb307-3"><a href="explorative-datenanalyse-eda.html#cb307-3" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">100</span></span>
+<span id="cb307-4"><a href="explorative-datenanalyse-eda.html#cb307-4" tabindex="-1"></a></span>
+<span id="cb307-5"><a href="explorative-datenanalyse-eda.html#cb307-5" tabindex="-1"></a>df_cor <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb307-6"><a href="explorative-datenanalyse-eda.html#cb307-6" tabindex="-1"></a>  <span class="at">x =</span> <span class="fu">rep</span>(<span class="dv">1</span><span class="sc">:</span>n, <span class="dv">3</span>),</span>
+<span id="cb307-7"><a href="explorative-datenanalyse-eda.html#cb307-7" tabindex="-1"></a>  <span class="at">relationship =</span> <span class="fu">rep</span>(<span class="fu">c</span>(<span class="st">&quot;Positiv&quot;</span>, <span class="st">&quot;Negativ&quot;</span>, <span class="st">&quot;Keine&quot;</span>), </span>
+<span id="cb307-8"><a href="explorative-datenanalyse-eda.html#cb307-8" tabindex="-1"></a>                     <span class="at">each =</span> n),</span>
+<span id="cb307-9"><a href="explorative-datenanalyse-eda.html#cb307-9" tabindex="-1"></a>  <span class="at">y =</span> <span class="fu">c</span>(</span>
+<span id="cb307-10"><a href="explorative-datenanalyse-eda.html#cb307-10" tabindex="-1"></a>    (<span class="dv">1</span><span class="sc">:</span>n) <span class="sc">+</span> <span class="fu">rnorm</span>(n, <span class="at">sd =</span> <span class="dv">15</span>),    <span class="co"># starke positive Korrelation</span></span>
+<span id="cb307-11"><a href="explorative-datenanalyse-eda.html#cb307-11" tabindex="-1"></a>    (n<span class="sc">:</span><span class="dv">1</span>) <span class="sc">+</span> <span class="fu">rnorm</span>(n, <span class="at">sd =</span> <span class="dv">15</span>),    <span class="co"># starke negative Korrelation</span></span>
+<span id="cb307-12"><a href="explorative-datenanalyse-eda.html#cb307-12" tabindex="-1"></a>    <span class="fu">rnorm</span>(n, <span class="at">mean =</span> <span class="dv">50</span>, <span class="at">sd =</span> <span class="dv">20</span>)  <span class="co"># keine Korrelation</span></span>
+<span id="cb307-13"><a href="explorative-datenanalyse-eda.html#cb307-13" tabindex="-1"></a>  )</span>
+<span id="cb307-14"><a href="explorative-datenanalyse-eda.html#cb307-14" tabindex="-1"></a>)</span>
+<span id="cb307-15"><a href="explorative-datenanalyse-eda.html#cb307-15" tabindex="-1"></a></span>
+<span id="cb307-16"><a href="explorative-datenanalyse-eda.html#cb307-16" tabindex="-1"></a><span class="co"># Reihenfolge der Faktorstufen festlegen</span></span>
+<span id="cb307-17"><a href="explorative-datenanalyse-eda.html#cb307-17" tabindex="-1"></a>df_cor<span class="sc">$</span>relationship <span class="ot">&lt;-</span> <span class="fu">factor</span>(df_cor<span class="sc">$</span>relationship, </span>
+<span id="cb307-18"><a href="explorative-datenanalyse-eda.html#cb307-18" tabindex="-1"></a>                          <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">&quot;Positiv&quot;</span>, </span>
+<span id="cb307-19"><a href="explorative-datenanalyse-eda.html#cb307-19" tabindex="-1"></a>                                     <span class="st">&quot;Keine&quot;</span>, <span class="st">&quot;Negativ&quot;</span>),</span>
+<span id="cb307-20"><a href="explorative-datenanalyse-eda.html#cb307-20" tabindex="-1"></a>                          <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">&quot;Positiv&quot;</span>, </span>
+<span id="cb307-21"><a href="explorative-datenanalyse-eda.html#cb307-21" tabindex="-1"></a>                                     <span class="st">&quot;Keine Korrelation&quot;</span>, </span>
+<span id="cb307-22"><a href="explorative-datenanalyse-eda.html#cb307-22" tabindex="-1"></a>                                     <span class="st">&quot;Negativ&quot;</span>))</span>
+<span id="cb307-23"><a href="explorative-datenanalyse-eda.html#cb307-23" tabindex="-1"></a></span>
+<span id="cb307-24"><a href="explorative-datenanalyse-eda.html#cb307-24" tabindex="-1"></a><span class="co"># Plot erstellen</span></span>
+<span id="cb307-25"><a href="explorative-datenanalyse-eda.html#cb307-25" tabindex="-1"></a><span class="fu">ggplot</span>(df_cor, <span class="fu">aes</span>(<span class="at">x =</span> x, <span class="at">y =</span> y)) <span class="sc">+</span></span>
+<span id="cb307-26"><a href="explorative-datenanalyse-eda.html#cb307-26" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">color =</span> <span class="st">&quot;steelblue&quot;</span>, <span class="at">size =</span> <span class="dv">2</span>) <span class="sc">+</span></span>
+<span id="cb307-27"><a href="explorative-datenanalyse-eda.html#cb307-27" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>relationship, <span class="at">nrow =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
+<span id="cb307-28"><a href="explorative-datenanalyse-eda.html#cb307-28" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;Starke positive, negative und keine Korrelation&quot;</span>,</span>
+<span id="cb307-29"><a href="explorative-datenanalyse-eda.html#cb307-29" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">&quot;X&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Y&quot;</span>) <span class="sc">+</span></span>
+<span id="cb307-30"><a href="explorative-datenanalyse-eda.html#cb307-30" tabindex="-1"></a>  <span class="fu">theme_bw</span>(<span class="at">base_size =</span> <span class="dv">18</span>)</span></code></pre></div>
 <p><img src="bookdownproj_files/figure-html/beispiel%20korrelationen-1.png" width="672" /></p>
 <p>Mit Streudiagrammen in Kombination mit <code>facet_wrap()</code> lassen sich mehrere Korrelationen grafisch darstellen. Es gibt jedoch auch eine Möglichkeit, den Korrelationskoeffizienten zu berechnen und grafisch mit einem <strong>Korrelationsplot</strong> darzustellen. Ein Korrelationsplot kombiniert die Logik von Kontingenztabellen, Heatmaps und den Korrelationskoeffizienten.</p>
 <p>Zunächst wird eine <strong>Korrelationsmatrix</strong> erstellt – eine Tabelle, die die <strong>paarweisen Korrelationskoeffizienten</strong> (typischerweise nach Pearson) zwischen mehreren numerischen Variablen zeigt. Jede Zelle der Matrix stellt die Stärke und Richtung der linearen Beziehung zwischen zwei Variablen dar. Ein <strong>Korrelationsplot</strong> ist dann eine visuelle Darstellung dieser Matrix, die häufig Farbverläufe oder Kreisgrößen verwendet, um Stärke und Richtung der Korrelationen anzuzeigen und Muster leichter erkennbar zu machen.</p>
@@ -1002,29 +1002,29 @@ s = \sqrt{s²} = \sqrt\frac{\sum(x_i - \bar{x})}{n-1}
 <li><p>Dann berechnen wir eine Korrelationsmatrix mit dem Befehl <code>cor()</code>.</p></li>
 <li><p>Schließlich rufen wir <code>corrplot()</code> auf, übergeben den Datensatz, definieren die Methode (wir verwenden Farbe zur Darstellung der Korrelationsstärke) und den Typ (<code>'full'</code> (Standard), <code>'upper'</code> oder <code>'lower'</code> für die vollständige, untere oder obere Dreiecksmatrix).</p></li>
 </ul>
-<div class="sourceCode" id="cb304"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb304-1"><a href="explorative-datenanalyse-eda.html#cb304-1" tabindex="-1"></a><span class="co"># Schritt 1: Numerische Daten vorbereiten</span></span>
-<span id="cb304-2"><a href="explorative-datenanalyse-eda.html#cb304-2" tabindex="-1"></a>penguins_numeric <span class="ot">&lt;-</span> penguins <span class="sc">%&gt;%</span></span>
-<span id="cb304-3"><a href="explorative-datenanalyse-eda.html#cb304-3" tabindex="-1"></a>  <span class="fu">select</span>(bill_length_mm, bill_depth_mm, flipper_length_mm, body_mass_g) <span class="sc">%&gt;%</span></span>
-<span id="cb304-4"><a href="explorative-datenanalyse-eda.html#cb304-4" tabindex="-1"></a>  <span class="fu">drop_na</span>()</span>
-<span id="cb304-5"><a href="explorative-datenanalyse-eda.html#cb304-5" tabindex="-1"></a></span>
-<span id="cb304-6"><a href="explorative-datenanalyse-eda.html#cb304-6" tabindex="-1"></a><span class="co"># Schritt 2: Korrelationsmatrix berechnen</span></span>
-<span id="cb304-7"><a href="explorative-datenanalyse-eda.html#cb304-7" tabindex="-1"></a>corr_matrix <span class="ot">&lt;-</span> <span class="fu">cor</span>(penguins_numeric)</span>
-<span id="cb304-8"><a href="explorative-datenanalyse-eda.html#cb304-8" tabindex="-1"></a></span>
-<span id="cb304-9"><a href="explorative-datenanalyse-eda.html#cb304-9" tabindex="-1"></a><span class="co"># Schritt 3: Korrelationsmatrix plotten</span></span>
-<span id="cb304-10"><a href="explorative-datenanalyse-eda.html#cb304-10" tabindex="-1"></a><span class="fu">corrplot</span>(corr_matrix, <span class="at">method =</span> <span class="st">&quot;color&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb308"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb308-1"><a href="explorative-datenanalyse-eda.html#cb308-1" tabindex="-1"></a><span class="co"># Schritt 1: Numerische Daten vorbereiten</span></span>
+<span id="cb308-2"><a href="explorative-datenanalyse-eda.html#cb308-2" tabindex="-1"></a>penguins_numeric <span class="ot">&lt;-</span> penguins <span class="sc">%&gt;%</span></span>
+<span id="cb308-3"><a href="explorative-datenanalyse-eda.html#cb308-3" tabindex="-1"></a>  <span class="fu">select</span>(bill_length_mm, bill_depth_mm, flipper_length_mm, body_mass_g) <span class="sc">%&gt;%</span></span>
+<span id="cb308-4"><a href="explorative-datenanalyse-eda.html#cb308-4" tabindex="-1"></a>  <span class="fu">drop_na</span>()</span>
+<span id="cb308-5"><a href="explorative-datenanalyse-eda.html#cb308-5" tabindex="-1"></a></span>
+<span id="cb308-6"><a href="explorative-datenanalyse-eda.html#cb308-6" tabindex="-1"></a><span class="co"># Schritt 2: Korrelationsmatrix berechnen</span></span>
+<span id="cb308-7"><a href="explorative-datenanalyse-eda.html#cb308-7" tabindex="-1"></a>corr_matrix <span class="ot">&lt;-</span> <span class="fu">cor</span>(penguins_numeric)</span>
+<span id="cb308-8"><a href="explorative-datenanalyse-eda.html#cb308-8" tabindex="-1"></a></span>
+<span id="cb308-9"><a href="explorative-datenanalyse-eda.html#cb308-9" tabindex="-1"></a><span class="co"># Schritt 3: Korrelationsmatrix plotten</span></span>
+<span id="cb308-10"><a href="explorative-datenanalyse-eda.html#cb308-10" tabindex="-1"></a><span class="fu">corrplot</span>(corr_matrix, <span class="at">method =</span> <span class="st">&quot;color&quot;</span>)</span></code></pre></div>
 <p><img src="bookdownproj_files/figure-html/einfache%20korrelationsmatrix-1.png" width="672" /></p>
 <p>Nun sehen wir auf elegante Weise die Korrelation zwischen den vier ausgewählten Variablen, die durch die Farbe dargestellt wird. Jede Zelle zeigt den Korrelationskoeffizienten der Variable in der jeweiligen Spalte und der jeweiligen Zeile.</p>
 <p>Die Funktion <code>corrplot()</code> bietet weitere Gestaltungsmöglichkeiten:</p>
-<div class="sourceCode" id="cb305"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb305-1"><a href="explorative-datenanalyse-eda.html#cb305-1" tabindex="-1"></a><span class="fu">corrplot</span>(corr_matrix, <span class="at">method =</span> <span class="st">&quot;color&quot;</span>, <span class="at">type =</span> <span class="st">&quot;upper&quot;</span>, </span>
-<span id="cb305-2"><a href="explorative-datenanalyse-eda.html#cb305-2" tabindex="-1"></a>         <span class="at">addCoef.col =</span> <span class="st">&quot;black&quot;</span>, <span class="at">tl.col =</span> <span class="st">&quot;black&quot;</span>, <span class="at">tl.srt =</span> <span class="dv">45</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb309"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb309-1"><a href="explorative-datenanalyse-eda.html#cb309-1" tabindex="-1"></a><span class="fu">corrplot</span>(corr_matrix, <span class="at">method =</span> <span class="st">&quot;color&quot;</span>, <span class="at">type =</span> <span class="st">&quot;upper&quot;</span>, </span>
+<span id="cb309-2"><a href="explorative-datenanalyse-eda.html#cb309-2" tabindex="-1"></a>         <span class="at">addCoef.col =</span> <span class="st">&quot;black&quot;</span>, <span class="at">tl.col =</span> <span class="st">&quot;black&quot;</span>, <span class="at">tl.srt =</span> <span class="dv">45</span>)</span></code></pre></div>
 <p><img src="bookdownproj_files/figure-html/huebsche%20korrelationsmatrix-1.png" width="672" /></p>
 <p>Abschließend können wir die Methode auf <code>"circle"</code> ändern. Dadurch werden die Zellen nicht mehr einfarbig gefüllt, sondern ein Kreis um die Zahlen gezeichnet und mit der entsprechenden Farbe gefüllt. Die Größe des Kreises, also sein Radius, wird durch die Stärke der Korrelation bestimmt: Je näher der Koeffizient an null liegt, desto kleiner der Kreis:</p>
-<div class="sourceCode" id="cb306"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb306-1"><a href="explorative-datenanalyse-eda.html#cb306-1" tabindex="-1"></a><span class="fu">corrplot</span>(corr_matrix, <span class="at">method =</span> <span class="st">&quot;circle&quot;</span>, <span class="at">type =</span> <span class="st">&quot;upper&quot;</span>, </span>
-<span id="cb306-2"><a href="explorative-datenanalyse-eda.html#cb306-2" tabindex="-1"></a>         <span class="at">addCoef.col =</span> <span class="st">&quot;black&quot;</span>, <span class="at">tl.col =</span> <span class="st">&quot;black&quot;</span>, <span class="at">tl.srt =</span> <span class="dv">45</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb310"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb310-1"><a href="explorative-datenanalyse-eda.html#cb310-1" tabindex="-1"></a><span class="fu">corrplot</span>(corr_matrix, <span class="at">method =</span> <span class="st">&quot;circle&quot;</span>, <span class="at">type =</span> <span class="st">&quot;upper&quot;</span>, </span>
+<span id="cb310-2"><a href="explorative-datenanalyse-eda.html#cb310-2" tabindex="-1"></a>         <span class="at">addCoef.col =</span> <span class="st">&quot;black&quot;</span>, <span class="at">tl.col =</span> <span class="st">&quot;black&quot;</span>, <span class="at">tl.srt =</span> <span class="dv">45</span>)</span></code></pre></div>
 <p><img src="bookdownproj_files/figure-html/korrelationsmatrix%20kreismethode-1.png" width="672" /></p>
 <p>Wenn ich die Kreismethode verwende, zeige ich die Matrix lieber ohne Zahlen an – das sieht meiner Meinung nach besser aus und ist intuitiver als das vollständige Ausfüllen der Zeilen:</p>
-<div class="sourceCode" id="cb307"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb307-1"><a href="explorative-datenanalyse-eda.html#cb307-1" tabindex="-1"></a><span class="fu">corrplot</span>(corr_matrix, <span class="at">method =</span> <span class="st">&quot;circle&quot;</span>, <span class="at">type =</span> <span class="st">&quot;upper&quot;</span>, </span>
-<span id="cb307-2"><a href="explorative-datenanalyse-eda.html#cb307-2" tabindex="-1"></a>         <span class="at">tl.col =</span> <span class="st">&quot;black&quot;</span>, <span class="at">tl.srt =</span> <span class="dv">45</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb311"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb311-1"><a href="explorative-datenanalyse-eda.html#cb311-1" tabindex="-1"></a><span class="fu">corrplot</span>(corr_matrix, <span class="at">method =</span> <span class="st">&quot;circle&quot;</span>, <span class="at">type =</span> <span class="st">&quot;upper&quot;</span>, </span>
+<span id="cb311-2"><a href="explorative-datenanalyse-eda.html#cb311-2" tabindex="-1"></a>         <span class="at">tl.col =</span> <span class="st">&quot;black&quot;</span>, <span class="at">tl.srt =</span> <span class="dv">45</span>)</span></code></pre></div>
 <p><img src="bookdownproj_files/figure-html/huebsche%20korrelationsmatrix%20kreise-1.png" width="672" /></p>
 </div>
 </div>
@@ -1035,8 +1035,8 @@ s = \sqrt{s²} = \sqrt\frac{\sum(x_i - \bar{x})}{n-1}
 <div id="psych" class="section level3 hasAnchor" number="4.2.1">
 <h3><span class="header-section-number">4.2.1</span> psych<a href="explorative-datenanalyse-eda.html#psych" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Das <code>psych</code>-Paket ist ein unverzichtbares Paket für Psychologen, und ich verwende seine Funktion <code>describe()</code> sehr gerne, da sie mit einer einzigen Codezeile eine Vielzahl deskriptiver Statistiken ausgibt:</p>
-<div class="sourceCode" id="cb308"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb308-1"><a href="explorative-datenanalyse-eda.html#cb308-1" tabindex="-1"></a><span class="co"># describe() auf den gesamten Datensatz anwenden</span></span>
-<span id="cb308-2"><a href="explorative-datenanalyse-eda.html#cb308-2" tabindex="-1"></a>psych<span class="sc">::</span><span class="fu">describe</span>(penguins)</span></code></pre></div>
+<div class="sourceCode" id="cb312"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb312-1"><a href="explorative-datenanalyse-eda.html#cb312-1" tabindex="-1"></a><span class="co"># describe() auf den gesamten Datensatz anwenden</span></span>
+<span id="cb312-2"><a href="explorative-datenanalyse-eda.html#cb312-2" tabindex="-1"></a>psych<span class="sc">::</span><span class="fu">describe</span>(penguins)</span></code></pre></div>
 <pre><code>##                   vars   n    mean     sd median
 ## species*             1 333    1.92   0.89    2.0
 ## island*              2 333    1.65   0.71    2.0
@@ -1064,10 +1064,10 @@ s = \sqrt{s²} = \sqrt\frac{\sum(x_i - \bar{x})}{n-1}
 ## body_mass_g        0.47    -0.75 44.13
 ## sex*              -0.02    -2.01  0.03
 ## year              -0.08    -1.49  0.04</code></pre>
-<div class="sourceCode" id="cb310"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb310-1"><a href="explorative-datenanalyse-eda.html#cb310-1" tabindex="-1"></a><span class="co"># describe() kann auch auf einzelne Variablen angewendet werden</span></span>
-<span id="cb310-2"><a href="explorative-datenanalyse-eda.html#cb310-2" tabindex="-1"></a><span class="co"># psych::describe(penguins$bill_length_mm)</span></span></code></pre></div>
+<div class="sourceCode" id="cb314"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb314-1"><a href="explorative-datenanalyse-eda.html#cb314-1" tabindex="-1"></a><span class="co"># describe() kann auch auf einzelne Variablen angewendet werden</span></span>
+<span id="cb314-2"><a href="explorative-datenanalyse-eda.html#cb314-2" tabindex="-1"></a><span class="co"># psych::describe(penguins$bill_length_mm)</span></span></code></pre></div>
 <p>Die Ausgabe der Funktion <code>describe()</code> ist eine zusammenfassende Tabelle mit grundlegenden Deskriptivstatistiken wie Mittelwert, Standardabweichung, Median und vielem mehr – eine praktische Abkürzung, sodass man nicht jedes Maß einzeln berechnen muss.</p>
-<div class="sourceCode" id="cb311"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb311-1"><a href="explorative-datenanalyse-eda.html#cb311-1" tabindex="-1"></a><span class="fu">corr.test</span>(penguins_numeric)</span></code></pre></div>
+<div class="sourceCode" id="cb315"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb315-1"><a href="explorative-datenanalyse-eda.html#cb315-1" tabindex="-1"></a><span class="fu">corr.test</span>(penguins_numeric)</span></code></pre></div>
 <pre><code>## Call:corr.test(x = penguins_numeric)
 ## Correlation matrix 
 ##                   bill_length_mm bill_depth_mm
@@ -1096,7 +1096,7 @@ s = \sqrt{s²} = \sqrt\frac{\sum(x_i - \bar{x})}{n-1}
 ## 
 ##  To see confidence intervals of the correlations, print with the short=FALSE option</code></pre>
 <p>Im nächsten Schritt möchte ich euch die Funktion <code>pairs.panels()</code> zeigen. Sie erzeugt eine sehr interessante Visualisierung der Korrelationen zwischen den Variablen:</p>
-<div class="sourceCode" id="cb313"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb313-1"><a href="explorative-datenanalyse-eda.html#cb313-1" tabindex="-1"></a><span class="fu">pairs.panels</span>(penguins_numeric)</span></code></pre></div>
+<div class="sourceCode" id="cb317"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb317-1"><a href="explorative-datenanalyse-eda.html#cb317-1" tabindex="-1"></a><span class="fu">pairs.panels</span>(penguins_numeric)</span></code></pre></div>
 <p><img src="bookdownproj_files/figure-html/psych%20pairs.panels-1.png" width="672" /></p>
 <p>Das ist ein interessantes Raster aus verschiedenen Visualisierungstypen, die alle mit Korrelationen zusammenhängen. Beginnen wir mit dem einfachsten Element, der Diagonale.</p>
 <ul>
@@ -1111,7 +1111,7 @@ s = \sqrt{s²} = \sqrt\frac{\sum(x_i - \bar{x})}{n-1}
 <div id="skimr" class="section level3 hasAnchor" number="4.2.2">
 <h3><span class="header-section-number">4.2.2</span> skimr<a href="explorative-datenanalyse-eda.html#skimr" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Das <code>skimr</code>-Paket ist eine wunderbare Möglichkeit, einen Überblick über die Struktur unseres Datensatzes und grundlegende Statistiken zu erhalten – einschließlich einer Visualisierung der Verteilung der jeweiligen Variable. Die Hauptfunktion ist <code>skim()</code>:</p>
-<div class="sourceCode" id="cb314"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb314-1"><a href="explorative-datenanalyse-eda.html#cb314-1" tabindex="-1"></a>skimr<span class="sc">::</span><span class="fu">skim</span>(penguins)</span></code></pre></div>
+<div class="sourceCode" id="cb318"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb318-1"><a href="explorative-datenanalyse-eda.html#cb318-1" tabindex="-1"></a>skimr<span class="sc">::</span><span class="fu">skim</span>(penguins)</span></code></pre></div>
 <table>
 <caption><span id="tab:skimr">Table 4.1: </span>Data summary</caption>
 <tbody>
@@ -1298,14 +1298,14 @@ s = \sqrt{s²} = \sqrt\frac{\sum(x_i - \bar{x})}{n-1}
 </tr>
 </tbody>
 </table>
-<div class="sourceCode" id="cb315"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb315-1"><a href="explorative-datenanalyse-eda.html#cb315-1" tabindex="-1"></a><span class="co"># Falls die Verteilungsdarstellung nicht gewünscht ist:</span></span>
-<span id="cb315-2"><a href="explorative-datenanalyse-eda.html#cb315-2" tabindex="-1"></a><span class="co"># skimr::skim_without_charts(penguins)</span></span></code></pre></div>
+<div class="sourceCode" id="cb319"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb319-1"><a href="explorative-datenanalyse-eda.html#cb319-1" tabindex="-1"></a><span class="co"># Falls die Verteilungsdarstellung nicht gewünscht ist:</span></span>
+<span id="cb319-2"><a href="explorative-datenanalyse-eda.html#cb319-2" tabindex="-1"></a><span class="co"># skimr::skim_without_charts(penguins)</span></span></code></pre></div>
 <p>Der Vorteil des <code>skimr</code>-Pakets besteht darin, dass es direkt deskriptive Statistiken berechnet und die fehlenden Werte für jede Variable im Datensatz anzeigt. Ich verwende diesen Befehl häufig, um mir einen ersten Überblick über unbekannte Datensätze zu verschaffen. Ich halte ihn eher für ein Werkzeug zur Datenerkundung als zur eigentlichen EDA – als erster Schritt kann er jedoch sehr nützlich sein.</p>
 </div>
 <div id="summarytools" class="section level3 hasAnchor" number="4.2.3">
 <h3><span class="header-section-number">4.2.3</span> summarytools<a href="explorative-datenanalyse-eda.html#summarytools" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Wir steigen in das <code>summarytools</code>-Paket mit dem klassischen <code>dfSummary()</code>-Befehl ein, der die Struktur unseres Datensatzes zusammenfasst:</p>
-<div class="sourceCode" id="cb316"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb316-1"><a href="explorative-datenanalyse-eda.html#cb316-1" tabindex="-1"></a><span class="fu">dfSummary</span>(penguins)</span></code></pre></div>
+<div class="sourceCode" id="cb320"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb320-1"><a href="explorative-datenanalyse-eda.html#cb320-1" tabindex="-1"></a><span class="fu">dfSummary</span>(penguins)</span></code></pre></div>
 <pre><code>## Data Frame Summary  
 ## penguins  
 ## Dimensions: 333 x 8  
@@ -1355,13 +1355,13 @@ s = \sqrt{s²} = \sqrt\frac{\sum(x_i - \bar{x})}{n-1}
 ##                          IQR (CV) : 2 (0)                                                                             
 ## ----------------------------------------------------------------------------------------------------------------------</code></pre>
 <p>Der große Vorteil dieses Befehls besteht darin, dass wir ihn in die Funktion <code>view()</code> einbetten können, um eine schön formatierte Tabelle zu erhalten:</p>
-<div class="sourceCode" id="cb318"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb318-1"><a href="explorative-datenanalyse-eda.html#cb318-1" tabindex="-1"></a><span class="fu">view</span>(<span class="fu">dfSummary</span>(penguins))</span></code></pre></div>
-<pre><code>## Output file written: /tmp/RtmpehhUvl/file9d9b87b845b.html</code></pre>
-<div class="sourceCode" id="cb320"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb320-1"><a href="explorative-datenanalyse-eda.html#cb320-1" tabindex="-1"></a><span class="co"># Oder mit einer Pipe, für erfahrene R-Nutzer:</span></span>
-<span id="cb320-2"><a href="explorative-datenanalyse-eda.html#cb320-2" tabindex="-1"></a><span class="co"># dfSummary(penguins) %&gt;%</span></span>
-<span id="cb320-3"><a href="explorative-datenanalyse-eda.html#cb320-3" tabindex="-1"></a><span class="co"># view()</span></span></code></pre></div>
+<div class="sourceCode" id="cb322"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb322-1"><a href="explorative-datenanalyse-eda.html#cb322-1" tabindex="-1"></a><span class="fu">view</span>(<span class="fu">dfSummary</span>(penguins))</span></code></pre></div>
+<pre><code>## Output file written: /tmp/RtmpjdBJsj/file308e6d8d9aa0.html</code></pre>
+<div class="sourceCode" id="cb324"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb324-1"><a href="explorative-datenanalyse-eda.html#cb324-1" tabindex="-1"></a><span class="co"># Oder mit einer Pipe, für erfahrene R-Nutzer:</span></span>
+<span id="cb324-2"><a href="explorative-datenanalyse-eda.html#cb324-2" tabindex="-1"></a><span class="co"># dfSummary(penguins) %&gt;%</span></span>
+<span id="cb324-3"><a href="explorative-datenanalyse-eda.html#cb324-3" tabindex="-1"></a><span class="co"># view()</span></span></code></pre></div>
 <p>Das Paket enthält auch praktische Möglichkeiten, Häufigkeitstabellen für einzelne Variablen mit mehr Informationen als der standardmäßige <code>table()</code>-Befehl darzustellen:</p>
-<div class="sourceCode" id="cb321"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb321-1"><a href="explorative-datenanalyse-eda.html#cb321-1" tabindex="-1"></a><span class="fu">freq</span>(penguins<span class="sc">$</span>species)</span></code></pre></div>
+<div class="sourceCode" id="cb325"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb325-1"><a href="explorative-datenanalyse-eda.html#cb325-1" tabindex="-1"></a><span class="fu">freq</span>(penguins<span class="sc">$</span>species)</span></code></pre></div>
 <pre><code>## Frequencies  
 ## penguins$species  
 ## Type: Factor  
@@ -1374,7 +1374,7 @@ s = \sqrt{s²} = \sqrt\frac{\sum(x_i - \bar{x})}{n-1}
 ##            &lt;NA&gt;      0                               0.00         100.00
 ##           Total    333    100.00         100.00    100.00         100.00</code></pre>
 <p>Wir können auch die Funktion <code>descr()</code> aus dem Paket verwenden, die uns die gängigsten deskriptiven Statistiken unserer Variablen im Datensatz anzeigt:</p>
-<div class="sourceCode" id="cb323"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb323-1"><a href="explorative-datenanalyse-eda.html#cb323-1" tabindex="-1"></a><span class="fu">descr</span>(penguins)</span></code></pre></div>
+<div class="sourceCode" id="cb327"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb327-1"><a href="explorative-datenanalyse-eda.html#cb327-1" tabindex="-1"></a><span class="fu">descr</span>(penguins)</span></code></pre></div>
 <pre><code>## Non-numerical variable(s) ignored: species, island, sex</code></pre>
 <pre><code>## Descriptive Statistics  
 ## penguins  
@@ -1399,7 +1399,7 @@ s = \sqrt{s²} = \sqrt\frac{\sum(x_i - \bar{x})}{n-1}
 ##                 N          333.00           333.00        333.00              333.00    333.00
 ##         Pct.Valid          100.00           100.00        100.00              100.00    100.00</code></pre>
 <p>Abschließend möchte ich euch zeigen, wie man mit dem <code>summarytools</code>-Paket Kreuztabellen erstellt (ihr habt diese bereits oben gesehen):</p>
-<div class="sourceCode" id="cb326"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb326-1"><a href="explorative-datenanalyse-eda.html#cb326-1" tabindex="-1"></a><span class="fu">ctable</span>(penguins<span class="sc">$</span>species, penguins<span class="sc">$</span>island)</span></code></pre></div>
+<div class="sourceCode" id="cb330"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb330-1"><a href="explorative-datenanalyse-eda.html#cb330-1" tabindex="-1"></a><span class="fu">ctable</span>(penguins<span class="sc">$</span>species, penguins<span class="sc">$</span>island)</span></code></pre></div>
 <pre><code>## Cross-Tabulation, Row Proportions  
 ## species * island  
 ## Data Frame: penguins  
@@ -1425,7 +1425,7 @@ s = \sqrt{s²} = \sqrt\frac{\sum(x_i - \bar{x})}{n-1}
 <p>Dabei gibt es jedoch einen Haken:</p>
 <p><strong>Diese Modelle haben Voraussetzungen</strong> (z. B. dass Daten „Missing at Random” – MAR – sind). Die Verletzung dieser Voraussetzungen kann zu irreführenden Ergebnissen führen. Deshalb ist es entscheidend, <strong>die Struktur der fehlenden Werte zu untersuchen und zu verstehen</strong>, bevor man eine Strategie wählt.</p>
 <p>Beginnen wir mit der grundlegenden Funktion <code>miss_var_summary()</code>, die die Anzahl der fehlenden Werte und deren prozentualen Anteil anzeigt:</p>
-<div class="sourceCode" id="cb328"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb328-1"><a href="explorative-datenanalyse-eda.html#cb328-1" tabindex="-1"></a>naniar<span class="sc">::</span><span class="fu">miss_var_summary</span>(penguins_raw)</span></code></pre></div>
+<div class="sourceCode" id="cb332"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb332-1"><a href="explorative-datenanalyse-eda.html#cb332-1" tabindex="-1"></a>naniar<span class="sc">::</span><span class="fu">miss_var_summary</span>(penguins_raw)</span></code></pre></div>
 <pre><code>## # A tibble: 17 × 3
 ##    variable            n_miss pct_miss
 ##    &lt;chr&gt;                &lt;int&gt;    &lt;num&gt;
@@ -1447,15 +1447,15 @@ s = \sqrt{s²} = \sqrt\frac{\sum(x_i - \bar{x})}{n-1}
 ## 16 Clutch Completion        0    0    
 ## 17 Date Egg                 0    0</code></pre>
 <p>Die Funktion, die <code>naniar</code> bekannt gemacht hat, ist <code>gg_miss_upset()</code>. Sie zeigt die Struktur der fehlenden Werte grafisch an:</p>
-<div class="sourceCode" id="cb330"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb330-1"><a href="explorative-datenanalyse-eda.html#cb330-1" tabindex="-1"></a>naniar<span class="sc">::</span><span class="fu">gg_miss_upset</span>(penguins_raw)</span></code></pre></div>
+<div class="sourceCode" id="cb334"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb334-1"><a href="explorative-datenanalyse-eda.html#cb334-1" tabindex="-1"></a>naniar<span class="sc">::</span><span class="fu">gg_miss_upset</span>(penguins_raw)</span></code></pre></div>
 <p><img src="bookdownproj_files/figure-html/naniar%20gg_miss_upset-1.png" width="672" /></p>
-<div class="sourceCode" id="cb331"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb331-1"><a href="explorative-datenanalyse-eda.html#cb331-1" tabindex="-1"></a>naniar<span class="sc">::</span><span class="fu">vis_miss</span>(penguins_raw)</span></code></pre></div>
+<div class="sourceCode" id="cb335"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb335-1"><a href="explorative-datenanalyse-eda.html#cb335-1" tabindex="-1"></a>naniar<span class="sc">::</span><span class="fu">vis_miss</span>(penguins_raw)</span></code></pre></div>
 <p><img src="bookdownproj_files/figure-html/naniar%20vis_miss-1.png" width="672" /></p>
 </div>
 <div id="gtsummary" class="section level3 hasAnchor" number="4.2.5">
 <h3><span class="header-section-number">4.2.5</span> gtsummary<a href="explorative-datenanalyse-eda.html#gtsummary" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Das <code>gtsummary</code>-Paket ist das Paket für die Datenberichterstattung, da es mit einer einzigen Codezeile automatisch publikationsreife Datentabellen erstellt. Beginnen wir mit der Funktion <code>tbl_summary()</code>:</p>
-<div class="sourceCode" id="cb332"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb332-1"><a href="explorative-datenanalyse-eda.html#cb332-1" tabindex="-1"></a>gtsummary<span class="sc">::</span><span class="fu">tbl_summary</span>(penguins)</span></code></pre></div>
+<div class="sourceCode" id="cb336"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb336-1"><a href="explorative-datenanalyse-eda.html#cb336-1" tabindex="-1"></a>gtsummary<span class="sc">::</span><span class="fu">tbl_summary</span>(penguins)</span></code></pre></div>
 <div id="chnioqghai" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
 <style>#chnioqghai table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
@@ -1962,8 +1962,8 @@ s = \sqrt{s²} = \sqrt\frac{\sum(x_i - \bar{x})}{n-1}
 </div>
 <p>Wir erhalten eine übersichtliche Tabelle, die kategoriale Daten mit ihren Kategorien sowie absoluten und relativen Häufigkeiten (in Klammern) darstellt. Für numerische Variablen werden der Median sowie das erste und das dritte Quartil angezeigt.</p>
 <p>Wir können auch nach bestimmten Variablen gruppieren, um einen detaillierteren Überblick zu erhalten:</p>
-<div class="sourceCode" id="cb333"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb333-1"><a href="explorative-datenanalyse-eda.html#cb333-1" tabindex="-1"></a>penguins <span class="sc">%&gt;%</span></span>
-<span id="cb333-2"><a href="explorative-datenanalyse-eda.html#cb333-2" tabindex="-1"></a>  <span class="fu">tbl_summary</span>(<span class="at">by =</span> sex)</span></code></pre></div>
+<div class="sourceCode" id="cb337"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb337-1"><a href="explorative-datenanalyse-eda.html#cb337-1" tabindex="-1"></a>penguins <span class="sc">%&gt;%</span></span>
+<span id="cb337-2"><a href="explorative-datenanalyse-eda.html#cb337-2" tabindex="-1"></a>  <span class="fu">tbl_summary</span>(<span class="at">by =</span> sex)</span></code></pre></div>
 <div id="owwxhaeyqf" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
 <style>#owwxhaeyqf table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
@@ -2483,11 +2483,11 @@ N = 168</span><span class="gt_footnote_marks" style="white-space:nowrap;font-sty
 </div>
 <p>Das <code>gtsummary</code>-Paket bietet viele Möglichkeiten zur Anpassung der Tabelle – sowohl inhaltlich (z. B. Mittelwert statt Median, Anzeige von p-Werten) als auch optisch (z. B. Schriftart anpassen).</p>
 <p>Es enthält auch eine praktische Option zur Erstellung publikationsreifer Kreuztabellen:</p>
-<div class="sourceCode" id="cb334"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb334-1"><a href="explorative-datenanalyse-eda.html#cb334-1" tabindex="-1"></a>penguins <span class="sc">%&gt;%</span></span>
-<span id="cb334-2"><a href="explorative-datenanalyse-eda.html#cb334-2" tabindex="-1"></a>  <span class="fu">tbl_cross</span>(</span>
-<span id="cb334-3"><a href="explorative-datenanalyse-eda.html#cb334-3" tabindex="-1"></a>    <span class="at">row =</span> species,</span>
-<span id="cb334-4"><a href="explorative-datenanalyse-eda.html#cb334-4" tabindex="-1"></a>    <span class="at">col =</span> island</span>
-<span id="cb334-5"><a href="explorative-datenanalyse-eda.html#cb334-5" tabindex="-1"></a>  )</span></code></pre></div>
+<div class="sourceCode" id="cb338"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb338-1"><a href="explorative-datenanalyse-eda.html#cb338-1" tabindex="-1"></a>penguins <span class="sc">%&gt;%</span></span>
+<span id="cb338-2"><a href="explorative-datenanalyse-eda.html#cb338-2" tabindex="-1"></a>  <span class="fu">tbl_cross</span>(</span>
+<span id="cb338-3"><a href="explorative-datenanalyse-eda.html#cb338-3" tabindex="-1"></a>    <span class="at">row =</span> species,</span>
+<span id="cb338-4"><a href="explorative-datenanalyse-eda.html#cb338-4" tabindex="-1"></a>    <span class="at">col =</span> island</span>
+<span id="cb338-5"><a href="explorative-datenanalyse-eda.html#cb338-5" tabindex="-1"></a>  )</span></code></pre></div>
 <div id="ewrxhtxjvr" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
 <style>#ewrxhtxjvr table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
@@ -2987,8 +2987,8 @@ N = 168</span><span class="gt_footnote_marks" style="white-space:nowrap;font-sty
 <div id="dlookr" class="section level3 hasAnchor" number="4.2.6">
 <h3><span class="header-section-number">4.2.6</span> dlookr<a href="explorative-datenanalyse-eda.html#dlookr" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p><code>dlookr</code> ist ein praktisches Paket mit verschiedenen Funktionen, die uns bei der EDA unterstützen können. Beginnen wir mit der Funktion <code>diagnose()</code>, die uns dabei hilft, fehlende Werte und eindeutige Beobachtungen im Datensatz zu identifizieren:</p>
-<div class="sourceCode" id="cb335"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb335-1"><a href="explorative-datenanalyse-eda.html#cb335-1" tabindex="-1"></a><span class="fu">diagnose</span>(penguins) <span class="sc">%&gt;%</span></span>
-<span id="cb335-2"><a href="explorative-datenanalyse-eda.html#cb335-2" tabindex="-1"></a>  <span class="fu">print</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb339"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb339-1"><a href="explorative-datenanalyse-eda.html#cb339-1" tabindex="-1"></a><span class="fu">diagnose</span>(penguins) <span class="sc">%&gt;%</span></span>
+<span id="cb339-2"><a href="explorative-datenanalyse-eda.html#cb339-2" tabindex="-1"></a>  <span class="fu">print</span>()</span></code></pre></div>
 <pre><code>## # A tibble: 8 × 6
 ##   variables         types  missing_count missing_percent
 ##   &lt;chr&gt;             &lt;chr&gt;          &lt;int&gt;           &lt;dbl&gt;
@@ -3003,7 +3003,7 @@ N = 168</span><span class="gt_footnote_marks" style="white-space:nowrap;font-sty
 ## # ℹ 2 more variables: unique_count &lt;int&gt;,
 ## #   unique_rate &lt;dbl&gt;</code></pre>
 <p>Wir können auch eine Ausgabe der Deskriptivstatistiken mit einer bekannten Funktion generieren – <code>describe()</code>, diesmal jedoch aus dem <code>dlookr</code>-Paket:</p>
-<div class="sourceCode" id="cb337"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb337-1"><a href="explorative-datenanalyse-eda.html#cb337-1" tabindex="-1"></a>dlookr<span class="sc">::</span><span class="fu">describe</span>(penguins)</span></code></pre></div>
+<div class="sourceCode" id="cb341"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb341-1"><a href="explorative-datenanalyse-eda.html#cb341-1" tabindex="-1"></a>dlookr<span class="sc">::</span><span class="fu">describe</span>(penguins)</span></code></pre></div>
 <pre><code>## # A tibble: 5 × 26
 ##   described_variables     n    na   mean      sd se_mean
 ##   &lt;chr&gt;               &lt;int&gt; &lt;int&gt;  &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;
@@ -3044,7 +3044,7 @@ N = 168</span><span class="gt_footnote_marks" style="white-space:nowrap;font-sty
 <h3><span class="header-section-number">4.2.7</span> DataExplorer<a href="explorative-datenanalyse-eda.html#dataexplorer" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p><code>DataExplorer</code> ist ein leistungsstarkes All-in-One-EDA-Paket, das uns mit wenigen Codezeilen bei der Erkundung unserer Daten unterstützt. Es enthält ebenfalls eine Funktion zur automatischen Erstellung eines EDA-Berichts.</p>
 <p>Beginnen wir damit, grundlegende Informationen über unsere Daten mit der Funktion <code>introduce()</code> abzurufen:</p>
-<div class="sourceCode" id="cb339"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb339-1"><a href="explorative-datenanalyse-eda.html#cb339-1" tabindex="-1"></a><span class="fu">introduce</span>(penguins)</span></code></pre></div>
+<div class="sourceCode" id="cb343"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb343-1"><a href="explorative-datenanalyse-eda.html#cb343-1" tabindex="-1"></a><span class="fu">introduce</span>(penguins)</span></code></pre></div>
 <pre><code>## # A tibble: 1 × 9
 ##    rows columns discrete_columns continuous_columns
 ##   &lt;int&gt;   &lt;int&gt;            &lt;int&gt;              &lt;int&gt;
@@ -3053,10 +3053,10 @@ N = 168</span><span class="gt_footnote_marks" style="white-space:nowrap;font-sty
 ## #   total_missing_values &lt;int&gt;, complete_rows &lt;int&gt;,
 ## #   total_observations &lt;int&gt;, memory_usage &lt;dbl&gt;</code></pre>
 <p>Wir können mit <code>DataExplorer</code> auch fehlende Werte visualisieren, indem wir die Funktion <code>plot_missing()</code> verwenden:</p>
-<div class="sourceCode" id="cb341"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb341-1"><a href="explorative-datenanalyse-eda.html#cb341-1" tabindex="-1"></a><span class="fu">plot_missing</span>(penguins_raw)</span></code></pre></div>
+<div class="sourceCode" id="cb345"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb345-1"><a href="explorative-datenanalyse-eda.html#cb345-1" tabindex="-1"></a><span class="fu">plot_missing</span>(penguins_raw)</span></code></pre></div>
 <p><img src="bookdownproj_files/figure-html/plot_missing-1.png" width="672" /></p>
 <p>Darüber hinaus können wir mit <code>DataExplorer</code> Korrelationen darstellen:</p>
-<div class="sourceCode" id="cb342"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb342-1"><a href="explorative-datenanalyse-eda.html#cb342-1" tabindex="-1"></a><span class="fu">plot_correlation</span>(penguins_numeric)</span></code></pre></div>
+<div class="sourceCode" id="cb346"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb346-1"><a href="explorative-datenanalyse-eda.html#cb346-1" tabindex="-1"></a><span class="fu">plot_correlation</span>(penguins_numeric)</span></code></pre></div>
 <p><img src="bookdownproj_files/figure-html/plot_correlation-1.png" width="672" /></p>
 <p>Und schließlich können wir mit <code>DataExplorer</code> einen automatisierten Datenbericht erstellen:</p>
 <p><code>create_report(penguins)</code></p>
@@ -3081,7 +3081,7 @@ N = 168</span><span class="gt_footnote_marks" style="white-space:nowrap;font-sty
 <h3><span class="header-section-number">4.2.8</span> smartEDA<a href="explorative-datenanalyse-eda.html#smarteda" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Das letzte Paket in diesem Kapitel ist <code>smartEDA</code>. Es ist ein leistungsstarkes Paket, das entwickelt wurde, um schnell deskriptive Statistiken und Visualisierungen für numerische und kategoriale Daten zu erstellen.</p>
 <p>Die erste Funktion ist <code>ExpData()</code>, die uns die Struktur, fehlende Werte und Variablentypen anzeigt:</p>
-<div class="sourceCode" id="cb343"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb343-1"><a href="explorative-datenanalyse-eda.html#cb343-1" tabindex="-1"></a><span class="fu">ExpData</span>(penguins, <span class="at">type =</span> <span class="dv">1</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb347"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb347-1"><a href="explorative-datenanalyse-eda.html#cb347-1" tabindex="-1"></a><span class="fu">ExpData</span>(penguins, <span class="at">type =</span> <span class="dv">1</span>)</span></code></pre></div>
 <pre><code>##                                           Descriptions
 ## 1                                   Sample size (nrow)
 ## 2                              No. of variables (ncol)
@@ -3111,7 +3111,7 @@ N = 168</span><span class="gt_footnote_marks" style="white-space:nowrap;font-sty
 ## 12   0% (0)
 ## 13   0% (0)</code></pre>
 <p>Wir können <code>smartEDA</code> auch Deskriptivstatistiken wie Mittelwert, Standardabweichung, Schiefe usw. berechnen lassen:</p>
-<div class="sourceCode" id="cb345"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb345-1"><a href="explorative-datenanalyse-eda.html#cb345-1" tabindex="-1"></a><span class="fu">ExpNumStat</span>(penguins)</span></code></pre></div>
+<div class="sourceCode" id="cb349"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb349-1"><a href="explorative-datenanalyse-eda.html#cb349-1" tabindex="-1"></a><span class="fu">ExpNumStat</span>(penguins)</span></code></pre></div>
 <pre><code>##               Vname Group  TN nNeg nZero nPos NegInf
 ## 2     bill_depth_mm   All 333    0     0  333      0
 ## 1    bill_length_mm   All 333    0     0  333      0
@@ -3162,21 +3162,32 @@ N = 168</span><span class="gt_footnote_marks" style="white-space:nowrap;font-sty
 <h3><span class="header-section-number">4.4.1</span> Übung 1: Standard-Deskriptivstatistik<a href="#%C3%BCbung-1-standard-deskriptivstatistik" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>In dieser Übung arbeiten wir mit dem eingebauten <code>iris</code>-Datensatz in R:</p>
 <p>a. Berechne den Modus, den Mittelwert und den Median für die Variable <code>iris$Sepal.Length</code>.</p>
+<div class="sourceCode" id="cb351"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb351-1"><a href="explorative-datenanalyse-eda.html#cb351-1" tabindex="-1"></a><span class="co">#Modus, Mittelwert und Median</span></span></code></pre></div>
 <p>b. Berechne den Interquartilsabstand, die Varianz und die Standardabweichung für <code>iris$Sepal.Length</code>.</p>
+<div class="sourceCode" id="cb352"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb352-1"><a href="explorative-datenanalyse-eda.html#cb352-1" tabindex="-1"></a><span class="co"># Interquartilsabstand, Varianz und Standardabweichung</span></span></code></pre></div>
 <p>c. Berechne alle fünf Maße auf einmal, indem du eine Funktion verwendest, die dies ermöglicht (wähle selbst, welche du verwenden möchtest).</p>
+<div class="sourceCode" id="cb353"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb353-1"><a href="explorative-datenanalyse-eda.html#cb353-1" tabindex="-1"></a><span class="co"># Alle fünf Maße auf einmal</span></span></code></pre></div>
 </div>
 <div id="übung-2-kontingenztabellen-und-korrelationen" class="section level3 hasAnchor" number="4.4.2">
 <h3><span class="header-section-number">4.4.2</span> Übung 2: Kontingenztabellen und Korrelationen<a href="#%C3%BCbung-2-kontingenztabellen-und-korrelationen" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>a. Erstelle eine Kontingenztabelle für <code>esoph$agegp</code> und <code>esoph$alcgp</code>.</p>
+<div class="sourceCode" id="cb354"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb354-1"><a href="explorative-datenanalyse-eda.html#cb354-1" tabindex="-1"></a><span class="co"># Kontingenztabelle</span></span></code></pre></div>
 <p>b. Reduziere den <code>iris</code>-Datensatz auf die Variablen <code>Sepal.Length</code>, <code>Sepal.Width</code>, <code>Petal.Length</code> und <code>Petal.Width</code> und speichere ihn in einem Objekt namens <code>iris_numeric</code>.</p>
+<div class="sourceCode" id="cb355"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb355-1"><a href="explorative-datenanalyse-eda.html#cb355-1" tabindex="-1"></a><span class="co"># Iris bereinigen</span></span>
+<span id="cb355-2"><a href="explorative-datenanalyse-eda.html#cb355-2" tabindex="-1"></a>iris_numeric <span class="ot">&lt;-</span> </span></code></pre></div>
 <p>c. Erstelle eine Korrelationsmatrix mit <code>iris_numeric</code>.</p>
+<div class="sourceCode" id="cb356"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb356-1"><a href="explorative-datenanalyse-eda.html#cb356-1" tabindex="-1"></a><span class="co"># Korrelationsmatrix</span></span></code></pre></div>
 <p>d. Gestalte die Korrelationsmatrix ansprechend.</p>
+<div class="sourceCode" id="cb357"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb357-1"><a href="explorative-datenanalyse-eda.html#cb357-1" tabindex="-1"></a><span class="co"># Gestaltung der Korrelationsmatrix</span></span></code></pre></div>
 </div>
 <div id="übung-3-arbeiten-mit-paketen" class="section level3 hasAnchor" number="4.4.3">
 <h3><span class="header-section-number">4.4.3</span> Übung 3: Arbeiten mit Paketen<a href="#%C3%BCbung-3-arbeiten-mit-paketen" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>a. Verwende eine Funktion, um einen Überblick über den Datensatz <code>mtcars</code> zu erhalten.</p>
+<div class="sourceCode" id="cb358"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb358-1"><a href="explorative-datenanalyse-eda.html#cb358-1" tabindex="-1"></a><span class="co"># Überblick Datensatz</span></span></code></pre></div>
 <p>b. Untersuche die Struktur der fehlenden Werte in <code>mtcars</code>.</p>
+<div class="sourceCode" id="cb359"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb359-1"><a href="explorative-datenanalyse-eda.html#cb359-1" tabindex="-1"></a><span class="co"># Fehlende Werte in mtcars</span></span></code></pre></div>
 <p>c. Erstelle einen automatisierten EDA-Bericht für <code>mtcars</code>!</p>
+<div class="sourceCode" id="cb360"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb360-1"><a href="explorative-datenanalyse-eda.html#cb360-1" tabindex="-1"></a><span class="co"># Automatisierter Bericht mit EDA</span></span></code></pre></div>
 
 </div>
 </div>

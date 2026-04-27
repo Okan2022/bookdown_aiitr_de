@@ -11,64 +11,65 @@ Es gibt verschiedene Arten von Schleifen, aber in diesem Kurs konzentrieren wir 
 ### `For`-Schleifen
 
 Erinnert ihr euch an mein Notenbeispiel aus dem ersten Kapitel?
+
 ```{r ifelse beispiel}
-grade <- 4.0
+note <- 4.0
 
-if (grade == 1.0) {
+if (note == 1.0) {
   print("Hervorragend") 
-} else if (grade > 1.0 & grade <= 2.0) {
+} else if (note > 1.0 & note <= 2.0) {
   print("Gut gemacht")
-} else if (grade > 2.0 & grade <= 3.0) {
+} else if (note > 2.0 & note <= 3.0) {
   print("OK")
-} else if (grade > 3.0 & grade <= 4.0) {
+} else if (note > 3.0 & note <= 4.0) {
   print("Das Leben geht weiter") 
 }
 
-grade <- 3.3
+note <- 3.3
 
-if (grade == 1.0) {
+if (note == 1.0) {
   print("Hervorragend") 
-} else if (grade > 1.0 & grade <= 2.0) {
+} else if (note > 1.0 & note <= 2.0) {
   print("Gut gemacht")
-} else if (grade > 2.0 & grade <= 3.0) {
+} else if (note > 2.0 & note <= 3.0) {
   print("OK")
-} else if (grade > 3.0 & grade <= 4.0) {
+} else if (note > 3.0 & note <= 4.0) {
   print("Das Leben geht weiter") 
 }
 
-grade <- 4.0
+note <- 4.0
 
-if (grade == 1.0) {
+if (note == 1.0) {
   print("Hervorragend") 
-} else if (grade > 1.0 & grade <= 2.0) {
+} else if (note > 1.0 & note <= 2.0) {
   print("Gut gemacht")
-} else if (grade > 2.0 & grade <= 3.0) {
+} else if (note > 2.0 & note <= 3.0) {
   print("OK")
-} else if (grade > 3.0 & grade <= 4.0) {
+} else if (note > 3.0 & note <= 4.0) {
   print("Das Leben geht weiter") 
 }
 
-grade <- 2.3
+note <- 2.3
 
-if (grade == 1.0) {
+if (note == 1.0) {
   print("Hervorragend") 
-} else if (grade > 1.0 & grade <= 2.0) {
+} else if (note > 1.0 & note <= 2.0) {
   print("Gut gemacht")
-} else if (grade > 2.0 & grade <= 3.0) {
+} else if (note > 2.0 & note <= 3.0) {
   print("OK")
-} else if (grade > 3.0 & grade <= 4.0) {
+} else if (note > 3.0 & note <= 4.0) {
   print("Das Leben geht weiter") 
 }
 
-grade <- 1.7
+note <- 1.7
 
-if (grade == 1.0) {
+if (note == 1.0) {
   print("Hervorragend") 
-} else if (grade > 1.0 & grade <= 2.0) {
+} else if (note > 1.0 & note <= 2.0) {
   print("Gut gemacht")
-} else if (grade > 2.0 & grade <= 3.0) {
+} else if (note > 2.0 & note <= 3.0) {
   print("OK")
-} else if (grade > 3.0 & grade <= 4.0) {
+} else if (note > 3.0 & note <= 4.0) {
   print("Das Leben geht weiter") 
 }
 ```
@@ -76,8 +77,9 @@ if (grade == 1.0) {
 Ich könnte nun alle meine Noten aufschreiben und sie einzeln zuweisen, wie im ersten Kapitel – aber es gibt eine Möglichkeit, diesen Prozess zu automatisieren. Dazu verwende ich die `for`-Schleife.
 
 Zunächst erstellen wir einen Vektor mit Noten:
+
 ```{r notenvektor}
-grades <- c(1.7, 3.3, 4.0, 2.3, 1.0)
+noten <- c(1.7, 3.3, 4.0, 2.3, 1.0)
 ```
 
 Jetzt können wir direkt in die Schleife einsteigen.
@@ -87,15 +89,16 @@ Jetzt können wir direkt in die Schleife einsteigen.
 -   Nach dem Schließen der Klammern öffnest du geschweifte Klammern und schreibst deine Funktion, wie du es normalerweise tätest – aber diesmal musst du festlegen, wie der Iterator verwendet wird. Da ich die Zahlen in `grades` verwende, muss mein Iterator in eckigen Klammern nach dem Namen `grades` stehen. Warum?
 
 -   Und das war es im Grunde.
+
 ```{r einfache schleife}
-for (i in 1:length(grades)) {
-  if (grades[i] == 1.0) {
+for (i in 1:length(noten)) {
+  if (noten[i] == 1.0) {
   print("Hervorragend") 
-} else if (grades[i] > 1.0 & grades[i] <= 2.0) {
+} else if (noten[i] > 1.0 & noten[i] <= 2.0) {
   print("Gut gemacht")
-} else if (grades[i] > 2.0 & grades[i] <= 3.0) {
+} else if (noten[i] > 2.0 & noten[i] <= 3.0) {
   print("OK")
-} else if (grades[i] > 3.0 & grades[i] <= 4.0) {
+} else if (noten[i] > 3.0 & noten[i] <= 4.0) {
   print("Das Leben geht weiter") 
 }
 }
@@ -104,6 +107,7 @@ for (i in 1:length(grades)) {
 Schleifen können unterschiedlich aussehen:
 
 In diesem Beispiel habe ich einen Zahlenvektor und lasse die Konsole einen Satz ausgeben, bei dem sich die Zahl und damit der Satz bei jedem Schleifendurchlauf ändert:
+
 ```{r schleife zahlen}
 # Zahlenvektor erstellen
 num <- c(1, 2, 3, 4, 5, 249)
@@ -119,6 +123,7 @@ for (i in num) {
 Da ihr ihnen früher oder später begegnen werdet, zeige ich euch kurz verschachtelte Schleifen:
 
 Spielen wir zunächst eine Runde Tic-Tac-Toe:
+
 ```{r ttt matrix}
 # Matrix definieren
 ttt <- matrix(c("X", "O", "X",
@@ -129,6 +134,7 @@ ttt <- matrix(c("X", "O", "X",
 Wir definieren eine Schleife mit dem Iterator **i** für die Zeilen der Matrix und eine weitere mit dem Iterator **j** für die Spalten.
 
 Anschließend bauen wir den Schleifenkörper auf, der Informationen über die Matrix und ihren Inhalt liefert. Der ausgegebene Satz zeigt, welche Zeilen und Spalten welche Werte enthalten.
+
 ```{r verschachtelte schleifen}
 for (i in 1:nrow(ttt)) {
   for (j in 1:ncol(ttt)) {
@@ -143,6 +149,7 @@ for (i in 1:nrow(ttt)) {
 ### `apply()`
 
 `apply()` nimmt einen Dataframe oder eine Matrix als Eingabe und gibt das Ergebnis als Vektor, Liste oder Array zurück. Die `apply()`-Funktion in R wird hauptsächlich verwendet, um explizite Schleifenkonstrukte zu vermeiden. Die Idee ist, eine Funktion wiederholt auf eine Matrix oder einen Dataframe anzuwenden: `apply(X, MARGIN, FUNCTION)`.
+
 ```{r beispielmatrix}
 # Eine Matrix mit zufälligen Zahlen erstellen
 mat <- matrix(1:10, nrow = 5, ncol = 6)
@@ -152,6 +159,7 @@ head(mat)
 ```
 
 Nehmen wir an, ihr möchtet den Mittelwert jeder Spalte berechnen:
+
 ```{r einfache apply funktion}
 apply(mat, 2, mean) # Mittelwert berechnen
 apply(mat, 2, sum)  # Summe berechnen
@@ -159,8 +167,8 @@ apply(mat, 2, sd)   # Standardabweichung berechnen
 
 # Die entsprechende Schleife würde so aussehen:
 for (i in 1:ncol(mat)) {
-  mean_col <- mean(mat[, i])
-  print(mean_col)
+  durchschnitt_spalte <- mean(mat[, i])
+  print(durchschnitt_spalte)
 }
 ```
 
@@ -179,26 +187,28 @@ Wir können erneut viel Zeit sparen und effizienter arbeiten, indem wir eigene F
 -   Nach den geschweiften Klammern definiert man die Operation mit den zuvor festgelegten Variablen.
 -   Abschließend lässt man die Funktion die gewünschte Größe zurückgeben (`return()`) und schließt die geschweiften Klammern.
 -   Danach ist die Funktion gespeichert und kann verwendet werden.
+
 ```{r eigene funktion}
 # Meine Funktion berechnet einfach eine Summe
 
 add <- function(x, y) { 
   
-  result <- x + y
-  return(result)
+  ergebnis <- x + y
+  return(ergebnis)
 }
 
 add(2, 7) # Jetzt kann ich meine Funktion verwenden
 ```
 
 Berechnen wir den Flächeninhalt eines Kreises:
+
 ```{r flaeche kreis}
 aoc <- function(radius) {
   pi <- 3.14159
   
-  area <- pi * radius^2
+  fläche <- pi * radius^2
   
-  return(area)
+  return(fläche)
 }
 
 aoc(5)
@@ -207,24 +217,25 @@ aoc(5)
 Verknüpfen wir nun, was wir in diesem Kapitel gelernt haben, mit einem Beispiel aus dem Klassenzimmer. Den folgenden Code müsst ihr nicht vollständig verstehen – ich möchte ihn auch nicht im Detail erklären. Es geht darum zu zeigen, was Schleifen und Funktionen leisten können. Alle Pakete basieren schließlich auf Funktionen und Schleifen, daher ist es hilfreich, einen Überblick zu bekommen, wie das aussehen kann.
 
 In dieser Schleife lassen wir R ausgeben, wo Personen in einem Klassenzimmer sitzen. Die Sitzordnung ist dabei nichts anderes als eine Matrix – mit Zeilen und Spalten. Die Schleife identifiziert, in welcher Zeile (i) und in welcher Spalte (j) eine Person sitzt. Die Werte in der Matrix sind Studierenden-IDs, und die Schleife kennt diese IDs und gibt aus, welche Person wo sitzt. Das ist eine unnötige Schleife für diesen kleinen Datensatz – aber ein gutes Beispiel. Stellt euch vor, die Klasse hätte 1000 Personen: Dann wäre diese Schleife notwendig. Wie gesagt: Ihr müsst das nicht vollständig verstehen. Es soll illustrieren, was in R möglich ist.
+
 ```{r sitzordnung im klassenzimmer}
 # Die Funktion
-print_classroom <- function(x) {
+klassenzimmer <- function(x) {
   for (i in 1:length(x)) {        # Äußere Schleife iteriert über Zeilen
     for (j in 1:length(x[[i]])) { # Innere Schleife iteriert über Spalten
-      student <- x[[i]][j]
-      if (student == 1) {
+      schüler <- x[[i]][j]
+      if (schüler == 1) {
         comment <- "Alice"
-      } else if (student == 2) {
+      } else if (schüler == 2) {
         comment <- "Bob"
-      } else if (student == 3) {
+      } else if (schüler == 3) {
         comment <- "Cathy"
-      } else if (student == 4) {
+      } else if (schüler == 4) {
         comment <- "David"
-      } else if (student == 5) {
+      } else if (schüler == 5) {
         comment <- "Eva"
       } else {
-        comment <- paste("Unbekannter Student", student, "macht etwas Interessantes.")
+        comment <- paste("Unbekannter Student", schüler, "macht etwas Interessantes.")
       }
       cat("In Zeile", i, "Spalte", j, ":", comment, "\n")
     }
@@ -232,13 +243,13 @@ print_classroom <- function(x) {
 }
 
 # Beispielverwendung
-seating_order <- list(
+sitzordnung <- list(
   c(1, 5, 2),
   c(4, 3, 7)
 )
 
 # Ausgabe
-print_classroom(seating_order)
+klassenzimmer(sitzordnung)
 ```
 
 ## Ausblick
@@ -252,9 +263,10 @@ Dieser Abschnitt war eine kurze Einführung in die Automatisierung von Arbeit un
 ### Übung 1: Eine Schleife schreiben
 
 Schreibe eine `for`-Schleife, die das Quadrat jeder Zahl von 1 bis 10 ausgibt.
-```{r kap5 uebung 1}
+
+```{r kap7_uebung_1}
 # Objekt für einen besseren Arbeitsablauf zuweisen
-number <- 10
+nummer <- 10
 
 # Die Schleife
 ```
@@ -262,7 +274,8 @@ number <- 10
 ### Übung 2: Eine Funktion schreiben
 
 Schreibe eine Funktion, die den Input x nimmt und ihn quadriert:
-```{r kap5 uebung 2, eval=FALSE}
+
+```{r kap7_uebung_2, eval=FALSE}
 # Eine Funktion zum Quadrieren definieren
 
 sq <- function(x) {
@@ -272,10 +285,10 @@ sq <- function(x) {
 }
 
 # Einen Vektor von 1 bis 10 definieren
-numbers <- c(1:10) 
+nummern <- c(1:10) 
 
 # Die Funktion anwenden
-sq(numbers)
+sq(nummern)
 ```
 
 ### Übung 3: Die Mitternachtsformel
@@ -287,7 +300,8 @@ $x_{1,2} = \frac{-b \pm \sqrt{b^2 - 4ac}}{2a}$
 Schreibe **eine Funktion** für die Mitternachtsformel, sodass die Ausgabe $x_1$ und $x_2$ sind. Teste sie mit a = 2, b = -6, c = -8.
 
 **Hinweis:** Du musst die Formel in zwei Gleichungen mit zwei Ausgaben aufteilen.
-```{r kap5 uebung 3, eval=FALSE}
+
+```{r kap7_uebung_3, eval=FALSE}
 mnf <- 
 
 

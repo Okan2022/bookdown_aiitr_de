@@ -3,12 +3,14 @@
 In diesem Kapitel steigen wir in die Kernstärke von R ein: die Datenanalyse. Nachdem wir unsere Daten bereinigt haben, sind wir bereit zur Analyse – aber es wird immer empfohlen, zunächst mit einer explorativen Datenanalyse einen Überblick über die Daten zu gewinnen. Das hat den Vorteil, dass wir erste Trends und potenzielle Probleme in den Daten erkennen können. Außerdem bekommen wir ein besseres Verständnis des datengenerierenden Prozesses.
 
 Beginnen wir mit dem Laden der Pakete. Ihr werdet feststellen, dass wir viele Pakete laden – das liegt daran, dass R eine statistische Analysesoftware ist und es daher nur natürlich ist, dass Statistiker und Data Scientists, die R verwenden, auch Pakete schreiben, um (1) ihre eigene Arbeit zu erleichtern und (2) R weiterzuentwickeln.
+
 ```{r pakete laden eda}
 pacman::p_load("dplyr", "tidyr", "ggpubr", "gapminder",
                "kableExtra", "car")
 ```
 
 ## Funktion definieren (für später)
+
 ```{r}
 #Creating Function for Kable Table 
 table_ovb <- function(model1, model2) {
@@ -31,7 +33,6 @@ table_ovb <- function(model1, model2) {
   rownames(dt) <- c("Intercept", "Ice Cream Sales", "Temperature")
   
   # Display the table
-  
   dt %>%
     kbl() %>%
     kable_styling()
@@ -48,6 +49,7 @@ table_ovb <- function(model1, model2) {
 Wir interessieren uns für Daten! Und Daten sind nichts anderes als eine Menge von **Zufallsvariablen.** Technisch gesehen ist eine Zufallsvariable ein numerisches Ergebnis eines Zufallsprozesses oder Experiments. Informell ausgedrückt: Stellt euch vor, ihr möchtet Daten über eure Familie sammeln. Denkt an alle Familienmitglieder und wählt zufällig einige Informationen über sie aus – ihre Körpergröße, ihr Alter, ihr Geschlecht, ob sie eine Brille tragen, ihre Kochkünste, irgendetwas. Nun müsst ihr nur noch ein System finden, um jedem Merkmal eine Zahl zuzuweisen (z. B. Körpergröße in cm, Alter in Jahren...) – und schon habt ihr eine Zufallsvariable erfasst. Beachtet, dass eine Zufallsvariable das sich gegenseitig ausschließende Ergebnis eines Zufallsprozesses ist.
 
 Einen Würfel werfen und das Ergebnis erhalten könnte eine Zufallsvariable sein. Werfen wir den Würfel und nehmen an, wir bekommen eine 3:
+
 ```{r einen wuerfel werfen}
 # Einen Würfel werfen
 dice_role <- 3
@@ -93,18 +95,20 @@ Der Unterschied zwischen Population und Stichprobe ist entscheidend und wird im 
 ##### Gleichverteilungen
 
 Wir können **R den Würfel für uns werfen lassen**, indem wir die Funktion `sample()` verwenden. Diese Funktion nimmt den Bereich der möglichen Ergebnisse, die Anzahl der zu ziehenden Beobachtungen und einige zusätzliche Optionen entgegen (um die wir uns hier nicht kümmern müssen):
+
 ```{r wuerfel simulieren}
-dice_rolls <- data.frame(
-  roll = sample(c(1:6), 1000, replace = TRUE)
+würfel_würfe <- data.frame(
+  wurf = sample(c(1:6), 1000, replace = TRUE)
 )
 ```
 
 Dies simuliert das Werfen eines fairen sechsseitigen Würfels 1.000-mal.
 
 Stellen wir das grafisch dar:
+
 ```{r einfache wuerfelwuerfe}
 # Plot mit ggplot
-ggplot(dice_rolls, aes(x = factor(roll))) +
+ggplot(würfel_würfe, aes(x = factor(wurf))) +
   geom_bar(fill = "#89CFF0", color = "gray") +
   labs(
     title = "Verteilung von 1.000 Würfelwürfen",
@@ -117,15 +121,16 @@ ggplot(dice_rolls, aes(x = factor(roll))) +
 Was wir hier erstellt haben, nennt sich **Verteilung einer diskreten Variable**. Eine **diskrete Variable** hat eine abzählbare Anzahl von verschiedenen Ergebnissen. In unserem Fall kann der Würfel nur auf einem von sechs Werten landen: 1 bis 6 – nichts dazwischen.
 
 Dieser spezifische Verteilungstyp heißt Gleichverteilung. Eine **Gleichverteilung** ist eine Verteilung, bei der **alle Ergebnisse gleich wahrscheinlich** sind. In unserem Fall hat jede Seite des Würfels (1 bis 6) die gleiche Wahrscheinlichkeit. Die Wahrscheinlichkeit eines Ergebnisses beträgt also 1/n, also 1/6 für jedes Ergebnis. Stellen wir auch das grafisch dar:
+
 ```{r wahrscheinlichkeiten berechnen}
 # Ergebnisse und die entsprechenden Wahrscheinlichkeiten definieren
-uniform_dis <- data.frame(
-  Outcome = factor(1:6),
-  Probability = rep(1/6, 6)
+gleichverteilung <- data.frame(
+  ergebnis = factor(1:6),
+  wahrscheinlichkeit = rep(1/6, 6)
 )
 
 # Plotten
-ggplot(uniform_dis, aes(x = Outcome, y = Probability)) +
+ggplot(gleichverteilung, aes(x = ergebnis, y = wahrscheinlichkeit)) +
   geom_point() +
   labs(
     title = "Gleichmäßige Wahrscheinlichkeitsverteilung eines fairen Würfels",
@@ -143,18 +148,19 @@ $$
 
 Was passiert, wenn wir die Wahrscheinlichkeiten kumulieren, wie in der folgenden Tabelle:
 
-| Ergebnis                       | 1   | 2   | 3   | 4   | 5   | 6   |
-|--------------------------------|-----|-----|-----|-----|-----|-----|
-| **Wahrscheinlichkeit**         | 1/6 | 1/6 | 1/6 | 1/6 | 1/6 | 1/6 |
+| Ergebnis                          | 1   | 2   | 3   | 4   | 5   | 6   |
+|-----------------------------------|-----|-----|-----|-----|-----|-----|
+| **Wahrscheinlichkeit**            | 1/6 | 1/6 | 1/6 | 1/6 | 1/6 | 1/6 |
 | **Kumulierte Wahrscheinlichkeit** | 1/6 | 2/6 | 3/6 | 4/6 | 5/6 | 1   |
 
 Wir können die kumulierte Wahrscheinlichkeit mit der Funktion `cumsum()` berechnen und plotten:
+
 ```{r kumulative summe}
 # Kumulative Summe berechnen
-uniform_dis$cumsum <- cumsum(uniform_dis$Probability)
+gleichverteilung$cumsum <- cumsum(gleichverteilung$wahrscheinlichkeit)
 
 # Plotten
-ggplot(uniform_dis, aes(x = Outcome, y = cumsum)) +
+ggplot(gleichverteilung, aes(x = ergebnis, y = cumsum)) +
   geom_point() +
   labs(
     title = "Kumulative Verteilung eines fairen Würfels",
@@ -170,16 +176,17 @@ Mit diesem Graphen können wir direkt die kumulierte Verteilung für mehrere Erg
 ##### Bernoulli-Verteilungen
 
 In diesem Abschnitt möchte ich euch einen neuen Verteilungstyp vorstellen: die Bernoulli-Verteilung. Sie ist sehr einfach: Sie nimmt den Wert 1 mit der Wahrscheinlichkeit $p$ und den Wert 0 mit der Wahrscheinlichkeit $q = 1 - p$ an. Einfacher ausgedrückt beschreibt sie die Ergebnisse eines Experiments, das nur Ja/Nein-Antworten liefert. Das klassische Beispiel ist Kopf oder Zahl – man wirft eine Münze, und sie zeigt entweder Kopf oder Zahl. Simulieren wir Daten und stellen sie grafisch dar:
+
 ```{r bernoulli faire muenze}
 # 1000 Würfe einer fairen Münze simulieren (1 = Kopf, 0 = Zahl)
 set.seed(101)  # Reproduzierbarkeit
-fair_coin <- data.frame(
-  outcome = factor(rbinom(10, 1, 0.5), levels = c(0, 1), 
+faire_münze <- data.frame(
+  ergebnis = factor(rbinom(10, 1, 0.5), levels = c(0, 1), 
                    labels = c("Zahl", "Kopf"))
 )
 
 # Ergebnisse plotten
-ggplot(fair_coin, aes(x = outcome)) +
+ggplot(faire_münze, aes(x = ergebnis)) +
   geom_bar(fill = "#89CFF0", width = 0.35) +
   labs(
     title = "Simulation von 10 Würfen einer fairen Münze",
@@ -192,16 +199,17 @@ ggplot(fair_coin, aes(x = outcome)) +
 Wie wahrscheinlich erwartet, erhalten wir bei zehn Würfen einer fairen Münze ungefähr 5 Mal Zahl und 5 Mal Kopf. Außerdem haben wir unsere erste Bernoulli-Verteilung geplottet.
 
 Das ist ein Beispiel für eine faire Münze – was wäre, wenn unsere Münze „nicht fair" oder „verzerrt" wäre? Auch das können wir darstellen:
+
 ```{r bernoulli verzerrte muenze}
 # 10 Würfe einer unfairen Münze simulieren (1 = Kopf, 0 = Zahl)
 set.seed(102)  # Reproduzierbarkeit
-unfair_coin <- data.frame(
-  outcome = factor(rbinom(10, 1, 0.28), levels = c(0, 1), 
+unfaire_münze <- data.frame(
+  ergebnis = factor(rbinom(10, 1, 0.28), levels = c(0, 1), 
                    labels = c("Zahl", "Kopf"))
 )
 
 # Ergebnisse plotten
-ggplot(unfair_coin, aes(x = outcome)) +
+ggplot(unfaire_münze, aes(x = ergebnis)) +
   geom_bar(fill = "#89CFF0", width = 0.35) +
   labs(
     title = "Simulation von 10 Würfen einer unfairen Münze",
@@ -216,6 +224,7 @@ Wir sehen, dass die Balken nicht gleich hoch sind – die Münze hat eine Tenden
 Wie sieht die Wahrscheinlichkeitsverteilung einer Bernoulli-Verteilung aus? Bevor wir diese Frage beantworten, müssen wir die Wahrscheinlichkeit berechnen, genau 7 Mal Zahl und 3 Mal Kopf zu erhalten. Die Mathematik lassen wir weg – zum Glück kann R das mit der Funktion `dbinom()` erledigen. Sie nimmt den Parameter `x` (die Anzahl der erhaltenen Ergebnisse, also Zahl = 7), die Größe (`size`, die Anzahl der Versuche, also 10) und die Wahrscheinlichkeit (`prob`, also 0,5 für eine faire Münze) entgegen. Die verzerrte Münze habe ich mit einer Wahrscheinlichkeit von 0,28 simuliert.
 
 Berechnen wir für die faire und die verzerrte Münze die Wahrscheinlichkeit unserer Ergebnisse:
+
 ```{r dbinom}
 # Faire Münze
 dbinom(
@@ -241,19 +250,20 @@ Wie kommt es, dass wir trotz einer berechneten Wahrscheinlichkeit von 50 % für 
 Dieses Problem können wir lösen, indem wir eine sogenannte Binomialverteilung plotten. Sie zeigt die Anzahl der **Erfolge** in einer festen Anzahl von unabhängigen **Ja/Nein- bzw. Kopf/Zahl-Versuchen (Bernoulli-Versuche)**.
 
 Das wird klar, wenn wir alle Wahrscheinlichkeiten für beide Münzen für jedes mögliche Kopf-Ergebnis plotten – also 10, da wir 10 Versuche haben:
+
 ```{r binomialverteilungen}
 # Theoretische Verteilungen erstellen
-theoretical_probs <- data.frame(
-  heads = rep(0:10, 2),
-  coin_type = rep(c("unbiased", "biased"), each = 11),
-  prob = c(dbinom(0:10, size = 10, prob = 0.5),
+theoretische_wahr <- data.frame(
+  köpfe = rep(0:10, 2),
+  münzen_typ = rep(c("unbiased", "biased"), each = 11),
+  wahrscheinlichkeit = c(dbinom(0:10, size = 10, prob = 0.5),
            dbinom(0:10, size = 10, prob = 0.28))
 )
 
 # Plotten
-ggplot(theoretical_probs, aes(x = heads, y = prob)) +
+ggplot(theoretische_wahr, aes(x = köpfe, y = wahrscheinlichkeit)) +
   geom_point(size = 1.5, color = "black") +
-  facet_wrap(~ coin_type, 
+  facet_wrap(~ münzen_typ, 
              labeller = as_labeller(c(
                biased = "Verzerrte Münze (p = 0.28)", 
                unbiased = "Faire Münze (p = 0.5)"))) +
@@ -273,18 +283,19 @@ Bei einer fairen Münze ist die theoretische Erwartung 5 Köpfe bei 10 Würfen. 
 Kurz gesagt entstehen diese Abweichungen vom Erwartungswert durch Zufälligkeit. Während die wahre Wahrscheinlichkeit (z. B. 0,5 oder 0,28) das langfristige Muster beschreibt, garantiert sie keine spezifischen Ergebnisse bei kurzen Versuchsreihen. Stattdessen sagt sie uns, was wir **am häufigsten** bei einer großen Anzahl von Wiederholungen erwarten können.
 
 Dieses Konzept wird später noch einmal wichtig. Aber zunächst schauen wir uns die kumulative Verteilungsfunktion (CDF) der Wahrscheinlichkeitsverteilungsfunktion (PDF) an:
+
 ```{r kumulative wahrscheinlichkeiten}
 # Kumulative Summe korrekt berechnen: innerhalb jeder Münzgruppe
-theoretical_probs <- theoretical_probs %>%
-  group_by(coin_type) %>%
-  arrange(heads, .by_group = TRUE) %>%
-  mutate(cumsum_prob = cumsum(prob)) %>%
+theoretische_wahr <- theoretische_wahr %>%
+  group_by(münzen_typ) %>%
+  arrange(köpfe, .by_group = TRUE) %>%
+  mutate(cumsum_prob = cumsum(wahrscheinlichkeit)) %>%
   ungroup()
 
 # Kumulative Wahrscheinlichkeiten plotten
-ggplot(theoretical_probs, aes(x = heads, y = cumsum_prob)) +
+ggplot(theoretische_wahr, aes(x = köpfe, y = cumsum_prob)) +
   geom_point(size = 1.5, color = "black") +
-  facet_wrap(~ coin_type,
+  facet_wrap(~ münzen_typ,
              labeller = as_labeller(c(
                biased = "Verzerrte Münze (p = 0.28)",
                unbiased = "Faire Münze (p = 0.5)")),
@@ -306,15 +317,16 @@ Die CDF ist recht interessant: Wir sehen, dass bei der verzerrten Münze etwa 70
 Bisher haben wir uns zwei typische Verteilungen für **diskrete Variablen** angeschaut. Im Folgenden betrachten wir Verteilungen für **stetige Variablen**.
 
 Die Wahrscheinlichkeitsverteilungen der Bernoulli-Versuche, die wir zuvor gesehen haben, folgen der Form der wohl wichtigsten Verteilung: der Normalverteilung. Sie wird auch als Gaußsche Verteilung nach ihrem Entdecker Carl-Friedrich Gauss oder aufgrund ihrer Form als Glockenkurve bezeichnet. Schauen wir uns die Wahrscheinlichkeitsdichtefunktion (PDF) an:
+
 ```{r pdf, error=FALSE}
 # Daten simulieren
 set.seed(123)
 snd <- data.frame(
-  sample = rnorm(1000000, mean = 0, sd = 1)
+  stichprobe = rnorm(1000000, mean = 0, sd = 1)
   )
 
 # Plotten
-ggplot(snd, aes(x = sample)) +
+ggplot(snd, aes(x = stichprobe)) +
   geom_density() +
   labs(title = "Normalverteilung",
        x = "Wert der Zufallsvariable",
@@ -345,9 +357,10 @@ Die Normalverteilung hat viele Eigenschaften:
 -   Die Standardnormalverteilung ist ein Sonderfall, bei dem Mittelwert $\mu$ = 0 und Standardabweichung $\sigma$ = 1.
 
 Wir haben die kumulative Dichtefunktion bereits bei den Bernoulli-Versuchen gesehen, schauen wir sie uns nochmals an:
+
 ```{r cdf}
 # Empirische CDF plotten
-ggplot(snd, aes(x = sample)) +
+ggplot(snd, aes(x = stichprobe)) +
   stat_ecdf(geom = "step", color = "black") +
   labs(title = "Kumulative Verteilungsfunktion (CDF)",
        x = "Wert der Zufallsvariable",
@@ -374,29 +387,30 @@ Der Zentrale Grenzwertsatz besagt, dass unter bestimmten Bedingungen die Verteil
 Visualisieren wir das! Erinnert ihr euch an die Stichprobe unseres Würfels? Was würde passieren, wenn wir sehr viele Stichproben ziehen und ihre Stichprobenmittelwerte erfassen und dann die Stichprobenmittelwerte plotten? Wir würden eine Gleichverteilung erwarten, richtig? Weil jedes Ergebnis die gleiche Wahrscheinlichkeit hat aufzutreten, nämlich genau 1/6.
 
 Ziehen wir Stichproben und schauen, was passiert. Im Folgenden definiere ich zunächst eine Funktion, die den Würfel 1000-mal wirft. Im nächsten Schritt verwende ich die Funktion, um eine Stichprobe zu ziehen. Ich nehme zunächst eine Stichprobe – also 1000 Würfe – und speichere das Ergebnis. Dasselbe mache ich für 2, 3 und 4 Stichproben:
+
 ```{r zentraler grenzwertsatz}
 set.seed(123)  # Reproduzierbarkeit
 
 # Funktion zur Simulation der Würfelmittelwerte: n_rolls-mal würfeln, n_sim-mal wiederholen
-simulate_dice_means <- function(n_rolls, n_sim = 1000) {
+simuliere_würfel_mittelwerte <- function(n_rolls, n_sim = 1000) {
   replicate(n_sim, mean(sample(1:6, n_rolls, replace = TRUE)))
 }
 
 # Stichprobenmittelwerte für verschiedene Anzahlen von Würfen simulieren
-means_1 <- simulate_dice_means(1)
-means_2 <- simulate_dice_means(2)
-means_3 <- simulate_dice_means(3)
-means_4 <- simulate_dice_means(4)
+mittelwerte_1 <- simuliere_würfel_mittelwerte(1)
+mittelwerte_2 <- simuliere_würfel_mittelwerte(2)
+mittelwerte_3 <- simuliere_würfel_mittelwerte(3)
+mittelwerte_4 <- simuliere_würfel_mittelwerte(4)
 
 df <- bind_rows(
-  data.frame(mean = means_1, rolls = "1000 Würfe"),
-  data.frame(mean = means_2, rolls = "2000 Würfe"),
-  data.frame(mean = means_3, rolls = "3000 Würfe"),
-  data.frame(mean = means_4, rolls = "4000 Würfe")
+  data.frame(mittelwert = mittelwerte_1, rolls = "1000 Würfe"),
+  data.frame(mittelwert = mittelwerte_2, rolls = "2000 Würfe"),
+  data.frame(mittelwert = mittelwerte_3, rolls = "3000 Würfe"),
+  data.frame(mittelwert = mittelwerte_4, rolls = "4000 Würfe")
 )
 
 # Plotten
-ggplot(df, aes(x = mean)) +
+ggplot(df, aes(x = mittelwert)) +
   geom_density(fill = "skyblue", alpha = 0.6) +
   facet_wrap(~ rolls, scales = "free", ncol = 2) +
   labs(title = "Demonstration des Zentralen Grenzwertsatzes mit Würfelwürfen",
@@ -418,39 +432,40 @@ Das Phänomen, dass der Stichprobenmittelwert gegen 3,5 konvergiert, beruht auf 
 Gut, das war viel Theorie – aber sie ist entscheidend, da Wahrscheinlichkeitsverteilungen die Grundlage für die statistischen Modelle zur Datenanalyse bilden. Und das ist der entscheidende Punkt: Die Kenntnis der Verteilungen unserer Daten ermöglicht es uns, die Modelle später entsprechend zu konfigurieren, damit sie besser zu unseren Daten passen! Im nächsten Kapitel wird das hoffentlich klarer werden!
 
 Zum Abschluss dieses Kapitels stelle ich euch kurz verschiedene Verteilungstypen und ihre Interpretationen vor:
+
 ```{r, message=FALSE, warning=FALSE}
 # Dataframe mit verschiedenen Verteilungen erstellen
-x_vals <- seq(0, 10, by = 0.1)
+x_werte <- seq(0, 10, by = 0.1)
 
 dist_df <- data.frame(
-  x = rep(x_vals, 4),
+  x = rep(x_werte, 4),
   distribution = rep(c("Exponential (λ=1)", 
                        "Gamma (shape=2, rate=1)", 
                        "Chi-Quadrat (df=3)", 
-                       "t-Verteilung (df=10)"), each = length(x_vals)),
+                       "t-Verteilung (df=10)"), each = length(x_werte)),
   y = c(
-    dexp(x_vals, rate = 1),
-    dgamma(x_vals, shape = 2, rate = 1),
-    dchisq(x_vals, df = 3),
-    dt(x_vals - 5, df = 10)  # t-Verteilung für bessere Darstellung verschieben
+    dexp(x_werte, rate = 1),
+    dgamma(x_werte, shape = 2, rate = 1),
+    dchisq(x_werte, df = 3),
+    dt(x_werte - 5, df = 10)  # t-Verteilung für bessere Darstellung verschieben
   )
 )
 
 # Poisson- und F-Verteilung hinzufügen
-poisson_vals <- data.frame(
+poisson_werte <- data.frame(
   x = 0:10,
   y = dpois(0:10, lambda = 3),
   distribution = "Poisson (λ=3)"
 )
 
-f_vals <- data.frame(
-  x = x_vals,
-  y = df(x_vals, df1 = 5, df2 = 10),
+f_werte <- data.frame(
+  x = x_werte,
+  y = df(x_werte, df1 = 5, df2 = 10),
   distribution = "F-Verteilung (df1=5, df2=10)"
 )
 
 # Alle Verteilungen zusammenführen
-plot_df <- bind_rows(dist_df, poisson_vals, f_vals)
+plot_df <- bind_rows(dist_df, poisson_werte, f_werte)
 
 # Mit facet_wrap plotten
 ggplot(plot_df, aes(x = x, y = y)) +
@@ -483,16 +498,17 @@ Gehen wir kurz durch diese Verteilungen und ihre Bedeutungen:
 Nach dem eher theoretischen Teil davor arbeiten wir nun praktisch mit Verteilungen in R. Dazu simulieren wir Daten. Für den folgenden Teil simuliere ich eine Normalverteilung und stelle euch die erste zentrale Funktion `rnorm()` vor. Diese Funktion nimmt drei Argumente entgegen: die Anzahl der Beobachtungen **n**, den **Mittelwert** (mean) und die Standardabweichung (**sd**). Und wieder zeigt sich die Eleganz der Normalverteilung: Wir müssen R nicht mehr mitteilen als das, da Normalverteilungen allein durch Mittelwert und Standardabweichung erzeugt werden können – zusätzlich können wir die Anzahl der Beobachtungen festlegen.
 
 Wir simulieren die Normalverteilung für den IQ. Der Mittelwert sei 100 und die Standardabweichung 15. Diese Werte sind nicht zufällig gewählt – die meisten IQ-Stichproben ergeben diesen Mittelwert und diese Standardabweichung:
+
 ```{r stichprobe simulieren}
 # Seed für Reproduzierbarkeit setzen
 set.seed(123)
 
 # Stichprobe simulieren
-sample_iq <- data.frame(
-  height = rnorm(10000, mean = 100, sd = 15))
+sticprobe_iq <- data.frame(
+  größe = rnorm(10000, mean = 100, sd = 15))
 
 # Plotten
-ggplot(sample_iq, aes(x=height)) +
+ggplot(sticprobe_iq, aes(x=größe)) +
   geom_density(linewidth = 1, color = "#E35335") +
   labs(
     x = "IQ", 
@@ -560,6 +576,7 @@ In R können wir die Funktion `dnorm()` verwenden, um diese **Dichte** zu berech
 -   **sd**: die Standardabweichung
 
 Berechnen wir die Wahrscheinlichkeit, einen IQ von genau 100, 87 und 140 zu haben:
+
 ```{r dnorm}
 dnorm(x = 100, mean = 100, sd = 15) # Wahrscheinlichkeit für IQ 100
 dnorm(x = 87,  mean = 100, sd = 15) # Wahrscheinlichkeit für IQ 87
@@ -579,6 +596,7 @@ Sie nimmt folgende Argumente entgegen:
 -   `mean`: der Mittelwert (μ) der Verteilung
 
 -   `sd`: die Standardabweichung (σ) der Verteilung
+
 ```{r pnorm}
 pnorm(q = 100, mean = 100, sd = 15) # Kumulative Wahrscheinlichkeit für IQ 100
 pnorm(q = 87,  mean = 100, sd = 15) # Kumulative Wahrscheinlichkeit für IQ 87
@@ -590,6 +608,7 @@ Was bedeuten diese Werte? Die Interpretation ist recht einfach: 0,5 bedeutet, da
 Was, wenn wir wissen möchten, welchen Wert wir benötigen, um in einem bestimmten Perzentil zu sein? Dafür bietet R die Funktion `qnorm()`.
 
 -   Sie nimmt das Argument **p** entgegen, das die gewünschte Wahrscheinlichkeit enthält, sowie unsere beiden Parameter Mittelwert und Standardabweichung.
+
 ```{r qnorm}
 qnorm(p = 0.5,       mean = 100, sd = 15) # Wert für das 50. Perzentil
 qnorm(p = 0.1930623, mean = 100, sd = 15) # Wert für das 19. Perzentil
@@ -629,6 +648,7 @@ dabei gilt:
 -   $\hat{y_i}$ = unsere vorhergesagten Werte basierend auf unserem OLS-Schätzer
 
 Erinnert euch an den Graphen in Abschnitt 2.2.1 – die Residuen sind im Grunde die roten Linien, also der Abstand von der Geraden zum Punkt. Wir können die Residuen für unsere Daten berechnen:
+
 ```{r daten simulieren}
 # Daten abrufen
 set.seed(123) # Reproduzierbarkeit
@@ -637,36 +657,38 @@ n <- 30
 
 x <- runif(n) * 10 
 
-categorical_variable <- factor(sample(c(0, 1), n, replace = TRUE))
+kategorische_variable <- factor(sample(c(0, 1), n, replace = TRUE))
 
 y <- 0.8 + 1.6 * x + rnorm(n, 0, 3)
 
-df <- data.frame(x, y, categorical_variable)
+df <- data.frame(x, y, kategorische_variable)
 
 # Unser Modell
 model1 <- lm(y ~ x, 
              data = df) 
 ```
+
 ```{r residuen berechnen}
 # Zunächst berechnen wir die Vorhersagen für y
-df$y_hat <- 1.6821 + 1.5394*df$x 
+df$y_dach <- 1.6821 + 1.5394*df$x 
 
 # Residuen durch Subtraktion von y_hat von y berechnen
-df$residuals <- df$y - df$y_hat 
+df$residuen <- df$y - df$y_dach 
 
 # Überprüfung
 head(df) 
 
 # Das hätten wir auch automatisch mit R machen können!
-df$residuals_auto <- residuals(model1)
+df$residuen_auto <- residuals(model1)
 
 # Überprüfung
 head(df)
 ```
 
 Schauen wir uns einen sogenannten **Residualplot** an: Auf der x-Achse werden die **gefitteten Werte** geplottet, also unser `y_hat`. Auf der y-Achse werden die Residuen dargestellt, also $y - \hat{y}$. Dann wird eine horizontale Linie bei y = 0 eingezeichnet. Alle Punkte auf dieser Linie zeigen uns die vom Modell korrekt vorhergesagten Werte.
+
 ```{r residualplot}
-ggplot(df, aes(x, residuals_auto)) + 
+ggplot(df, aes(x, residuen_auto)) + 
   geom_point() + 
   geom_hline(yintercept = 0) +
   scale_y_continuous("Residuen", seq(-6, 6, 1), 
@@ -679,6 +701,7 @@ ggplot(df, aes(x, residuals_auto)) +
 ##### Homoskedastizität und Heteroskedastizität
 
 Eine Annahme der linearen Regression ist, dass die Varianz des Fehlerterms nicht mit unserer unabhängigen Variable korreliert. Das klingt technisch und bedeutet im Grunde, dass die Residuen gleichmäßig über die unabhängigen Variablen verteilt sein sollten. Stellen wir das grafisch dar, um ein visuelles Verständnis zu bekommen:
+
 ```{r homo und hetero plot, message=FALSE, warning=FALSE}
 # Seed für Reproduzierbarkeit setzen
 set.seed(123)
@@ -695,7 +718,7 @@ y_hetero <- 2 * x + e*x^2
 df_homo_hetero <- data.frame(x, y_homo, y_hetero)
 
 # Streudiagramm mit Homoskedastizität
-homoskedastic_plot <- ggplot(df_homo_hetero, aes(x = x, y = y_homo)) +
+homoskedastischer_plot <- ggplot(df_homo_hetero, aes(x = x, y = y_homo)) +
   geom_point() +
   geom_smooth(method = "lm", se = FALSE) + # Regressionsgerade hinzufügen
   scale_y_continuous("Y", seq(-0.5, 3.5, 0.5), limits = c(-0.5, 3.5)) +
@@ -703,7 +726,7 @@ homoskedastic_plot <- ggplot(df_homo_hetero, aes(x = x, y = y_homo)) +
   theme_minimal()
 
 # Streudiagramm mit Heteroskedastizität
-heteroskedastic_plot <- ggplot(df_homo_hetero, 
+heteroskedastischer_plot <- ggplot(df_homo_hetero, 
                                aes(x = x, y = y_hetero)) +
   geom_point() +
   geom_smooth(method = "lm", se = FALSE) + # Regressionsgerade hinzufügen
@@ -712,7 +735,7 @@ heteroskedastic_plot <- ggplot(df_homo_hetero,
   theme_minimal()
 
 # Plots kombinieren
-facet_plots <- ggarrange(homoskedastic_plot, heteroskedastic_plot, nrow = 1)
+facet_plots <- ggarrange(homoskedastischer_plot, heteroskedastischer_plot, nrow = 1)
 
 # Kombinierte Plots ausgeben
 print(facet_plots)
@@ -729,16 +752,17 @@ Nun, da wir die Residuen haben, können wir die Gesamtquadratsumme (TSS), die er
 -   ESS (Variation der AV, die wir erklären): $ESS = \sum(\hat{y_i} - \bar{y})^2$ – Hier verwenden wir unsere vorhergesagten Werte (`df$y_hat`) statt der tatsächlichen Werte. Das ergibt die Variation in der abhängigen Variablen, die wir mit unserem Modell erklären können.
 
 -   $R^2$ (Der Anteil der Variation, den unser Modell vorhersagen kann): $R^2 = \frac{ESS}{TSS}$ – Um den Anteil zu erhalten, dividieren wir einfach die erklärte Variation durch die Gesamtvariation der AV. Wenn beide Werte gleich sind – unser Modell also die gesamte Variation der abhängigen Variablen vorhersagt – beträgt $R^2$ = 1. Wenn unser Modell nichts erklären kann, beträgt die erklärte Variation 0. Berechnen wir die Werte:
+
 ```{r r2 von hand berechnen}
 # Gesamtquadratsumme
 tss <- sum((df$y - mean(df$y))^2)
 # Erklärte Quadratsumme
-ess <- sum((df$y_hat - mean(df$y))^2)
+ess <- sum((df$y_dach - mean(df$y))^2)
 # R-Quadrat berechnen
-r_squared <- ess/tss
+r_quadriert <- ess/tss
 
 # Ausgabe
-r_squared
+r_quadriert
 
 # Zusammenfassung ausgeben
 summary(model1)$r.squared
@@ -747,6 +771,7 @@ summary(model1)$r.squared
 #### Einflussreiche Ausreißer
 
 Ausreißer sind extrem abweichende Werte, die unsere Analyse beeinflussen und verzerren können. Daher müssen wir prüfen, ob unsere Daten solche Werte enthalten. Schauen wir zunächst, wie sie unsere Daten beeinflussen können:
+
 ```{r verzerrung durch ausreisser plotten}
 # Seed setzen
 set.seed(069)
@@ -755,24 +780,25 @@ set.seed(069)
 x1 <- sort(runif(10, min = 30, max = 70))
 y1 <- rnorm(10, mean = 200, sd = 50)
 y1[9] <- 2000
-data_outlier <- data.frame(x1, y1)
+daten_ausreißer <- data.frame(x1, y1)
 
 # Modell mit Ausreißer
-model_outlier <- lm(y1 ~ x1) 
+model_ausreißer <- lm(y1 ~ x1) 
 
 # Modell ohne Ausreißer
-model_without_outlier <- lm(y1[-9] ~ x1[-9]) 
+model_ohne_ausreißer <- lm(y1[-9] ~ x1[-9]) 
 
 # Daten plotten
-ggplot(data_outlier, aes(x = x1, y = y1)) +
+ggplot(daten_ausreißer, aes(x = x1, y = y1)) +
   geom_point(shape = 20, size = 3) +
   # Regressionsgerade mit Ausreißer
-  geom_abline(aes(slope = model_outlier$coefficients[2], intercept =
-              model_outlier$coefficients[1], 
-              color = "Modell mit Ausreißer"), linewidth = 0.75, show.legend = TRUE) +
+  geom_abline(aes(slope = model_ausreißer$coefficients[2],
+                  intercept = model_ausreißer$coefficients[1], 
+                  color = "Modell mit Ausreißer"), 
+              linewidth = 0.75, show.legend = TRUE) +
   # Regressionsgerade ohne Ausreißer
-  geom_abline(aes(slope = model_without_outlier$coefficients[2], 
-              intercept = model_without_outlier$coefficients[1], 
+  geom_abline(aes(slope = model_ohne_ausreißer$coefficients[2], 
+              intercept = model_ohne_ausreißer$coefficients[1], 
               color = "Modell ohne Ausreißer"), linewidth = 0.75, 
               show.legend = TRUE) +
   xlab("Unabhängige Variable") +
@@ -782,12 +808,12 @@ ggplot(data_outlier, aes(x = x1, y = y1)) +
 ```
 
 Wir sehen, dass diese eine Beobachtung unsere Stichprobe vollständig verzerrt. Aber wie finden wir heraus, welche Beobachtung ein einflussreicher Ausreißer ist? Dafür können wir die **Cook's Distance** verwenden. Berechnen und plotten wir sie in R:
+
 ```{r cooks distance plotten}
 # Cook's Distance kann mit einer eingebauten Funktion berechnet werden
-data_outlier$cooks_distance <- cooks.distance(model_outlier) 
-
+daten_ausreißer$cooks_distance <- cooks.distance(model_ausreißer) 
 # Plotten
-ggplot(data_outlier, aes(x = x1, y = cooks_distance)) + 
+ggplot(daten_ausreißer, aes(x = x1, y = cooks_distance)) + 
   geom_point(colour = "darkgreen", size = 3, alpha = 0.5) + 
   labs(y = "Cook's Distance", x = "Unabhängige Variable") + 
   geom_hline(yintercept = 1, linetype = "dashed") + 
@@ -799,53 +825,59 @@ Wir können deutlich sehen, dass die **Cook's Distance** den Ausreißer erkannt 
 #### Funktionsform
 
 Zunächst laden wir unsere Daten:
+
 ```{r}
 # Weitere Daten simulieren
-X_quadratic <- X <- runif(50, min = -5, max = 5)
+X_quadratisch <- X <- runif(50, min = -5, max = 5)
 u <- rnorm(50, sd = 1)  
 
 # Wahre Beziehung
-Y_quadratic <- X^2 + 2 * X + u
+Y_quadratisch <- X^2 + 2 * X + u
 
 # Dataframe erstellen
-df2 <- data.frame(X_quadratic, Y_quadratic)
+df2 <- data.frame(X_quadratisch, Y_quadratisch)
 ```
 
 Lineare Regression ist ein mathematisches Modell und basiert daher auf Annahmen. Wir sollten diese Annahmen nicht einfach voraussetzen, sondern testen! Eine Annahme ist, dass eine lineare Beziehung zwischen X und Y vorliegt. Das kann jedoch problematisch sein – betrachten wir folgendes Beispiel:
+
 ```{r linearen fit durch quadratische form plotten}
 # Einfaches Regressionsmodell schätzen
-model_simple <- lm(Y_quadratic ~ X_quadratic, data = df2)
+model_einfach <- lm(Y_quadratisch ~ X_quadratisch, data = df2)
 
 # Zusammenfassung ausgeben
-summary(model_simple)
+summary(model_einfach)
 
 # Plotten
-ggplot(df2, aes(x = X_quadratic, y = Y_quadratic)) + 
+ggplot(df2, aes(x = X_quadratisch, y = Y_quadratisch)) + 
   geom_point(shape = 20, size = 3) + 
   geom_smooth(method = "lm", se = FALSE) + 
   theme_bw()
 ```
 
 Wie man sieht, stimmt hier etwas nicht. Es scheint eine Korrelation zwischen den beiden Variablen zu geben, aber sie sieht nicht linear aus. In einem solchen Fall ist es sinnvoll, die unabhängige Variable zu quadrieren und die Regression erneut durchzuführen:
+
 ```{r quadratischen fit mit quadratischer form plotten}
 # Quadratisches Regressionsmodell schätzen
-model_quadratic <- lm(Y_quadratic ~ X_quadratic^2, data = df2)
+model_quadratisch <- lm(Y_quadratisch ~ X_quadratisch^2, 
+                        data = df2)
 
 # Zusammenfassung ausgeben
-summary(model_quadratic)
+summary(model_quadratisch)
 
 # Plotten
-ggplot(df2, aes(x = X_quadratic, y = Y_quadratic)) + 
+ggplot(df2, aes(x = X_quadratisch, y = Y_quadratisch)) + 
   geom_point(shape = 20, size = 3) + 
   geom_smooth(method = "lm", formula = y ~ poly(x, 2), 
               color = "red", 
               se = FALSE) + 
-  scale_x_continuous("X", breaks = seq(-5,5,1), limits = c(-5,5)) +
+  scale_x_continuous("X", breaks = seq(-5,5,1), 
+                     limits = c(-5,5)) +
   ylab("Y") +
   theme_bw()
 ```
 
 Das sieht besser aus und ist die richtige Methode, um quadratische Beziehungen in der linearen Regression zu behandeln. Daten können jedoch nicht nur eine quadratische Form annehmen – sie könnten auch die Form einer Wurzelfunktion haben. Ich zeige das am klassischsten Beispiel einer solchen Funktionsform. Der `gapminder`-Datensatz wird geladen. Er enthält Daten zur durchschnittlichen Lebenserwartung (`lifeExp`) und zum BIP pro Kopf (`gdpPercap`) verschiedener Länder in verschiedenen Jahren. Untersuchen wir, ob das BIP pro Kopf mit der Lebenserwartung korreliert:
+
 ```{r unlogarithmierter fit, warning=FALSE}
 # Daten prüfen
 head(gapminder)
@@ -860,6 +892,7 @@ ggplot(gapminder, aes(gdpPercap, lifeExp)) +
 ```
 
 Das sieht nicht gut aus. Was können wir tun? Ich habe bereits erwähnt, dass die gefittete Linie wie eine Wurzelfunktion ($y = \beta\sqrt{x}$) aussieht. Wenn man den Logarithmus der Wurzel nimmt, hebt sich die Wurzel auf und nur x bleibt übrig: $\log{(\sqrt{x})} = x$. Die Funktionsform ändert sich dann zu $y = \beta x$ – und das ist genau die systematische Komponente, die wir anstreben:
+
 ```{r logarithmierter fit, warning=FALSE}
 ggplot(gapminder, aes(log(gdpPercap), lifeExp)) + 
   geom_point() + 
@@ -875,24 +908,26 @@ Das sieht schon eher nach dem aus, was wir anstreben. Was können wir in diesem 
 #### Unabhängige Beobachtungen
 
 Eine weitere Annahme des linearen Regressionsmodells ist die Annahme unabhängiger, identisch verteilter Beobachtungen (i.i.d.). Das klingt kompliziert, ist es aber nicht. Betrachten wir folgenden Plot:
+
 ```{r zeittrend}
 # Daten abrufen
 set.seed(123)
 
 # Datumsvektor generieren
-date <- seq(as.Date("1960/1/1"), as.Date("2020/1/1"), "years")
+datum <- seq(as.Date("1960/1/1"), as.Date("2020/1/1"), "years")
 
 # Beschäftigungsvektor initialisieren
-y_time <- c(5000, rep(NA, length(date)-1))
+y_zeit <- c(5000, rep(NA, length(datum)-1))
 
 # Zeitreihenbeobachtungen mit zufälligen Einflüssen generieren
-for (i in 2:length(date)) {
-    y_time[i] <- -50 + 0.98 * y_time[i-1] + rnorm(n = 1, sd = 200)
+for (i in 2:length(datum)) {
+    y_zeit[i] <- -50 + 0.98 * y_zeit[i-1] + 
+      rnorm(n = 1, sd = 200)
 }
 
 # Plotten
-df_time_series <- data.frame(y_time, date)
-ggplot(df_time_series, aes(date, y_time)) + 
+df_zeitreihe <- data.frame(y_zeit, datum)
+ggplot(df_zeitreihe, aes(datum, y_zeit)) + 
   geom_line() +
   ylab("Y") +
   xlab("Jahr") +
@@ -926,9 +961,11 @@ dabei gilt:
 -   $k$ ist die Anzahl der unabhängigen Variablen
 
 In R können wir das adjustierte R-Quadrat direkt aus unserem Modell extrahieren:
+
 ```{r adj r2 berechnen}
 # Multivariates Modell berechnen
-multivariate_model <- lm(y ~ x + categorical_variable, data = df)
+multivariate_model <- lm(y ~ x + kategorische_variable, 
+                         data = df)
 
 # Zusammenfassung ausgeben
 summary(multivariate_model)
@@ -937,15 +974,16 @@ summary(multivariate_model)
 summary(multivariate_model)$adj.r.squared
 
 # Von Hand berechnen
-adj_r_squared <- 1 - (((1-summary(multivariate_model)$r.squared) * (nrow(df) - 1))/(nrow(df) - 2 - 1))
+adj_r_quadrat <- 1 - (((1-summary(multivariate_model)$r.squared) * (nrow(df) - 1))/(nrow(df) - 2 - 1))
 
 # Ausgabe
-print(adj_r_squared)
+print(adj_r_quadrat)
 ```
 
 #### Omitted Variable Bias (Auslassungsvariablenfehler)
 
 Ich habe bereits einen (abstrakten) Grund erwähnt, warum wir weitere Variablen in unser Modell aufnehmen sollten. Aber es gibt mehr: Wir könnten Effekte zwischen zwei Variablen X und Y finden, obwohl in der Realität gar kein Zusammenhang besteht. Nehmen wir zum Beispiel an, wir erheben Daten über Eiscremeverkäufe und Haiangriffe. Eiscremeverkäufe sind unsere unabhängige Variable, und wir möchten die Anzahl der Haiangriffe erklären. Hier sind die Daten:
+
 ```{r auslassungsvariablenfehler}
 # Seed für Reproduzierbarkeit setzen
 set.seed(0)  
@@ -954,37 +992,37 @@ set.seed(0)
 n <- 100
 
 # Temperaturdaten simulieren (Normalverteilung)
-temperature <- rnorm(n, mean = 1500, sd = 200)  
+temperatur <- rnorm(n, mean = 1500, sd = 200)  
 
 # Eiscremeverkaufsdaten simulieren (Normalverteilung)
-ice_cream_sales <- rnorm(n, mean = 3, sd = 1)  
+eis_verkäufe <- rnorm(n, mean = 3, sd = 1)  
 
 # Gewaltkriminalitätsdaten simulieren
-violence_crime_true <- 0.2 * temperature - 
-  0.5 * ice_cream_sales + 
+gewalt_kriminalität_wahr <- 0.2 * temperatur - 
+  0.5 * eis_verkäufe + 
   rnorm(n, mean = 0, sd = 5) 
 
 # Dataframe erstellen
-data <- data.frame(temperature = temperature,
-                   ice_cream_sales = ice_cream_sales,       
-                   violence_crime_true = violence_crime_true)  
+data <- data.frame(temperatur = temperatur,
+                   eis_verkäufe = eis_verkäufe,       
+                   gewalt_kriminalität_wahr = gewalt_kriminalität_wahr)  
 
 # Modell ohne die Temperaturvariable
-model_without_temperature <- lm(violence_crime_true ~ ice_cream_sales, data = data)
+model_ohne_temperatur <- lm(gewalt_kriminalität_wahr ~ eis_verkäufe, data = data)
 
 # Modell nur mit der Temperaturvariable
-model_with_only_temperature <- lm(violence_crime_true ~ temperature, data = data)
+model_nur_mit_temperatur <- lm(gewalt_kriminalität_wahr ~ temperatur, data = data)
 
 # Modell mit beiden Variablen
-model_with_temperature <- lm(violence_crime_true ~ ice_cream_sales + temperature, data = data)  
+model_mit_temperatur <- lm(gewalt_kriminalität_wahr ~ eis_verkäufe + temperatur, data = data)  
 
 # Zusammenfassungen beider Modelle ausgeben
-summary(model_without_temperature) 
-summary(model_with_only_temperature)
-summary(model_with_temperature)  
+summary(model_ohne_temperatur) 
+summary(model_nur_mit_temperatur)
+summary(model_mit_temperatur)  
 
 # Beide Modelle nebeneinander anzeigen
-table_ovb(model_without_temperature, model_with_temperature)
+table_ovb(model_ohne_temperatur, model_mit_temperatur)
 ```
 
 Wir sehen, dass sich der Koeffizient drastisch verändert. Was ist passiert? Eine wichtige Annahme der linearen Regression ist, dass der Fehlerterm die gesamte nicht durch das Modell erklärte Varianz erfasst und **nicht korreliert** ist mit den unabhängigen Variablen oder der abhängigen Variablen. Wenn jedoch unerklärte Variation im Modell vorhanden ist, die mit unserer unabhängigen Variable korreliert, ist diese Annahme verletzt. In unserem Beispiel ist der Koeffizient der Eiscremeverkäufe im ersten Modell verzerrt, weil Eiscremeverkäufe mit der Temperatur korreliert sind – je wärmer es wird, desto mehr Eis wird verkauft. Aber je wärmer es wird, desto aggressiver werden Menschen, weshalb die Temperatur eine ausgelassene Variable ist. Wenn wir die Temperatur in das Modell aufnehmen, sehen wir das Problem des Auslassungsvariablenfehlers: Er verzerrt unsere Koeffizienten, entweder durch Über- (wie in unserem Beispiel) oder Unterschätzung. In einem solchen Fall sollte die verzerrende Variable (in unserem Fall die Eiscremeverkäufe) aus dem Modell entfernt werden. Das ist auch der Grund, warum in einem multiplen linearen Modell von Kontrollvariablen gesprochen wird: So lässt sich prüfen, ob ein Zusammenhang zwischen zwei Variablen auf einen Auslassungsvariablenfehler oder auf andere Variablen zurückzuführen ist, die die Variation besser erklären.
@@ -998,6 +1036,7 @@ $$
 $$
 
 Berechnen wir das Modell:
+
 ```{r multikollinearitaet}
 # Seed für Reproduzierbarkeit setzen
 set.seed(42)
@@ -1011,27 +1050,27 @@ beta_1 <- 1.5
 beta_2 <- 1.5
 
 # Unabhängige Variablen generieren
-learning_time <- runif(n, 1, 10)
-gaming_time <- 0.7 * learning_time + 
+lernzeit <- runif(n, 1, 10)
+gaming_zeit <- 0.7 * lernzeit + 
   sqrt(1 - 0.7^2) * rnorm(n, sd = 1) 
 
 # Fehlerterm generieren
 epsilon <- rnorm(n, 0, 3)
 
 # Noten generieren
-grades <- beta_0 + beta_1 * learning_time + beta_2 * gaming_time + epsilon
+noten <- beta_0 + beta_1 * lernzeit + beta_2 * gaming_zeit + epsilon
 
 # Dataframe erstellen
-df_grades <- data.frame(learning_time,
-                   gaming_time,
-                   grades)
+df_noten <- data.frame(lernzeit,
+                   gaming_zeit,
+                   noten)
 
 # Regressionsmodell berechnen
-grades_model <- lm(grades ~ learning_time + gaming_time, 
-                   data = df_grades)
+noten_model <- lm(noten ~ lernzeit + gaming_zeit, 
+                   data = df_noten)
 
 # Zusammenfassung ausgeben
-summary(grades_model)
+summary(noten_model)
 ```
 
 Wenn wir das Modell betrachten, könnten wir schlussfolgern, dass mehr Lernen im Durchschnitt zu besseren Noten führt – unter sonst gleichen Bedingungen. Soweit klar, aber dasselbe gilt für die Spielzeit. Warum? Wenn wir davon ausgehen, dass ein Schüler pro Tag 3 Stunden hat, die er entweder auf Lernen oder Spielen verteilen kann, dann sind beide miteinander korreliert: 2 Stunden Lernen bedeuten 1 Stunde Spielen, 0,5 Stunden Lernen bedeuten 2,5 Stunden Spielen usw. Das bedeutet, dass beide Koeffizienten einander erklären und sich gegenseitig verzerren. Wie können wir das erkennen?
@@ -1039,13 +1078,14 @@ Wenn wir das Modell betrachten, könnten wir schlussfolgern, dass mehr Lernen im
 ##### Korrelationen prüfen
 
 Die erste Technik besteht darin, die Korrelationen der Variablen im Vorfeld zu überprüfen. Das kann auf zwei Arten erfolgen – zunächst durch Ausgabe einer Korrelationstabelle:
+
 ```{r korrelationen testen}
 # Zunächst die benötigten Variablen in einen separaten Dataframe speichern
-cormatrix_data <- df_grades %>% 
-  select(learning_time, gaming_time)
+cormatrix_daten <- df_noten %>% 
+  dplyr::select(lernzeit, gaming_zeit)
 
 # Korrelationstabelle berechnen
-cormatrix <- cor(cormatrix_data) # Korrelationen berechnen
+cormatrix <- cor(cormatrix_daten) # Korrelationen berechnen
 round(cormatrix, 2)              # Auf zwei Nachkommastellen runden und anzeigen
 
 # Das hätten wir auch in einem Schritt tun können:
@@ -1068,9 +1108,10 @@ $$
 dabei ist der Varianzinflationsfaktor (VIF) der Variable *i* gleich 1 dividiert durch 1 minus dem R-Quadrat ($R^2_i$) der Regression mit nur dieser Variable.
 
 In R können wir die Funktion `vif()` aus dem `car`-Paket verwenden:
+
 ```{r vif}
 # Wir müssen nur die Funktion vif() auf unser Modell anwenden
-vif(grades_model)
+vif(noten_model)
 ```
 
 Die Regel lautet: Wenn ein Wert 10 überschreitet, gilt er als kritisch. Wir sollten immer auf Multikollinearität testen, und wenn wir sie entdecken, die Regression separat ohne die korrelierten Variablen durchführen.

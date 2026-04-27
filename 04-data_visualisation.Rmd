@@ -66,8 +66,8 @@ set.seed(123)
 
 #Simulating data 
 data1 <- data.frame(
-  type = c(rep("Variable 1", 1000)),
-  value = c(rnorm(1000))
+  typ = c(rep("Variable 1", 1000)),
+  wert = c(rnorm(1000))
 )
 
 #Looking at the data 
@@ -91,7 +91,7 @@ Bei einem Histogramm reicht jedoch die x-Achse, da `ggplot` die **Häufigkeit (C
 Danach schließen wir die Klammern und geben mit einem `+` an, welche Art von Visualisierung wir hinzufügen möchten: `geom_histogram()`.
 
 ```{r basic histogram}
-ggplot(data1, aes(x = value)) + 
+ggplot(data1, aes(x = wert)) + 
   geom_histogram()
 ```
 
@@ -102,7 +102,7 @@ Allerdings sieht es noch nicht besonders schön aus. Das liegt daran, dass wir `
 Ein guter erster Schritt ist es, die **Balken sichtbarer zu machen** und die Farbe anzupassen.
 
 ```{r histogram with bins}
-ggplot(data1, aes(x = value)) + 
+ggplot(data1, aes(x = wert)) + 
   geom_histogram(color = "white", fill = "#69b3a2")
 ```
 
@@ -118,12 +118,12 @@ Dafür verwenden wir die Funktion `labs()`.
 Zusätzlich können wir die **x-Achse neu skalieren**. Dafür nutzen wir `scale_x_continuous()`.
 
 ```{r histogram with rescaled x-axis, warning=FALSE, message=FALSE}
-ggplot(data1, aes(x = value)) + 
+ggplot(data1, aes(x = wert)) + 
   geom_histogram(color = "white", fill = "#69b3a2") + 
   labs( 
-    x = "Value", 
-    y = "Count", 
-    title = "A Histogram") + 
+    x = "Wert", 
+    y = "Anzahl", 
+    title = "Ein Histogramm") + 
   scale_x_continuous(breaks = seq(-4, 4, 1), 
                      limits = c(-4, 4))
 ```
@@ -133,12 +133,12 @@ Ein weiteres Detail: Viele Menschen mögen den **grauen Hintergrund von ggplot2 
 Wir können das Theme ändern, z.B. mit `theme_minimal()`.
 
 ```{r histogram with theme, warning=FALSE}
-ggplot(data1, aes(x = value)) + 
+ggplot(data1, aes(x = wert)) + 
   geom_histogram(color = "white", fill = "#69b3a2") + 
   labs( 
-    x = "Value", 
-    y = "Count", 
-    title = "A Histogram") + 
+    x = "Wert", 
+    y = "Anzahl", 
+    title = "Ein Histogramm") + 
   scale_x_continuous(breaks = seq(-4, 4, 1), 
                      limits = c(-4, 4)) +
   theme_minimal()
@@ -156,25 +156,25 @@ Standardmäßig liegt sie hier bei etwa **0.3**. Wir können sie jedoch selbst f
 
 ```{r histogram with different binwidth, warning=FALSE}
 #histogram bindwidth = 0.1
-ggplot(data1, aes(x = value)) + 
+ggplot(data1, aes(x = wert)) + 
   geom_histogram(color = "white", fill = "#69b3a2", 
                  binwidth = 0.1) + 
   labs( 
-    x = "Value", 
-    y = "Count", 
-    title = "A Histogram with binwidth = 0.1") + 
+    x = "Wert", 
+    y = "Anzahl", 
+    title = "Ein Histogramm mit binwidth = 0.1") + 
   scale_x_continuous(breaks = seq(-4, 4, 1), 
                      limits = c(-4, 4)) +
   theme_minimal()
 
 #histogram with bindwidth = 0.6
-ggplot(data1, aes(x = value)) + 
+ggplot(data1, aes(x = wert)) + 
   geom_histogram(color = "white", fill = "#69b3a2", 
                  binwidth = 0.6) + 
   labs( 
-    x = "Value", 
-    y = "Count", 
-    title = "A Histogram with binwidth = 0.6") + 
+    x = "Wert", 
+    y = "Anzahl", 
+    title = "Ein Histogramm mit binwidth = 0.6") + 
   scale_x_continuous(breaks = seq(-4, 4, 1), 
                      limits = c(-4, 4)) +
   theme_minimal()
@@ -191,8 +191,8 @@ Dafür erstellen wir eine zweite Variable:
 ```{r adding Variable 2 to our dataset}
 #Creating data
 data2 <- data.frame(
-  type = c(rep("Variable 2", 1000)), 
-  value = c(rnorm(1000, mean = 4))
+  typ = c(rep("Variable 2", 1000)), 
+  wert = c(rnorm(1000, mean = 4))
 )
 
 #rowbinding it with data1
@@ -204,7 +204,7 @@ Nun müssen wir `ggplot2` mitteilen, **welche Werte zu welcher Variable gehören
 Das geschieht über das Argument `fill` innerhalb von `aes()`.
 
 ```{r, two histograms in one}
-ggplot(data2, aes(x=value, fill=type)) +
+ggplot(data2, aes(x=wert, fill=typ)) +
     geom_histogram(color="#e9ecef",
                    position = "identity") +
   theme_bw() 
@@ -215,7 +215,7 @@ Hier sehen wir zwei Histogramme, die durch unterschiedliche Farben unterschieden
 Um Überlappungen besser sichtbar zu machen, können wir **Transparenz (`alpha`)** verwenden und die Farben manuell festlegen.
 
 ```{r histogram two groups}
-ggplot(data2, aes(x=value, fill=type)) +
+ggplot(data2, aes(x=wert, fill=typ)) +
   geom_histogram(color="#e9ecef", 
                  alpha = 0.6, 
                 position = "identity") +
@@ -238,7 +238,7 @@ Der Code ist nahezu identisch – lediglich `geom_histogram()` wird durch `geom_
 #### Einfacher Dichteplot
 
 ```{r basic density}
-ggplot(data1, aes(x = value)) + 
+ggplot(data1, aes(x = wert)) + 
   geom_density()
 ```
 
@@ -250,13 +250,13 @@ Wir können hier wieder:
 -   Themes verändern
 
 ```{r density color}
-ggplot(data1, aes(x = value, fill =)) + 
+ggplot(data1, aes(x = wert)) + 
   geom_density(color = "white", 
                fill = "orange",
                alpha = 0.6) + 
   labs( 
-    x = "Value", 
-    y = "Count", 
+    x = "Wert", 
+    y = "Anzahl", 
     title = "A Density Plot") + 
   scale_x_continuous(breaks = seq(-4, 4, 1), 
                      limits = c(-4, 4)) +
@@ -270,7 +270,7 @@ ggplot(data1, aes(x = value, fill =)) +
 Auch mehrere Verteilungen lassen sich gleichzeitig darstellen:
 
 ```{r density two groups}
-ggplot(data2, aes(x=value, fill=type)) +
+ggplot(data2, aes(x=wert, fill=typ)) +
   geom_density(color="#0a0a0a", 
                  alpha = 0.9, 
                 position = "identity") +
@@ -304,14 +304,14 @@ Schauen wir uns zunächst die **Anatomie eines Boxplots** an:
 Implementieren wir nun einen Boxplot in R. Wieder ändert sich nur eine Kleinigkeit: Wir verwenden die Standardfunktion `ggplot()` und fügen anschließend die Funktion `geom_boxplot()` hinzu:
 
 ```{r einfacher boxplot}
-ggplot(data1, aes(x = value)) + 
+ggplot(data1, aes(x = wert)) + 
   geom_boxplot()
 ```
 
 Auch diesen Graphen können wir mit den gleichen Techniken wie zuvor optisch verbessern:
 
 ```{r boxplot beispiel}
-ggplot(data1, aes(x = value)) + 
+ggplot(data1, aes(x = wert)) + 
   geom_boxplot() + 
     labs( 
     x = "Wert", 
@@ -331,21 +331,22 @@ Ein großer Vorteil von Boxplots ist, dass sie eine einfache Möglichkeit bieten
 set.seed(123)
 
 # Einkommensdaten simulieren
-income_18_24 <- rnorm(1000, mean = 40000, sd = 11000)
-income_25_34 <- rnorm(1000, mean = 55000, sd = 17500)
-income_35_59 <- rnorm(1000, mean = 70000, sd = 25000)
+einkommen_18_24 <- rnorm(1000, mean = 40000, sd = 11000)
+einkommen_25_34 <- rnorm(1000, mean = 55000, sd = 17500)
+einkommen_35_59 <- rnorm(1000, mean = 70000, sd = 25000)
 
 # Zu einem Dataframe zusammenfügen
 data3 <- data.frame(
-  income = c(income_18_24, income_25_34, income_35_59),
-  age = factor(rep(c("18-24", "25-34", "35-59"), 
+  einkommen = c(einkommen_18_24, einkommen_25_34, 
+                einkommen_35_59),
+  alter = factor(rep(c("18-24", "25-34", "35-59"), 
                                 each = 1000))
 )
 ```
 
 ```{r gruppierter boxplot}
-ggplot(data3, aes(x = age, 
-                 y = income, fill = age)) +
+ggplot(data3, aes(x = alter, 
+                 y = einkommen, fill = alter)) +
 geom_boxplot()  
 ```
 
@@ -353,7 +354,7 @@ Bevor wir den Plot interpretieren, machen wir ihn zunächst etwas ansprechender:
 
 ```{r mehrere boxplots}
 # Boxplot erstellen
-ggplot(data3, aes(x = age, y = income, fill = age)) +
+ggplot(data3, aes(x = alter, y = einkommen, fill = alter)) +
   geom_boxplot(alpha = 0.5, width = 0.5) +
   scale_fill_manual(values = c("#acf6c8", "#ecec53" ,"#D1BC8A")) +
   labs(
@@ -384,11 +385,11 @@ Die bekannteste und einfachste Möglichkeit, Werte verschiedener Gruppen darzust
 data4 <- data.frame(
   name=c("King Kong","Godzilla","Superman",
          "Odin","Darth Vader") ,  
-  strength=c(10,15,45,61,22)
+  stärke=c(10,15,45,61,22)
   )
 
 # Plotten
-ggplot(data4, aes(x = name, y = strength)) + 
+ggplot(data4, aes(x = name, y = stärke)) + 
   geom_bar(stat = "identity")
 ```
 
@@ -397,7 +398,7 @@ Auch hier können wir das Erscheinungsbild unseres Plots verändern. Wir beginne
 *Hinweis: Ich kann die Beschriftung der x-Achse deaktivieren, indem ich einfach leere Anführungszeichen in der `labs()`-Funktion angebe.*
 
 ```{r einfacher barplot}
-ggplot(data4, aes(x = name, y = strength)) + 
+ggplot(data4, aes(x = name, y = stärke)) + 
   geom_bar(stat = "identity", fill = "#AE388B") +
   labs(
     x = "", 
@@ -411,20 +412,20 @@ Es gibt noch eine weitere Möglichkeit, Barplots einzusetzen: Wir können sie nu
 
 ```{r barplot zaehl-daten}
 data5 <- data.frame(
-  hero = c(rep("Superman", 10), 
+  held = c(rep("Superman", 10), 
            rep("King Kong", 3), 
            rep("Godzilla", 7)), 
   id = c(seq(1:20)), 
-  female = c(rep("Female", 7), 
-             rep("Male", 5), 
-             rep("Female", 1), 
-             rep("Female", 3), 
-             rep("Male", 4))
+  weiblich = c(rep("weiblich", 7), 
+             rep("männlich", 5), 
+             rep("weiblich", 1), 
+             rep("männlich", 3), 
+             rep("männlich", 4))
 ) 
 ```
 
 ```{r barplot zaehlung}
-ggplot(data5, aes(x = hero)) + 
+ggplot(data5, aes(x = held)) + 
   geom_bar(fill = "#AE388B") +
   labs(
     x = "", 
@@ -441,7 +442,7 @@ Schauen wir uns die Plots an:
 
 ```{r barplot gedreht}
 # Plot 1 
-ggplot(data4, aes(x = name, y = strength)) + 
+ggplot(data4, aes(x = name, y = stärke)) + 
   geom_bar(stat = "identity", fill = "#AE388B") +
   labs(
     x = "", 
@@ -452,7 +453,7 @@ ggplot(data4, aes(x = name, y = strength)) +
   coord_flip()
 
 # Plot 2 
-ggplot(data5, aes(x = hero)) + 
+ggplot(data5, aes(x = held)) + 
   geom_bar(fill = "#AE388B") +
   labs(
     x = "", 
@@ -476,7 +477,7 @@ Hinweis: Die absteigende Sortierung ist ebenfalls möglich, indem man den Sortie
 
 ```{r barplot sortiert}
 # Plot 1
-ggplot(data4, aes(x = fct_reorder(name, strength), y = strength)) + 
+ggplot(data4, aes(x = fct_reorder(name, stärke), y = stärke)) + 
   geom_bar(stat = "identity", fill = "#AE388B") +
   labs(
     x = "", 
@@ -486,7 +487,7 @@ ggplot(data4, aes(x = fct_reorder(name, strength), y = strength)) +
   theme_test()
 
 # Plot 2
-ggplot(data4, aes(x = fct_reorder(name, strength), y = strength)) + 
+ggplot(data4, aes(x = fct_reorder(name, stärke), y = stärke)) + 
   geom_bar(stat = "identity", fill = "#AE388B") +
   labs(
     x = "", 
@@ -503,23 +504,23 @@ Wir können Barplots noch einen Schritt weiterdenken und sie gruppieren. Nehmen 
 
 ```{r daten gruppierter barplot}
 data6 <- data.frame(
-  female = c("Weiblich", "Männlich", "Weiblich", "Männlich"), 
-  age = c("Alt", "Alt", "Jung", "Jung"), 
-  value = c(5, 2, 8, 7)
+  weiblich = c("Weiblich", "Männlich", "Weiblich", "Männlich"), 
+  alter = c("Alt", "Alt", "Jung", "Jung"), 
+  wert = c(5, 2, 8, 7)
 )
 ```
 
 Nun haben wir die Daten. Wir müssen innerhalb von `aes()` drei Parameter definieren: Die x-Achse bildet die Altersgruppen ab, die y-Achse den Durchschnittswert, und wir müssen `fill = female` definieren, da dies die Gruppe ist, die wir innerhalb der Altersgruppen untersuchen möchten. Innerhalb von `geom_bar()` benötigen wir zwei Argumente: `stat = "identity"` und `position = "dodge"`. Et voilà – so erhalten wir unseren ersten **gruppierten Barplot**.
 
 ```{r gruppierter barplot nebeneinander}
-ggplot(data6, aes(x = age, y = value, fill = female)) + 
+ggplot(data6, aes(x = alter, y = wert, fill = weiblich)) + 
     geom_bar(position = "dodge", stat="identity") 
 ```
 
 Alternativ können wir einen **gestapelten Barplot** verwenden. Der Unterschied besteht darin, dass wir einen Balken für unsere x-Achsen-Gruppe haben – in unserem Beispiel die Altersgruppe – und die Anteile der zweiten Gruppe, das Geschlecht, werden übereinander gestapelt. Man kann das auch als normalen Barplot betrachten, bei dem der Balken je nach prozentualer Verteilung der anderen Gruppe eingefärbt ist. Im Code ändert sich lediglich, dass wir das Argument `position` in `geom_bar()` auf `position = "stack"` setzen:
 
 ```{r gruppierter barplot gestapelt}
-ggplot(data6, aes(x = age, y = value, fill = female)) + 
+ggplot(data6, aes(x = alter, y = wert, fill = weiblich)) + 
     geom_bar(position = "stack", stat="identity") 
 ```
 
@@ -531,7 +532,7 @@ Nun gestalten wir die Plots mit unseren bekannten Techniken ansprechender. Dabei
 
 ```{r barplot mit farbpaletten}
 # Plot 1
-ggplot(data6, aes(x = age, y = value, fill = female)) + 
+ggplot(data6, aes(x = alter, y = wert, fill = weiblich)) + 
     geom_bar(position = "dodge", stat="identity", 
              width = 0.35) + 
   scale_fill_brewer(palette = "Accent") +
@@ -546,7 +547,7 @@ ggplot(data6, aes(x = age, y = value, fill = female)) +
   theme(legend.title=element_blank())
 
 # Plot 2
-ggplot(data6, aes(x = age, y = value, fill = female)) + 
+ggplot(data6, aes(x = alter, y = wert, fill = weiblich)) + 
     geom_bar(position = "stack", stat="identity", 
              width = 0.35) +
   scale_fill_brewer(palette = "Accent") +
@@ -572,14 +573,14 @@ In ggplot verwenden wir wie gewohnt die `ggplot()`-Funktion, definieren unsere x
 # Seed setzen
 set.seed(500)
 # Daten erstellen
-date <- 2000:2024
+datum <- 2000:2024
 y <- cumsum(rnorm(25))
 y2 <- cumsum(rnorm(25))
-data7 <- data.frame(date, y, y2)
+data7 <- data.frame(datum, y, y2)
 ```
 
 ```{r einfaches liniendiagramm}
-ggplot(data7, aes(x = date, y = y)) + 
+ggplot(data7, aes(x = datum, y = y)) + 
   geom_line()
 ```
 
@@ -592,7 +593,7 @@ Normalerweise würden wir den Plot nun verschönern. Aber zunächst gibt es eini
 -   Die übrigen Gestaltungselemente bleiben gleich: Achsen neu skalieren, Farben anpassen und Themes setzen.
 
 ```{r gestricheltes liniendiagramm}
-ggplot(data7, aes(x = date, y = y)) + 
+ggplot(data7, aes(x = datum, y = y)) + 
   geom_line(color = "#0F52BA", linetype = "dashed",
             linewidth = 1) + 
   scale_y_continuous(breaks = seq(-1, 6, 1), 
@@ -618,8 +619,8 @@ Im nächsten Schritt möchten wir mehrere Linien in einem Plot darstellen. Das i
 
 ```{r mehrere linien}
 ggplot(data7) + 
-  geom_line(aes(x = date, y = y)) +
-  geom_line(aes(x = date, y = y2))
+  geom_line(aes(x = datum, y = y)) +
+  geom_line(aes(x = datum, y = y2))
 ```
 
 Wie immer gestalten wir den Plot im nächsten Schritt ansprechender. Ich verwende denselben Code wie oben. Bezüglich der Linien selbst können wir die Gestaltung für jede Ebene separat festlegen:
@@ -628,11 +629,11 @@ Wie immer gestalten wir den Plot im nächsten Schritt ansprechender. Ich verwend
 
 ```{r mehrere farbige linien}
 ggplot(data7) + 
-  geom_line(aes(x = date, y = y), 
+  geom_line(aes(x = datum, y = y), 
             linetype = "twodash", 
             size = 1, 
             color = "#365E32") +
-  geom_line(aes(x = date, y = y2), 
+  geom_line(aes(x = datum, y = y2), 
             linetype = "longdash", 
             size = 1,
             color = "#FD9B63") +
@@ -711,14 +712,14 @@ n <- 100
 marketing_budget <- runif(n, min = 1000, max = 10000)
 sales <- 2000 + 0.65 * marketing_budget + 
   rnorm(n, mean = 1400, sd = 750)
-quarters <- rep(c("Q1", "Q2", "Q3", "Q4"), 25)
+quartale <- rep(c("Q1", "Q2", "Q3", "Q4"), 25)
 
 # Dataframe erstellen
-data_point <- data.frame(marketing_budget, sales, 
-                         quarters)
+data_streu <- data.frame(marketing_budget, sales, 
+                         quartale)
 
 # Namen vergeben
-data_point$name <- "Vollmilchschokolade"
+data_streu$name <- "Vollmilchschokolade"
 ```
 
 Ein Streudiagramm in R wird nach derselben Logik wie immer erstellt:
@@ -728,7 +729,7 @@ Ein Streudiagramm in R wird nach derselben Logik wie immer erstellt:
 -   Dann fügen wir die Funktion `geom_point()` hinzu.
 
 ```{r einfaches streudiagramm}
-ggplot(data_point, aes(x = marketing_budget, 
+ggplot(data_streu, aes(x = marketing_budget, 
                        y = sales)) +
   geom_point()
 ```
@@ -736,7 +737,7 @@ ggplot(data_point, aes(x = marketing_budget,
 Nun gestalten wir den Plot ansprechender: Wir definieren eine Farbe für die Punkte in der Ebene, also in der `geom_point()`-Funktion, skalieren die Achsen neu (in diesem Fall nur die x-Achse), benennen die Achsen um, vergeben einen Titel und definieren ein Theme.
 
 ```{r streudiagramm milch}
-ggplot(data_point, aes(x = marketing_budget, 
+ggplot(data_streu, aes(x = marketing_budget, 
                        y = sales)) +
   geom_point(color = "#99582a") +
   scale_x_continuous(breaks = seq(0, 10000, 2000)) + 
@@ -760,16 +761,16 @@ set.seed(123)
 n <- 100
 marketing_budget <- runif(n, min = 1000, max = 10000)
 sales <- 1500 + 0.3 * marketing_budget + rnorm(n, mean = 1400, sd = 750)
-quarters <- rep(c("Q1", "Q2", "Q3", "Q4"), 25)
+quartale <- rep(c("Q1", "Q2", "Q3", "Q4"), 25)
 
 # Dataframe erstellen
-df_dark <- data.frame(marketing_budget, sales, quarters)
+df_zartbitter <- data.frame(marketing_budget, sales, quartale)
 
 # Namen vergeben
-df_dark$name <- "Dunkle Schokolade"
+df_zartbitter$name <- "Dunkle Schokolade"
 
 # Mit dem anderen Datensatz zusammenfügen
-data8 <- rbind(data_point, df_dark)
+data8 <- rbind(data_streu, df_zartbitter)
 ```
 
 Wir könnten denselben Code wie oben verwenden, wären dann jedoch nicht in der Lage zu erkennen, welche Punkte zu welcher Schokoladensorte gehören.
@@ -862,7 +863,7 @@ Das klingt noch etwas abstrakt – bleiben wir bei unserem Schokoladenunternehme
 ggplot(data8, aes(x = marketing_budget, 
                        y = sales)) +
   geom_point() + 
-  facet_wrap(~ quarters)
+  facet_wrap(~ quartale)
 ```
 
 Wie wir sehen, erstellt ggplot2 automatisch 4 Graphen – einen für jedes Quartal. Anstatt 4 Graphen manuell zu erstellen und unnötig langen Code zu schreiben, können wir die praktische `facet_wrap()`-Funktion nutzen. Um die Graphen ansprechend zu gestalten, gehen wir genauso vor wie bei einem einzelnen Plot – wir können einfach den Code von oben übernehmen und ergänzen:
@@ -878,7 +879,7 @@ ggplot(data8, aes(x = marketing_budget,
     title = "Schokolade: Verkäufe und Marketing"
   ) + 
   theme_classic() + 
-  facet_wrap(~ quarters)
+  facet_wrap(~ quartale)
 ```
 
 Wir können die `facet_wrap()`-Funktion auch auf unseren Plot mit verschiedenen Formen und Farben für Vollmilch- und dunkle Schokolade anwenden:
@@ -900,7 +901,7 @@ ggplot(data8, aes(x = marketing_budget,
     color = ""
   ) + 
   theme_classic() +
-  facet_wrap(~ quarters)
+  facet_wrap(~ quartale)
 ```
 
 ### Die `facet_grid()`-Funktion
@@ -916,16 +917,16 @@ Die `facet_grid()`-Funktion funktioniert ähnlich wie `facet_wrap()`, ermöglich
 set.seed(123)
 
 # Städte, Jahre und Monate definieren
-cities <- c("London", "Paris", "Berlin")
-years <- 2018:2020
-months <- 1:4  # Nur die ersten vier Monate
+städte <- c("London", "Paris", "Berlin")
+jahre <- 2018:2020
+monate <- 1:4  # Nur die ersten vier Monate
 
 # Dataframe mit allen Kombinationen aus Stadt, Jahr und Monat erstellen
-data9 <- expand.grid(City = cities, Year = years, Month = months)
+data9 <- expand.grid(Stadt = städte, Jahr = jahre, Monate = monate)
 
 # Temperaturdaten mit städtespezifischer Variation simulieren
-data9$Temperature <- round(rnorm(nrow(data9), mean = 15, sd = 10), 1) + 
-  with(data9, ifelse(City == "London", 0, ifelse(City == "Paris", 5, -5)))
+data9$Temperatur <- round(rnorm(nrow(data9), mean = 15, sd = 10), 1) + 
+  with(data9, ifelse(Stadt == "London", 0, ifelse(Stadt == "Paris", 5, -5)))
 
 # Erste Zeilen des Datensatzes prüfen
 head(data9)
@@ -933,10 +934,10 @@ head(data9)
 
 ```{r plot fuer temperaturen}
 # Monat als Faktor für bessere Achsenbeschriftung umwandeln
-data9$Month <- factor(data9$Month, levels = 1:4, labels = month.abb[1:4])
+data9$Monate <- factor(data9$Monate, levels = 1:4, labels = month.abb[1:4])
 
 # ggplot-Objekt erstellen
-p <- ggplot(data9, aes(x = Month, y = Temperature, group = Year, color = factor(Year))) +
+p <- ggplot(data9, aes(x = Monate, y = Temperatur, group = Jahr, color = factor(Jahr))) +
   geom_line() +
   labs(title = "Durchschnittliche Monatstemperatur (Jan–Apr, 2018–2020)",
        x = "Monat",
@@ -944,7 +945,7 @@ p <- ggplot(data9, aes(x = Month, y = Temperature, group = Year, color = factor(
        color = "Jahr") +
   theme_bw() +
   theme(legend.position = "none") +
-  facet_grid(Year ~ City)
+  facet_grid(Jahr ~ Stadt)
 
 # Plot ausgeben
 p
@@ -963,21 +964,21 @@ Man kann auch verschiedene Graphentypen miteinander kombinieren. Aber Vorsicht! 
 ```{r mehrere graphen in einem graphen}
 # Beispieldaten simulieren
 data10 <- data.frame(
-  months = factor(1:12, levels = 1:12, labels = month.abb), 
-  avg_temp = c(0.6, 1.8, 4.6, 6.1, 10.4, 19, 18.3, 
+  monate = factor(1:12, levels = 1:12, labels = month.abb), 
+  durch_temp = c(0.6, 1.8, 4.6, 6.1, 10.4, 19, 18.3, 
                17.9, 15.2, 9.6, 4.7, 2.6), 
-  n_deaths = c(149, 155, 200, 218, 263, 282, 
+  n_tote = c(149, 155, 200, 218, 263, 282, 
                318, 301, 247, 250, 194, 205)
 )
 
 # Skalierungsfaktor, um avg_temp an n_deaths anzupassen
-scale_factor <- max(data10$n_deaths) / max(data10$avg_temp)
+scale_factor <- max(data10$n_tote) / max(data10$durch_temp)
 
 # Kombinierten Graphen mit zwei y-Achsen erstellen
-ggplot(data10, aes(x = months)) + 
-  geom_bar(aes(y = n_deaths), stat = "identity", fill = "#FF8080", 
+ggplot(data10, aes(x = monate)) + 
+  geom_bar(aes(y = n_tote), stat = "identity", fill = "#FF8080", 
           alpha = 0.6) + 
-  geom_line(aes(y = avg_temp * scale_factor, group = 1), 
+  geom_line(aes(y = durch_temp * scale_factor, group = 1), 
             color = "#2c2c2c", linewidth = 1, linetype = "dashed") +
   scale_y_continuous(
     name = "Anzahl der Verkehrstoten",
@@ -1003,9 +1004,9 @@ Der Violin Chart stellt einen Dichtegraphen horizontal dar und spiegelt ihn zus�
 set.seed(123)  
 
 # Beispiel-Sportdaten simulieren
-sports_data <- data.frame(
+sport_data <- data.frame(
   sport = factor(rep(c("Basketball", "Fußball", "Schwimmen", "Turnen", "Tennis"), each = 100)),
-  height = c(
+  größe = c(
     rnorm(100, mean = 200, sd = 10),   # Basketballspieler sind typischerweise groß
     rnorm(100, mean = 175, sd = 7),    # Fußballspieler haben eine durchschnittliche Größe
     rnorm(100, mean = 180, sd = 8),    # Schwimmer
@@ -1015,7 +1016,7 @@ sports_data <- data.frame(
 )
 
 # Violin Chart erstellen
-ggplot(sports_data, aes(x = sport, y = height, fill = sport)) +
+ggplot(sport_data, aes(x = sport, y = größe, fill = sport)) +
   geom_violin(trim = FALSE) +
   labs(
     title = "Verteilung der Körpergröße von Athleten nach Sportart",
@@ -1042,22 +1043,22 @@ set.seed(123)
 normal_data <- rnorm(1000, mean = 50, sd = 10)
 
 # Linkschiefe Verteilung (mit Exponentialverteilung)
-left_skewed_data <- rexp(1000, rate = 0.1)
+linksschief_data <- rexp(1000, rate = 0.1)
 
 # Rechtschiefe Verteilung (mit Log-Normalverteilung)
-right_skewed_data <- rlnorm(1000, meanlog = 3, sdlog = 0.5)
+rechtsschief_data <- rlnorm(1000, meanlog = 3, sdlog = 0.5)
 
 # Bimodale Verteilung (Kombination zweier Normalverteilungen)
 bimodal_data <- c(rnorm(500, mean = 35, sd = 5), rnorm(500, mean = 60, sd = 5))
 
 # Daten zu einem Dataframe zusammenfügen
-example_data <- data.frame(
-  value = c(normal_data, left_skewed_data, right_skewed_data, bimodal_data),
-  distribution = factor(rep(c("Normal", "Linksschief", "Rechtsschief", "Bimodal"), each = 1000))
+beispiel_data <- data.frame(
+  wert = c(normal_data, linksschief_data, rechtsschief_data, bimodal_data),
+  verteilung = factor(rep(c("Normal", "Linksschief", "Rechtsschief", "Bimodal"), each = 1000))
 )
 
 # Ridgeline Chart erstellen
-ggplot(example_data, aes(x = value, y = distribution, fill = distribution)) +
+ggplot(beispiel_data, aes(x = wert, y = verteilung, fill = verteilung)) +
   geom_density_ridges() +
   scale_fill_brewer(palette = "Dark2") +
   labs(
@@ -1080,16 +1081,16 @@ Lollipop Charts werden immer beliebter, daher möchte ich sie euch vorstellen. D
 -   Abschließend müssen wir die Ästhetik im `geom_segment()`-Plot festlegen.
 
 ```{r lollipop chart}
-ggplot(data4, aes(x=name, y=strength)) +
+ggplot(data4, aes(x=name, y=stärke)) +
   geom_point() + 
-  geom_segment(aes(x=name, xend=name, y=0, yend=strength))
+  geom_segment(aes(x=name, xend=name, y=0, yend=stärke))
 ```
 
 Nun gestalten wir den Chart ansprechender. Wir können der Linie verschiedene Farben geben und sie mit denselben Methoden wie beim Liniendiagramm anpassen. Das Gleiche gilt für die Punkte – auch sie lassen sich beliebig anpassen:
 
 ```{r huebscher lollipop chart}
-ggplot(data4, aes(x=name, y=strength)) +
-  geom_segment(aes(x=name, xend=name, y=0, yend=strength), 
+ggplot(data4, aes(x=name, y=stärke)) +
+  geom_segment(aes(x=name, xend=name, y=0, yend=stärke), 
                color = "grey") +
   geom_point(size = 4, color = "#74B72E") +
   labs(x = "Fiktiver Charakter", 
@@ -1150,17 +1151,20 @@ summary(iris)
 
 a\. Erstelle einen Graphen, der die Verteilung von `Sepal.Length` für die Art `setosa` zeigt. Wähle den Verteilungsplottyp selbst. **Hinweis:** Bereite die Daten zunächst auf, bevor du sie plottest.
 
-```{r kap4 uebung 1a, eval=FALSE}
+```{r kap3_uebung_1a, eval=FALSE}
+#Verteilung Sepal-Length
 ```
 
 b\. Füge nun die beiden anderen Arten zum Plot hinzu. Stelle sicher, dass jede Art eine eindeutige Farbe hat.
 
-```{r kap4 uebung 1b, eval=FALSE}
+```{r kap3_uebung_1b, eval=FALSE}
+#Plot mit farblichen Kategorien
 ```
 
 c\. Gestalte den Plot ansprechend! Gib dem Plot einen aussagekräftigen Titel sowie aussagekräftige Beschriftungen für die x- und y-Achse, und experimentiere mit den Farben.
 
-```{r kap4 uebung 1c, eval=FALSE}
+```{r kap3_uebung_1c, eval=FALSE}
+# Plot gestalten
 ```
 
 d\. Interpretiere den Plot!
@@ -1169,17 +1173,20 @@ d\. Interpretiere den Plot!
 
 a\. Berechne die durchschnittliche `Petal.Length` für jede Art und stelle sie in einem Barplot dar. **Hinweis:** Du musst die Daten erneut aufbereiten, bevor du sie plottest.
 
-```{r kap4 uebung 2a, eval=FALSE}
+```{r kap3_uebung_2a, eval=FALSE}
+# Barplot Petal.Length
 ```
 
 b\. Füge die Mittelwerte der Variable `Petal.Width` zum Plot hinzu, sodass ein gruppierter Barplot entsteht.
 
-```{r kap4 uebung 2b, eval=FALSE}
+```{r kap3_uebung_2b, eval=FALSE}
+# Mittelwerte hinzufügen
 ```
 
 c\. Gestalte den Plot ansprechend! Gib dem Plot einen aussagekräftigen Titel sowie aussagekräftige Beschriftungen für die x- und y-Achse, und experimentiere mit den Farben.
 
-```{r kap4 uebung 2c, eval=FALSE}
+```{r kap3_uebung_2c, eval=FALSE}
+# Plot gestalten
 ```
 
 d\. Interpretiere den Plot!
@@ -1188,15 +1195,18 @@ d\. Interpretiere den Plot!
 
 a\. Erstelle ein Streudiagramm, bei dem `Sepal.Length` auf der x-Achse und `Sepal.Width` auf der y-Achse dargestellt wird. Erstelle den Plot für die Art `virginica`.
 
-```{r kap4 uebung 3a, eval=FALSE}
+```{r kap3_uebung_3a, eval=FALSE}
+#Streudiagramm Sepal.Length und Sepal.Width
 ```
 
 b\. Füge nun die Art `versicolor` zum Plot hinzu. Die Punkte dieser Art sollen eine andere Farbe UND eine andere Form haben.
 
-```{r kap4 uebung 3b, eval=FALSE}
+```{r kap3_uebung_3b, eval=FALSE}
+# versicolor hinzifügen
 ```
 
 c\. Gestalte den Plot ansprechend! Füge ein Theme, Achsenbeschriftungen und einen aussagekräftigen Titel hinzu.
 
-```{r kap4 uebung 3c, eval=FALSE}
+```{r kap3_uebung_3c, eval=FALSE}
+# Plot gestalten
 ```

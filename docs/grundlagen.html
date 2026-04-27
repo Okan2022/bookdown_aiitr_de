@@ -23,7 +23,7 @@
 <meta name="author" content="Okan Sarioglu" />
 
 
-<meta name="date" content="2026-03-08" />
+<meta name="date" content="2026-04-27" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -436,9 +436,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>Objekte können unterschiedliche Datentypen besitzen:</p>
 <table>
 <colgroup>
-<col width="20%" />
-<col width="16%" />
-<col width="64%" />
+<col width="25%" />
+<col width="25%" />
+<col width="50%" />
 </colgroup>
 <tbody>
 <tr class="odd">
@@ -593,9 +593,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul>
 <div class="sourceCode" id="cb81"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb81-1"><a href="grundlagen.html#cb81-1" tabindex="-1"></a><span class="co"># making an example df</span></span>
 <span id="cb81-2"><a href="grundlagen.html#cb81-2" tabindex="-1"></a>df_beispiel <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
-<span id="cb81-3"><a href="grundlagen.html#cb81-3" tabindex="-1"></a>    <span class="at">land =</span> <span class="fu">c</span>(<span class="st">&quot;Austria&quot;</span>, <span class="st">&quot;England&quot;</span>, </span>
-<span id="cb81-4"><a href="grundlagen.html#cb81-4" tabindex="-1"></a>                <span class="st">&quot;Brazil&quot;</span>, <span class="st">&quot;Germany&quot;</span>), </span>
-<span id="cb81-5"><a href="grundlagen.html#cb81-5" tabindex="-1"></a>    <span class="at">hauptstadt =</span> <span class="fu">c</span>(<span class="st">&quot;Vienna&quot;</span>, <span class="st">&quot;London&quot;</span>, </span>
+<span id="cb81-3"><a href="grundlagen.html#cb81-3" tabindex="-1"></a>    <span class="at">land =</span> <span class="fu">c</span>(<span class="st">&quot;Österreich&quot;</span>, <span class="st">&quot;England&quot;</span>, </span>
+<span id="cb81-4"><a href="grundlagen.html#cb81-4" tabindex="-1"></a>                <span class="st">&quot;Brasilien&quot;</span>, <span class="st">&quot;Deutschland&quot;</span>), </span>
+<span id="cb81-5"><a href="grundlagen.html#cb81-5" tabindex="-1"></a>    <span class="at">hauptstadt =</span> <span class="fu">c</span>(<span class="st">&quot;Wien&quot;</span>, <span class="st">&quot;London&quot;</span>, </span>
 <span id="cb81-6"><a href="grundlagen.html#cb81-6" tabindex="-1"></a>                <span class="st">&quot;Brasilia&quot;</span>, <span class="st">&quot;Berlin&quot;</span>), </span>
 <span id="cb81-7"><a href="grundlagen.html#cb81-7" tabindex="-1"></a>    <span class="at">bev =</span> <span class="fu">c</span>(<span class="fl">9.04</span>, <span class="fl">55.98</span>, <span class="fl">215.3</span>, <span class="fl">83.8</span>),</span>
 <span id="cb81-8"><a href="grundlagen.html#cb81-8" tabindex="-1"></a>    <span class="at">europa =</span> <span class="fu">c</span>(<span class="cn">TRUE</span>, <span class="cn">FALSE</span>, <span class="cn">TRUE</span>, <span class="cn">TRUE</span>)</span>
@@ -603,30 +603,31 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb81-10"><a href="grundlagen.html#cb81-10" tabindex="-1"></a></span>
 <span id="cb81-11"><a href="grundlagen.html#cb81-11" tabindex="-1"></a><span class="co"># Checking it</span></span>
 <span id="cb81-12"><a href="grundlagen.html#cb81-12" tabindex="-1"></a><span class="fu">print</span>(df_beispiel)</span></code></pre></div>
-<pre><code>##      land hauptstadt    bev europa
-## 1 Austria     Vienna   9.04   TRUE
-## 2 England     London  55.98  FALSE
-## 3  Brazil   Brasilia 215.30   TRUE
-## 4 Germany     Berlin  83.80   TRUE</code></pre>
+<pre><code>##          land hauptstadt    bev europa
+## 1  Österreich       Wien   9.04   TRUE
+## 2     England     London  55.98  FALSE
+## 3   Brasilien   Brasilia 215.30   TRUE
+## 4 Deutschland     Berlin  83.80   TRUE</code></pre>
 <ul>
 <li>Wenn Sie mit Datenrahmen arbeiten möchten, können Sie Spalten aufrufen, indem Sie den Namen des Datenrahmens mit einem Dollarzeichen dahinter und anschließend den Namen der Spalte, die Sie überprüfen möchten, aufrufen:</li>
 </ul>
 <div class="sourceCode" id="cb83"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb83-1"><a href="grundlagen.html#cb83-1" tabindex="-1"></a>df_beispiel<span class="sc">$</span>land  </span></code></pre></div>
-<pre><code>## [1] &quot;Austria&quot; &quot;England&quot; &quot;Brazil&quot;  &quot;Germany&quot;</code></pre>
+<pre><code>## [1] &quot;Österreich&quot;  &quot;England&quot;     &quot;Brasilien&quot;  
+## [4] &quot;Deutschland&quot;</code></pre>
 <p>Sie sehen, dass Sie den Vektor der Spalte erhalten. Wir können noch weiter gehen und mehr mit Datenrahmen arbeiten</p>
 <ul>
 <li><p>Rufen wir eine einzelne Beobachtung im Datenrahmen auf: Sie rufen die Spalte, die Sie untersuchen möchten, auf die gleiche Weise wie zuvor auf, diesmal fügen Sie jedoch eckige Klammern hinzu und geben die Nummer der Beobachtung in der Spalte an.</p></li>
 <li><p>Wir möchten „Brazil” haben. „Brazil” ist das dritte Element von df_beispiel$land, daher setzen wir eine 3 in die eckigen Klammern:</p></li>
 </ul>
 <div class="sourceCode" id="cb85"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb85-1"><a href="grundlagen.html#cb85-1" tabindex="-1"></a>df_beispiel<span class="sc">$</span>land[<span class="dv">3</span>]</span></code></pre></div>
-<pre><code>## [1] &quot;Brazil&quot;</code></pre>
+<pre><code>## [1] &quot;Brasilien&quot;</code></pre>
 <p>Das Letzte, was wir mit Datenrahmen tun müssen, ist, Spalten basierend auf Bedingungen zu erhalten. Im nächsten Teil dieses Kapitels werden wir eine Methode dafür kennenlernen, aber wir können dies auch mit dem Datenrahmen tun. Stellen Sie sich vor, Sie möchten einen Vektor von <code>df$land</code> haben, aber nur mit Ländern, deren <code>df$bev</code> größer als 60 ist. Das bedeutet eine Bevölkerung von mehr als 60 Einwohnern.</p>
 <ul>
 <li><p>Dazu rufen wir die Spalte <code>df$land</code> auf und setzen sie in eckige Klammern.</p></li>
 <li><p>Außerdem müssen wir in den eckigen Klammern die Bedingung aufrufen. Also die Variable df_example$pop und sie auf größer als 60 setzen. Et voilà, wir erhalten die Spalten von <code>df_example$land</code>, die größer als 60 sind.</p></li>
 </ul>
 <div class="sourceCode" id="cb87"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb87-1"><a href="grundlagen.html#cb87-1" tabindex="-1"></a>df_beispiel<span class="sc">$</span>land[df_beispiel<span class="sc">$</span>bev <span class="sc">&gt;</span> <span class="dv">60</span>]</span></code></pre></div>
-<pre><code>## [1] &quot;Brazil&quot;  &quot;Germany&quot;</code></pre>
+<pre><code>## [1] &quot;Brasilien&quot;   &quot;Deutschland&quot;</code></pre>
 </div>
 </div>
 <div id="ifelse-statements-und-die-ifelse-funktion" class="section level2 hasAnchor" number="1.3">
@@ -652,13 +653,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="sourceCode" id="cb89"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb89-1"><a href="grundlagen.html#cb89-1" tabindex="-1"></a>note <span class="ot">&lt;-</span> <span class="fl">1.7</span> </span>
 <span id="cb89-2"><a href="grundlagen.html#cb89-2" tabindex="-1"></a></span>
 <span id="cb89-3"><a href="grundlagen.html#cb89-3" tabindex="-1"></a><span class="cf">if</span>(note <span class="sc">&lt;</span> <span class="dv">2</span>) {</span>
-<span id="cb89-4"><a href="grundlagen.html#cb89-4" tabindex="-1"></a>  <span class="fu">print</span>(<span class="st">&quot;Good Job&quot;</span>)</span>
-<span id="cb89-5"><a href="grundlagen.html#cb89-5" tabindex="-1"></a>} <span class="co"># Sie schreiben if(Testausdruck) und dann den {Körperausdruck}, also den Körperausdruck in geschweiften Klammern.</span></span></code></pre></div>
-<pre><code>## [1] &quot;Good Job&quot;</code></pre>
+<span id="cb89-4"><a href="grundlagen.html#cb89-4" tabindex="-1"></a>  <span class="fu">print</span>(<span class="st">&quot;Gute Arbeit&quot;</span>)</span>
+<span id="cb89-5"><a href="grundlagen.html#cb89-5" tabindex="-1"></a>} <span class="co"># Ihr schreibt den if(Testausdruck) und dann den {Körperausdruck}, also den Körperausdruck in geschweiften Klammern.</span></span></code></pre></div>
+<pre><code>## [1] &quot;Gute Arbeit&quot;</code></pre>
 <div class="sourceCode" id="cb91"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb91-1"><a href="grundlagen.html#cb91-1" tabindex="-1"></a>note <span class="ot">&lt;-</span> <span class="fl">2.5</span> </span>
 <span id="cb91-2"><a href="grundlagen.html#cb91-2" tabindex="-1"></a></span>
 <span id="cb91-3"><a href="grundlagen.html#cb91-3" tabindex="-1"></a><span class="cf">if</span>(note <span class="sc">&lt;</span> <span class="dv">2</span>) {</span>
-<span id="cb91-4"><a href="grundlagen.html#cb91-4" tabindex="-1"></a>  <span class="fu">print</span>(<span class="st">&quot;Good Job&quot;</span>)</span>
+<span id="cb91-4"><a href="grundlagen.html#cb91-4" tabindex="-1"></a>  <span class="fu">print</span>(<span class="st">&quot;Gute Arbeit&quot;</span>)</span>
 <span id="cb91-5"><a href="grundlagen.html#cb91-5" tabindex="-1"></a>} <span class="co">#Da die Bedingung nicht erfüllt ist, passiert nichts.</span></span></code></pre></div>
 <p>Wie Sie sehen können, passiert nichts, wenn die Note größer als 2 ist. Andernfalls wird wie vorgesehen „Good Job“ ausgegeben.</p>
 </div>
@@ -673,22 +674,22 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <ul>
 <li>Wir nehmen das if-else-Statement aus dem vorherigen Abschnitt und fügen nun ein <code>else</code> hinzu und öffnen geschweifte Klammern <code>{}</code>, in denen wir den Inhalt von <code>else</code> definieren.</li>
 </ul>
-<div class="sourceCode" id="cb92"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb92-1"><a href="grundlagen.html#cb92-1" tabindex="-1"></a>grade <span class="ot">&lt;-</span> <span class="fl">3.3</span> <span class="co">#Note zuweisen</span></span>
+<div class="sourceCode" id="cb92"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb92-1"><a href="grundlagen.html#cb92-1" tabindex="-1"></a>note <span class="ot">&lt;-</span> <span class="fl">3.3</span> <span class="co">#Note zuweisen</span></span>
 <span id="cb92-2"><a href="grundlagen.html#cb92-2" tabindex="-1"></a></span>
-<span id="cb92-3"><a href="grundlagen.html#cb92-3" tabindex="-1"></a><span class="cf">if</span> (grade <span class="sc">&lt;=</span> <span class="dv">2</span>) {</span>
-<span id="cb92-4"><a href="grundlagen.html#cb92-4" tabindex="-1"></a>  <span class="fu">print</span>(<span class="st">&quot;Good Job&quot;</span>)</span>
+<span id="cb92-3"><a href="grundlagen.html#cb92-3" tabindex="-1"></a><span class="cf">if</span> (note <span class="sc">&lt;=</span> <span class="dv">2</span>) {</span>
+<span id="cb92-4"><a href="grundlagen.html#cb92-4" tabindex="-1"></a>  <span class="fu">print</span>(<span class="st">&quot;Gute Arbeit&quot;</span>)</span>
 <span id="cb92-5"><a href="grundlagen.html#cb92-5" tabindex="-1"></a>} <span class="cf">else</span> {</span>
-<span id="cb92-6"><a href="grundlagen.html#cb92-6" tabindex="-1"></a>  <span class="fu">print</span>(<span class="st">&quot;Life goes on&quot;</span>)</span>
+<span id="cb92-6"><a href="grundlagen.html#cb92-6" tabindex="-1"></a>  <span class="fu">print</span>(<span class="st">&quot;Das Leben geht weiter&quot;</span>)</span>
 <span id="cb92-7"><a href="grundlagen.html#cb92-7" tabindex="-1"></a>} </span></code></pre></div>
-<pre><code>## [1] &quot;Life goes on&quot;</code></pre>
+<pre><code>## [1] &quot;Das Leben geht weiter&quot;</code></pre>
 <div class="sourceCode" id="cb94"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb94-1"><a href="grundlagen.html#cb94-1" tabindex="-1"></a>grade <span class="ot">&lt;-</span> <span class="fl">1.3</span> <span class="co">#Note zuweisen</span></span>
 <span id="cb94-2"><a href="grundlagen.html#cb94-2" tabindex="-1"></a></span>
-<span id="cb94-3"><a href="grundlagen.html#cb94-3" tabindex="-1"></a><span class="cf">if</span> (grade <span class="sc">&lt;=</span> <span class="dv">2</span>) {</span>
-<span id="cb94-4"><a href="grundlagen.html#cb94-4" tabindex="-1"></a>  <span class="fu">print</span>(<span class="st">&quot;Good Job&quot;</span>)</span>
+<span id="cb94-3"><a href="grundlagen.html#cb94-3" tabindex="-1"></a><span class="cf">if</span> (note <span class="sc">&lt;=</span> <span class="dv">2</span>) {</span>
+<span id="cb94-4"><a href="grundlagen.html#cb94-4" tabindex="-1"></a>  <span class="fu">print</span>(<span class="st">&quot;Gute Arbeit&quot;</span>)</span>
 <span id="cb94-5"><a href="grundlagen.html#cb94-5" tabindex="-1"></a>} <span class="cf">else</span> {</span>
-<span id="cb94-6"><a href="grundlagen.html#cb94-6" tabindex="-1"></a>  <span class="fu">print</span>(<span class="st">&quot;Life goes on&quot;</span>)</span>
+<span id="cb94-6"><a href="grundlagen.html#cb94-6" tabindex="-1"></a>  <span class="fu">print</span>(<span class="st">&quot;Das Leben geht weiter&quot;</span>)</span>
 <span id="cb94-7"><a href="grundlagen.html#cb94-7" tabindex="-1"></a>}</span></code></pre></div>
-<pre><code>## [1] &quot;Good Job&quot;</code></pre>
+<pre><code>## [1] &quot;Das Leben geht weiter&quot;</code></pre>
 <p>Wir sehen, dass in jedem Fall ein Ergebnis ausgegeben wird.</p>
 </div>
 <div id="der-ifelse-befehl" class="section level3 hasAnchor" number="1.3.3">
@@ -701,8 +702,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li>Das dritte Argument ist der Ausdruck für den else-Fall.</li>
 </ul>
 <p><code>ifelse(test expression, body of if, body of else)</code></p>
-<div class="sourceCode" id="cb96"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb96-1"><a href="grundlagen.html#cb96-1" tabindex="-1"></a><span class="fu">ifelse</span>(grade <span class="sc">&lt;=</span><span class="dv">2</span>, <span class="st">&quot;Good Job&quot;</span>, <span class="st">&quot;Life goes on&quot;</span>) <span class="co">#ifelse Befehl</span></span></code></pre></div>
-<pre><code>## [1] &quot;Good Job&quot;</code></pre>
+<div class="sourceCode" id="cb96"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb96-1"><a href="grundlagen.html#cb96-1" tabindex="-1"></a><span class="fu">ifelse</span>(note <span class="sc">&lt;=</span><span class="dv">2</span>, <span class="st">&quot;Gute Arbeit&quot;</span>, <span class="st">&quot;Leben geht weiter&quot;</span>) <span class="co">#ifelse Befehl</span></span></code></pre></div>
+<pre><code>## [1] &quot;Leben geht weiter&quot;</code></pre>
 </div>
 <div id="if-else-ketten-if-else-mit-mehreren-bedingungen" class="section level3 hasAnchor" number="1.3.4">
 <h3><span class="header-section-number">1.3.4</span> if-else-Ketten / if-else mit mehreren Bedingungen<a href="grundlagen.html#if-else-ketten-if-else-mit-mehreren-bedingungen" class="anchor-section" aria-label="Anchor link to header"></a></h3>
@@ -712,73 +713,73 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li>Man fügt <code>else if</code> mit geschweiften Klammern hinzu, in denen der Testausdruck steht.</li>
 <li>Zum Schluss definiert man ein <code>else</code> mit geschweiften Klammern für den Fall, dass keine Testbedingung zutrifft.</li>
 </ul>
-<div class="sourceCode" id="cb98"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb98-1"><a href="grundlagen.html#cb98-1" tabindex="-1"></a>grade <span class="ot">&lt;-</span> <span class="fl">3.3</span> <span class="co">#Note zuweisen</span></span>
+<div class="sourceCode" id="cb98"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb98-1"><a href="grundlagen.html#cb98-1" tabindex="-1"></a>note <span class="ot">&lt;-</span> <span class="fl">3.3</span> <span class="co">#Note zuweisen</span></span>
 <span id="cb98-2"><a href="grundlagen.html#cb98-2" tabindex="-1"></a></span>
-<span id="cb98-3"><a href="grundlagen.html#cb98-3" tabindex="-1"></a><span class="cf">if</span> (grade <span class="sc">==</span> <span class="fl">1.0</span>) {</span>
-<span id="cb98-4"><a href="grundlagen.html#cb98-4" tabindex="-1"></a>  <span class="fu">print</span>(<span class="st">&quot;Amazing&quot;</span>) </span>
-<span id="cb98-5"><a href="grundlagen.html#cb98-5" tabindex="-1"></a>} <span class="cf">else</span> <span class="cf">if</span> (grade <span class="sc">&gt;</span> <span class="fl">1.0</span> <span class="sc">&amp;</span> grade <span class="sc">&lt;=</span> <span class="fl">2.0</span>) {</span>
-<span id="cb98-6"><a href="grundlagen.html#cb98-6" tabindex="-1"></a>  <span class="fu">print</span>(<span class="st">&quot;Good Job&quot;</span>)</span>
-<span id="cb98-7"><a href="grundlagen.html#cb98-7" tabindex="-1"></a>} <span class="cf">else</span> <span class="cf">if</span> (grade <span class="sc">&gt;</span> <span class="fl">2.0</span> <span class="sc">&amp;</span> grade <span class="sc">&lt;=</span> <span class="fl">3.0</span>) {</span>
+<span id="cb98-3"><a href="grundlagen.html#cb98-3" tabindex="-1"></a><span class="cf">if</span> (note <span class="sc">==</span> <span class="fl">1.0</span>) {</span>
+<span id="cb98-4"><a href="grundlagen.html#cb98-4" tabindex="-1"></a>  <span class="fu">print</span>(<span class="st">&quot;Stark&quot;</span>) </span>
+<span id="cb98-5"><a href="grundlagen.html#cb98-5" tabindex="-1"></a>} <span class="cf">else</span> <span class="cf">if</span> (note <span class="sc">&gt;</span> <span class="fl">1.0</span> <span class="sc">&amp;</span> note <span class="sc">&lt;=</span> <span class="fl">2.0</span>) {</span>
+<span id="cb98-6"><a href="grundlagen.html#cb98-6" tabindex="-1"></a>  <span class="fu">print</span>(<span class="st">&quot;Gute Arbeit&quot;</span>)</span>
+<span id="cb98-7"><a href="grundlagen.html#cb98-7" tabindex="-1"></a>} <span class="cf">else</span> <span class="cf">if</span> (note <span class="sc">&gt;</span> <span class="fl">2.0</span> <span class="sc">&amp;</span> note <span class="sc">&lt;=</span> <span class="fl">3.0</span>) {</span>
 <span id="cb98-8"><a href="grundlagen.html#cb98-8" tabindex="-1"></a>  <span class="fu">print</span>(<span class="st">&quot;OK&quot;</span>)</span>
-<span id="cb98-9"><a href="grundlagen.html#cb98-9" tabindex="-1"></a>} <span class="cf">else</span> <span class="cf">if</span> (grade <span class="sc">&gt;</span> <span class="fl">3.0</span> <span class="sc">&amp;</span> grade <span class="sc">&lt;=</span> <span class="fl">4.0</span>) {</span>
-<span id="cb98-10"><a href="grundlagen.html#cb98-10" tabindex="-1"></a>  <span class="fu">print</span>(<span class="st">&quot;Life goes on&quot;</span>)</span>
+<span id="cb98-9"><a href="grundlagen.html#cb98-9" tabindex="-1"></a>} <span class="cf">else</span> <span class="cf">if</span> (note <span class="sc">&gt;</span> <span class="fl">3.0</span> <span class="sc">&amp;</span> note <span class="sc">&lt;=</span> <span class="fl">4.0</span>) {</span>
+<span id="cb98-10"><a href="grundlagen.html#cb98-10" tabindex="-1"></a>  <span class="fu">print</span>(<span class="st">&quot;Leben geht weiter&quot;</span>)</span>
 <span id="cb98-11"><a href="grundlagen.html#cb98-11" tabindex="-1"></a>} <span class="cf">else</span> {</span>
-<span id="cb98-12"><a href="grundlagen.html#cb98-12" tabindex="-1"></a>  <span class="fu">print</span>(<span class="st">&quot;No expression found&quot;</span>)</span>
+<span id="cb98-12"><a href="grundlagen.html#cb98-12" tabindex="-1"></a>  <span class="fu">print</span>(<span class="st">&quot;Kein passender Ausdruck gefunden&quot;</span>)</span>
 <span id="cb98-13"><a href="grundlagen.html#cb98-13" tabindex="-1"></a>}</span></code></pre></div>
-<pre><code>## [1] &quot;Life goes on&quot;</code></pre>
-<div class="sourceCode" id="cb100"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb100-1"><a href="grundlagen.html#cb100-1" tabindex="-1"></a>grade <span class="ot">&lt;-</span> <span class="fl">1.7</span> <span class="co">#Note zuweisen</span></span>
+<pre><code>## [1] &quot;Leben geht weiter&quot;</code></pre>
+<div class="sourceCode" id="cb100"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb100-1"><a href="grundlagen.html#cb100-1" tabindex="-1"></a>note <span class="ot">&lt;-</span> <span class="fl">1.7</span> <span class="co">#Note zuweisen</span></span>
 <span id="cb100-2"><a href="grundlagen.html#cb100-2" tabindex="-1"></a></span>
 <span id="cb100-3"><a href="grundlagen.html#cb100-3" tabindex="-1"></a><span class="cf">if</span> (grade <span class="sc">==</span> <span class="fl">1.0</span>) {</span>
-<span id="cb100-4"><a href="grundlagen.html#cb100-4" tabindex="-1"></a>  <span class="fu">print</span>(<span class="st">&quot;Amazing&quot;</span>) </span>
-<span id="cb100-5"><a href="grundlagen.html#cb100-5" tabindex="-1"></a>} <span class="cf">else</span> <span class="cf">if</span> (grade <span class="sc">&gt;</span> <span class="fl">1.0</span> <span class="sc">&amp;</span> grade <span class="sc">&lt;=</span> <span class="fl">2.0</span>) {</span>
-<span id="cb100-6"><a href="grundlagen.html#cb100-6" tabindex="-1"></a>  <span class="fu">print</span>(<span class="st">&quot;Good Job&quot;</span>)</span>
-<span id="cb100-7"><a href="grundlagen.html#cb100-7" tabindex="-1"></a>} <span class="cf">else</span> <span class="cf">if</span> (grade <span class="sc">&gt;</span> <span class="fl">2.0</span> <span class="sc">&amp;</span> grade <span class="sc">&lt;=</span> <span class="fl">3.0</span>) {</span>
+<span id="cb100-4"><a href="grundlagen.html#cb100-4" tabindex="-1"></a>  <span class="fu">print</span>(<span class="st">&quot;Stark&quot;</span>) </span>
+<span id="cb100-5"><a href="grundlagen.html#cb100-5" tabindex="-1"></a>} <span class="cf">else</span> <span class="cf">if</span> (note <span class="sc">&gt;</span> <span class="fl">1.0</span> <span class="sc">&amp;</span> note <span class="sc">&lt;=</span> <span class="fl">2.0</span>) {</span>
+<span id="cb100-6"><a href="grundlagen.html#cb100-6" tabindex="-1"></a>  <span class="fu">print</span>(<span class="st">&quot;Gute Arbeit&quot;</span>)</span>
+<span id="cb100-7"><a href="grundlagen.html#cb100-7" tabindex="-1"></a>} <span class="cf">else</span> <span class="cf">if</span> (note <span class="sc">&gt;</span> <span class="fl">2.0</span> <span class="sc">&amp;</span> note <span class="sc">&lt;=</span> <span class="fl">3.0</span>) {</span>
 <span id="cb100-8"><a href="grundlagen.html#cb100-8" tabindex="-1"></a>  <span class="fu">print</span>(<span class="st">&quot;OK&quot;</span>)</span>
-<span id="cb100-9"><a href="grundlagen.html#cb100-9" tabindex="-1"></a>} <span class="cf">else</span> <span class="cf">if</span> (grade <span class="sc">&gt;</span> <span class="fl">3.0</span> <span class="sc">&amp;</span> grade <span class="sc">&lt;=</span> <span class="fl">4.0</span>) {</span>
-<span id="cb100-10"><a href="grundlagen.html#cb100-10" tabindex="-1"></a>  <span class="fu">print</span>(<span class="st">&quot;Life goes on&quot;</span>)</span>
+<span id="cb100-9"><a href="grundlagen.html#cb100-9" tabindex="-1"></a>} <span class="cf">else</span> <span class="cf">if</span> (note <span class="sc">&gt;</span> <span class="fl">3.0</span> <span class="sc">&amp;</span> note <span class="sc">&lt;=</span> <span class="fl">4.0</span>) {</span>
+<span id="cb100-10"><a href="grundlagen.html#cb100-10" tabindex="-1"></a>  <span class="fu">print</span>(<span class="st">&quot;Leben geht weiter&quot;</span>)</span>
 <span id="cb100-11"><a href="grundlagen.html#cb100-11" tabindex="-1"></a>} <span class="cf">else</span> {</span>
-<span id="cb100-12"><a href="grundlagen.html#cb100-12" tabindex="-1"></a>  <span class="fu">print</span>(<span class="st">&quot;No expression found&quot;</span>)</span>
+<span id="cb100-12"><a href="grundlagen.html#cb100-12" tabindex="-1"></a>  <span class="fu">print</span>(<span class="st">&quot;Kein passender Ausdruck gefunden&quot;</span>)</span>
 <span id="cb100-13"><a href="grundlagen.html#cb100-13" tabindex="-1"></a>}</span></code></pre></div>
-<pre><code>## [1] &quot;Good Job&quot;</code></pre>
-<div class="sourceCode" id="cb102"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb102-1"><a href="grundlagen.html#cb102-1" tabindex="-1"></a>grade <span class="ot">&lt;-</span> <span class="fl">5.0</span> <span class="co">#Note zuweisen</span></span>
+<pre><code>## [1] &quot;Gute Arbeit&quot;</code></pre>
+<div class="sourceCode" id="cb102"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb102-1"><a href="grundlagen.html#cb102-1" tabindex="-1"></a>note <span class="ot">&lt;-</span> <span class="fl">5.0</span> <span class="co">#Note zuweisen</span></span>
 <span id="cb102-2"><a href="grundlagen.html#cb102-2" tabindex="-1"></a></span>
-<span id="cb102-3"><a href="grundlagen.html#cb102-3" tabindex="-1"></a><span class="cf">if</span> (grade <span class="sc">==</span> <span class="fl">1.0</span>) {</span>
-<span id="cb102-4"><a href="grundlagen.html#cb102-4" tabindex="-1"></a>  <span class="fu">print</span>(<span class="st">&quot;Amazing&quot;</span>) </span>
-<span id="cb102-5"><a href="grundlagen.html#cb102-5" tabindex="-1"></a>} <span class="cf">else</span> <span class="cf">if</span> (grade <span class="sc">&gt;</span> <span class="fl">1.0</span> <span class="sc">&amp;</span> grade <span class="sc">&lt;=</span> <span class="fl">2.0</span>) {</span>
-<span id="cb102-6"><a href="grundlagen.html#cb102-6" tabindex="-1"></a>  <span class="fu">print</span>(<span class="st">&quot;Good Job&quot;</span>)</span>
-<span id="cb102-7"><a href="grundlagen.html#cb102-7" tabindex="-1"></a>} <span class="cf">else</span> <span class="cf">if</span> (grade <span class="sc">&gt;</span> <span class="fl">2.0</span> <span class="sc">&amp;</span> grade <span class="sc">&lt;=</span> <span class="fl">3.0</span>) {</span>
+<span id="cb102-3"><a href="grundlagen.html#cb102-3" tabindex="-1"></a><span class="cf">if</span> (note <span class="sc">==</span> <span class="fl">1.0</span>) {</span>
+<span id="cb102-4"><a href="grundlagen.html#cb102-4" tabindex="-1"></a>  <span class="fu">print</span>(<span class="st">&quot;Stark&quot;</span>) </span>
+<span id="cb102-5"><a href="grundlagen.html#cb102-5" tabindex="-1"></a>} <span class="cf">else</span> <span class="cf">if</span> (note <span class="sc">&gt;</span> <span class="fl">1.0</span> <span class="sc">&amp;</span> note <span class="sc">&lt;=</span> <span class="fl">2.0</span>) {</span>
+<span id="cb102-6"><a href="grundlagen.html#cb102-6" tabindex="-1"></a>  <span class="fu">print</span>(<span class="st">&quot;Gute Arbeit&quot;</span>)</span>
+<span id="cb102-7"><a href="grundlagen.html#cb102-7" tabindex="-1"></a>} <span class="cf">else</span> <span class="cf">if</span> (note <span class="sc">&gt;</span> <span class="fl">2.0</span> <span class="sc">&amp;</span> note <span class="sc">&lt;=</span> <span class="fl">3.0</span>) {</span>
 <span id="cb102-8"><a href="grundlagen.html#cb102-8" tabindex="-1"></a>  <span class="fu">print</span>(<span class="st">&quot;OK&quot;</span>)</span>
-<span id="cb102-9"><a href="grundlagen.html#cb102-9" tabindex="-1"></a>} <span class="cf">else</span> <span class="cf">if</span> (grade <span class="sc">&gt;</span> <span class="fl">3.0</span> <span class="sc">&amp;</span> grade <span class="sc">&lt;=</span> <span class="fl">4.0</span>) {</span>
-<span id="cb102-10"><a href="grundlagen.html#cb102-10" tabindex="-1"></a>  <span class="fu">print</span>(<span class="st">&quot;Life goes on&quot;</span>)</span>
+<span id="cb102-9"><a href="grundlagen.html#cb102-9" tabindex="-1"></a>} <span class="cf">else</span> <span class="cf">if</span> (note <span class="sc">&gt;</span> <span class="fl">3.0</span> <span class="sc">&amp;</span> note <span class="sc">&lt;=</span> <span class="fl">4.0</span>) {</span>
+<span id="cb102-10"><a href="grundlagen.html#cb102-10" tabindex="-1"></a>  <span class="fu">print</span>(<span class="st">&quot;Leben geht weiter&quot;</span>)</span>
 <span id="cb102-11"><a href="grundlagen.html#cb102-11" tabindex="-1"></a>} <span class="cf">else</span> {</span>
-<span id="cb102-12"><a href="grundlagen.html#cb102-12" tabindex="-1"></a>  <span class="fu">print</span>(<span class="st">&quot;No expression found&quot;</span>)</span>
+<span id="cb102-12"><a href="grundlagen.html#cb102-12" tabindex="-1"></a>  <span class="fu">print</span>(<span class="st">&quot;Kein passender Ausdruck gefunden&quot;</span>)</span>
 <span id="cb102-13"><a href="grundlagen.html#cb102-13" tabindex="-1"></a>}</span></code></pre></div>
-<pre><code>## [1] &quot;No expression found&quot;</code></pre>
+<pre><code>## [1] &quot;Kein passender Ausdruck gefunden&quot;</code></pre>
 <p>Dasselbe können wir auch mit einer sogenannten <strong>verschachtelten ifelse-Funktion</strong> umsetzen, indem wir den <code>ifelse()</code>-Befehl verwenden:</p>
 <ul>
 <li>Anstatt eine else-Bedingung zu definieren, definieren wir einfach ein weiteres <code>ifelse()</code>.</li>
 <li>Das wiederholen wir so lange wie nötig.</li>
 <li>Das letzte <code>ifelse()</code> enthält dann die finale else-Bedingung.</li>
 </ul>
-<div class="sourceCode" id="cb104"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb104-1"><a href="grundlagen.html#cb104-1" tabindex="-1"></a>grade <span class="ot">&lt;-</span> <span class="fl">1.7</span> <span class="co">#Note zuweisen</span></span>
+<div class="sourceCode" id="cb104"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb104-1"><a href="grundlagen.html#cb104-1" tabindex="-1"></a>note <span class="ot">&lt;-</span> <span class="fl">1.7</span> <span class="co">#Note zuweisen</span></span>
 <span id="cb104-2"><a href="grundlagen.html#cb104-2" tabindex="-1"></a></span>
-<span id="cb104-3"><a href="grundlagen.html#cb104-3" tabindex="-1"></a><span class="fu">ifelse</span>(grade <span class="sc">==</span> <span class="fl">1.0</span>, <span class="st">&quot;Amazing&quot;</span>, </span>
-<span id="cb104-4"><a href="grundlagen.html#cb104-4" tabindex="-1"></a>       <span class="fu">ifelse</span>(grade <span class="sc">&gt;</span> <span class="dv">1</span> <span class="sc">&amp;</span> grade <span class="sc">&lt;=</span> <span class="dv">2</span>, <span class="st">&quot;Good Job&quot;</span>, </span>
-<span id="cb104-5"><a href="grundlagen.html#cb104-5" tabindex="-1"></a>              <span class="fu">ifelse</span>(grade <span class="sc">&gt;</span> <span class="dv">2</span> <span class="sc">&amp;</span> grade <span class="sc">&lt;=</span> <span class="dv">3</span>, <span class="st">&quot;OK&quot;</span>, </span>
-<span id="cb104-6"><a href="grundlagen.html#cb104-6" tabindex="-1"></a>                     <span class="fu">ifelse</span>(grade <span class="sc">&gt;</span> <span class="dv">3</span> <span class="sc">&amp;</span> grade <span class="sc">&lt;=</span><span class="dv">4</span>, <span class="st">&quot;Life goes on&quot;</span>, </span>
+<span id="cb104-3"><a href="grundlagen.html#cb104-3" tabindex="-1"></a><span class="fu">ifelse</span>(note <span class="sc">==</span> <span class="fl">1.0</span>, <span class="st">&quot;Amazing&quot;</span>, </span>
+<span id="cb104-4"><a href="grundlagen.html#cb104-4" tabindex="-1"></a>       <span class="fu">ifelse</span>(note <span class="sc">&gt;</span> <span class="dv">1</span> <span class="sc">&amp;</span> note <span class="sc">&lt;=</span> <span class="dv">2</span>, <span class="st">&quot;Good Job&quot;</span>, </span>
+<span id="cb104-5"><a href="grundlagen.html#cb104-5" tabindex="-1"></a>              <span class="fu">ifelse</span>(note <span class="sc">&gt;</span> <span class="dv">2</span> <span class="sc">&amp;</span> note <span class="sc">&lt;=</span> <span class="dv">3</span>, <span class="st">&quot;OK&quot;</span>, </span>
+<span id="cb104-6"><a href="grundlagen.html#cb104-6" tabindex="-1"></a>                     <span class="fu">ifelse</span>(note <span class="sc">&gt;</span> <span class="dv">3</span> <span class="sc">&amp;</span> note <span class="sc">&lt;=</span><span class="dv">4</span>, <span class="st">&quot;Life goes on&quot;</span>, </span>
 <span id="cb104-7"><a href="grundlagen.html#cb104-7" tabindex="-1"></a>                            <span class="st">&quot;No expression found&quot;</span></span>
 <span id="cb104-8"><a href="grundlagen.html#cb104-8" tabindex="-1"></a>                            )</span>
 <span id="cb104-9"><a href="grundlagen.html#cb104-9" tabindex="-1"></a>                     )</span>
 <span id="cb104-10"><a href="grundlagen.html#cb104-10" tabindex="-1"></a>              )</span>
 <span id="cb104-11"><a href="grundlagen.html#cb104-11" tabindex="-1"></a>       )</span></code></pre></div>
 <pre><code>## [1] &quot;Good Job&quot;</code></pre>
-<div class="sourceCode" id="cb106"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb106-1"><a href="grundlagen.html#cb106-1" tabindex="-1"></a>grade <span class="ot">&lt;-</span> <span class="fl">3.3</span> <span class="co">#Note zuweisen</span></span>
+<div class="sourceCode" id="cb106"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb106-1"><a href="grundlagen.html#cb106-1" tabindex="-1"></a>note <span class="ot">&lt;-</span> <span class="fl">3.3</span> <span class="co">#Note zuweisen</span></span>
 <span id="cb106-2"><a href="grundlagen.html#cb106-2" tabindex="-1"></a></span>
-<span id="cb106-3"><a href="grundlagen.html#cb106-3" tabindex="-1"></a><span class="fu">ifelse</span>(grade <span class="sc">==</span> <span class="fl">1.0</span>, <span class="st">&quot;Amazing&quot;</span>, </span>
-<span id="cb106-4"><a href="grundlagen.html#cb106-4" tabindex="-1"></a>       <span class="fu">ifelse</span>(grade <span class="sc">&gt;</span> <span class="dv">1</span> <span class="sc">&amp;</span> grade <span class="sc">&lt;=</span> <span class="dv">2</span>, <span class="st">&quot;Good Job&quot;</span>, </span>
-<span id="cb106-5"><a href="grundlagen.html#cb106-5" tabindex="-1"></a>              <span class="fu">ifelse</span>(grade <span class="sc">&gt;</span> <span class="dv">2</span> <span class="sc">&amp;</span> grade <span class="sc">&lt;=</span> <span class="dv">3</span>, <span class="st">&quot;OK&quot;</span>, </span>
-<span id="cb106-6"><a href="grundlagen.html#cb106-6" tabindex="-1"></a>                     <span class="fu">ifelse</span>(grade <span class="sc">&gt;</span> <span class="dv">3</span> <span class="sc">&amp;</span></span>
-<span id="cb106-7"><a href="grundlagen.html#cb106-7" tabindex="-1"></a>                            grade <span class="sc">&lt;=</span><span class="dv">4</span>, <span class="st">&quot;Life goes on&quot;</span>, </span>
+<span id="cb106-3"><a href="grundlagen.html#cb106-3" tabindex="-1"></a><span class="fu">ifelse</span>(note <span class="sc">==</span> <span class="fl">1.0</span>, <span class="st">&quot;Amazing&quot;</span>, </span>
+<span id="cb106-4"><a href="grundlagen.html#cb106-4" tabindex="-1"></a>       <span class="fu">ifelse</span>(note <span class="sc">&gt;</span> <span class="dv">1</span> <span class="sc">&amp;</span> note <span class="sc">&lt;=</span> <span class="dv">2</span>, <span class="st">&quot;Good Job&quot;</span>, </span>
+<span id="cb106-5"><a href="grundlagen.html#cb106-5" tabindex="-1"></a>              <span class="fu">ifelse</span>(note <span class="sc">&gt;</span> <span class="dv">2</span> <span class="sc">&amp;</span> note <span class="sc">&lt;=</span> <span class="dv">3</span>, <span class="st">&quot;OK&quot;</span>, </span>
+<span id="cb106-6"><a href="grundlagen.html#cb106-6" tabindex="-1"></a>                     <span class="fu">ifelse</span>(note <span class="sc">&gt;</span> <span class="dv">3</span> <span class="sc">&amp;</span></span>
+<span id="cb106-7"><a href="grundlagen.html#cb106-7" tabindex="-1"></a>                            note <span class="sc">&lt;=</span><span class="dv">4</span>, <span class="st">&quot;Life goes on&quot;</span>, </span>
 <span id="cb106-8"><a href="grundlagen.html#cb106-8" tabindex="-1"></a>                            <span class="st">&quot;No expression found&quot;</span>)</span>
 <span id="cb106-9"><a href="grundlagen.html#cb106-9" tabindex="-1"></a>                     )</span>
 <span id="cb106-10"><a href="grundlagen.html#cb106-10" tabindex="-1"></a>              )</span>
@@ -797,7 +798,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h3><span class="header-section-number">1.5.1</span> Übung 1: Erstellen deines ersten Vektors<a href="#%C3%BCbung-1-erstellen-deines-ersten-vektors" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Erstelle einen Vektor namens <code>my_vector</code> mit den Werten 1, 2, 3 und überprüfe seine Klasse.</p>
 <div class="sourceCode" id="cb109"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb109-1"><a href="grundlagen.html#cb109-1" tabindex="-1"></a><span class="co">#Vektor erstellen </span></span>
-<span id="cb109-2"><a href="grundlagen.html#cb109-2" tabindex="-1"></a>my_vector <span class="ot">&lt;-</span> </span>
+<span id="cb109-2"><a href="grundlagen.html#cb109-2" tabindex="-1"></a>mein_vektor <span class="ot">&lt;-</span> </span>
 <span id="cb109-3"><a href="grundlagen.html#cb109-3" tabindex="-1"></a></span>
 <span id="cb109-4"><a href="grundlagen.html#cb109-4" tabindex="-1"></a><span class="co">#Klasse überprüfen</span></span></code></pre></div>
 </div>
@@ -807,8 +808,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="sourceCode" id="cb110"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb110-1"><a href="grundlagen.html#cb110-1" tabindex="-1"></a><span class="co">#Vektoren erstellen </span></span>
 <span id="cb110-2"><a href="grundlagen.html#cb110-2" tabindex="-1"></a></span>
 <span id="cb110-3"><a href="grundlagen.html#cb110-3" tabindex="-1"></a>name <span class="ot">&lt;-</span> </span>
-<span id="cb110-4"><a href="grundlagen.html#cb110-4" tabindex="-1"></a>age <span class="ot">&lt;-</span> </span>
-<span id="cb110-5"><a href="grundlagen.html#cb110-5" tabindex="-1"></a>major <span class="ot">&lt;-</span> </span>
+<span id="cb110-4"><a href="grundlagen.html#cb110-4" tabindex="-1"></a>alter <span class="ot">&lt;-</span> </span>
+<span id="cb110-5"><a href="grundlagen.html#cb110-5" tabindex="-1"></a>Studienfach <span class="ot">&lt;-</span> </span>
 <span id="cb110-6"><a href="grundlagen.html#cb110-6" tabindex="-1"></a></span>
 <span id="cb110-7"><a href="grundlagen.html#cb110-7" tabindex="-1"></a><span class="co">#Matrix erstellen</span></span>
 <span id="cb110-8"><a href="grundlagen.html#cb110-8" tabindex="-1"></a>student <span class="ot">&lt;-</span> </span>
@@ -819,7 +820,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h3><span class="header-section-number">1.5.3</span> Übung 3: <code>ifelse</code> Funktion<a href="#%C3%BCbung-3-ifelse-funktion" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Schreibe ein <code>ifelse</code>-Statement, das überprüft, ob eine gegebene Zahl positiv oder negativ ist. Wenn die Zahl positiv ist, gib <code>"Number is positive"</code> aus, ansonsten <code>"Number is negative"</code>. Du kannst entscheiden, ob du die <code>ifelse()</code>-Funktion oder eine <code>if-else</code>-Bedingung verwendest.</p>
 <div class="sourceCode" id="cb111"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb111-1"><a href="grundlagen.html#cb111-1" tabindex="-1"></a><span class="co">#Zahl dem Objekt &quot;number&quot; zuweisen</span></span>
-<span id="cb111-2"><a href="grundlagen.html#cb111-2" tabindex="-1"></a>number <span class="ot">&lt;-</span> <span class="sc">-</span><span class="dv">4</span></span></code></pre></div>
+<span id="cb111-2"><a href="grundlagen.html#cb111-2" tabindex="-1"></a>nummer <span class="ot">&lt;-</span> <span class="sc">-</span><span class="dv">4</span></span></code></pre></div>
 </div>
 <div id="übung-4-ifelse-kette" class="section level3 hasAnchor" number="1.5.4">
 <h3><span class="header-section-number">1.5.4</span> Übung 4: <code>ifelse</code>-Kette<a href="#%C3%BCbung-4-ifelse-kette" class="anchor-section" aria-label="Anchor link to header"></a></h3>

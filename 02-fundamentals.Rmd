@@ -191,7 +191,7 @@ print(preise_kombiniert)
 Objekte können unterschiedliche Datentypen besitzen:
 
 |               |            |                                                |
-|---------------|------------|------------------------------------------------|
+|------------------|------------------|------------------------------------|
 | **Numeric**   | Zahlen     | `c(1, 2.4, 3.14, 4)`                           |
 | **Character** | Text       | `c("1", "blue", "Spaß", "monster")`            |
 | **Logical**   | TRUE/FALSE | `c(TRUE, FALSE, TRUE, FALSE)`                  |
@@ -318,9 +318,9 @@ Die nächste Art der Datenspeicherung sind Data Frames. Dies sind die Standard-S
 ```{r dfs}
 # making an example df
 df_beispiel <- data.frame(
-    land = c("Austria", "England", 
-                "Brazil", "Germany"), 
-    hauptstadt = c("Vienna", "London", 
+    land = c("Österreich", "England", 
+                "Brasilien", "Deutschland"), 
+    hauptstadt = c("Wien", "London", 
                 "Brasilia", "Berlin"), 
     bev = c(9.04, 55.98, 215.3, 83.8),
     europa = c(TRUE, FALSE, TRUE, TRUE)
@@ -387,13 +387,13 @@ Abbildung 2 zeigt die Logik einer if-else-Anweisung mit einer Bedingung. Wir sag
 note <- 1.7 
 
 if(note < 2) {
-  print("Good Job")
-} # Sie schreiben if(Testausdruck) und dann den {Körperausdruck}, also den Körperausdruck in geschweiften Klammern.
+  print("Gute Arbeit")
+} # Ihr schreibt den if(Testausdruck) und dann den {Körperausdruck}, also den Körperausdruck in geschweiften Klammern.
 
 note <- 2.5 
 
 if(note < 2) {
-  print("Good Job")
+  print("Gute Arbeit")
 } #Da die Bedingung nicht erfüllt ist, passiert nichts.
 
 ```
@@ -412,20 +412,20 @@ Jetzt fügen wir einfach einen **else-Block** in die Gleichung ein. In R bedeute
 
 ```{r more if else statements}
 
-grade <- 3.3 #Note zuweisen
+note <- 3.3 #Note zuweisen
 
-if (grade <= 2) {
-  print("Good Job")
+if (note <= 2) {
+  print("Gute Arbeit")
 } else {
-  print("Life goes on")
+  print("Das Leben geht weiter")
 } 
 
 grade <- 1.3 #Note zuweisen
 
-if (grade <= 2) {
-  print("Good Job")
+if (note <= 2) {
+  print("Gute Arbeit")
 } else {
-  print("Life goes on")
+  print("Das Leben geht weiter")
 }
 ```
 
@@ -443,7 +443,7 @@ Das oben gezeigte ist die manuelle Art, eine if-else-Bedingung zu programmieren.
 `ifelse(test expression, body of if, body of else)`
 
 ```{r ifelse command}
-ifelse(grade <=2, "Good Job", "Life goes on") #ifelse Befehl
+ifelse(note <=2, "Gute Arbeit", "Leben geht weiter") #ifelse Befehl
 ```
 
 ### if-else-Ketten / if-else mit mehreren Bedingungen
@@ -457,46 +457,46 @@ Nehmen wir das Beispiel, dass wir abhängig von unserer Note unterschiedliche Au
 
 ```{r if else multiple}
 
-grade <- 3.3 #Note zuweisen
+note <- 3.3 #Note zuweisen
 
-if (grade == 1.0) {
-  print("Amazing") 
-} else if (grade > 1.0 & grade <= 2.0) {
-  print("Good Job")
-} else if (grade > 2.0 & grade <= 3.0) {
+if (note == 1.0) {
+  print("Stark") 
+} else if (note > 1.0 & note <= 2.0) {
+  print("Gute Arbeit")
+} else if (note > 2.0 & note <= 3.0) {
   print("OK")
-} else if (grade > 3.0 & grade <= 4.0) {
-  print("Life goes on")
+} else if (note > 3.0 & note <= 4.0) {
+  print("Leben geht weiter")
 } else {
-  print("No expression found")
+  print("Kein passender Ausdruck gefunden")
 }
   
-grade <- 1.7 #Note zuweisen
+note <- 1.7 #Note zuweisen
 
 if (grade == 1.0) {
-  print("Amazing") 
-} else if (grade > 1.0 & grade <= 2.0) {
-  print("Good Job")
-} else if (grade > 2.0 & grade <= 3.0) {
+  print("Stark") 
+} else if (note > 1.0 & note <= 2.0) {
+  print("Gute Arbeit")
+} else if (note > 2.0 & note <= 3.0) {
   print("OK")
-} else if (grade > 3.0 & grade <= 4.0) {
-  print("Life goes on")
+} else if (note > 3.0 & note <= 4.0) {
+  print("Leben geht weiter")
 } else {
-  print("No expression found")
+  print("Kein passender Ausdruck gefunden")
 }
 
-grade <- 5.0 #Note zuweisen
+note <- 5.0 #Note zuweisen
 
-if (grade == 1.0) {
-  print("Amazing") 
-} else if (grade > 1.0 & grade <= 2.0) {
-  print("Good Job")
-} else if (grade > 2.0 & grade <= 3.0) {
+if (note == 1.0) {
+  print("Stark") 
+} else if (note > 1.0 & note <= 2.0) {
+  print("Gute Arbeit")
+} else if (note > 2.0 & note <= 3.0) {
   print("OK")
-} else if (grade > 3.0 & grade <= 4.0) {
-  print("Life goes on")
+} else if (note > 3.0 & note <= 4.0) {
+  print("Leben geht weiter")
 } else {
-  print("No expression found")
+  print("Kein passender Ausdruck gefunden")
 }
 ```
 
@@ -508,25 +508,25 @@ Dasselbe können wir auch mit einer sogenannten **verschachtelten ifelse-Funktio
 
 ```{r ifelse nested}
 
-grade <- 1.7 #Note zuweisen
+note <- 1.7 #Note zuweisen
 
-ifelse(grade == 1.0, "Amazing", 
-       ifelse(grade > 1 & grade <= 2, "Good Job", 
-              ifelse(grade > 2 & grade <= 3, "OK", 
-                     ifelse(grade > 3 & grade <=4, "Life goes on", 
+ifelse(note == 1.0, "Amazing", 
+       ifelse(note > 1 & note <= 2, "Good Job", 
+              ifelse(note > 2 & note <= 3, "OK", 
+                     ifelse(note > 3 & note <=4, "Life goes on", 
                             "No expression found"
                             )
                      )
               )
        )
 
-grade <- 3.3 #Note zuweisen
+note <- 3.3 #Note zuweisen
 
-ifelse(grade == 1.0, "Amazing", 
-       ifelse(grade > 1 & grade <= 2, "Good Job", 
-              ifelse(grade > 2 & grade <= 3, "OK", 
-                     ifelse(grade > 3 &
-                            grade <=4, "Life goes on", 
+ifelse(note == 1.0, "Amazing", 
+       ifelse(note > 1 & note <= 2, "Good Job", 
+              ifelse(note > 2 & note <= 3, "OK", 
+                     ifelse(note > 3 &
+                            note <=4, "Life goes on", 
                             "No expression found")
                      )
               )
@@ -545,9 +545,9 @@ Dieser Abschnitt war eine kurze Einführung in die Grundlagen von R. Er wurde be
 
 Erstelle einen Vektor namens `my_vector` mit den Werten 1, 2, 3 und überprüfe seine Klasse.
 
-```{r ch1 exercise 1, eval=FALSE}
+```{r kap1_uebung_1, eval = FALSE}
 #Vektor erstellen 
-my_vector <- 
+mein_vektor <- 
 
 #Klasse überprüfen
 
@@ -557,12 +557,12 @@ my_vector <-
 
 Erstelle eine Matrix namens `student`. Diese soll Informationen über `name`, `age` und `major` enthalten. Erstelle drei Vektoren mit jeweils drei Einträgen und verbinde sie anschließend zu der Matrix `student`. Gib die Matrix aus.
 
-```{r ch2 exercise 2, eval = FALSE}
+```{r kap1_uebung_2, eval = FALSE}
 #Vektoren erstellen 
 
 name <- 
-age <- 
-major <- 
+alter <- 
+Studienfach <- 
 
 #Matrix erstellen
 student <- 
@@ -575,10 +575,10 @@ student <-
 
 Schreibe ein `ifelse`-Statement, das überprüft, ob eine gegebene Zahl positiv oder negativ ist. Wenn die Zahl positiv ist, gib `"Number is positive"` aus, ansonsten `"Number is negative"`. Du kannst entscheiden, ob du die `ifelse()`-Funktion oder eine `if-else`-Bedingung verwendest.
 
-```{r ch3 exercise 3, eval = FALSE}
+```{r kap1_uebung_3, eval = FALSE}
 
 #Zahl dem Objekt "number" zuweisen
-number <- -4
+nummer <- -4
 
 
 
@@ -594,6 +594,6 @@ Score \>= 70 und \< 80: "C"\
 Score \>= 60 und \< 70: "D"\
 Score \< 60: "F"
 
-```{r ch4 exercise 4, eval = FALSE}
+```{r kap1u_uebung_4, eval = FALSE}
 
 ```
