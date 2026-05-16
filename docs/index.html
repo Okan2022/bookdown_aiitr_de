@@ -23,7 +23,7 @@
 <meta name="author" content="Okan Sarioglu" />
 
 
-<meta name="date" content="2026-04-27" />
+<meta name="date" content="2026-05-16" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -63,12 +63,6 @@
 <script src="libs/leaflet-binding-2.2.2/leaflet.js"></script>
 <script src="libs/leaflet-providers-2.0.0/leaflet-providers_2.0.0.js"></script>
 <script src="libs/leaflet-providers-plugin-2.2.2/leaflet-providers-plugin.js"></script>
-<script src="libs/plotly-binding-4.10.4/plotly.js"></script>
-<script src="libs/typedarray-0.1/typedarray.min.js"></script>
-<link href="libs/crosstalk-1.2.1/css/crosstalk.min.css" rel="stylesheet" />
-<script src="libs/crosstalk-1.2.1/js/crosstalk.min.js"></script>
-<link href="libs/plotly-htmlwidgets-css-2.11.1/plotly-htmlwidgets.css" rel="stylesheet" />
-<script src="libs/plotly-main-2.11.1/plotly-latest.min.js"></script>
 <script src="libs/kePrint-0.0.1/kePrint.js"></script>
 <link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
 
@@ -280,7 +274,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="header">
 <h1 class="title">Eine intuitive Einfürung in R</h1>
 <p class="author"><em>Okan Sarioglu</em></p>
-<p class="date"><em>2026-04-27</em></p>
+<p class="date"><em>2026-05-16</em></p>
 </div>
 <div id="willkommen" class="section level1 unnumbered hasAnchor">
 <h1>Willkommen!<a href="index.html#willkommen" class="anchor-section" aria-label="Anchor link to header"></a></h1>
@@ -308,17 +302,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="warum-r" class="section level3 unnumbered hasAnchor">
 <h3>Warum <code>R</code>?<a href="index.html#warum-r" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <ul>
-<li>Kostenlos und Open Source<br />
-</li>
-<li>Funktionalitäten für alle Schritte des Forschungsprozesses – von der Datenerhebung bis zur Datenanalyse<br />
-</li>
-<li>Speziell für statistische Analysen entwickelte Programmiersprache<br />
-</li>
-<li>Sehr aktive Community:<br />
-</li>
+<li>Kostenlos und Open Source</li>
+<li>Funktionalitäten für alle Schritte des Forschungsprozesses – von der Datenerhebung bis zur Datenanalyse</li>
+<li>Speziell für statistische Analysen entwickelte Programmiersprache</li>
+<li>Sehr aktive Community:</li>
 <li><ol start="26" style="list-style-type: lower-alpha">
-<li>B. die <code>R</code>-Community auf <a href="https://stackoverflow.blog/2017/10/10/impressive-growth-r/">StackOverflow</a><br />
-</li>
+<li>B. die <code>R</code>-Community auf <a href="https://stackoverflow.blog/2017/10/10/impressive-growth-r/">StackOverflow</a></li>
 </ol></li>
 <li><ol start="26" style="list-style-type: lower-alpha">
 <li>B. <em>#rstats</em> auf Twitter</li>
@@ -329,14 +318,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h3>Was dich erwartet – und was nicht<a href="index.html#was-dich-erwartet-und-was-nicht" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>In diesem Kurs lernst du:</p>
 <ul>
-<li>Dich mit <code>R</code> und seiner grundlegenden Syntax vertraut zu machen<br />
-</li>
-<li>Zentrale Befehle aus dem tidyverse-Paket<br />
-</li>
-<li>Data Manipulation<br />
-</li>
-<li>Einen effizienten Workflow<br />
-</li>
+<li>Dich mit <code>R</code> und seiner grundlegenden Syntax vertraut zu machen</li>
+<li>Zentrale Befehle aus dem tidyverse-Paket</li>
+<li>Data Manipulation</li>
+<li>Einen effizienten Workflow</li>
 <li>Eine kurze Einführung in grundlegende Datenanalyse und Explorative Datenanalyse (EDA)</li>
 </ul>
 <p>Was du <strong>nicht</strong> lernen wirst:</p>
@@ -348,70 +333,50 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h3>Überblick über die Kursstruktur<a href="#%C3%BCberblick-%C3%BCber-die-kursstruktur" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p><strong>1. Die R-Umgebung</strong></p>
 <ul>
-<li>Grundlegende Funktionalitäten (Berechnungen, Vektoren, Matrizen, Listen)<br />
-</li>
-<li>Objektklassen<br />
-</li>
+<li>Grundlegende Funktionalitäten (Berechnungen, Vektoren, Matrizen, Listen)</li>
+<li>Objektklassen</li>
 <li>Zugriff auf, Filtern und Benennung von Objekten</li>
 </ul>
 <p><strong>2. Datenmanipulation</strong></p>
 <ul>
-<li>Pipelines bzw. Piping<br />
-</li>
-<li>Das tidyverse – dplyr<br />
-</li>
-<li>Laden und Speichern von Daten<br />
-</li>
-<li>Daten strukturieren: Umbenennen, Neuordnen, Filtern und Selektieren<br />
-</li>
-<li>Variablen transformieren<br />
-</li>
-<li>Daten zusammenführen (Merging)<br />
-</li>
+<li>Pipelines bzw. Piping</li>
+<li>Das tidyverse – dplyr</li>
+<li>Laden und Speichern von Daten</li>
+<li>Daten strukturieren: Umbenennen, Neuordnen, Filtern und Selektieren</li>
+<li>Variablen transformieren</li>
+<li>Daten zusammenführen (Merging)</li>
 <li>Fehlende Werte</li>
 </ul>
 <p><strong>3. Explorative Datenanalyse / Deskriptive Statistik</strong></p>
 <ul>
-<li>Standardkennzahlen (Mittelwert, Median, Standardabweichung usw.)<br />
-</li>
-<li>Kontingenztafeln<br />
-</li>
-<li>Korrelationen<br />
-</li>
+<li>Standardkennzahlen (Mittelwert, Median, Standardabweichung usw.)</li>
+<li>Kontingenztafeln</li>
+<li>Korrelationen</li>
 <li>Arbeiten mit EDA-Paketen</li>
 </ul>
 <p><strong>4. Datenvisualisierung</strong></p>
 <ul>
-<li>Das tidyverse – ggplot2<br />
-</li>
-<li>Erstellung von Plots<br />
-</li>
+<li>Das tidyverse – ggplot2</li>
+<li>Erstellung von Plots</li>
 <li>Visualisierung beliebiger Datenstrukturen</li>
 </ul>
 <p><strong>5. Datenanalyse</strong></p>
 <ul>
-<li>Lineare Regression<br />
-</li>
-<li>Modellgüte<br />
-</li>
-<li>Hypothesentests mit R<br />
-</li>
-<li>Multiple Regression<br />
-</li>
+<li>Lineare Regression</li>
+<li>Modellgüte</li>
+<li>Hypothesentests mit R</li>
+<li>Multiple Regression</li>
 <li>Kategoriale Variablen</li>
 </ul>
 <p><strong>6. R-Programmierung</strong></p>
 <ul>
-<li>For-Schleifen<br />
-</li>
-<li>Die apply-Familie<br />
-</li>
+<li>For-Schleifen</li>
+<li>Die apply-Familie</li>
 <li>Eigene Funktionen</li>
 </ul>
 <p><strong>7. Weitere Erläuterungen zu Datenanalyse</strong></p>
 <ul>
-<li>Wahrscheinlichkeitstheorie<br />
-</li>
+<li>Wahrscheinlichkeitstheorie</li>
 <li>Regressionsdiagnostik</li>
 </ul>
 </div>

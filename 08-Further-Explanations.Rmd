@@ -373,7 +373,7 @@ Mithilfe der kumulativen Verteilungsfunktion (CDF) können wir die Wahrscheinlic
 
 ##### Zentraler Grenzwertsatz (ZGS)
 
-In den Beispielen des Kapitels \@ref(working-with-distributions) verwenden wir Normalverteilungen aufgrund ihrer Bedeutung für Natur- und Sozialwissenschaften. Hier ist der Grund:
+In den Beispielen des Kapitels \@ref(kapitel-5-datenanalyse) verwenden wir Normalverteilungen aufgrund ihrer Bedeutung für Natur- und Sozialwissenschaften. Hier ist der Grund:
 
 -   Wenn wir Zufallsvariablen wie Körpergröße, IQ, Schneeflockengrößen oder Milchproduktion von Kühen erheben, folgen diese einer Normalverteilung.
 

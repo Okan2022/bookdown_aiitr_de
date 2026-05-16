@@ -497,7 +497,7 @@ Um das zu visualisieren, bräuchten wir ein dreidimensionales Koordinatensystem 
 Wie ich im ersten Kapitel erwähnt habe, gibt es verschiedene Variablentypen. Rufen wir sie uns in Erinnerung:
 
 |  |  |  |
-|------------------------|------------------------|------------------------|
+|----|----|----|
 | **Numerisch** | Zahlen | `c(1, 2.4, 3.14, 4)` |
 | **Character** | Text | `c("1", "blue", "fun", "monster")` |
 | **Logisch** | Wahr oder falsch | `c(TRUE, FALSE, TRUE, FALSE)` |
@@ -649,7 +649,7 @@ Weiterführende Links:
 Um die lineare Regression zu verstehen, müssen wir keine komplizierten Daten laden. Nehmen wir an, ihr seid Marktanalysten und euer Auftraggeber ist die Produktionsfirma einer Serie namens „Breaking Thrones". Die Produktionsfirma möchte wissen, wie die Zuschauer die letzte Folge bewertet haben. Ihr führt eine Umfrage durch und fragt die Befragten nach ihrer Zufriedenheit mit dem Serienfinale sowie nach einigen soziodemografischen Merkmalen. Hier ist euer Codebuch:
 
 | Variable | Beschreibung |
-|------------------------------------|------------------------------------|
+|----|----|
 | id | Die ID des Befragten |
 | satisfaction | Antwort auf die Frage „Wie zufrieden waren Sie mit der letzten Folge von Breaking Throne?", wobei 0 = völlig unzufrieden und 10 = völlig zufrieden |
 | age | Das Alter des Befragten |
