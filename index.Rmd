@@ -29,23 +29,21 @@ Dieser Kurs ist anders! Hier kannst du die R-Skripte herunterladen, sie direkt a
 
 ### Warum `R`? {.unnumbered}
 
--   Kostenlos und Open Source\
--   Funktionalitäten für alle Schritte des Forschungsprozesses – von der Datenerhebung bis zur Datenanalyse\
--   Speziell für statistische Analysen entwickelte Programmiersprache\
--   Sehr aktive Community:\
--   
-    z.  B. die `R`-Community auf [StackOverflow](https://stackoverflow.blog/2017/10/10/impressive-growth-r/)\
--   
-    z.  B. *#rstats* auf Twitter
+-   Kostenlos und Open Source
+-   Funktionalitäten für alle Schritte des Forschungsprozesses – von der Datenerhebung bis zur Datenanalyse
+-   Speziell für statistische Analysen entwickelte Programmiersprache
+-   Sehr aktive Community:
+-   z. B. die `R`-Community auf [StackOverflow](https://stackoverflow.blog/2017/10/10/impressive-growth-r/)
+-   z. B. *#rstats* auf Twitter
 
 ### Was dich erwartet – und was nicht {.unnumbered}
 
 In diesem Kurs lernst du:
 
--   Dich mit `R` und seiner grundlegenden Syntax vertraut zu machen\
--   Zentrale Befehle aus dem tidyverse-Paket\
--   Data Manipulation\
--   Einen effizienten Workflow\
+-   Dich mit `R` und seiner grundlegenden Syntax vertraut zu machen
+-   Zentrale Befehle aus dem tidyverse-Paket
+-   Data Manipulation
+-   Einen effizienten Workflow
 -   Eine kurze Einführung in grundlegende Datenanalyse und Explorative Datenanalyse (EDA)
 
 Was du **nicht** lernen wirst:
@@ -56,50 +54,50 @@ Was du **nicht** lernen wirst:
 
 **1. Die R-Umgebung**
 
--   Grundlegende Funktionalitäten (Berechnungen, Vektoren, Matrizen, Listen)\
--   Objektklassen\
+-   Grundlegende Funktionalitäten (Berechnungen, Vektoren, Matrizen, Listen)
+-   Objektklassen
 -   Zugriff auf, Filtern und Benennung von Objekten
 
 **2. Datenmanipulation**
 
--   Pipelines bzw. Piping\
--   Das tidyverse – dplyr\
--   Laden und Speichern von Daten\
--   Daten strukturieren: Umbenennen, Neuordnen, Filtern und Selektieren\
--   Variablen transformieren\
--   Daten zusammenführen (Merging)\
+-   Pipelines bzw. Piping
+-   Das tidyverse – dplyr
+-   Laden und Speichern von Daten
+-   Daten strukturieren: Umbenennen, Neuordnen, Filtern und Selektieren
+-   Variablen transformieren
+-   Daten zusammenführen (Merging)
 -   Fehlende Werte
 
 **3. Explorative Datenanalyse / Deskriptive Statistik**
 
--   Standardkennzahlen (Mittelwert, Median, Standardabweichung usw.)\
--   Kontingenztafeln\
--   Korrelationen\
+-   Standardkennzahlen (Mittelwert, Median, Standardabweichung usw.)
+-   Kontingenztafeln
+-   Korrelationen
 -   Arbeiten mit EDA-Paketen
 
 **4. Datenvisualisierung**
 
--   Das tidyverse – ggplot2\
--   Erstellung von Plots\
+-   Das tidyverse – ggplot2
+-   Erstellung von Plots
 -   Visualisierung beliebiger Datenstrukturen
 
 **5. Datenanalyse**
 
--   Lineare Regression\
--   Modellgüte\
--   Hypothesentests mit R\
--   Multiple Regression\
+-   Lineare Regression
+-   Modellgüte
+-   Hypothesentests mit R
+-   Multiple Regression
 -   Kategoriale Variablen
 
 **6. R-Programmierung**
 
--   For-Schleifen\
--   Die apply-Familie\
+-   For-Schleifen
+-   Die apply-Familie
 -   Eigene Funktionen
 
 **7. Weitere Erläuterungen zu Datenanalyse**
 
--   Wahrscheinlichkeitstheorie\
+-   Wahrscheinlichkeitstheorie
 -   Regressionsdiagnostik
 
 ## Über mich {.unnumbered}

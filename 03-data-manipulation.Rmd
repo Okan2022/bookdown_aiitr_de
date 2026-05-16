@@ -421,7 +421,7 @@ Zwei Funktionen, die unseren Datensatz strukturierter und übersichtlicher mache
 
 -   `rename()` folgt einer einfachen Logik: Man ruft die Funktion auf, schreibt den neuen Namen (also den Namen, den man zuweisen möchte), setzt ein Gleichheitszeichen und gibt dann den alten Namen (also den aktuellen Spaltennamen) an.
 
-> Hinweis: Wenn eine Variable binär ist, also zwei diskrete Kategorien hat, benennt man sie nach der Kategorie, die dem höheren Wert entspricht. Wenn männlich = 0 und weiblich = 1, benennt man die Variable nach der höheren Kategorie 1 – also `female`.
+> Hinweis: Wenn eine Variable binär ist, also zwei diskrete Kategorien hat, benennt man sie nach der Kategorie, die dem höheren Wert entspricht. Wenn männlich = 0 und weiblich = 1, benennt man die Variable nach der höheren Kategorie 1 – also `weiblich`.
 
 ```{r umbenennen}
 # Variablen umbenennen
@@ -429,10 +429,10 @@ d1 <- ess %>%
   filter(agea < 40) %>%
   select(year, cntry, happy, agea, gndr, eisced) %>% 
   arrange(desc(agea)) %>%
-  rename(land   = cntry, 
-         alter       = agea, 
+  rename(land          = cntry, 
+         alter         = agea, 
          bildungsstand = eisced, 
-         weiblich    = gndr) 
+         weiblich      = gndr) 
 
 # Überprüfen
 head(d1)
@@ -450,10 +450,10 @@ d1 <- ess %>%
   filter(agea < 40) %>%
   select(year, cntry, happy, agea, gndr, eisced) %>% 
   arrange(desc(agea)) %>%
-  rename(land   = cntry, 
-         alter       = agea, 
+  rename(land          = cntry, 
+         alter         = agea, 
          bildungsstand = eisced, 
-         weiblich    = gndr) %>% 
+         weiblich      = gndr) %>% 
   relocate(bildungsstand, alter, weiblich, land, happy, year) # Reihenfolge festlegen
 
 # Überprüfen
@@ -464,10 +464,10 @@ d2 <- ess %>%
   filter(agea < 40) %>%
   select(year, cntry, happy, agea, gndr, eisced) %>% 
   arrange(desc(agea)) %>%
-  rename(land   = cntry, 
-         alter       = agea, 
+  rename(land          = cntry, 
+         alter         = agea, 
          bildungsstand = eisced, 
-         female    = gndr) %>% 
+         weiblich      = gndr) %>% 
   relocate(land, .after = alter) 
 
 # Überprüfen
@@ -478,10 +478,10 @@ d3 <- ess %>%
   filter(agea < 40) %>%
   select(year, cntry, happy, agea, gndr, eisced) %>% 
   arrange(desc(agea)) %>%
-  rename(land   = cntry, 
-         alter       = agea, 
+  rename(land          = cntry, 
+         alter         = agea, 
          bildungsstand = eisced, 
-         female    = gndr) %>%
+         weiblich      = gndr) %>%
   relocate(land, .before = alter) 
 
 # Überprüfen
@@ -651,12 +651,12 @@ d1 <- ess %>%
   arrange(desc(agea)) %>% 
   rename(
     internet_nutzung = netusoft,
-    alter          = agea, 
+    alter            = agea, 
     bildungsstand    = eisced, 
-    weiblich       = gndr) %>% 
+    weiblich         = gndr) %>% 
   mutate( 
     internet_nutzung = case_when( 
-      internet_nutzung < 5 ~ NA_real_, 
+      internet_nutzung > 5 ~ NA_real_, 
       TRUE ~ internet_nutzung), 
     alter = case_when(
       alter == 999 ~ NA_real_,
@@ -719,7 +719,7 @@ Zwei der nützlichsten Befehle in R für zusammenfassende Statistiken sind `grou
 
 -   Zunächst rufen wir `group_by()` auf und definieren die Gruppe, über die aggregiert werden soll. In unserem Beispiel möchten wir nach Geschlecht aggregieren. Zuvor müssen wir fehlende Werte entfernen oder die Variable in die gewünschten Kategorien umwandeln – daher rufen wir zuerst `mutate()` auf und transformieren die Variable.
 
--   Dann rufen wir `summarize()` auf und definieren den Namen der neuen Spalte – nennen wir sie `average_happiness`. Dann rufen wir die Kennzahl der gewünschten Variable auf. In unserem Beispiel interessiert uns der Durchschnitt, also `mean()` mit der `happy`-Variable:
+-   Dann rufen wir `summarize()` auf und definieren den Namen der neuen Spalte – nennen wir sie `durchschnitt_happiness`. Dann rufen wir die Kennzahl der gewünschten Variable auf. In unserem Beispiel interessiert uns der Durchschnitt, also `mean()` mit der `happy`-Variable:
 
 ```{r group_by und summarise}
 # group_by und summarize
@@ -739,7 +739,7 @@ d1 <- ess %>%
 head(d1)
 ```
 
-Et voilà – wir erhalten einen Datensatz mit zwei Beobachtungen, da wir nur zwei Gruppen haben. Die zweite Spalte ist die `average_happiness`-Spalte, die wir in `summarize()` definiert haben.
+Et voilà – wir erhalten einen Datensatz mit zwei Beobachtungen, da wir nur zwei Gruppen haben. Die zweite Spalte ist die `durchschnitt_happiness`-Spalte, die wir in `summarize()` definiert haben.
 
 #### Mit mehreren Gruppierungsvariablen und Kennzahlen
 
@@ -1019,7 +1019,7 @@ a.  Verschaffe dir einen Überblick über den Gapminder-Datensatz. Es gibt versc
 
 b.  Lade Weltbank-Daten von 1972 bis 2007 und die Variable „Exporte und Waren (% des BIP)".
 
-c.  Verbinde die Weltbank-Daten mit den Gapminder-Daten, sodass ein Datensatz mit der Zeilenanzahl der Gapminder-Daten entsteht. Weise den neuen Datensatz, dem Objekt `gap_merged` zu.
+c.  Verbinde die Weltbank-Daten mit den Gapminder-Daten, sodass ein Datensatz mit der Zeilenanzahl der Gapminder-Daten entsteht. Weise den neuen Datensatz dem Objekt `gap_merged` zu.
 
 ```{r kap2_uebung_2c, eval=FALSE}
 #weltbank und gapminder mergen

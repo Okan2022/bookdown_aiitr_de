@@ -75,7 +75,7 @@ glimpse(data1)
 
 ```
 
-Wir haben nun einen Datensatz mit einer Zufallsvariable **„Variable 1“** und 500 Beobachtungen.
+Wir haben nun einen Datensatz mit einer Zufallsvariable **„Variable 1"** und 500 Beobachtungen.
 
 Nun möchten wir wissen, **wie diese Werte verteilt sind**, und erstellen deshalb ein Histogramm.
 
@@ -257,7 +257,7 @@ ggplot(data1, aes(x = wert)) +
   labs( 
     x = "Wert", 
     y = "Anzahl", 
-    title = "A Density Plot") + 
+    title = "Ein Dichteplot") + 
   scale_x_continuous(breaks = seq(-4, 4, 1), 
                      limits = c(-4, 4)) +
   theme_minimal()
@@ -378,7 +378,7 @@ Ich könnte den ganzen Tag so weitermachen – Boxplots sind sehr informativ und
 
 Die bekannteste und einfachste Möglichkeit, Werte verschiedener Gruppen darzustellen, ist der Barplot. Ein Barplot (oder Balkendiagramm) ist eine der häufigsten Arten von Grafiken. Er zeigt die Beziehung zwischen einer numerischen und einer kategorialen Variable. Jede Kategorie der kategorialen Variable wird als Balken dargestellt. Die Höhe des Balkens entspricht ihrem numerischen Wert.
 
--   In ggplot müssen wir lediglich die x-Achse und die y-Achse innerhalb der `ggplot()`-Funktion definieren und anschließend die Funktion `geom_bar()` hinzufügen. Innerhalb von `geom_bar()` müssen wir `stat = "identity"` hinzufügen, aus dem einfachen Grund, dass wir ggplot2 mitteilen müssen, die Zahlen aus der Spalte `strength` anzuzeigen – andernfalls erhalten wir einen Fehler.
+-   In ggplot müssen wir lediglich die x-Achse und die y-Achse innerhalb der `ggplot()`-Funktion definieren und anschließend die Funktion `geom_bar()` hinzufügen. Innerhalb von `geom_bar()` müssen wir `stat = "identity"` hinzufügen, aus dem einfachen Grund, dass wir ggplot2 mitteilen müssen, die Zahlen aus der Spalte `stärke` anzuzeigen – andernfalls erhalten wir einen Fehler.
 
 ```{r barplot daten}
 # Daten erstellen
@@ -417,10 +417,10 @@ data5 <- data.frame(
            rep("Godzilla", 7)), 
   id = c(seq(1:20)), 
   weiblich = c(rep("weiblich", 7), 
-             rep("männlich", 5), 
-             rep("weiblich", 1), 
-             rep("männlich", 3), 
-             rep("männlich", 4))
+               rep("männlich", 5), 
+               rep("weiblich", 1), 
+               rep("weiblich", 3), 
+               rep("männlich", 4))
 ) 
 ```
 
@@ -473,7 +473,7 @@ Um einen Barplot intuitiver zu gestalten, können wir ihn so sortieren, dass der
 
 -   Wir nehmen den Code von oben und umschließen den x-Wert mit dem Befehl `fct_reorder()`. Dabei geben wir an, nach welchem Wert sortiert werden soll – in unserem Fall ist der x-Wert der Name des fiktiven Charakters und der Sortierwert ist die Stärke bzw. die Häufigkeit.
 
-Hinweis: Die absteigende Sortierung ist ebenfalls möglich, indem man den Sortierwert mit `desc()` umschließt, also z. B.: `fct_reorder(name, desc(strength))`.
+Hinweis: Die absteigende Sortierung ist ebenfalls möglich, indem man den Sortierwert mit `desc()` umschließt, also z. B.: `fct_reorder(name, desc(stärke))`.
 
 ```{r barplot sortiert}
 # Plot 1
@@ -510,7 +510,7 @@ data6 <- data.frame(
 )
 ```
 
-Nun haben wir die Daten. Wir müssen innerhalb von `aes()` drei Parameter definieren: Die x-Achse bildet die Altersgruppen ab, die y-Achse den Durchschnittswert, und wir müssen `fill = female` definieren, da dies die Gruppe ist, die wir innerhalb der Altersgruppen untersuchen möchten. Innerhalb von `geom_bar()` benötigen wir zwei Argumente: `stat = "identity"` und `position = "dodge"`. Et voilà – so erhalten wir unseren ersten **gruppierten Barplot**.
+Nun haben wir die Daten. Wir müssen innerhalb von `aes()` drei Parameter definieren: Die x-Achse bildet die Altersgruppen ab, die y-Achse den Durchschnittswert, und wir müssen `fill = weiblich` definieren, da dies die Gruppe ist, die wir innerhalb der Altersgruppen untersuchen möchten. Innerhalb von `geom_bar()` benötigen wir zwei Argumente: `stat = "identity"` und `position = "dodge"`. Et voilà – so erhalten wir unseren ersten **gruppierten Barplot**.
 
 ```{r gruppierter barplot nebeneinander}
 ggplot(data6, aes(x = alter, y = wert, fill = weiblich)) + 
@@ -657,7 +657,7 @@ Eine weitere Möglichkeit, Liniendiagramme einzusetzen, ist die getrennte Darste
 head(babynames)
 ```
 
-Nehmen wir an, wir interessieren uns für die Popularität der Namen Michael, Abby und Lisa. Wir reduzieren den Datensatz mit der `filter()`-Funktion, die ihr im vorherigen Kapitel kennengelernt habt, auf diese drei Namen:
+Nehmen wir an, wir interessieren uns für die Popularität der Namen Emma, Kimberly und Ruth. Wir reduzieren den Datensatz mit der `filter()`-Funktion, die ihr im vorherigen Kapitel kennengelernt habt, auf diese drei Namen:
 
 ```{r babynamen bereinigen}
 babynames_cut <- babynames %>%

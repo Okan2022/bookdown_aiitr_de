@@ -12,27 +12,28 @@ pacman::p_load("dplyr", "tidyr", "ggpubr", "gapminder",
 ## Funktion definieren (für später)
 
 ```{r}
-#Creating Function for Kable Table 
+#Funktion definieren für eine Kable Tabelle 
 table_ovb <- function(model1, model2) {
-  # Determine the maximum number of coefficients between the two models
+  # Festlegen der maximalen Nummer die Koeffizienten haben dürfen
   max_coef <- max(length(model1$coefficients), length(model2$coefficients))
   
-  # Initialize placeholders for coefficients
+  #Platzhalter für Koeffizienten definieren
   place_holder1 <- rep(NA, max_coef)
   place_holder2 <- rep(NA, max_coef)
   
-  # Replace the placeholders with coefficients from the models
+  #Platzhalter mit den entsprechenden Zahlen ersetzen
   place_holder1[1:length(model1$coefficients)] <- model1$coefficients
   place_holder2[1:length(model2$coefficients)] <- model2$coefficients
   
-  # Create a data frame with coefficients from both models
+  #Datensatz mit Zahlen aus beiden Modellen
   dt <- data.frame(place_holder1,place_holder2) 
   
-  # Set row and column names
-  colnames(dt) <- c("Model without Temperature", "Model with Temperature")
-  rownames(dt) <- c("Intercept", "Ice Cream Sales", "Temperature")
-  
-  # Display the table
+  #Zeilennamen und Spaltennamen
+  colnames(dt) <- c("Modell ohne Temperatur", 
+                    "Modell mit Temperatur")
+  rownames(dt) <- c("Achsenabschnitt", 
+                  "Eiscremeverkäufe", "Temperatur")
+  #Tabelle anzeigen mit Formatierung
   dt %>%
     kbl() %>%
     kable_styling()

@@ -11,7 +11,7 @@ pacman::p_load("summarytools", "SmartEDA", "skimr",
                "palmerpenguins", "dplyr", "tidyr", "corrplot")
 
 penguins <- na.omit(penguins)
-pinguine_raw <- penguins_raw
+penguins_raw <- penguins_raw
 ```
 
 ## Standard-Deskriptivstatistik

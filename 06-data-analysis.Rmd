@@ -261,13 +261,13 @@ dichten$verteilung <- factor(dichten$verteilung,
                                             "t(df=1)"))
 
 # Plot erstellen
-plotly::ggplotly(ggplot(dichten, aes(x = x, y = dichte, color = verteilung)) +
+ggplot(dichten, aes(x = x, y = dichte, color = verteilung)) +
   geom_line() +
   theme_minimal() +
   labs(x = "x", y = "Dichte", 
        title = "t-Verteilungen mit verschiedenen Freiheitsgraden") + 
   scale_color_manual(values = c("black", "red", "green", "blue")) + 
-  scale_x_continuous("X", seq(-5,5,1), limits = c(-5,5))) 
+  scale_x_continuous("X", seq(-5,5,1), limits = c(-5,5))
 ```
 
 -   Bevor wir herausfinden, wie wir bestimmen, ob ein Wert die Ablehnung der Nullhypothese erlaubt, müssen wir einen sogenannten **kritischen Wert** festlegen. Das ist keine Mathematik, sondern eine Wahrscheinlichkeit, über die wir selbst entscheiden. Genauer gesagt: die Wahrscheinlichkeit, dass unser t-Wert und damit unser Koeffizient rein zufällig aufgetreten ist. Wenn wir sagen, die Wahrscheinlichkeit, dass er zufällig aufgetreten ist, beträgt 10 %, dann ist das unser kritischer Wert. Als Faustregel gilt, dass eine Wahrscheinlichkeit von weniger als 5 %, dass der Koeffizient zufällig aufgetreten ist, auf statistische Signifikanz hinweist. Beachte, dass der kritische Wert je nach Stichprobengröße, Freiheitsgraden, Fachgebiet usw. variieren kann.
@@ -288,7 +288,7 @@ t_wert_data <- data.frame(
 )
 
 # Plot erstellen
-plotly::ggplotly(ggplot(t_wert_data, aes(x = x, y = dichte)) + 
+ggplot(t_wert_data, aes(x = x, y = dichte)) + 
   geom_line(lineend = "round") + 
   stat_function(fun = t_dichte, geom = "area", fill = "gray", 
                 alpha = 0.75, xlim = c(-5, -1.701), n = 10000) +
@@ -312,7 +312,6 @@ plotly::ggplotly(ggplot(t_wert_data, aes(x = x, y = dichte)) +
   scale_x_continuous("X", seq(-5,5,1), limits = c(-5,5)) +
   theme_classic() +
   theme(legend.position = "none")
-)
 ```
 
 -   Wie wir sehen, liegt die blaue Linie, die den Wert des Achsenabschnitts darstellt, nicht in dem Bereich, in dem sie sein müsste, damit wir die Nullhypothese ablehnen könnten. Der t-Wert unseres Koeffizienten der Variable liegt hingegen mit etwa 14 weit über dem Schwellenwert, sodass wir die Nullhypothese ablehnen können. So funktioniert der t-Wert. Das Problem ist, dass der Schwellenwert je nach Freiheitsgraden variiert und man ihn nicht für jeden Freiheitsgrad im Kopf haben kann. Man könnte ihn jedes Mal nachschlagen – oder man verwendet **p-Werte**, die direkt die Wahrscheinlichkeit angeben, dass der Koeffizient rein zufällig aufgetreten ist.
@@ -504,7 +503,7 @@ Wie ich im ersten Kapitel erwähnt habe, gibt es verschiedene Variablentypen. Ru
 | **Logisch** | Wahr oder falsch | `c(TRUE, FALSE, TRUE, FALSE)` |
 | **Faktor** | Kategorie | `c("Stimme gar nicht zu", "Stimme zu", "Neutral")` |
 
-Abhängige Variablen müssen bei der linearen Regression numerisch sein. Unabhängige Variablen können jedoch unterschiedlich skaliert sein. Numerische Variablen sind der einfachste Fall – die Interpretation erfolgt wie in den vorherigen Beispielen beschrieben. Kategoriale Variablen werden jedoch anders interpretiert. Untersuchen wir die kategoriale Variable in unserem Datensatz, `categorical_variable`:
+Abhängige Variablen müssen bei der linearen Regression numerisch sein. Unabhängige Variablen können jedoch unterschiedlich skaliert sein. Numerische Variablen sind der einfachste Fall – die Interpretation erfolgt wie in den vorherigen Beispielen beschrieben. Kategoriale Variablen werden jedoch anders interpretiert. Untersuchen wir die kategoriale Variable in unserem Datensatz, `kategorische_variable`:
 
 ```{r tabelle der kategorialen variable ausgeben}
 table(df$kategorische_variable) 
@@ -581,17 +580,17 @@ set.seed(123)
 investierte_stunden <- runif(100, min = 0, max = 10)
 
 # Kurs-Dummy generieren (0 = andere Kurse, 1 = dieser Kurs)
-dieser_course = sample(c(0, 1), 100, replace = TRUE)
+dieser_kurs = sample(c(0, 1), 100, replace = TRUE)
 
 # Y mit Interaktionseffekt generieren
 coding_fähigkeiten <- 2 + 0.5 * investierte_stunden + 0 * 
-  dieser_course + 1.5 * investierte_stunden * dieser_course + rnorm(100)
+  dieser_kurs + 1.5 * investierte_stunden * dieser_kurs + rnorm(100)
 
 # Dataframe erstellen
-df_int <- data.frame(investierte_stunden, dieser_course, coding_fähigkeiten)
+df_int <- data.frame(investierte_stunden, dieser_kurs, coding_fähigkeiten)
 
 # Interaktionsmodell anpassen
-model_interaktion <- lm(coding_fähigkeiten ~ investierte_stunden * dieser_course, data = df_int)
+model_interaktion <- lm(coding_fähigkeiten ~ investierte_stunden * dieser_kurs, data = df_int)
 
 # Modellzusammenfassung ausgeben
 summary(model_interaktion)
@@ -599,7 +598,7 @@ summary(model_interaktion)
 
 Interaktionseffekte sind für sich genommen nicht intuitiv. Um ein Gespür dafür zu bekommen, müssen wir sie grafisch darstellen. Das `sjPlot`-Paket bietet den Befehl `plot_model()`, der automatisch sogenannte vorhergesagte Wahrscheinlichkeiten plottet. Es würde zu weit führen, vorhergesagte Wahrscheinlichkeiten im Detail zu erklären. Wichtiger ist, dass wir einen Graphen erhalten, der den Interaktionseffekt visualisiert:
 
--   Wir rufen `plot_model()` auf und übergeben unser Modell mit dem Interaktionseffekt `model_interaction`.
+-   Wir rufen `plot_model()` auf und übergeben unser Modell mit dem Interaktionseffekt `model_interaktion`.
 
 -   Dann geben wir den Typ an und setzen ihn auf `type="int"`, was explizit Interaktionseffekte plottet.
 
